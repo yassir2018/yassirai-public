@@ -1,5 +1,10 @@
+"use client";
+import { useRef, useState } from "react";
+import { motion, useInView } from "framer-motion";
 import { t, type Locale } from "@/lib/i18n";
 import type { Contact as ContactType } from "@/lib/api";
+import { TextReveal } from "./TextReveal";
+import { StaggerContainer, StaggerItem } from "./ScrollReveal";
 
 const typeIcons: Record<string, string> = {
   email: "M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75",
@@ -16,64 +21,113 @@ function getHref(type: string, value: string) {
   return value;
 }
 
+function TiltCard({ children, className }: { children: React.ReactNode; className?: string }) {
+  const [transform, setTransform] = useState("perspective(800px) rotateX(0deg) rotateY(0deg)");
+
+  const handleMouse = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    setTransform(`perspective(800px) rotateX(${-y * 10}deg) rotateY(${x * 10}deg)`);
+  };
+
+  const handleLeave = () => {
+    setTransform("perspective(800px) rotateX(0deg) rotateY(0deg)");
+  };
+
+  return (
+    <div
+      className={className}
+      onMouseMove={handleMouse}
+      onMouseLeave={handleLeave}
+      style={{ transform, transition: "transform 0.2s ease-out" }}
+    >
+      {children}
+    </div>
+  );
+}
+
 export function Contact({ locale, contacts }: { locale: Locale; contacts: ContactType[] }) {
   return (
-    <section id="contact" className="py-24 sm:py-32">
+    <section id="contact" className="py-32 sm:py-40 relative">
       <div className="max-w-4xl mx-auto px-4 sm:px-6">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
-            {t.contact_title[locale]}
+        {/* Massive headline */}
+        <div className="text-center mb-20">
+          <h2 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight mb-6">
+            <TextReveal text={t.contact_title[locale]} highlightLast />
           </h2>
-          <p className="text-muted text-base sm:text-lg">{t.contact_subtitle[locale]}</p>
-          <div className="w-16 h-1 bg-accent rounded-full mx-auto mt-4" />
+          <motion.p
+            className="text-lg sm:text-xl text-muted text-balance"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+          >
+            {t.contact_subtitle[locale]}
+          </motion.p>
         </div>
 
         {contacts.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl mx-auto">
+          <StaggerContainer
+            className="grid grid-cols-1 sm:grid-cols-2 gap-5 max-w-2xl mx-auto"
+            staggerDelay={0.1}
+          >
             {contacts.map((c) => {
               const iconPath = typeIcons[c.type];
               const href = getHref(c.type, c.value);
               const isLink = href.startsWith("http") || href.startsWith("mailto") || href.startsWith("tel");
 
-              const content = (
-                <div className="flex items-center gap-4 bg-surface border border-border rounded-xl p-5 hover:border-accent/30 transition-all group">
-                  <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center shrink-0">
-                    {iconPath ? (
-                      <svg className="w-5 h-5 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d={iconPath} />
-                      </svg>
-                    ) : (
-                      <span className="text-accent text-sm font-bold">{c.type[0].toUpperCase()}</span>
-                    )}
+              const inner = (
+                <TiltCard className="h-full">
+                  <div className="glass rounded-2xl p-6 h-full flex items-center gap-5 group transition-all duration-300 hover:translate-y-[-2px]">
+                    <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center shrink-0">
+                      {iconPath ? (
+                        <svg className="w-5 h-5 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d={iconPath} />
+                        </svg>
+                      ) : (
+                        <span className="text-accent text-sm font-bold">{c.type[0].toUpperCase()}</span>
+                      )}
+                    </div>
+                    <div className="min-w-0">
+                      <p className="text-xs text-muted capitalize mb-0.5">{c.label || c.type}</p>
+                      <p className="text-sm font-medium truncate group-hover:text-accent transition-colors">
+                        {c.value}
+                      </p>
+                      {/* Underline animation */}
+                      <div className="h-px w-0 group-hover:w-full bg-accent/50 transition-all duration-300 mt-0.5" />
+                    </div>
                   </div>
-                  <div className="min-w-0">
-                    <p className="text-xs text-muted capitalize">{c.label || c.type}</p>
-                    <p className="text-sm font-medium truncate group-hover:text-accent transition-colors">{c.value}</p>
-                  </div>
-                </div>
+                </TiltCard>
               );
 
-              return isLink ? (
-                <a key={c.id} href={href} target={href.startsWith("http") ? "_blank" : undefined} rel="noopener noreferrer">
-                  {content}
-                </a>
-              ) : (
-                <div key={c.id}>{content}</div>
+              return (
+                <StaggerItem key={c.id}>
+                  {isLink ? (
+                    <a href={href} target={href.startsWith("http") ? "_blank" : undefined} rel="noopener noreferrer">
+                      {inner}
+                    </a>
+                  ) : (
+                    inner
+                  )}
+                </StaggerItem>
               );
             })}
-          </div>
+          </StaggerContainer>
         ) : (
-          <div className="text-center">
+          <motion.div
+            className="text-center"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
             <a
               href="mailto:contact@yassirai.com"
-              className="inline-flex items-center gap-2 px-6 py-3 text-sm font-medium text-white bg-accent hover:bg-accent-hover rounded-xl transition-all"
+              className="inline-flex items-center gap-2 px-8 py-4 text-sm font-medium text-white bg-accent hover:bg-accent-hover rounded-full transition-all"
             >
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
-              </svg>
               contact@yassirai.com
             </a>
-          </div>
+          </motion.div>
         )}
       </div>
     </section>

@@ -49,6 +49,7 @@ export const t: Record<string, Record<Locale, string>> = {
   },
 
   footer_rights: { fr: "Tous droits reserves.", en: "All rights reserved.", ar: "جميع الحقوق محفوظة." },
+  footer_top: { fr: "Retour en haut", en: "Back to top", ar: "العودة للأعلى" },
 
   status_EN_COURS: { fr: "En cours", en: "In progress", ar: "قيد التنفيذ" },
   status_PLANIFIE: { fr: "Planifie", en: "Planned", ar: "مخطط" },

@@ -1,5 +1,6 @@
 import { locales, isRtl, type Locale } from "@/lib/i18n";
 import { notFound } from "next/navigation";
+import { ClientProviders } from "@/components/ClientProviders";
 
 export function generateStaticParams() {
   return locales.map((lang) => ({ lang }));
@@ -19,8 +20,14 @@ export default async function LangLayout({
   const rtl = isRtl(locale);
 
   return (
-    <div dir={rtl ? "rtl" : "ltr"} lang={locale}>
-      {children}
+    <div
+      dir={rtl ? "rtl" : "ltr"}
+      lang={locale}
+      className={rtl ? "font-[var(--font-noto-arabic)]" : ""}
+    >
+      <ClientProviders>
+        {children}
+      </ClientProviders>
     </div>
   );
 }

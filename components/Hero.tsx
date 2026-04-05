@@ -1,138 +1,201 @@
 "use client";
-import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef, useState, useEffect, useCallback } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { t, isRtl, type Locale } from "@/lib/i18n";
 import type { Bio } from "@/lib/api";
-import { TextReveal } from "./TextReveal";
 import { MagneticButton } from "./MagneticButton";
 
+const VIDEOS = ["/videos/action.mp4", "/videos/cars.mp4", "/videos/gladiator.mp4"];
+const SLIDE_DURATION = 8000; // 8s per slide
+
 export function Hero({ locale, bio }: { locale: Locale; bio: Bio | null }) {
-  const name = bio?.name || "Yassir";
-  const title = bio?.title || "Developer & Designer";
+  const name = bio?.name || "Yassir Mellakh";
+  const title = bio?.title || "Creative Director | AI Visual Designer";
   const heroText = bio?.heroText || "";
   const rtl = isRtl(locale);
 
-  const sectionRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start start", "end start"],
-  });
+  const [current, setCurrent] = useState(0);
+  const [progress, setProgress] = useState(0);
+  const timerRef = useRef<ReturnType<typeof setInterval>>(null);
+  const progressRef = useRef<ReturnType<typeof setInterval>>(null);
 
-  const contentY = useTransform(scrollYProgress, [0, 1], [0, -150]);
-  const orbY = useTransform(scrollYProgress, [0, 1], [0, 80]);
-  const opacity = useTransform(scrollYProgress, [0, 0.7, 1], [1, 1, 0]);
+  const goTo = useCallback((index: number) => {
+    setCurrent(index);
+    setProgress(0);
+  }, []);
+
+  const next = useCallback(() => {
+    goTo((current + 1) % VIDEOS.length);
+  }, [current, goTo]);
+
+  const prev = useCallback(() => {
+    goTo((current - 1 + VIDEOS.length) % VIDEOS.length);
+  }, [current, goTo]);
+
+  // Auto-advance timer
+  useEffect(() => {
+    if (timerRef.current) clearInterval(timerRef.current);
+    if (progressRef.current) clearInterval(progressRef.current);
+
+    setProgress(0);
+    const startTime = Date.now();
+
+    progressRef.current = setInterval(() => {
+      const elapsed = Date.now() - startTime;
+      setProgress(Math.min(elapsed / SLIDE_DURATION, 1));
+    }, 50);
+
+    timerRef.current = setTimeout(() => {
+      setCurrent((c) => (c + 1) % VIDEOS.length);
+    }, SLIDE_DURATION);
+
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+      if (progressRef.current) clearInterval(progressRef.current);
+    };
+  }, [current]);
 
   return (
-    <section
-      ref={sectionRef}
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
-    >
-      {/* Gradient orbs — pure CSS animations */}
-      <motion.div className="absolute inset-0 pointer-events-none" style={{ y: orbY }}>
-        <div className="absolute top-[15%] left-[20%] w-[500px] h-[500px] rounded-full bg-indigo-500/15 blur-[120px] animate-orb-1" />
-        <div className="absolute top-[40%] right-[15%] w-[400px] h-[400px] rounded-full bg-purple-500/12 blur-[100px] animate-orb-2" />
-        <div className="absolute bottom-[20%] left-[40%] w-[350px] h-[350px] rounded-full bg-pink-500/10 blur-[80px] animate-orb-3" />
-        <div className="absolute top-[60%] left-[10%] w-[250px] h-[250px] rounded-full bg-cyan-500/8 blur-[90px] animate-orb-2" />
-        <div className="absolute top-[10%] right-[30%] w-[300px] h-[300px] rounded-full bg-violet-500/10 blur-[110px] animate-orb-3" />
-      </motion.div>
-
-      {/* Dot grid layer */}
-      <div className="absolute inset-0 dot-grid opacity-40 pointer-events-none" />
-
-      {/* Content */}
-      <motion.div
-        className="relative max-w-5xl mx-auto px-4 sm:px-6 text-center z-10"
-        style={{ y: contentY, opacity }}
-      >
-        {/* Greeting */}
-        <motion.p
-          className="text-sm sm:text-base text-muted mb-6 tracking-widest uppercase"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-        >
-          {t.hero_greeting[locale]}
-        </motion.p>
-
-        {/* Name — massive */}
-        <h1 className="text-6xl sm:text-8xl md:text-[10rem] font-bold tracking-tighter leading-[0.85] mb-6">
-          <TextReveal text={name} delay={0.4} />
-        </h1>
-
-        {/* Title */}
-        <motion.p
-          className="text-xl sm:text-2xl md:text-3xl text-muted font-light mb-8 text-balance"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.8 }}
-        >
-          {title}
-        </motion.p>
-
-        {/* Hero text */}
-        {heroText && (
-          <motion.p
-            className="text-base sm:text-lg text-muted/70 max-w-2xl mx-auto mb-12 leading-relaxed text-balance"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 1.0 }}
-          >
-            {heroText}
-          </motion.p>
-        )}
-
-        {/* CTAs */}
+    <section className="relative h-screen w-full overflow-hidden">
+      {/* Video layers */}
+      <AnimatePresence mode="popLayout">
         <motion.div
-          className="flex flex-col sm:flex-row items-center justify-center gap-5"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 1.2 }}
+          key={current}
+          className="absolute inset-0"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 1.2, ease: "easeInOut" }}
         >
-          <MagneticButton
-            href="#projects"
-            className="px-8 py-4 text-sm font-medium text-white bg-accent hover:bg-accent-hover rounded-full transition-colors"
-          >
-            {t.hero_cta[locale]}
-            <svg
-              className={`w-4 h-4 ${rtl ? "rotate-180" : ""}`}
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={2}
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-            </svg>
-          </MagneticButton>
-
-          <MagneticButton
-            href="#contact"
-            className="px-8 py-4 text-sm font-medium text-muted border border-border hover:border-foreground/20 hover:text-foreground rounded-full transition-all"
-          >
-            {t.hero_contact[locale]}
-          </MagneticButton>
-        </motion.div>
-      </motion.div>
-
-      {/* Scroll indicator */}
-      <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.8, duration: 0.6 }}
-        style={{ opacity }}
-      >
-        <motion.div
-          className="w-5 h-8 rounded-full border border-muted/30 flex justify-center pt-1.5"
-          animate={{ opacity: [0.3, 1, 0.3] }}
-          transition={{ duration: 2, repeat: Infinity }}
-        >
-          <motion.div
-            className="w-1 h-2 rounded-full bg-muted/50"
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 2, repeat: Infinity }}
+          <video
+            src={VIDEOS[current]}
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="w-full h-full object-cover"
           />
         </motion.div>
-      </motion.div>
+      </AnimatePresence>
+
+      {/* Dark gradient overlays */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/40 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-transparent pointer-events-none" />
+
+      {/* Content */}
+      <div className="relative z-10 h-full flex flex-col justify-center max-w-6xl mx-auto px-4 sm:px-6">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={current}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
+          >
+            {/* Greeting */}
+            <p className="text-sm sm:text-base text-white/60 mb-4 tracking-widest uppercase">
+              {t.hero_greeting[locale]}
+            </p>
+
+            {/* Name */}
+            <h1 className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-bold tracking-tighter text-white leading-[0.9] mb-4">
+              {name}
+            </h1>
+
+            {/* Title */}
+            <p className="text-lg sm:text-xl md:text-2xl text-white/70 font-light mb-6 max-w-2xl">
+              {title}
+            </p>
+
+            {/* Hero text */}
+            {heroText && (
+              <p className="text-sm sm:text-base text-white/50 max-w-xl mb-8 leading-relaxed">
+                {heroText}
+              </p>
+            )}
+
+            {/* CTAs */}
+            <div className="flex flex-wrap items-center gap-4">
+              <MagneticButton
+                href="#projects"
+                className="px-8 py-4 text-sm font-medium text-white bg-accent hover:bg-accent-hover rounded-full transition-colors"
+              >
+                {t.hero_cta[locale]}
+                <svg
+                  className={`w-4 h-4 ${rtl ? "rotate-180" : ""}`}
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                </svg>
+              </MagneticButton>
+
+              <MagneticButton
+                href="#contact"
+                className="px-8 py-4 text-sm font-medium text-white/80 border border-white/20 hover:border-white/40 hover:text-white rounded-full transition-all"
+              >
+                {t.hero_contact[locale]}
+              </MagneticButton>
+            </div>
+          </motion.div>
+        </AnimatePresence>
+      </div>
+
+      {/* Bottom bar — navigation + progress */}
+      <div className="absolute bottom-0 left-0 right-0 z-20">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 pb-6">
+          <div className="flex items-center gap-4">
+            {/* Nav arrows */}
+            <div className="flex items-center gap-2">
+              <button
+                onClick={prev}
+                className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white/60 hover:text-white hover:border-white/40 transition-all"
+                aria-label="Previous"
+              >
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+                </svg>
+              </button>
+              <button
+                onClick={next}
+                className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white/60 hover:text-white hover:border-white/40 transition-all"
+                aria-label="Next"
+              >
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+            </div>
+
+            {/* Progress indicators */}
+            <div className="flex-1 flex items-center gap-3">
+              {VIDEOS.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => goTo(i)}
+                  className="flex-1 group"
+                >
+                  <div className="h-0.5 bg-white/20 rounded-full overflow-hidden">
+                    <div
+                      className="h-full bg-white rounded-full transition-all"
+                      style={{
+                        width:
+                          i === current
+                            ? `${progress * 100}%`
+                            : i < current
+                              ? "100%"
+                              : "0%",
+                      }}
+                    />
+                  </div>
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
   );
 }

@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEXUS PICTURES — World-Class Entertainment</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ══════════════════════════════════════
+   TOKENS — DARK (default) & LIGHT
+══════════════════════════════════════ */
+:root {
+  --bg:        #06060a;
+  --bg2:       #0e0e14;
+  --bg3:       #141420;
+  --surface:   #1a1a28;
+  --card-bg:   rgba(255,255,255,0.04);
+  --txt:       #ffffff;
+  --txt2:      rgba(255,255,255,0.65);
+  --txt3:      rgba(255,255,255,0.35);
+  --border:    rgba(255,255,255,0.08);
+  --border2:   rgba(255,255,255,0.14);
+  --accent:    #1a6fff;
+  --accent2:   #4d8fff;
+  --red:       #e8231a;
+  --overlay:   rgba(6,6,10,0.82);
+  --hero-grad: linear-gradient(90deg,rgba(6,6,10,0.72) 0%,rgba(6,6,10,0.35) 55%,rgba(6,6,10,0.05) 100%),
+               linear-gradient(to top,rgba(6,6,10,0.88) 0%,transparent 50%);
+  --ff-head:   'Bebas Neue',sans-serif;
+  --ff-anton:  'Anton',sans-serif;
+  --ff-body:   'Inter',sans-serif;
+  --nav-h:     68px;
+  --radius:    4px;
+  --transition: 0.35s ease;
+}
+[data-theme="light"] {
+  --bg:        #f4f4f6;
+  --bg2:       #ffffff;
+  --bg3:       #eaeaee;
+  --surface:   #e2e2e8;
+  --card-bg:   rgba(0,0,0,0.04);
+  --txt:       #0a0a14;
+  --txt2:      rgba(10,10,20,0.6);
+  --txt3:      rgba(10,10,20,0.35);
+  --border:    rgba(0,0,0,0.08);
+  --border2:   rgba(0,0,0,0.14);
+  --overlay:   rgba(244,244,246,0.82);
+  --hero-grad: linear-gradient(90deg,rgba(10,10,20,0.72) 0%,rgba(10,10,20,0.35) 55%,rgba(10,10,20,0.05) 100%),
+               linear-gradient(to top,rgba(10,10,20,0.88) 0%,transparent 50%);
+}
+
+/* ══ RESET ══ */
+*,*::before,*::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; font-size:16px; }
+body {
+  background:var(--bg); color:var(--txt);
+  font-family:var(--ff-body); overflow-x:hidden;
+  transition:background var(--transition), color var(--transition);
+  line-height:1.6;
+}
+img { display:block; max-width:100%; }
+a { color:inherit; text-decoration:none; }
+::-webkit-scrollbar { width:3px; }
+::-webkit-scrollbar-thumb { background:var(--accent); }
+
+/* ══ NAV ══ */
+nav {
+  position:fixed; inset:0 0 auto; z-index:400;
+  height:var(--nav-h);
+  display:flex; align-items:center; justify-content:space-between;
+  padding:0 56px;
+  transition:background var(--transition), border-color var(--transition), height .3s;
+  border-bottom:1px solid transparent;
+}
+nav.scrolled {
+  background:var(--bg); border-color:var(--border);
+  height:58px;
+  backdrop-filter:blur(20px);
+}
+/* Logo — click → top */
+.nav-logo {
+  display:flex; align-items:center; gap:10px;
+  flex-shrink:0;
+}
+.logo-icon {
+  width:34px; height:34px; background:var(--accent);
+  border-radius:50%; display:flex; align-items:center; justify-content:center;
+  font-family:var(--ff-head); font-size:17px; color:#fff;
+  transition:transform .3s;
+}
+.nav-logo:hover .logo-icon { transform:scale(1.1); }
+.logo-text {
+  font-family:var(--ff-head); font-size:16px;
+  letter-spacing:.15em; text-transform:uppercase;
+  color:#fff;
+  transition:color var(--transition);
+}
+nav.scrolled .logo-text { color:var(--txt); }
+.nav-links {
+  display:flex; gap:8px; list-style:none;
+  position:absolute; left:50%; transform:translateX(-50%);
+}
+.nav-links a {
+  font-size:13px; font-weight:500; letter-spacing:.04em;
+  color:rgba(255,255,255,0.75); padding:6px 14px; border-radius:var(--radius);
+  transition:color var(--transition), background var(--transition);
+}
+.nav-links a:hover { color:#fff; background:rgba(255,255,255,.1); }
+nav.scrolled .nav-links a { color:var(--txt2); }
+nav.scrolled .nav-links a:hover { color:var(--txt); background:var(--card-bg); }
+.nav-right { display:flex; align-items:center; gap:10px; flex-shrink:0; }
+
+/* Theme toggle */
+.theme-btn {
+  width:38px; height:38px; border-radius:var(--radius);
+  border:1px solid rgba(255,255,255,.3); background:none;
+  color:rgba(255,255,255,.8); font-size:16px;
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; transition:all var(--transition);
+}
+.theme-btn:hover { border-color:#fff; color:#fff; }
+nav.scrolled .theme-btn { border-color:var(--border2); color:var(--txt2); }
+nav.scrolled .theme-btn:hover { border-color:var(--accent); color:var(--accent); }
+
+/* Search */
+.search-btn {
+  width:38px; height:38px; border-radius:var(--radius);
+  border:1px solid rgba(255,255,255,.2); background:none;
+  color:rgba(255,255,255,.7); font-size:15px;
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; transition:all var(--transition);
+}
+.search-btn:hover { border-color:rgba(255,255,255,.5); color:#fff; }
+nav.scrolled .search-btn { border-color:var(--border); color:var(--txt2); }
+nav.scrolled .search-btn:hover { border-color:var(--border2); color:var(--txt); }
+
+/* Social icons — Universal style */
+.nav-socials {
+  display:flex; align-items:center; gap:4px;
+  margin-left:8px;
+  border-left:1px solid rgba(255,255,255,.2);
+  padding-left:12px;
+}
+nav.scrolled .nav-socials { border-color:var(--border); }
+.nav-soc {
+  width:34px; height:34px;
+  border:1px solid rgba(255,255,255,.35);
+  border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  color:rgba(255,255,255,.85);
+  transition:all var(--transition);
+}
+.nav-soc:hover { border-color:#fff; color:#fff; background:rgba(255,255,255,.1); }
+nav.scrolled .nav-soc { border-color:var(--border2); color:var(--txt2); }
+nav.scrolled .nav-soc:hover { border-color:var(--txt); color:var(--txt); }
+
+/* ══ HERO — VIDEO BG ══ */
+.hero {
+  position:relative; height:100vh; min-height:600px;
+  overflow:hidden;
+  display:flex; align-items:flex-end;
+}
+.hero-video {
+  position:absolute; inset:0; width:100%; height:100%;
+  object-fit:cover; z-index:0;
+  filter:brightness(.88);
+}
+.hero-poster {
+  position:absolute; inset:0; z-index:0;
+  background:#06060a center/cover no-repeat;
+}
+.hero-overlay {
+  position:absolute; inset:0; z-index:1;
+  background:var(--hero-grad);
+}
+.hero-content {
+  position:relative; z-index:2;
+  width:100%; max-width:680px;
+  padding:0 56px 100px 10px;
+  display:flex; flex-direction:column; align-items:flex-start;
+  justify-content:flex-end;
+  min-height:100%;
+}
+.hero-badge { display:none; }
+.hero-title {
+  font-family:var(--ff-head);
+  font-size:clamp(52px,7.5vw,110px);
+  font-weight:700;
+  line-height:.95; text-transform:uppercase;
+  letter-spacing:-.01em; color:#fff;
+  margin-bottom:16px;
+  text-shadow:0 2px 20px rgba(0,0,0,.35);
+  border-left:4px solid #fff;
+  padding-left:16px;
+}
+.hero-meta {
+  display:flex; align-items:center; gap:12px; flex-wrap:wrap;
+  font-size:12px; font-weight:500; color:rgba(255,255,255,.65);
+  margin-bottom:16px;
+  padding-left:20px;
+}
+.hero-meta .sep { opacity:.35; }
+.hero-rating {
+  background:var(--red); color:#fff;
+  font-size:10px; font-weight:700; padding:2px 7px;
+}
+.hero-desc {
+  font-size:14px; font-weight:300;
+  color:rgba(255,255,255,.7); line-height:1.75;
+  max-width:480px; margin-bottom:28px;
+  padding-left:20px;
+}
+/* Btns + slider on same row */
+.hero-bottom {
+  display:flex; align-items:center; gap:12px; flex-wrap:wrap;
+  padding-left:20px;
+}
+.hero-btns { display:flex; gap:10px; flex-wrap:wrap; }
+.btn {
+  display:inline-flex; align-items:center; gap:8px;
+  font-size:13px; font-weight:600; letter-spacing:.05em;
+  padding:12px 26px; border-radius:22px;
+  transition:all var(--transition); cursor:pointer; border:none;
+}
+.btn-primary { background:#fff; color:#000; }
+.btn-primary:hover { background:#e8e8e8; }
+.btn-secondary {
+  background:transparent; color:#fff;
+  border:1px solid rgba(255,255,255,.55);
+}
+.btn-secondary:hover { background:rgba(255,255,255,.12); border-color:#fff; }
+.btn-icon { font-size:11px; }
+/* Inline slide dots — pill style like search/social */
+.nav-slide-dots {
+  display:flex; align-items:center; gap:7px;
+  background:rgba(0,0,0,.35);
+  border:1px solid rgba(255,255,255,.3);
+  border-radius:22px;
+  padding:10px 18px;
+  backdrop-filter:blur(8px);
+}
+.nsdot {
+  width:22px; height:2px; background:rgba(255,255,255,.3);
+  cursor:pointer; transition:all .35s; border:none; border-radius:2px;
+}
+.nsdot.active { width:36px; background:#fff; }
+
+
+/* Slide nav — bottom center Universal style */
+.hero-dots {
+  position:absolute; bottom:0; left:0; right:0; z-index:3;
+  display:flex; align-items:center; justify-content:center;
+  gap:0;
+  background:rgba(0,0,0,.45);
+  backdrop-filter:blur(12px);
+  padding:14px 40px;
+  border-top:1px solid rgba(255,255,255,.1);
+}
+.hdot {
+  display:flex; flex-direction:column; align-items:center; gap:4px;
+  padding:6px 28px;
+  cursor:pointer; border:none; background:none;
+  border-bottom:2px solid transparent;
+  transition:all .35s;
+  min-width:160px;
+}
+.hdot.active { border-bottom-color:#fff; }
+.hdot-title {
+  font-family:var(--ff-head); font-size:14px; font-weight:700;
+  letter-spacing:.04em; text-transform:uppercase;
+  color:rgba(255,255,255,.5); transition:color .35s;
+  white-space:nowrap;
+}
+.hdot.active .hdot-title { color:#fff; }
+.hdot-date {
+  font-size:11px; color:rgba(255,255,255,.35);
+  transition:color .35s;
+}
+.hdot.active .hdot-date { color:rgba(255,255,255,.65); }
+.hdot-bar {
+  width:100%; height:2px; background:rgba(255,255,255,.15);
+  margin-top:6px; position:relative; overflow:hidden;
+}
+.hdot-progress {
+  position:absolute; top:0; left:0; height:100%;
+  background:#fff; width:0;
+}
+.hdot.active .hdot-progress {
+  width:100%; transition:width 10s linear;
+}
+
+/* ══ SECTIONS ══ */
+section, .block { padding:72px 56px; }
+.section-header {
+  display:flex; align-items:flex-end; justify-content:space-between;
+  margin-bottom:36px; gap:20px; flex-wrap:wrap;
+}
+.section-title {
+  font-family:var(--ff-head);
+  font-size:clamp(26px,3.5vw,40px);
+  letter-spacing:.06em; text-transform:uppercase;
+  color:var(--txt);
+}
+.section-link {
+  font-size:12px; font-weight:600; letter-spacing:.08em; text-transform:uppercase;
+  color:var(--txt2); border:1px solid var(--border2);
+  padding:8px 16px; border-radius:var(--radius);
+  transition:all var(--transition); flex-shrink:0;
+}
+.section-link:hover { color:var(--txt); border-color:var(--border); }
+
+/* ══ POSTER ROW ══ */
+.poster-scroll {
+  display:flex; gap:14px;
+  overflow-x:auto; padding-bottom:6px;
+  scrollbar-width:none;
+}
+.poster-scroll::-webkit-scrollbar { display:none; }
+.poster {
+  flex:0 0 180px; position:relative; overflow:hidden;
+  border-radius:var(--radius); background:var(--bg3);
+}
+.poster img {
+  width:100%; aspect-ratio:2/3; object-fit:cover;
+  transition:transform .5s; filter:brightness(.88);
+}
+.poster:hover img { transform:scale(1.06); filter:brightness(1); }
+.poster-badge {
+  position:absolute; top:8px; left:8px; z-index:2;
+  font-size:9px; font-weight:700; letter-spacing:.12em; text-transform:uppercase;
+  padding:3px 8px; border-radius:2px;
+}
+.badge-now { background:var(--accent); color:#fff; }
+.badge-soon { background:rgba(0,0,0,.55); color:rgba(255,255,255,.85); backdrop-filter:blur(6px); }
+.poster-hover {
+  position:absolute; inset:0; z-index:3;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px;
+  background:rgba(6,6,10,.6);
+  opacity:0; transition:opacity .35s;
+}
+.poster:hover .poster-hover { opacity:1; }
+.ph-btn {
+  font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase;
+  padding:7px 18px; border-radius:2px; width:130px; text-align:center;
+  transition:opacity .2s;
+}
+.ph-btn:hover { opacity:.85; }
+.ph-btn.p { background:var(--accent); color:#fff; }
+.ph-btn.s { background:rgba(255,255,255,.15); color:#fff; border:1px solid rgba(255,255,255,.3); }
+.poster-caption { padding:10px 0 2px; }
+.poster-name { font-size:13px; font-weight:600; color:var(--txt); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.poster-date { font-size:11px; color:var(--txt3); margin-top:2px; }
+
+/* ══ FEATURED GRID 2×2 ══ */
+.fg-grid {
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:3px; background:var(--border);
+}
+.fg-card { position:relative; overflow:hidden; }
+.fg-card img {
+  width:100%; aspect-ratio:16/9; object-fit:cover;
+  transition:transform .7s; filter:brightness(.65);
+}
+.fg-card:hover img { transform:scale(1.05); filter:brightness(.85); }
+.fg-overlay {
+  position:absolute; inset:0; padding:24px 28px;
+  display:flex; flex-direction:column; justify-content:flex-end;
+  background:linear-gradient(to top,rgba(6,6,10,.92) 0%,rgba(6,6,10,.15) 60%,transparent 100%);
+}
+.fg-tag { font-size:10px; font-weight:700; letter-spacing:.2em; text-transform:uppercase; color:var(--accent2); margin-bottom:5px; }
+.fg-name { font-family:var(--ff-head); font-size:clamp(20px,2.2vw,32px); letter-spacing:.04em; text-transform:uppercase; color:#fff; }
+.fg-sub { font-size:12px; color:rgba(255,255,255,.55); margin-top:3px; }
+
+/* ══ FULL FEATURE BAND ══ */
+.feature-band {
+  position:relative; overflow:hidden;
+  min-height:480px; display:flex; align-items:flex-end;
+}
+.fb-video {
+  position:absolute; inset:0; width:100%; height:100%;
+  object-fit:cover; z-index:0; filter:brightness(.45);
+}
+.fb-poster {
+  position:absolute; inset:0; z-index:0;
+  background:url('https://images.unsplash.com/photo-1581833971358-2c8b550f87b3?w=1920&q=80&auto=format&fit=crop') center/cover;
+  filter:brightness(.45);
+}
+.fb-overlay {
+  position:absolute; inset:0; z-index:1;
+  background:linear-gradient(to right,rgba(6,6,10,.96) 0%,rgba(6,6,10,.5) 50%,transparent 100%);
+}
+.fb-content { position:relative; z-index:2; padding:64px 56px; max-width:580px; }
+.fb-studio { font-size:11px; font-weight:700; letter-spacing:.25em; text-transform:uppercase; color:var(--accent2); margin-bottom:14px; }
+.fb-title {
+  font-family:var(--ff-anton);
+  font-size:clamp(48px,6.5vw,90px);
+  line-height:.9; text-transform:uppercase; color:#fff; margin-bottom:16px;
+}
+.fb-desc { font-size:14px; font-weight:300; color:rgba(255,255,255,.65); line-height:1.8; margin-bottom:12px; max-width:440px; }
+.fb-cast { font-size:12px; color:rgba(255,255,255,.45); margin-bottom:28px; }
+.fb-cast strong { color:rgba(255,255,255,.75); }
+
+/* ══ TRAILERS ══ */
+.trailers-bg { background:var(--bg2); }
+.trl-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+.trl-card { border-radius:var(--radius); overflow:hidden; background:var(--bg3); }
+.trl-thumb { position:relative; aspect-ratio:16/9; overflow:hidden; }
+.trl-thumb img {
+  width:100%; height:100%; object-fit:cover;
+  transition:transform .55s; filter:brightness(.65);
+}
+.trl-card:hover .trl-thumb img { transform:scale(1.07); filter:brightness(.9); }
+.trl-play {
+  position:absolute; inset:0;
+  display:flex; align-items:center; justify-content:center;
+}
+.trl-play-btn {
+  width:50px; height:50px; background:rgba(230,35,26,.88);
+  border-radius:50%; display:flex; align-items:center; justify-content:center;
+  font-size:18px; padding-left:3px; color:#fff;
+  transition:transform .3s, background .3s;
+}
+.trl-card:hover .trl-play-btn { transform:scale(1.12); background:var(--red); }
+.trl-label {
+  position:absolute; bottom:0; left:0; right:0;
+  padding:8px 12px;
+  background:linear-gradient(to top,rgba(0,0,0,.75),transparent);
+  font-size:9px; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:rgba(255,255,255,.6);
+}
+.trl-info { padding:12px 14px 14px; }
+.trl-title { font-size:13px; font-weight:700; color:var(--txt); margin-bottom:3px; line-height:1.35; }
+.trl-views { font-size:11px; color:var(--txt3); }
+
+/* ══ SHOWS BAND ══ */
+.shows-bg { background:var(--bg3); border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+.shows-scroll {
+  display:flex; gap:3px; overflow-x:auto;
+  scrollbar-width:none; margin-top:28px;
+}
+.shows-scroll::-webkit-scrollbar { display:none; }
+.show-card { flex:0 0 300px; position:relative; overflow:hidden; border-radius:var(--radius); }
+.show-card img {
+  width:100%; aspect-ratio:16/9; object-fit:cover;
+  transition:transform .5s; filter:brightness(.6);
+}
+.show-card:hover img { transform:scale(1.06); filter:brightness(.82); }
+.show-info {
+  position:absolute; bottom:0; left:0; right:0;
+  padding:16px 18px;
+  background:linear-gradient(to top,rgba(6,6,10,.95),transparent);
+}
+.show-title { font-family:var(--ff-head); font-size:19px; letter-spacing:.05em; text-transform:uppercase; color:#fff; }
+.show-sub { font-size:11px; color:rgba(255,255,255,.5); margin-top:2px; }
+
+/* ══ NEWS ══ */
+.news-grid { display:grid; grid-template-columns:1.5fr 1fr 1fr; gap:28px; }
+.news-card img {
+  width:100%; aspect-ratio:16/9; object-fit:cover;
+  margin-bottom:12px; border-radius:var(--radius);
+  transition:opacity .3s;
+}
+.news-card:first-child img { aspect-ratio:3/2; }
+.news-card:hover img { opacity:.85; }
+.news-cat { font-size:10px; font-weight:700; letter-spacing:.2em; text-transform:uppercase; color:var(--accent2); margin-bottom:6px; }
+.news-title { font-size:14px; font-weight:600; line-height:1.45; color:var(--txt); margin-bottom:5px; transition:color var(--transition); }
+.news-card:first-child .news-title { font-size:18px; }
+.news-card:hover .news-title { color:var(--txt2); }
+.news-date { font-size:11px; color:var(--txt3); }
+
+/* ══ NEWSLETTER ══ */
+.newsletter {
+  background:var(--accent); padding:56px;
+  display:flex; align-items:center; justify-content:space-between; gap:40px; flex-wrap:wrap;
+}
+.nl-text h3 { font-family:var(--ff-head); font-size:clamp(28px,3.5vw,46px); letter-spacing:.05em; text-transform:uppercase; color:#fff; margin-bottom:6px; }
+.nl-text p { font-size:14px; color:rgba(255,255,255,.75); }
+.nl-form { display:flex; gap:0; min-width:380px; max-width:480px; flex:1; }
+.nl-input {
+  flex:1; background:rgba(255,255,255,.15); border:1px solid rgba(255,255,255,.3);
+  border-right:none; color:#fff; font-family:var(--ff-body); font-size:14px;
+  padding:13px 18px; outline:none; border-radius:var(--radius) 0 0 var(--radius);
+}
+.nl-input::placeholder { color:rgba(255,255,255,.5); }
+.nl-btn {
+  background:#000; color:#fff; border:none;
+  font-family:var(--ff-body); font-size:12px; font-weight:700; letter-spacing:.1em; text-transform:uppercase;
+  padding:13px 22px; cursor:pointer; transition:background var(--transition);
+  border-radius:0 var(--radius) var(--radius) 0; white-space:nowrap;
+}
+.nl-btn:hover { background:#111; }
+
+/* ══ FOOTER ══ */
+footer { background:var(--bg2); border-top:1px solid var(--border); padding:56px 56px 36px; }
+.footer-top { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:48px; margin-bottom:48px; }
+.footer-brand .footer-logo { display:flex; align-items:center; gap:10px; margin-bottom:14px; }
+.footer-brand p { font-size:13px; font-weight:300; color:var(--txt2); line-height:1.75; max-width:270px; margin-bottom:18px; }
+.footer-socials { display:flex; gap:8px; }
+.fsoc {
+  width:34px; height:34px; border:1px solid var(--border);
+  display:flex; align-items:center; justify-content:center;
+  font-size:12px; color:var(--txt2); border-radius:50%;
+  transition:all var(--transition);
+}
+.fsoc:hover { border-color:var(--accent); color:var(--accent); }
+.footer-col h4 { font-size:11px; font-weight:700; letter-spacing:.2em; text-transform:uppercase; color:var(--txt); margin-bottom:18px; }
+.footer-col ul { list-style:none; display:flex; flex-direction:column; gap:10px; }
+.footer-col a { font-size:13px; font-weight:300; color:var(--txt2); transition:color var(--transition); }
+.footer-col a:hover { color:var(--txt); }
+.footer-bottom {
+  display:flex; justify-content:space-between; align-items:center;
+  padding-top:28px; border-top:1px solid var(--border); flex-wrap:wrap; gap:12px;
+}
+.footer-copy { font-size:11px; color:var(--txt3); letter-spacing:.06em; }
+.footer-legal { display:flex; gap:20px; }
+.footer-legal a { font-size:11px; color:var(--txt3); transition:color var(--transition); }
+.footer-legal a:hover { color:var(--txt2); }
+
+/* ══ SCROLL TO TOP ══ */
+#scroll-top {
+  position:fixed; bottom:28px; right:28px; z-index:500;
+  width:44px; height:44px;
+  background:var(--accent); color:#fff;
+  border:none; border-radius:var(--radius);
+  font-size:18px; display:flex; align-items:center; justify-content:center;
+  cursor:pointer;
+  opacity:0; pointer-events:none;
+  transform:translateY(12px);
+  transition:all var(--transition);
+  box-shadow:0 4px 16px rgba(26,111,255,.35);
+}
+#scroll-top.visible { opacity:1; pointer-events:all; transform:translateY(0); }
+#scroll-top:hover { background:var(--accent2); transform:translateY(-2px); }
+
+/* ══ REVEAL ══ */
+.r { opacity:0; transform:translateY(28px); transition:opacity .75s ease, transform .75s ease; }
+.r.v { opacity:1; transform:translateY(0); }
+.r.delay1 { transition-delay:.1s; }
+.r.delay2 { transition-delay:.2s; }
+
+/* ══ RESPONSIVE ══ */
+@media(max-width:1024px) {
+  nav { padding:0 28px; }
+  .nav-links { display:none; }
+  section, .block, footer { padding-left:28px; padding-right:28px; }
+  .hero-content { padding:0 28px 80px; }
+  .fg-grid { grid-template-columns:1fr; }
+  .trl-grid { grid-template-columns:1fr 1fr; }
+  .news-grid { grid-template-columns:1fr; }
+  .newsletter { padding:44px 28px; }
+  .nl-form { min-width:unset; width:100%; }
+  .footer-top { grid-template-columns:1fr 1fr; gap:36px; }
+  .fb-content { padding:52px 28px; }
+  .feature-band { min-height:380px; }
+}
+@media(max-width:640px) {
+  .hero-title { font-size:clamp(52px,14vw,80px); }
+  .trl-grid { grid-template-columns:1fr; }
+  .footer-top { grid-template-columns:1fr; }
+  .footer-bottom { flex-direction:column; align-items:flex-start; }
+  .hero-dots { right:20px; bottom:20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══ NAV ══ -->
+<nav id="nav">
+  <a href="#top" class="nav-logo" aria-label="Go to top">
+    <div class="logo-icon">N</div>
+    <span class="logo-text">Nexus Pictures</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#movies">Movies</a></li>
+    <li><a href="#shows">TV Shows</a></li>
+    <li><a href="#trailers">Trailers</a></li>
+    <li><a href="#news">News</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="search-btn" aria-label="Search">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    </button>
+    <button class="theme-btn" id="theme-btn" aria-label="Toggle theme">
+      <svg id="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      <svg id="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+    <!-- Social icons — Universal style -->
+    <div class="nav-socials">
+      <a href="#" class="nav-soc" aria-label="TikTok">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.17 8.17 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z"/></svg>
+      </a>
+      <a href="https://youtube.com" target="_blank" rel="noopener" class="nav-soc" aria-label="YouTube">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.54 3.5 12 3.5 12 3.5s-7.54 0-9.38.55A3.02 3.02 0 0 0 .5 6.19C0 8.04 0 12 0 12s0 3.96.5 5.81a3.02 3.02 0 0 0 2.12 2.14C4.46 20.5 12 20.5 12 20.5s7.54 0 9.38-.55a3.02 3.02 0 0 0 2.12-2.14C24 15.96 24 12 24 12s0-3.96-.5-5.81zM9.75 15.5V8.5l6.25 3.5-6.25 3.5z"/></svg>
+      </a>
+      <a href="#" class="nav-soc" aria-label="Instagram">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+      </a>
+      <a href="#" class="nav-soc" aria-label="Facebook">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+      </a>
+      <a href="#" class="nav-soc" aria-label="X / Twitter">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section class="hero" id="top">
+  <!-- Background video — free Pexels cinematic clip -->
+  <div class="hero-poster"></div>
+  <video class="hero-video" autoplay muted loop playsinline preload="none">
+    <source src="https://videos.pexels.com/video-files/2829177/2829177-hd_1920_1080_25fps.mp4" type="video/mp4">
+  </video>
+  <div class="hero-overlay"></div>
+
+  <div class="hero-content">
+    <h1 class="hero-title">IRON STRIKE</h1>
+    <div class="hero-meta">
+      <span class="hero-rating">PG-13</span>
+      <span>2h 24m</span>
+      <span class="sep">·</span>
+      <span>Action · Sci-Fi</span>
+      <span class="sep">·</span>
+      <span>April 18, 2025</span>
+    </div>
+    <p class="hero-desc">A team of scientists discovers a signal from beyond the edge of the known universe — and what they find will change humanity forever.</p>
+    <div class="hero-bottom">
+      <div class="hero-btns">
+        <a href="#" class="btn btn-primary"><span class="btn-icon">▶</span> Watch Trailer</a>
+      </div>
+      <div class="nav-slide-dots">
+        <button class="nsdot active" onclick="goHero(0)" aria-label="Slide 1"></button>
+        <button class="nsdot" onclick="goHero(1)" aria-label="Slide 2"></button>
+        <button class="nsdot" onclick="goHero(2)" aria-label="Slide 3"></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navigation bar — bottom center Universal style -->
+  <div class="hero-dots" role="tablist">
+    <button class="hdot active" onclick="goHero(0)" aria-label="Iron Strike">
+      <div class="hdot-title">Iron Strike</div>
+      <div class="hdot-date">Now in Theaters</div>
+      <div class="hdot-bar"><div class="hdot-progress"></div></div>
+    </button>
+    <button class="hdot" onclick="goHero(1)" aria-label="Full Throttle">
+      <div class="hdot-title">Full Throttle</div>
+      <div class="hdot-date">April 25</div>
+      <div class="hdot-bar"><div class="hdot-progress"></div></div>
+    </button>
+    <button class="hdot" onclick="goHero(2)" aria-label="Blood & Sand">
+      <div class="hdot-title">Blood & Sand</div>
+      <div class="hdot-date">June 6</div>
+      <div class="hdot-bar"><div class="hdot-progress"></div></div>
+    </button>
+  </div>
+</section>
+
+<!-- ══ NOW IN THEATERS ══ -->
+<section id="movies" class="r">
+  <div class="section-header">
+    <h2 class="section-title">Now in Theaters</h2>
+    <a href="#" class="section-link">See All →</a>
+  </div>
+  <div class="poster-scroll">
+    <div class="poster r">
+      <span class="poster-badge badge-now">Now</span>
+      <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=300&q=80&auto=format&fit=crop" alt="The Last Horizon">
+      <div class="poster-hover">
+        <a href="#" class="ph-btn p">Get Tickets</a>
+        <a href="#" class="ph-btn s">▶ Trailer</a>
+      </div>
+      <div class="poster-caption"><div class="poster-name">The Last Horizon</div><div class="poster-date">Now in Theaters</div></div>
+    </div>
+    <div class="poster r delay1">
+      <span class="poster-badge badge-now">Now</span>
+      <img src="https://images.unsplash.com/photo-1509347528160-9a9e33742cdb?w=300&q=80&auto=format&fit=crop" alt="Ocean Deep">
+      <div class="poster-hover">
+        <a href="#" class="ph-btn p">Get Tickets</a>
+        <a href="#" class="ph-btn s">▶ Trailer</a>
+      </div>
+      <div class="poster-caption"><div class="poster-name">Ocean Deep</div><div class="poster-date">Now in Theaters</div></div>
+    </div>
+    <div class="poster r delay2">
+      <span class="poster-badge badge-now">Now</span>
+      <img src="https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?w=300&q=80&auto=format&fit=crop" alt="Stellar Voyage">
+      <div class="poster-hover">
+        <a href="#" class="ph-btn p">Get Tickets</a>
+        <a href="#" class="ph-btn s">▶ Trailer</a>
+      </div>
+      <div class="poster-caption"><div class="poster-name">Stellar Voyage</div><div class="poster-date">Now in Theaters</div></div>
+    </div>
+    <div class="poster r">
+      <span class="poster-badge badge-soon">Jun 6</span>
+      <img src="https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=300&q=80&auto=format&fit=crop" alt="Dark Matter">
+      <div class="poster-hover">
+        <a href="#" class="ph-btn p">Wishlist</a>
+        <a href="#" class="ph-btn s">▶ Trailer</a>
+      </div>
+      <div class="poster-caption"><div class="poster-name">Dark Matter</div><div class="poster-date">June 6, 2025</div></div>
+    </div>
+    <div class="poster r delay1">
+      <span class="poster-badge badge-soon">Jul 25</span>
+      <img src="https://images.unsplash.com/photo-1440404653325-ab127d49abc1?w=300&q=80&auto=format&fit=crop" alt="Iron Signal">
+      <div class="poster-hover">
+        <a href="#" class="ph-btn p">Wishlist</a>
+        <a href="#" class="ph-btn s">▶ Trailer</a>
+      </div>
+      <div class="poster-caption"><div class="poster-name">Iron Signal</div><div class="poster-date">July 25, 2025</div></div>
+    </div>
+    <div class="poster r delay2">
+      <span class="poster-badge badge-soon">Aug 14</span>
+      <img src="https://images.unsplash.com/photo-1518676590629-3dcbd9c5a5c9?w=300&q=80&auto=format&fit=crop" alt="Phantom Hour">
+      <div class="poster-hover">
+        <a href="#" class="ph-btn p">Wishlist</a>
+        <a href="#" class="ph-btn s">▶ Trailer</a>
+      </div>
+      <div class="poster-caption"><div class="poster-name">Phantom Hour</div><div class="poster-date">August 14, 2025</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FEATURED 2×2 ══ -->
+<div class="fg-grid r">
+  <div class="fg-card"><img src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=900&q=80&auto=format&fit=crop" alt="Cosmic Kingdom"><div class="fg-overlay"><div class="fg-tag">Animated · Family</div><div class="fg-name">Cosmic Kingdom</div><div class="fg-sub">Now in Theaters</div></div></div>
+  <div class="fg-card"><img src="https://images.unsplash.com/photo-1460881680858-30d872d5b530?w=900&q=80&auto=format&fit=crop" alt="Crime 101"><div class="fg-overlay"><div class="fg-tag">Thriller · Crime</div><div class="fg-name">Crime 101</div><div class="fg-sub">Now in Theaters</div></div></div>
+  <div class="fg-card"><img src="https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?w=900&q=80&auto=format&fit=crop" alt="Iron Signal"><div class="fg-overlay"><div class="fg-tag">Action · Adventure</div><div class="fg-name">Iron Signal</div><div class="fg-sub">Coming July 25</div></div></div>
+  <div class="fg-card"><img src="https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?w=900&q=80&auto=format&fit=crop" alt="Reminders of Him"><div class="fg-overlay"><div class="fg-tag">Drama · Romance</div><div class="fg-name">Reminders of Him</div><div class="fg-sub">Now in Theaters</div></div></div>
+</div>
+
+<!-- ══ FEATURE BAND — video bg ══ -->
+<div class="feature-band r">
+  <div class="fb-poster"></div>
+  <video class="fb-video" autoplay muted loop playsinline preload="none">
+    <source src="https://videos.pexels.com/video-files/3571264/3571264-hd_1920_1080_25fps.mp4" type="video/mp4">
+  </video>
+  <div class="fb-overlay"></div>
+  <div class="fb-content">
+    <div class="fb-studio">Nexus Pictures Presents</div>
+    <h2 class="fb-title">PHANTOM<br>HOUR</h2>
+    <p class="fb-desc">When every clock in the city stops at the same moment, one detective must solve a mystery that defies time itself.</p>
+    <p class="fb-cast"><strong>Starring:</strong> Marcus Reid · Sophia Laine · David Park</p>
+    <div class="hero-btns">
+      <a href="#" class="btn btn-primary"><span class="btn-icon">▶</span> Watch Trailer</a>
+      <a href="#" class="btn btn-secondary">More Info</a>
+    </div>
+  </div>
+</div>
+
+<!-- ══ TRAILERS ══ -->
+<section class="trailers-bg r" id="trailers">
+  <div class="section-header">
+    <h2 class="section-title">Latest Trailers</h2>
+    <a href="https://www.youtube.com" target="_blank" rel="noopener" class="section-link">All Videos →</a>
+  </div>
+  <div class="trl-grid">
+    <div class="trl-card r">
+      <div class="trl-thumb">
+        <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=600&q=80&auto=format&fit=crop" alt="">
+        <div class="trl-play"><div class="trl-play-btn">▶</div></div>
+        <div class="trl-label">Official Trailer</div>
+      </div>
+      <div class="trl-info"><div class="trl-title">THE LAST HORIZON — Final Trailer</div><div class="trl-views">3.2M views · 2 days ago</div></div>
+    </div>
+    <div class="trl-card r delay1">
+      <div class="trl-thumb">
+        <img src="https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?w=600&q=80&auto=format&fit=crop" alt="">
+        <div class="trl-play"><div class="trl-play-btn">▶</div></div>
+        <div class="trl-label">Official Trailer</div>
+      </div>
+      <div class="trl-info"><div class="trl-title">STELLAR VOYAGE — Official Trailer</div><div class="trl-views">1.8M views · 1 week ago</div></div>
+    </div>
+    <div class="trl-card r delay2">
+      <div class="trl-thumb">
+        <img src="https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=600&q=80&auto=format&fit=crop" alt="">
+        <div class="trl-play"><div class="trl-play-btn">▶</div></div>
+        <div class="trl-label">Teaser Trailer</div>
+      </div>
+      <div class="trl-info"><div class="trl-title">DARK MATTER — First Look Teaser</div><div class="trl-views">5.1M views · 3 weeks ago</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ TV SHOWS ══ -->
+<section class="shows-bg r" id="shows">
+  <div class="section-header">
+    <h2 class="section-title">TV Series</h2>
+    <a href="#" class="section-link">All Shows →</a>
+  </div>
+  <div class="shows-scroll">
+    <div class="show-card"><img src="https://images.unsplash.com/photo-1460881680858-30d872d5b530?w=500&q=80&auto=format&fit=crop" alt="The Signal"><div class="show-info"><div class="show-title">The Signal</div><div class="show-sub">Season 2 · Now Streaming</div></div></div>
+    <div class="show-card"><img src="https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?w=500&q=80&auto=format&fit=crop" alt="Atlas Rising"><div class="show-info"><div class="show-title">Atlas Rising</div><div class="show-sub">Season 1 · New Episodes</div></div></div>
+    <div class="show-card"><img src="https://images.unsplash.com/photo-1518676590629-3dcbd9c5a5c9?w=500&q=80&auto=format&fit=crop" alt="Midnight Protocol"><div class="show-info"><div class="show-title">Midnight Protocol</div><div class="show-sub">Season 3 · All Episodes</div></div></div>
+    <div class="show-card"><img src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=500&q=80&auto=format&fit=crop" alt="Luminara"><div class="show-info"><div class="show-title">Luminara</div><div class="show-sub">Season 1 · Complete</div></div></div>
+    <div class="show-card"><img src="https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?w=500&q=80&auto=format&fit=crop" alt="After Dark"><div class="show-info"><div class="show-title">After Dark</div><div class="show-sub">Season 2 · Coming Soon</div></div></div>
+  </div>
+</section>
+
+<!-- ══ NEWS ══ -->
+<section id="news" class="r">
+  <div class="section-header">
+    <h2 class="section-title">Latest News</h2>
+    <a href="#" class="section-link">All News →</a>
+  </div>
+  <div class="news-grid">
+    <div class="news-card r">
+      <img src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=700&q=80&auto=format&fit=crop" alt="">
+      <div class="news-cat">Box Office</div>
+      <div class="news-title">The Last Horizon Breaks Opening Weekend Records with $180M Global Debut</div>
+      <div class="news-date">March 10, 2025</div>
+    </div>
+    <div class="news-card r delay1">
+      <img src="https://images.unsplash.com/photo-1581833971358-2c8b550f87b3?w=500&q=80&auto=format&fit=crop" alt="">
+      <div class="news-cat">Production</div>
+      <div class="news-title">Phantom Hour Wraps Principal Photography in Iceland</div>
+      <div class="news-date">March 8, 2025</div>
+    </div>
+    <div class="news-card r delay2">
+      <img src="https://images.unsplash.com/photo-1440404653325-ab127d49abc1?w=500&q=80&auto=format&fit=crop" alt="">
+      <div class="news-cat">Awards</div>
+      <div class="news-title">Nexus Pictures Leads Academy Award Nominations with 12 Nods</div>
+      <div class="news-date">March 5, 2025</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ NEWSLETTER ══ -->
+<div class="newsletter r">
+  <div class="nl-text">
+    <h3>Never Miss a Premiere</h3>
+    <p>Exclusive trailers, early access tickets and behind-the-scenes content.</p>
+  </div>
+  <div class="nl-form">
+    <input class="nl-input" type="email" placeholder="Your email address" aria-label="Email">
+    <button class="nl-btn">Subscribe</button>
+  </div>
+</div>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="footer-logo">
+        <div class="logo-icon">N</div>
+        <span class="logo-text">Nexus Pictures</span>
+      </div>
+      <p>World-class entertainment for every screen. From blockbuster films to award-winning series.</p>
+      <div class="footer-socials">
+        <a class="fsoc" href="#" aria-label="Instagram">in</a>
+        <a class="fsoc" href="https://www.youtube.com" target="_blank" rel="noopener" aria-label="YouTube">yt</a>
+        <a class="fsoc" href="#" aria-label="X/Twitter">𝕏</a>
+        <a class="fsoc" href="#" aria-label="TikTok">tk</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Films</h4>
+      <ul>
+        <li><a href="#">Now in Theaters</a></li>
+        <li><a href="#">Coming Soon</a></li>
+        <li><a href="#">All Films</a></li>
+        <li><a href="#">Classics</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Press</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>More</h4>
+      <ul>
+        <li><a href="#">TV Shows</a></li>
+        <li><a href="#">Trailers</a></li>
+        <li><a href="#">News</a></li>
+        <li><a href="#">Newsletter</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2025 Nexus Pictures. All rights reserved.</span>
+    <div class="footer-legal">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Use</a>
+      <a href="#">Cookie Settings</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ══ SCROLL TO TOP ══ -->
+<button id="scroll-top" aria-label="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+/* ── Theme Toggle ── */
+const html = document.documentElement;
+const themeBtn = document.getElementById('theme-btn');
+const iconSun = document.getElementById('icon-sun');
+const iconMoon = document.getElementById('icon-moon');
+themeBtn.addEventListener('click', () => {
+  const isDark = html.getAttribute('data-theme') === 'dark';
+  html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+  iconSun.style.display = isDark ? 'none' : 'block';
+  iconMoon.style.display = isDark ? 'block' : 'none';
+});
+
+/* ── Nav scroll ── */
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 60));
+
+/* ── Hero slide dots ── */
+const heroData = [
+  {
+    title:'IRON STRIKE',
+    genre:'Action · Thriller', rating:'PG-13', duration:'2h 18m',
+    desc:'When a rogue operative goes off the grid, one man must hunt him across three continents before the clock runs out.',
+    video:'videos/action.mp4',
+    <!-- poster:'https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=1920&q=85&auto=format&fit=crop' -->
+  },
+  {
+    title:'FULL THROTTLE',
+    genre:'Action · Racing', rating:'PG-13', duration:'1h 52m',
+    desc:'Five elite drivers. One underground circuit. No rules, no limits — only the road ahead and the ghosts behind.',
+    video:'videos/cars.mp4',
+    <!-- poster:'https://images.unsplash.com/photo-1509347528160-9a9e33742cdb?w=1920&q=85&auto=format&fit=crop' -->
+  },
+  {
+    title:'BLOOD & SAND',
+    genre:'Epic · Drama', rating:'R', duration:'2h 44m',
+    desc:'A slave turned warrior defies an empire. Based on the true story that shook the ancient world to its foundations.',
+    video:'videos/gladiator.mp4',
+    <!-- poster:'https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?w=1920&q=85&auto=format&fit=crop' -->
+  },
+];
+let hCur = 0, hTimer;
+const hVideo = document.querySelector('.hero-video');
+const hPoster = document.querySelector('.hero-poster');
+const hTitle = document.querySelector('.hero-title');
+const hMeta = document.querySelector('.hero-meta');
+const hDesc = document.querySelector('.hero-desc');
+const hDots = document.querySelectorAll('.hdot');
+hVideo.style.transition = 'opacity 0.8s ease';
+
+function goHero(n) {
+  // Reset previous
+  const prevDot = document.querySelectorAll('.hdot')[hCur];
+  if(prevDot) {
+    prevDot.classList.remove('active');
+    const bar = prevDot.querySelector('.hdot-progress');
+    if(bar) { bar.style.transition='none'; bar.style.width='0'; }
+  }
+  document.querySelectorAll('.nsdot').forEach((d,i) => d.classList.toggle('active', i===n));
+  hCur = n;
+  const d = heroData[n];
+  hVideo.style.opacity = '0';
+  setTimeout(() => {
+    hVideo.src = d.video;
+    hVideo.load();
+    hVideo.play().catch(()=>{});
+    hVideo.style.opacity = '1';
+  }, 400);
+  hPoster.style.backgroundImage = `url('${d.poster}')`;
+  hTitle.innerHTML = d.title;
+  hDesc.textContent = d.desc;
+  hMeta.innerHTML = `<span class="hero-rating">${d.rating}</span><span>${d.duration}</span><span class="sep">·</span><span>${d.genre}</span>`;
+  const newDot = document.querySelectorAll('.hdot')[n];
+  if(newDot) {
+    newDot.classList.add('active');
+    const bar = newDot.querySelector('.hdot-progress');
+    if(bar) {
+      bar.style.transition = 'none'; bar.style.width = '0';
+      setTimeout(() => { bar.style.transition = 'width 10s linear'; bar.style.width = '100%'; }, 50);
+    }
+  }
+  clearInterval(hTimer);
+  hTimer = setInterval(() => goHero((hCur+1) % heroData.length), 10000);
+}
+
+// Init — autoplay first video + start progress
+hVideo.src = heroData[0].video;
+hVideo.load();
+hVideo.play().catch(()=>{});
+const firstBar = document.querySelector('.hdot.active .hdot-progress');
+if(firstBar) { setTimeout(() => { firstBar.style.transition='width 10s linear'; firstBar.style.width='100%'; }, 100); }
+hTimer = setInterval(() => goHero((hCur+1) % heroData.length), 10000);
+
+/* ── Scroll to top ── */
+const scrollBtn = document.getElementById('scroll-top');
+window.addEventListener('scroll', () => scrollBtn.classList.toggle('visible', scrollY > 400));
+
+/* ── Scroll reveal ── */
+const ro = new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting) e.target.classList.add('v'); }), {threshold:.08});
+document.querySelectorAll('.r').forEach(el => ro.observe(el));
+</script>
+</body>
+</html>

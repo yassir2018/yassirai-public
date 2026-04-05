@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>STRIDE — Chaussures Premium</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#080808; --bg2:#111; --bg3:#1a1a1a; --card:#141414;
+  --txt:#f2f2f2; --txt2:rgba(242,242,242,.5); --txt3:rgba(242,242,242,.24);
+  --border:rgba(255,255,255,.07); --border2:rgba(255,255,255,.13);
+  --accent:#ff3c00; --accent2:#ff6030; --wht:#fff;
+  --ff-h:'Barlow Condensed',sans-serif;
+  --ff-b:'Barlow',sans-serif;
+  --nav-h:56px; --tr:.3s ease;
+}
+[data-theme="light"]{
+  --bg:#f5f5f5; --bg2:#fff; --bg3:#ebebeb; --card:#fff;
+  --txt:#080808; --txt2:rgba(8,8,8,.5); --txt3:rgba(8,8,8,.24);
+  --border:rgba(0,0,0,.07); --border2:rgba(0,0,0,.12);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--txt);font-family:var(--ff-b);overflow-x:hidden;}
+img{display:block;max-width:100%;}
+a{color:inherit;text-decoration:none;}
+::-webkit-scrollbar{width:2px;}
+::-webkit-scrollbar-thumb{background:var(--accent);}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;padding:0 40px;transition:all var(--tr);}
+nav.scrolled{background:rgba(8,8,8,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
+.nav-logo{font-family:var(--ff-h);font-size:26px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:var(--txt);}
+.nav-logo span{color:var(--accent);}
+.nav-right{display:flex;align-items:center;gap:8px;}
+.nav-icon{width:34px;height:34px;border:1px solid var(--border2);border-radius:50%;display:flex;align-items:center;justify-content:center;background:none;cursor:pointer;color:var(--txt2);transition:all var(--tr);position:relative;}
+.nav-icon:hover{border-color:var(--accent);color:var(--accent);}
+.cart-dot{position:absolute;top:-3px;right:-3px;width:14px;height:14px;background:var(--accent);border-radius:50%;font-size:8px;font-weight:700;display:flex;align-items:center;justify-content:center;color:#fff;}
+
+.nav-links{display:flex;gap:4px;list-style:none;}
+.nav-links a{font-family:var(--ff-h);font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.6);padding:6px 12px;transition:all var(--tr);}
+.nav-links a:hover{color:#fff;background:rgba(255,255,255,.08);}
+nav.scrolled .nav-links a{color:var(--txt2);}
+nav.scrolled .nav-links a:hover{color:var(--txt);}
+@media(max-width:1024px){.nav-links{display:none;}}
+
+.nav-shop{font-family:var(--ff-h);font-size:13px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;padding:9px 22px;background:var(--accent);color:#fff;transition:opacity var(--tr);}
+.nav-shop:hover{opacity:.85;}
+
+/* HERO */
+.hero{position:relative;height:100vh;min-height:640px;overflow:hidden;background:var(--bg);}
+.hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.25);z-index:0;}
+.hero-poster{position:absolute;inset:0;z-index:0;background:url('https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=1600&q=88&auto=format&fit=crop') center/cover;filter:brightness(.25);}
+.hero-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(to top,rgba(8,8,8,.92) 0%,rgba(8,8,8,.38) 45%,rgba(8,8,8,.08) 75%,transparent 100%);}
+.hero-content{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;justify-content:flex-end;padding:0 40px 80px;max-width:680px;}
+.hero-badge{font-family:var(--ff-h);font-size:11px;font-weight:600;letter-spacing:.3em;text-transform:uppercase;color:var(--accent);margin-bottom:16px;display:flex;align-items:center;gap:10px;}
+.hero-badge::before{content:'';width:20px;height:2px;background:var(--accent);}
+.hero-title{font-family:var(--ff-h);font-size:clamp(72px,11vw,160px);font-weight:900;line-height:.82;letter-spacing:.02em;text-transform:uppercase;color:#fff;margin-bottom:20px;}
+.hero-title .accent{color:var(--accent);}
+.hero-title .outline{color:transparent;-webkit-text-stroke:1.5px rgba(255,255,255,.2);}
+.hero-desc{font-size:14px;font-weight:300;color:var(--txt2);max-width:380px;line-height:1.85;margin-bottom:32px;}
+.hero-btns{display:flex;gap:10px;flex-wrap:wrap;}
+.btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--ff-h);font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:13px 28px;cursor:pointer;transition:all var(--tr);border:none;}
+.btn-red{background:var(--accent);color:#fff;}
+.btn-red:hover{background:var(--accent2);}
+.btn-wire{background:transparent;color:var(--wht);border:1px solid var(--border2);}
+.btn-wire:hover{border-color:var(--accent);color:var(--accent);}
+.btn-dark{background:var(--txt);color:var(--bg);}
+.btn-dark:hover{opacity:.85;}
+/* Product floating card */
+.hero-product{position:absolute;bottom:80px;right:56px;z-index:2;background:rgba(8,8,8,.8);border:1px solid var(--border2);backdrop-filter:blur(12px);padding:0;width:180px;overflow:hidden;}
+.hp-img{width:100%;aspect-ratio:1/1;object-fit:cover;filter:brightness(.9);}
+.hp-info{padding:12px 14px;}
+.hp-name{font-family:var(--ff-h);font-size:14px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--txt);margin-bottom:3px;}
+.hp-price{font-family:var(--ff-h);font-size:16px;font-weight:700;color:var(--accent);}
+.hp-tag{font-size:9px;font-weight:600;letter-spacing:.16em;color:var(--txt3);text-transform:uppercase;}
+
+/* TICKER */
+.ticker{overflow:hidden;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--bg2);padding:10px 0;}
+.tk-track{display:flex;gap:48px;animation:tka 20s linear infinite;white-space:nowrap;}
+@keyframes tka{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.tk-item{font-family:var(--ff-h);font-size:13px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--txt3);flex-shrink:0;display:flex;align-items:center;gap:14px;}
+.tk-item .dot{color:var(--accent);}
+
+/* FEATURED */
+.featured{padding:72px 40px;}
+.sh{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:32px;flex-wrap:wrap;gap:12px;}
+.sh-eye{font-family:var(--ff-h);font-size:11px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--accent);margin-bottom:6px;}
+.sh-title{font-family:var(--ff-h);font-size:clamp(32px,4.5vw,52px);font-weight:900;letter-spacing:.04em;text-transform:uppercase;color:var(--txt);line-height:.95;}
+.sh-link{font-family:var(--ff-h);font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--txt3);border-bottom:1px solid var(--border2);padding-bottom:2px;transition:all var(--tr);}
+.sh-link:hover{color:var(--accent);border-color:var(--accent);}
+.feat-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:2px;}
+.fc{background:var(--bg3);cursor:pointer;position:relative;overflow:hidden;}
+.fc-img{overflow:hidden;}
+.fc.main .fc-img{aspect-ratio:3/4;}
+.fc.sm .fc-img{aspect-ratio:3/4;}
+.fc-img img{width:100%;height:100%;object-fit:cover;filter:brightness(.85);transition:transform .8s,filter .5s;}
+.fc:hover .fc-img img{transform:scale(1.06);filter:brightness(1);}
+.fc-info{padding:14px 14px 16px;}
+.fc-tag{font-family:var(--ff-h);font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--txt3);margin-bottom:4px;}
+.fc-name{font-family:var(--ff-h);font-size:18px;font-weight:900;letter-spacing:.05em;text-transform:uppercase;color:var(--txt);margin-bottom:6px;}
+.fc-footer{display:flex;align-items:center;justify-content:space-between;}
+.fc-price{font-family:var(--ff-h);font-size:17px;font-weight:700;color:var(--accent);}
+.fc-cta{font-family:var(--ff-h);font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--txt3);border:1px solid var(--border2);padding:5px 12px;transition:all var(--tr);}
+.fc:hover .fc-cta{border-color:var(--accent);color:var(--accent);}
+.fc-badge{position:absolute;top:10px;left:10px;font-family:var(--ff-h);font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:4px 10px;background:var(--accent);color:#fff;}
+
+/* CATEGORIES */
+.categories{padding:0 40px 72px;}
+.cat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-top:32px;}
+.cat-card{position:relative;overflow:hidden;cursor:pointer;}
+.cat-card img{width:100%;aspect-ratio:3/4;object-fit:cover;filter:brightness(.55);transition:all .7s;}
+.cat-card:hover img{transform:scale(1.06);filter:brightness(.75);}
+.cat-over{position:absolute;inset:0;background:linear-gradient(to top,rgba(8,8,8,.93) 0%,transparent 55%);}
+.cat-info{position:absolute;bottom:0;left:0;right:0;padding:18px 16px;}
+.cat-count{font-family:var(--ff-h);font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--txt3);margin-bottom:5px;}
+.cat-name{font-family:var(--ff-h);font-size:clamp(18px,2.2vw,26px);font-weight:900;letter-spacing:.05em;text-transform:uppercase;color:#fff;margin-bottom:8px;}
+.cat-cta{font-family:var(--ff-h);font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.5);border-bottom:1px solid rgba(255,255,255,.2);padding-bottom:2px;display:inline-flex;align-items:center;gap:5px;transition:all var(--tr);}
+.cat-card:hover .cat-cta{color:#fff;border-color:#fff;}
+.cat-cta::after{content:'→';}
+
+/* SPLIT BANNER */
+.split{display:grid;grid-template-columns:1fr 1fr;}
+.split-side{position:relative;overflow:hidden;min-height:480px;display:flex;align-items:flex-end;}
+.split-side img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.45);transition:filter .5s;}
+.split-side:hover img{filter:brightness(.6);}
+.split-over{position:absolute;inset:0;background:linear-gradient(to top,rgba(8,8,8,.9) 0%,transparent 55%);}
+.split-content{position:relative;z-index:2;padding:32px 32px 36px;}
+.sc-tag{font-family:var(--ff-h);font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin-bottom:8px;}
+.sc-title{font-family:var(--ff-h);font-size:clamp(28px,4vw,48px);font-weight:900;letter-spacing:.04em;text-transform:uppercase;color:#fff;margin-bottom:14px;line-height:.95;}
+.sc-btn{font-family:var(--ff-h);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#fff;border-bottom:2px solid var(--accent);padding-bottom:3px;display:inline-flex;align-items:center;gap:8px;transition:color var(--tr);}
+.sc-btn:hover{color:var(--accent);}
+.sc-btn::after{content:'→';}
+
+/* DROPS */
+.drops{padding:72px 40px;background:var(--bg2);}
+.drop-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:32px;}
+.drop-card{background:var(--bg3);cursor:pointer;}
+.drop-img{overflow:hidden;aspect-ratio:1/1;position:relative;}
+.drop-img img{width:100%;height:100%;object-fit:cover;filter:brightness(.85);transition:transform .7s;}
+.drop-card:hover .drop-img img{transform:scale(1.07);}
+.drop-new{position:absolute;top:10px;left:10px;font-family:var(--ff-h);font-size:9px;font-weight:700;letter-spacing:.16em;padding:4px 10px;background:var(--bg);color:var(--accent);border:1px solid var(--border2);}
+.drop-info{padding:14px 14px 16px;}
+.drop-brand{font-family:var(--ff-h);font-size:9px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--txt3);margin-bottom:3px;}
+.drop-name{font-family:var(--ff-h);font-size:17px;font-weight:900;letter-spacing:.05em;text-transform:uppercase;color:var(--txt);margin-bottom:4px;}
+.drop-colors{display:flex;gap:5px;margin-bottom:8px;}
+.dc{width:12px;height:12px;border-radius:50%;border:1px solid var(--border2);}
+.drop-footer{display:flex;align-items:center;justify-content:space-between;}
+.drop-price{font-family:var(--ff-h);font-size:16px;font-weight:700;color:var(--accent);}
+.drop-sizes{display:flex;gap:4px;}
+.drop-sz{font-size:9px;font-weight:700;letter-spacing:.1em;color:var(--txt3);border:1px solid var(--border2);padding:3px 6px;transition:all var(--tr);}
+.drop-card:hover .drop-sz{border-color:var(--accent);color:var(--accent);}
+
+/* CTA */
+.cta{padding:100px 40px;background:var(--accent);position:relative;overflow:hidden;}
+.cta-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=1200&q=50&auto=format') center/cover;opacity:.1;filter:grayscale(1);}
+.cta-inner{position:relative;z-index:1;display:grid;grid-template-columns:1fr auto;gap:40px;align-items:center;}
+.cta-title{font-family:var(--ff-h);font-size:clamp(40px,6vw,88px);font-weight:900;letter-spacing:.04em;text-transform:uppercase;color:#fff;line-height:.88;}
+.cta-right{display:flex;flex-direction:column;gap:14px;align-items:flex-start;}
+.cta-sub{font-size:14px;font-weight:300;color:rgba(255,255,255,.7);max-width:320px;line-height:1.75;}
+
+/* FOOTER */
+footer{background:var(--bg2);border-top:1px solid var(--border);padding:56px 40px 28px;}
+.footer-top{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:48px;margin-bottom:40px;}
+.fb-logo{font-family:var(--ff-h);font-size:22px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:var(--txt);display:block;margin-bottom:10px;}
+.fb-logo span{color:var(--accent);}
+.footer-brand p{font-size:12px;color:var(--txt2);line-height:1.85;max-width:200px;margin-bottom:14px;}
+.footer-socials{display:flex;gap:8px;}
+.fsoc{width:30px;height:30px;border:1px solid var(--border2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--txt2);transition:all var(--tr);}
+.fsoc:hover{border-color:var(--accent);color:var(--accent);}
+.footer-col h4{font-family:var(--ff-h);font-size:10px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--txt);margin-bottom:14px;}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:7px;}
+.footer-col a{font-size:12px;color:var(--txt2);transition:color var(--tr);}
+.footer-col a:hover{color:var(--accent);}
+.footer-bottom{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;padding-top:22px;border-top:1px solid var(--border);font-size:10px;color:var(--txt3);}
+
+
+/* SLIDER NAV */
+.hero-slider-nav{position:absolute;bottom:0;left:0;right:0;z-index:3;display:flex;justify-content:center;padding:0 40px 20px;pointer-events:none;}
+.hdot{pointer-events:all;background:transparent;border:none;border-bottom:2px solid rgba(255,255,255,.22);padding:10px 24px 8px;cursor:pointer;min-width:148px;text-align:left;transition:border-color var(--tr);}
+.hdot.active{border-bottom-color:var(--accent);}
+.hdot-title{font-family:var(--ff-h);font-size:13px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:rgba(255,255,255,.4);white-space:nowrap;transition:color var(--tr);}
+.hdot.active .hdot-title{color:#fff;}
+.hdot-date{font-size:9px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.26);margin-top:2px;}
+.hdot.active .hdot-date{color:rgba(255,255,255,.55);}
+.hdot-bar{height:2px;background:rgba(255,255,255,.1);margin-top:6px;overflow:hidden;}
+.hdot-progress{height:100%;width:0;background:var(--accent);}
+.hdot.active .hdot-progress{transition:width 8s linear;width:100%;}
+@media(max-width:640px){.hero-slider-nav{display:none;}}
+
+#scroll-top{position:fixed;bottom:24px;right:24px;z-index:600;width:40px;height:40px;background:var(--accent);color:#fff;border:none;font-size:16px;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;pointer-events:none;transform:translateY(10px);transition:all var(--tr);}
+#scroll-top.visible{opacity:1;pointer-events:all;transform:translateY(0);}
+.r{opacity:0;transform:translateY(22px);transition:opacity .7s,transform .7s;}
+.r.v{opacity:1;transform:translateY(0);}
+.r.d1{transition-delay:.1s;}.r.d2{transition-delay:.2s;}.r.d3{transition-delay:.3s;}
+
+@media(max-width:1024px){
+  nav,.featured,.categories,.drops,.cta,footer{padding-left:24px;padding-right:24px;}
+  .feat-grid{grid-template-columns:1fr 1fr;}.fc.main{grid-column:span 2;}
+  .cat-grid{grid-template-columns:1fr 1fr;}
+  .split{grid-template-columns:1fr;}
+  .drop-grid{grid-template-columns:1fr 1fr;}
+  .cta-inner{grid-template-columns:1fr;}
+  .footer-top{grid-template-columns:1fr 1fr;}
+  .hero-product{display:none;}
+}
+@media(max-width:640px){
+  .feat-grid,.drop-grid,.footer-top{grid-template-columns:1fr;}
+  .fc.main{grid-column:span 1;}
+  .cat-grid{grid-template-columns:1fr 1fr;}
+}
+</style>
+</head>
+<body id="top">
+
+<nav id="nav">
+  <a href="#top" class="nav-logo">STRIDE<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#featured">Collection</a></li>
+    <li><a href="#categories">Catégories</a></li>
+    <li><a href="#drops">Nouveautés</a></li>
+    <li><a href="#cta">Livraison</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="nav-icon" id="theme-btn" aria-label="Theme">
+      <svg id="ico-sun" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg>
+      <svg id="ico-moon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+    <button class="nav-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
+    <button class="nav-icon" style="position:relative"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg><span class="cart-dot">0</span></button>
+    <a href="#featured" class="nav-shop">Acheter</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-poster" id="hPoster" style="background-image:url('https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=1600&q=85&auto=format&fit=crop');"></div>
+  <video class="hero-video" id="hVideo" autoplay muted loop playsinline preload="none"></video>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-badge">Nouvelle collection SS25</div>
+    <h1 class="hero-title">
+      MOVE<br>
+      <span class="outline">YOUR</span><br>
+      <span class="accent">WORLD</span>
+    </h1>
+    <p class="hero-desc">Des sneakers et chaussures premium qui allient performance, style et confort. Conçues pour ceux qui refusent de choisir.</p>
+    <div class="hero-btns">
+      <a href="#featured" class="btn btn-red">Explorer la collection</a>
+      <a href="#drops" class="btn btn-wire">Nouveautés →</a>
+    </div>
+  </div>
+  <div class="hero-product">
+    <img class="hp-img" src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&q=80&auto=format&fit=crop" alt="">
+    <div class="hp-info">
+      <div class="hp-tag">Best-seller</div>
+      <div class="hp-name">Air Atlas Pro</div>
+      <div class="hp-price">1 290 MAD</div>
+    </div>
+  </div>
+  <div class="hero-slider-nav">
+    <button class="hdot active" onclick="goHero(0)"><div class="hdot-title">Air Atlas Pro</div><div class="hdot-date">Lifestyle · SS25</div><div class="hdot-bar"><div class="hdot-progress"></div></div></button>
+    <button class="hdot" onclick="goHero(1)"><div class="hdot-title">Stride X1</div><div class="hdot-date">Running · Performance</div><div class="hdot-bar"><div class="hdot-progress"></div></div></button>
+    <button class="hdot" onclick="goHero(2)"><div class="hdot-title">Nova Slip</div><div class="hdot-date">Femme · Urban</div><div class="hdot-bar"><div class="hdot-progress"></div></div></button>
+  </div>
+</section>
+
+<div class="ticker">
+  <div class="tk-track">
+    <span class="tk-item"><span class="dot">✦</span> Sneakers</span>
+    <span class="tk-item"><span class="dot">✦</span> Running</span>
+    <span class="tk-item"><span class="dot">✦</span> Training</span>
+    <span class="tk-item"><span class="dot">✦</span> Lifestyle</span>
+    <span class="tk-item"><span class="dot">✦</span> Urban</span>
+    <span class="tk-item"><span class="dot">✦</span> Boots</span>
+    <span class="tk-item"><span class="dot">✦</span> Sandales</span>
+    <span class="tk-item"><span class="dot">✦</span> Sneakers</span>
+    <span class="tk-item"><span class="dot">✦</span> Running</span>
+    <span class="tk-item"><span class="dot">✦</span> Training</span>
+    <span class="tk-item"><span class="dot">✦</span> Lifestyle</span>
+    <span class="tk-item"><span class="dot">✦</span> Urban</span>
+    <span class="tk-item"><span class="dot">✦</span> Boots</span>
+    <span class="tk-item"><span class="dot">✦</span> Sandales</span>
+  </div>
+</div>
+
+<section class="featured r" id="featured">
+  <div class="sh"><div><div class="sh-eye">Sélection</div><div class="sh-title">Produits<br>Phares</div></div><a href="#" class="sh-link">Voir tout →</a></div>
+  <div class="feat-grid">
+    <div class="fc main r">
+      <div class="fc-img"><img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=700&q=80&auto=format&fit=crop" alt=""></div>
+      <span class="fc-badge">Signature</span>
+      <div class="fc-info"><div class="fc-tag">Lifestyle · Unisex</div><div class="fc-name">Air Atlas Pro</div><div class="fc-footer"><span class="fc-price">1 290 MAD</span><span class="fc-cta">Choisir</span></div></div>
+    </div>
+    <div class="fc sm r d1">
+      <div class="fc-img"><img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500&q=80&auto=format&fit=crop&sat=-70&hue=180" alt="" onerror="this.src='https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=500&q=80&auto=format&fit=crop'"></div>
+      <div class="fc-info"><div class="fc-tag">Running · Homme</div><div class="fc-name">Stride X1</div><div class="fc-footer"><span class="fc-price">980 MAD</span><span class="fc-cta">Choisir</span></div></div>
+    </div>
+    <div class="fc sm r d2">
+      <div class="fc-img"><img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=500&q=80&auto=format&fit=crop" alt=""></div>
+      <span class="fc-badge" style="background:var(--bg3);color:var(--accent);border:1px solid var(--border2);">−20%</span>
+      <div class="fc-info"><div class="fc-tag">Lifestyle · Femme</div><div class="fc-name">Nova Slip</div><div class="fc-footer"><span class="fc-price">760 MAD</span><span class="fc-cta">Choisir</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="categories r">
+  <div class="sh"><div><div class="sh-eye">Univers</div><div class="sh-title">Catégories</div></div></div>
+  <div class="cat-grid">
+    <div class="cat-card"><img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500&q=80&auto=format&fit=crop" alt=""><div class="cat-over"></div><div class="cat-info"><div class="cat-count">32 modèles</div><div class="cat-name">Sneakers</div><span class="cat-cta">Voir</span></div></div>
+    <div class="cat-card"><img src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=500&q=80&auto=format&fit=crop" alt=""><div class="cat-over"></div><div class="cat-info"><div class="cat-count">18 modèles</div><div class="cat-name">Running</div><span class="cat-cta">Voir</span></div></div>
+    <div class="cat-card"><img src="https://images.unsplash.com/photo-1539185441755-769473a23570?w=500&q=80&auto=format&fit=crop" alt=""><div class="cat-over"></div><div class="cat-info"><div class="cat-count">24 modèles</div><div class="cat-name">Boots</div><span class="cat-cta">Voir</span></div></div>
+    <div class="cat-card"><img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=500&q=80&auto=format&fit=crop" alt=""><div class="cat-over"></div><div class="cat-info"><div class="cat-count">15 modèles</div><div class="cat-name">Femme</div><span class="cat-cta">Voir</span></div></div>
+  </div>
+</section>
+
+<div class="split r">
+  <div class="split-side"><img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&q=80&auto=format&fit=crop" alt=""><div class="split-over"></div><div class="split-content"><div class="sc-tag">Nouveauté</div><div class="sc-title">Collection<br>Urban SS25</div><a href="#" class="sc-btn">Découvrir</a></div></div>
+  <div class="split-side"><img src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=800&q=80&auto=format&fit=crop" alt=""><div class="split-over"></div><div class="split-content"><div class="sc-tag">Performance</div><div class="sc-title">Running<br>Pro Series</div><a href="#" class="sc-btn">Découvrir</a></div></div>
+</div>
+
+<section class="drops r" id="drops">
+  <div class="sh"><div><div class="sh-eye">Dernières arrivées</div><div class="sh-title">Nouveautés</div></div><a href="#" class="sh-link">Voir tout →</a></div>
+  <div class="drop-grid">
+    <div class="drop-card r">
+      <div class="drop-img"><img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=500&q=80&auto=format&fit=crop" alt=""><span class="drop-new">New</span></div>
+      <div class="drop-info"><div class="drop-brand">STRIDE</div><div class="drop-name">Cloud Runner</div><div class="drop-colors"><span class="dc" style="background:#fff"></span><span class="dc" style="background:#222"></span><span class="dc" style="background:var(--accent)"></span></div><div class="drop-footer"><span class="drop-price">1 150 MAD</span><div class="drop-sizes"><span class="drop-sz">39</span><span class="drop-sz">40</span><span class="drop-sz">42</span><span class="drop-sz">44</span></div></div></div>
+    </div>
+    <div class="drop-card r d1">
+      <div class="drop-img"><img src="https://images.unsplash.com/photo-1539185441755-769473a23570?w=500&q=80&auto=format&fit=crop" alt=""><span class="drop-new">New</span></div>
+      <div class="drop-info"><div class="drop-brand">STRIDE</div><div class="drop-name">Desert Boot</div><div class="drop-colors"><span class="dc" style="background:#8b6914"></span><span class="dc" style="background:#222"></span></div><div class="drop-footer"><span class="drop-price">1 490 MAD</span><div class="drop-sizes"><span class="drop-sz">40</span><span class="drop-sz">41</span><span class="drop-sz">43</span></div></div></div>
+    </div>
+    <div class="drop-card r d2">
+      <div class="drop-img"><img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500&q=80&auto=format&fit=crop" alt=""></div>
+      <div class="drop-info"><div class="drop-brand">STRIDE</div><div class="drop-name">Atlas Pro V2</div><div class="drop-colors"><span class="dc" style="background:#fff"></span><span class="dc" style="background:var(--accent)"></span></div><div class="drop-footer"><span class="drop-price">1 350 MAD</span><div class="drop-sizes"><span class="drop-sz">41</span><span class="drop-sz">42</span><span class="drop-sz">44</span><span class="drop-sz">45</span></div></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="cta r">
+  <div class="cta-bg"></div>
+  <div class="cta-inner">
+    <h2 class="cta-title">LIVRAISON<br>GRATUITE<br>DÈS 800 MAD</h2>
+    <div class="cta-right">
+      <p class="cta-sub">Commandez aujourd'hui, recevez demain dans les grandes villes du Maroc. Retours gratuits sous 30 jours.</p>
+      <a href="#featured" class="btn btn-dark">Acheter maintenant</a>
+      <a href="#" class="btn btn-wire" style="color:#fff;border-color:rgba(255,255,255,.4);">Guide des tailles →</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a href="#top" class="fb-logo">STRIDE<span>.</span></a>
+      <p>Sneakers et chaussures premium au Maroc. Style, performance, confort — sans compromis.</p>
+      <div class="footer-socials"><a class="fsoc" href="#">f</a><a class="fsoc" href="#">📷</a><a class="fsoc" href="#">𝕏</a><a class="fsoc" href="#">▶</a></div>
+    </div>
+    <div class="footer-col"><h4>Boutique</h4><ul><li><a href="#">Sneakers</a></li><li><a href="#">Running</a></li><li><a href="#">Boots</a></li><li><a href="#">Femme</a></li><li><a href="#">Soldes</a></li></ul></div>
+    <div class="footer-col"><h4>Service</h4><ul><li><a href="#">Livraison</a></li><li><a href="#">Retours</a></li><li><a href="#">Guide tailles</a></li><li><a href="#">Contact</a></li></ul></div>
+    <div class="footer-col"><h4>STRIDE</h4><ul><li><a href="#">Notre histoire</a></li><li><a href="#">Matériaux</a></li><li><a href="#">Durabilité</a></li><li><a href="#">CGV</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><span>© 2025 STRIDE. Tous droits réservés.</span><span>Fait avec ♥ au Maroc 🇲🇦</span></div>
+</footer>
+
+<button id="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<script>
+const heroData=[
+  {title:'MOVE YOUR<br><span class="accent">WORLD</span>',desc:'Des sneakers premium qui allient performance, style et confort.',video:'videos/shoes-hero.mp4',poster:'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=1600&q=85&auto=format&fit=crop'},
+  {title:'STRIDE<br><span class="outline">X1</span>',desc:'Running haute performance. Amorti maximal, légèreté extrême.',video:'videos/shoes-running.mp4',poster:'https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=1600&q=85&auto=format&fit=crop'},
+  {title:'NOVA<br><span class="accent">SLIP</span>',desc:'Style urbain féminin. Confort toute la journée, allure irreprochable.',video:'videos/shoes-femme.mp4',poster:'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=1600&q=85&auto=format&fit=crop'},
+];
+let hCur=0,hTimer;
+const hVideo=document.getElementById('hVideo');
+const hPoster=document.getElementById('hPoster');
+hVideo.style.transition='opacity .8s ease';
+function goHero(n){
+  document.querySelectorAll('.hdot').forEach((d,i)=>{d.classList.toggle('active',i===n);const bar=d.querySelector('.hdot-progress');if(bar){bar.style.transition='none';bar.style.width='0';}});
+  hCur=n;const d=heroData[n];
+  hVideo.style.opacity='0';
+  setTimeout(()=>{hVideo.src=d.video;hVideo.load();hVideo.play().catch(()=>{});hVideo.style.opacity='1';},400);
+  hPoster.style.backgroundImage=`url('${d.poster}')`;
+  document.querySelector('.hero-title').innerHTML=d.title;
+  document.querySelector('.hero-desc').textContent=d.desc;
+  const bar=document.querySelectorAll('.hdot')[n].querySelector('.hdot-progress');
+  if(bar){setTimeout(()=>{bar.style.transition='width 8s linear';bar.style.width='100%';},50);}
+  clearInterval(hTimer);hTimer=setInterval(()=>goHero((hCur+1)%heroData.length),8000);
+}
+goHero(0);
+window.addEventListener('scroll',()=>{document.getElementById('nav').classList.toggle('scrolled',scrollY>60);document.getElementById('scroll-top').classList.toggle('visible',scrollY>400);});
+document.getElementById('theme-btn').addEventListener('click',()=>{const dark=document.documentElement.getAttribute('data-theme')==='dark';document.documentElement.setAttribute('data-theme',dark?'light':'dark');document.getElementById('ico-sun').style.display=dark?'none':'block';document.getElementById('ico-moon').style.display=dark?'block':'none';});
+const ro=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('v');}),{threshold:.07});
+document.querySelectorAll('.r').forEach(el=>ro.observe(el));
+</script>
+</body>
+</html>

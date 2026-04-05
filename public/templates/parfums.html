@@ -1,0 +1,1182 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SILLAGE — Maison de Parfums</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Futura+PT:wght@300;400;450;500&family=DM+Sans:wght@200;300;400;500&display=swap" rel="stylesheet">
+<!-- Fallback for Futura PT -->
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100;200;300;400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:ital,wght@0,200;0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+/* ══════════════════════════════════════
+   SILLAGE — Louis Vuitton inspired
+   Pure white luxury, editorial precision
+══════════════════════════════════════ */
+:root {
+  --white: #ffffff;
+  --black: #000000;
+  --off-white: #f8f6f2;
+  --cream: #f2ede5;
+  --warm-gray: #e8e2d9;
+  --mid-gray: #8c8680;
+  --dark-gray: #3a3530;
+  --text: #1a1614;
+  --text2: rgba(26,22,20,.55);
+  --text3: rgba(26,22,20,.32);
+  --border: rgba(0,0,0,.1);
+  --border-light: rgba(0,0,0,.06);
+  --gold: #9a7c4a;
+  --gold2: #c9a96e;
+  --ff-serif: 'Libre Baskerville', Georgia, serif;
+  --ff-sans: 'Josefin Sans', 'DM Sans', sans-serif;
+  --ff-body: 'DM Sans', sans-serif;
+  --nav-h: 60px;
+  --tr: .3s ease;
+  --tr-slow: .6s ease;
+}
+
+/* ── RESET ── */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; font-size:16px; }
+body { background:var(--white); color:var(--text); font-family:var(--ff-body); overflow-x:hidden; line-height:1.7; }
+img { display:block; max-width:100%; height:auto; }
+a { color:inherit; text-decoration:none; }
+button { font-family:var(--ff-body); cursor:pointer; }
+::-webkit-scrollbar { width:1px; }
+::-webkit-scrollbar-thumb { background:var(--text); }
+
+/* ── ANNOUNCEMENT BAR ── */
+.announce-bar {
+  background:var(--black); color:var(--white);
+  text-align:center; padding:10px 20px;
+  font-family:var(--ff-sans); font-size:11px; font-weight:300; letter-spacing:.18em;
+  display:flex; align-items:center; justify-content:center; gap:16px;
+  position:relative; z-index:200;
+}
+.announce-bar a { text-decoration:underline; text-underline-offset:3px; }
+.announce-close { position:absolute; right:16px; background:none; border:none; color:var(--white); font-size:18px; line-height:1; opacity:.6; transition:opacity var(--tr); }
+.announce-close:hover { opacity:1; }
+
+/* ── NAV — LV style ── */
+nav {
+  position:sticky; top:0; z-index:500;
+  background:var(--white);
+  height:var(--nav-h);
+  display:flex; align-items:center;
+  border-bottom:1px solid var(--border);
+  transition:box-shadow var(--tr);
+}
+nav.elevated { box-shadow:0 2px 20px rgba(0,0,0,.08); }
+.nav-inner {
+  width:100%; display:flex; align-items:center;
+  justify-content:space-between; padding:0 24px;
+}
+/* Left side */
+.nav-left { display:flex; align-items:center; gap:8px; flex:1; }
+.hamburger {
+  background:none; border:none; padding:8px 6px;
+  display:flex; flex-direction:column; gap:5px; cursor:pointer;
+}
+.hamburger span {
+  display:block; width:22px; height:1px; background:var(--text);
+  transition:all var(--tr);
+}
+.nav-search-btn {
+  background:none; border:none; padding:8px;
+  color:var(--text); opacity:.7; transition:opacity var(--tr);
+  display:flex; align-items:center;
+}
+.nav-search-btn:hover { opacity:1; }
+.nav-search-text {
+  font-family:var(--ff-body); font-size:12px; font-weight:300;
+  color:var(--text3); border:none; background:none; outline:none;
+  letter-spacing:.04em; cursor:pointer;
+}
+/* Center logo */
+.nav-logo {
+  font-family:var(--ff-sans); font-size:18px; font-weight:200;
+  letter-spacing:.38em; text-transform:uppercase; color:var(--text);
+  position:absolute; left:50%; transform:translateX(-50%);
+  white-space:nowrap;
+}
+/* Right side */
+.nav-right { display:flex; align-items:center; gap:6px; flex:1; justify-content:flex-end; }
+.nav-right-text {
+  font-family:var(--ff-body); font-size:12px; font-weight:300;
+  color:var(--text); letter-spacing:.04em;
+  transition:opacity var(--tr); opacity:.8;
+}
+.nav-right-text:hover { opacity:1; }
+.nav-icon-btn {
+  background:none; border:none; padding:8px; color:var(--text);
+  opacity:.75; transition:opacity var(--tr); position:relative;
+  display:flex; align-items:center;
+}
+.nav-icon-btn:hover { opacity:1; }
+.cart-count {
+  position:absolute; top:4px; right:3px;
+  width:14px; height:14px; background:var(--text); color:var(--white);
+  border-radius:50%; font-size:8px; font-weight:500;
+  display:flex; align-items:center; justify-content:center;
+}
+
+/* ── MEGA MENU ── */
+/* ── MEGA MENU — LV exact style ── */
+.mega-menu {
+  position:fixed; inset:0; z-index:450;
+  display:flex; pointer-events:none;
+}
+.mega-menu.open { pointer-events:all; }
+.mm-overlay {
+  position:absolute; inset:0; background:rgba(0,0,0,.45);
+  opacity:0; transition:opacity .4s ease;
+}
+.mega-menu.open .mm-overlay { opacity:1; }
+.mm-panel {
+  position:relative; z-index:1;
+  width:460px; max-width:92vw; background:var(--white);
+  height:100vh;
+  overflow-y:auto; overflow-x:hidden;
+  transform:translateX(-100%);
+  transition:transform .42s cubic-bezier(.4,0,.2,1);
+  display:flex; flex-direction:column;
+  box-shadow:4px 0 32px rgba(0,0,0,.12);
+}
+.mega-menu.open .mm-panel { transform:translateX(0); }
+
+/* Header row — × Fermer à gauche, logo centré */
+.mm-header {
+  display:flex; align-items:center;
+  padding:0 24px;
+  height:var(--nav-h); flex-shrink:0;
+  border-bottom:none; position:relative;
+}
+.mm-close {
+  background:none; border:none;
+  color:var(--text); cursor:pointer; transition:opacity var(--tr);
+  display:flex; align-items:center; gap:9px;
+  font-family:var(--ff-body); font-size:13px; font-weight:400;
+  letter-spacing:.04em; opacity:.85;
+  padding:0;
+}
+.mm-close:hover { opacity:1; }
+.mm-close svg { flex-shrink:0; }
+.mm-logo {
+  position:absolute; left:50%; transform:translateX(-50%);
+  font-family:var(--ff-sans); font-size:14px; font-weight:200;
+  letter-spacing:.38em; text-transform:uppercase; color:var(--text);
+  white-space:nowrap;
+}
+
+/* Main nav list — LV style: grande typo serif, simple, vertical */
+.mm-nav {
+  padding:32px 0 0;
+  flex:1;
+  display:flex; flex-direction:column;
+  overflow-y:auto;
+}
+.mm-item {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:13px 32px;
+  font-family:var(--ff-serif); font-size:20px; font-weight:400;
+  color:var(--text); background:none; border:none;
+  cursor:pointer; transition:opacity var(--tr);
+  text-align:left; line-height:1.2;
+  border-bottom:none;
+  letter-spacing:-.01em;
+  width:100%;
+}
+.mm-item:hover { opacity:.55; }
+/* First item (featured) — bold + underline like LV */
+.mm-item-featured {
+  font-weight:700;
+  text-decoration:underline;
+  text-underline-offset:4px;
+  text-decoration-thickness:1px;
+}
+.mm-item .mm-arrow {
+  font-size:14px; opacity:.35; flex-shrink:0;
+  transition:transform var(--tr);
+}
+.mm-item:hover .mm-arrow { transform:translateX(4px); opacity:.7; }
+
+/* Footer links — small, gray */
+.mm-footer {
+  padding:20px 32px 40px;
+  border-top:1px solid var(--border-light);
+  flex-shrink:0;
+  background:var(--white);
+  position:sticky;
+  bottom:0;
+}
+.mm-footer-links { display:flex; flex-direction:column; gap:14px; }
+.mm-footer-link {
+  font-family:var(--ff-body); font-size:12px; font-weight:300;
+  color:var(--text3); letter-spacing:.04em; transition:color var(--tr);
+  background:none; border:none; cursor:pointer; text-align:left; padding:0;
+  display:block;
+}
+.mm-footer-link:hover { color:var(--text); }
+
+/* ── HERO SLIDER — full bleed ── */
+.hero {
+  position:relative; width:100%;
+  height:calc(100vh - var(--nav-h) - 40px);
+  min-height:520px; max-height:900px;
+  overflow:hidden;
+}
+.hero-slide {
+  position:absolute; inset:0;
+  opacity:0; transition:opacity 1.2s ease;
+}
+.hero-slide.active { opacity:1; z-index:1; }
+.hero-video {
+  position:absolute; inset:0; width:100%; height:100%;
+  object-fit:cover; z-index:0;
+}
+.hero-poster {
+  position:absolute; inset:0; background-size:cover; background-position:center; z-index:0;
+}
+/* LV style: très peu d'overlay, juste un léger gradient bas */
+.hero-overlay {
+  position:absolute; inset:0; z-index:1;
+  background:
+    linear-gradient(to bottom, rgba(0,0,0,.38) 0%, rgba(0,0,0,.08) 22%, transparent 42%),
+    linear-gradient(to top,    rgba(0,0,0,.58) 0%, rgba(0,0,0,.14) 32%, transparent 55%);
+}
+.hero-caption {
+  position:absolute; bottom:52px; left:0; right:0; z-index:2;
+  text-align:center; padding:0 40px;
+}
+.hero-eyebrow {
+  font-family:var(--ff-sans); font-size:10px; font-weight:300;
+  letter-spacing:.32em; text-transform:uppercase; color:rgba(255,255,255,.75);
+  margin-bottom:12px;
+}
+.hero-title {
+  font-family:var(--ff-serif); font-size:clamp(26px,4vw,48px);
+  font-weight:400; color:#fff; margin-bottom:18px; line-height:1.2;
+}
+.hero-cta {
+  display:inline-block; font-family:var(--ff-body); font-size:12px; font-weight:400;
+  letter-spacing:.08em; color:#fff;
+  border-bottom:1px solid rgba(255,255,255,.7);
+  padding-bottom:2px; transition:border-color var(--tr), opacity var(--tr);
+}
+.hero-cta:hover { border-color:#fff; opacity:.8; }
+
+/* Slider dots — LV style: thin lines bottom center */
+.hero-dots {
+  position:absolute; bottom:18px; left:50%; transform:translateX(-50%);
+  z-index:3; display:flex; gap:6px; align-items:center;
+}
+.hero-dot {
+  width:24px; height:1px; background:rgba(255,255,255,.35);
+  border:none; cursor:pointer; transition:background var(--tr), width var(--tr);
+}
+.hero-dot.active { background:#fff; width:40px; }
+
+/* ── CATEGORY STRIP — image + label ── */
+.cat-strip { padding:60px 24px; }
+.cat-strip-title {
+  font-family:var(--ff-serif); font-size:clamp(22px,2.8vw,34px);
+  font-weight:400; text-align:center; margin-bottom:40px; color:var(--text);
+}
+.cat-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:2px; }
+.cat-card { position:relative; cursor:pointer; overflow:hidden; }
+.cat-card-img { aspect-ratio:3/4; overflow:hidden; background:var(--cream); }
+.cat-card-img img {
+  width:100%; height:100%; object-fit:cover;
+  filter:brightness(.96);
+  transition:transform .8s cubic-bezier(.4,0,.2,1), filter .5s;
+}
+.cat-card:hover .cat-card-img img { transform:scale(1.04); filter:brightness(1); }
+.cat-card-label {
+  padding:14px 4px 8px;
+  font-family:var(--ff-body); font-size:13px; font-weight:300;
+  color:var(--text); text-align:center; letter-spacing:.02em;
+}
+
+/* ── FEATURED EDITORIAL — full bleed split ── */
+.editorial {
+  display:grid; grid-template-columns:1fr 1fr; min-height:580px;
+}
+.editorial-img { overflow:hidden; background:var(--cream); }
+.editorial-img img { width:100%; height:100%; object-fit:cover; transition:transform 1s ease; }
+.editorial:hover .editorial-img img { transform:scale(1.03); }
+.editorial-body {
+  display:flex; flex-direction:column; justify-content:center;
+  padding:72px 64px; background:var(--off-white);
+}
+.ed-eyebrow {
+  font-family:var(--ff-sans); font-size:10px; font-weight:300; letter-spacing:.3em;
+  text-transform:uppercase; color:var(--gold); margin-bottom:16px;
+}
+.ed-title {
+  font-family:var(--ff-serif); font-size:clamp(28px,3vw,42px);
+  font-weight:400; line-height:1.2; color:var(--text); margin-bottom:16px;
+}
+.ed-title em { font-style:italic; }
+.ed-body {
+  font-family:var(--ff-body); font-size:13px; font-weight:300;
+  color:var(--text2); line-height:1.95; max-width:380px; margin-bottom:28px;
+}
+.btn-lv {
+  display:inline-flex; align-items:center; gap:10px;
+  font-family:var(--ff-body); font-size:12px; font-weight:400; letter-spacing:.08em;
+  color:var(--text); border:1px solid var(--text); padding:12px 28px;
+  transition:all var(--tr); align-self:flex-start;
+}
+.btn-lv:hover { background:var(--text); color:var(--white); }
+.btn-lv-pill {
+  display:inline-flex; align-items:center;
+  font-family:var(--ff-body); font-size:12px; font-weight:400; letter-spacing:.06em;
+  color:var(--text); border:1px solid var(--border); padding:12px 32px;
+  border-radius:100px; transition:all var(--tr);
+}
+.btn-lv-pill:hover { border-color:var(--text); }
+.btn-lv-underline {
+  font-family:var(--ff-body); font-size:12px; font-weight:400; letter-spacing:.06em;
+  color:var(--text); border-bottom:1px solid var(--text); padding-bottom:2px;
+  transition:opacity var(--tr); background:none; border-top:none; border-left:none; border-right:none;
+}
+.btn-lv-underline:hover { opacity:.6; }
+
+/* ── PRODUCT GRID — LV style ── */
+.products { padding:72px 24px; }
+.products-header {
+  display:flex; align-items:baseline; justify-content:space-between;
+  margin-bottom:36px; padding:0 8px;
+}
+.products-title {
+  font-family:var(--ff-serif); font-size:clamp(22px,2.5vw,32px);
+  font-weight:400; color:var(--text);
+}
+.products-link {
+  font-size:11px; font-weight:300; letter-spacing:.12em;
+  color:var(--text2); border-bottom:1px solid var(--border);
+  padding-bottom:2px; transition:all var(--tr);
+}
+.products-link:hover { color:var(--text); border-color:var(--text); }
+.prod-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:2px; }
+.prod-card { cursor:pointer; }
+.prod-img {
+  aspect-ratio:3/4; background:var(--cream); overflow:hidden; position:relative;
+}
+.prod-img img {
+  width:100%; height:100%; object-fit:cover;
+  transition:transform .7s cubic-bezier(.4,0,.2,1);
+}
+.prod-card:hover .prod-img img { transform:scale(1.04); }
+.prod-badge {
+  position:absolute; top:12px; left:12px;
+  font-family:var(--ff-sans); font-size:9px; font-weight:300; letter-spacing:.18em;
+  text-transform:uppercase; background:var(--white); color:var(--text);
+  padding:4px 10px;
+}
+.prod-info { padding:14px 4px 20px; }
+.prod-name {
+  font-family:var(--ff-body); font-size:13px; font-weight:300;
+  color:var(--text); margin-bottom:4px;
+}
+.prod-family {
+  font-family:var(--ff-sans); font-size:10px; font-weight:300; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--text2); margin-bottom:6px;
+}
+.prod-price {
+  font-family:var(--ff-body); font-size:13px; font-weight:300;
+  color:var(--text2);
+}
+.prod-actions {
+  display:flex; gap:10px; margin-top:10px; flex-wrap:wrap;
+}
+
+/* ── PARFUM CATEGORIES CIRCLES ── */
+.circles { padding:72px 24px; background:var(--off-white); }
+.circles-title {
+  font-family:var(--ff-serif); font-size:clamp(22px,2.5vw,32px);
+  font-weight:400; text-align:center; margin-bottom:44px;
+}
+.circles-grid {
+  display:flex; gap:16px; overflow-x:auto; padding:4px 0 12px;
+  scrollbar-width:none; justify-content:center; flex-wrap:wrap;
+}
+.circle-item { text-align:center; cursor:pointer; flex-shrink:0; }
+.circle-img {
+  width:120px; height:120px; border-radius:50%; overflow:hidden;
+  background:var(--cream); margin:0 auto 12px;
+  transition:transform var(--tr);
+}
+.circle-item:hover .circle-img { transform:scale(1.05); }
+.circle-img img { width:100%; height:100%; object-fit:cover; }
+.circle-label {
+  font-family:var(--ff-body); font-size:12px; font-weight:300;
+  color:var(--text2); max-width:100px; text-align:center; line-height:1.4;
+}
+
+/* ── EDITORIAL SPLIT REVERSED ── */
+.editorial-rev { grid-template-columns:1fr 1fr; }
+.editorial-rev .editorial-body { order:-1; background:var(--cream); }
+
+/* ── MAISON STORY ── */
+.story { padding:96px 40px; text-align:center; background:var(--white); }
+.story-inner { max-width:680px; margin:0 auto; }
+.story-eyebrow {
+  font-family:var(--ff-sans); font-size:10px; font-weight:300; letter-spacing:.3em;
+  text-transform:uppercase; color:var(--gold); margin-bottom:20px;
+}
+.story-title {
+  font-family:var(--ff-serif); font-size:clamp(28px,4vw,52px);
+  font-weight:400; line-height:1.15; color:var(--text); margin-bottom:22px;
+}
+.story-title em { font-style:italic; }
+.story-body {
+  font-size:14px; font-weight:300; color:var(--text2);
+  line-height:2; margin-bottom:36px;
+}
+.story-btns { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+
+/* ── NEWSLETTER ── */
+.newsletter { padding:64px 40px; background:var(--black); text-align:center; }
+.nl-title {
+  font-family:var(--ff-serif); font-size:clamp(20px,2.8vw,32px);
+  font-weight:400; color:var(--white); margin-bottom:8px;
+}
+.nl-sub {
+  font-size:12px; font-weight:300; color:rgba(255,255,255,.5);
+  letter-spacing:.06em; margin-bottom:28px;
+}
+.nl-form { display:flex; gap:0; max-width:440px; margin:0 auto; }
+.nl-input {
+  flex:1; background:transparent; border:1px solid rgba(255,255,255,.3);
+  border-right:none; color:#fff; font-family:var(--ff-body);
+  font-size:12px; font-weight:300; padding:13px 16px; outline:none;
+  transition:border-color var(--tr);
+}
+.nl-input::placeholder { color:rgba(255,255,255,.3); }
+.nl-input:focus { border-color:rgba(255,255,255,.7); }
+.nl-btn {
+  background:var(--white); color:var(--black);
+  font-family:var(--ff-sans); font-size:10px; font-weight:300; letter-spacing:.2em;
+  text-transform:uppercase; padding:13px 22px; border:1px solid var(--white);
+  transition:all var(--tr); white-space:nowrap;
+}
+.nl-btn:hover { background:transparent; color:var(--white); }
+
+/* ── FOOTER — LV style ── */
+footer { background:var(--white); border-top:1px solid var(--border); padding:48px 40px 24px; }
+.footer-top { display:grid; grid-template-columns:repeat(4,1fr); gap:40px; margin-bottom:44px; }
+.footer-col h4 {
+  font-family:var(--ff-sans); font-size:10px; font-weight:300; letter-spacing:.26em;
+  text-transform:uppercase; color:var(--text); margin-bottom:16px;
+}
+.footer-col ul { list-style:none; display:flex; flex-direction:column; gap:9px; }
+.footer-col a {
+  font-size:12px; font-weight:300; color:var(--text2);
+  transition:color var(--tr); letter-spacing:.02em;
+}
+.footer-col a:hover { color:var(--text); }
+.footer-logo {
+  font-family:var(--ff-sans); font-size:15px; font-weight:200;
+  letter-spacing:.35em; text-transform:uppercase; color:var(--text);
+  display:block; margin-bottom:12px;
+}
+.footer-brand p {
+  font-size:11px; font-weight:300; color:var(--text3); line-height:1.9;
+  max-width:200px; margin-bottom:16px;
+}
+.footer-socials { display:flex; gap:10px; }
+.fsoc {
+  width:30px; height:30px; border:1px solid var(--border); border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  color:var(--text2); transition:all var(--tr);
+}
+.fsoc:hover { border-color:var(--text); color:var(--text); }
+.footer-bottom {
+  display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;
+  padding-top:22px; border-top:1px solid var(--border-light);
+  font-size:10px; font-weight:300; color:var(--text3); letter-spacing:.04em;
+}
+.footer-bottom-links { display:flex; gap:20px; flex-wrap:wrap; }
+.footer-bottom-links a { color:var(--text3); transition:color var(--tr); }
+.footer-bottom-links a:hover { color:var(--text); }
+
+/* ── SEARCH OVERLAY — LV style ── */
+.search-overlay {
+  position:fixed; inset:0; z-index:700;
+  background:var(--white);
+  display:flex; flex-direction:column;
+  opacity:0; pointer-events:none;
+  transform:translateY(-12px);
+  transition:opacity .35s ease, transform .35s ease;
+}
+.search-overlay.open {
+  opacity:1; pointer-events:all; transform:translateY(0);
+}
+.search-overlay-header {
+  display:flex; align-items:center; justify-content:center;
+  position:relative; padding:20px 40px;
+  border-bottom:1px solid var(--border-light);
+  flex-shrink:0;
+}
+.search-overlay-logo {
+  font-family:var(--ff-sans); font-size:18px; font-weight:200;
+  letter-spacing:.38em; text-transform:uppercase; color:var(--text);
+}
+.search-close {
+  position:absolute; right:24px; top:50%; transform:translateY(-50%);
+  background:none; border:none; font-size:22px; line-height:1;
+  color:var(--text); opacity:.5; cursor:pointer; transition:opacity var(--tr);
+  display:flex; align-items:center; justify-content:center;
+  width:36px; height:36px;
+}
+.search-close:hover { opacity:1; }
+.search-body {
+  flex:1; overflow-y:auto; padding:40px 40px 60px;
+}
+.search-input-wrap {
+  max-width:860px; margin:0 auto 32px; position:relative;
+}
+.search-input {
+  width:100%; background:transparent;
+  border:1px solid var(--border); border-radius:100px;
+  padding:16px 52px 16px 28px;
+  font-family:var(--ff-body); font-size:14px; font-weight:300;
+  color:var(--text); outline:none; letter-spacing:.04em;
+  transition:border-color var(--tr);
+}
+.search-input::placeholder { color:var(--text3); }
+.search-input:focus { border-color:var(--text); }
+.search-submit {
+  position:absolute; right:18px; top:50%; transform:translateY(-50%);
+  background:none; border:none; color:var(--text2); cursor:pointer;
+  display:flex; align-items:center; transition:color var(--tr);
+}
+.search-submit:hover { color:var(--text); }
+.search-popular {
+  max-width:860px; margin:0 auto 40px;
+  display:flex; align-items:center; gap:20px; flex-wrap:wrap;
+}
+.search-popular-label {
+  font-family:var(--ff-sans); font-size:10px; font-weight:300;
+  letter-spacing:.22em; text-transform:uppercase; color:var(--text3);
+  white-space:nowrap;
+}
+.search-tag {
+  font-family:var(--ff-body); font-size:13px; font-weight:300;
+  color:var(--text2); background:none; border:none; cursor:pointer;
+  padding:0; transition:color var(--tr); letter-spacing:.02em;
+}
+.search-tag:hover { color:var(--text); }
+.search-section-title {
+  max-width:1200px; margin:0 auto 20px;
+  font-family:var(--ff-body); font-size:13px; font-weight:300;
+  color:var(--text); letter-spacing:.02em;
+}
+.search-products {
+  max-width:1200px; margin:0 auto;
+  display:grid; grid-template-columns:repeat(6,1fr); gap:2px;
+  overflow:hidden;
+}
+.search-prod {
+  cursor:pointer; position:relative;
+}
+.search-prod-img {
+  aspect-ratio:3/4; background:var(--cream); overflow:hidden; position:relative;
+}
+.search-prod-img img {
+  width:100%; height:100%; object-fit:cover;
+  transition:transform .6s ease;
+}
+.search-prod:hover .search-prod-img img { transform:scale(1.04); }
+.search-prod-fav {
+  position:absolute; top:10px; right:10px;
+  background:none; border:none; color:var(--text); opacity:.5;
+  cursor:pointer; transition:opacity var(--tr);
+  display:flex; align-items:center;
+}
+.search-prod-fav:hover { opacity:1; }
+.search-prod-info { padding:10px 2px 16px; }
+.search-prod-badge {
+  font-size:11px; font-weight:300; color:var(--text3); margin-bottom:3px;
+}
+.search-prod-name {
+  font-size:12px; font-weight:300; color:var(--text); margin-bottom:3px;
+  line-height:1.35;
+}
+.search-prod-price {
+  font-size:12px; font-weight:300; color:var(--text2);
+}
+@media(max-width:1024px) {
+  .search-products { grid-template-columns:repeat(4,1fr); }
+  .search-products .search-prod:nth-child(n+5) { display:none; }
+}
+@media(max-width:640px) {
+  .search-body { padding:28px 20px 40px; }
+  .search-products { grid-template-columns:repeat(2,1fr); }
+  .search-products .search-prod:nth-child(n+3) { display:none; }
+  .search-overlay-header { padding:18px 20px; }
+}
+
+/* ── SCROLL TO TOP ── */
+#scroll-top {
+  position:fixed; bottom:24px; right:24px; z-index:600;
+  width:36px; height:36px; background:var(--text); color:var(--white);
+  border:none; font-size:14px; display:flex; align-items:center; justify-content:center;
+  opacity:0; pointer-events:none; transform:translateY(10px);
+  transition:all var(--tr);
+}
+#scroll-top.visible { opacity:1; pointer-events:all; transform:translateY(0); }
+
+/* ── REVEAL ── */
+.r { opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s ease; }
+.r.v { opacity:1; transform:none; }
+.d1 { transition-delay:.1s; } .d2 { transition-delay:.2s; } .d3 { transition-delay:.3s; }
+
+/* ── RESPONSIVE ── */
+@media(max-width:1024px) {
+  .cat-grid { grid-template-columns:repeat(2,1fr); }
+  .prod-grid { grid-template-columns:repeat(2,1fr); }
+  .editorial, .editorial-rev { grid-template-columns:1fr; }
+  .editorial-rev .editorial-body { order:0; }
+  .editorial-img { min-height:380px; }
+  .footer-top { grid-template-columns:1fr 1fr; }
+}
+@media(max-width:640px) {
+  .nav-search-text { display:none; }
+  .nav-right-text { display:none; }
+  .circles-grid { justify-content:flex-start; }
+  .footer-top { grid-template-columns:1fr; }
+  .nl-form { flex-direction:column; gap:0; }
+  .nl-input { border-right:1px solid rgba(255,255,255,.3); }
+  .story-btns { flex-direction:column; align-items:center; }
+}
+
+/* ── CONTACT PANEL — LV right-side panel ── */
+.contact-panel {
+  position:fixed; inset:0; z-index:460;
+  display:flex; justify-content:flex-end;
+  pointer-events:none;
+}
+.contact-panel.open { pointer-events:all; }
+.contact-overlay {
+  position:absolute; inset:0; background:rgba(0,0,0,.35);
+  opacity:0; transition:opacity .35s ease;
+}
+.contact-panel.open .contact-overlay { opacity:1; }
+.contact-drawer {
+  position:relative; z-index:1;
+  width:520px; max-width:94vw;
+  background:var(--white);
+  transform:translateX(100%);
+  transition:transform .42s cubic-bezier(.4,0,.2,1);
+  display:flex; flex-direction:column;
+  overflow-y:auto;
+  box-shadow:-4px 0 32px rgba(0,0,0,.1);
+}
+.contact-panel.open .contact-drawer { transform:translateX(0); }
+.contact-drawer-header {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:28px 32px 24px;
+  border-bottom:1px solid var(--border-light);
+  flex-shrink:0;
+}
+.contact-drawer-title {
+  font-family:var(--ff-serif); font-size:20px; font-weight:400;
+  color:var(--text); letter-spacing:-.01em;
+}
+.contact-drawer-close {
+  background:none; border:none; cursor:pointer;
+  color:var(--text); opacity:.5; transition:opacity var(--tr);
+  display:flex; align-items:center; justify-content:center;
+  width:32px; height:32px; font-size:20px;
+}
+.contact-drawer-close:hover { opacity:1; }
+.contact-drawer-body { padding:32px; flex:1; }
+.contact-intro {
+  font-size:13px; font-weight:300; color:var(--text2);
+  line-height:1.85; margin-bottom:28px;
+}
+.contact-methods { display:flex; flex-direction:column; margin-bottom:32px; }
+.contact-method {
+  display:flex; align-items:center; gap:16px;
+  padding:16px 0; border-bottom:1px solid var(--border-light);
+  cursor:pointer; transition:opacity var(--tr);
+  background:none; border-top:none; border-left:none; border-right:none;
+  text-align:left; width:100%;
+}
+.contact-method:last-child { border-bottom:none; }
+.contact-method:hover { opacity:.6; }
+.contact-method-icon {
+  width:36px; height:36px; background:var(--text); border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  color:var(--white); flex-shrink:0;
+}
+.contact-method-name {
+  font-family:var(--ff-body); font-size:14px; font-weight:300;
+  color:var(--text); letter-spacing:.02em;
+}
+.contact-divider { height:1px; background:var(--border-light); margin:4px 0 24px; }
+.contact-links { display:flex; flex-direction:column; gap:14px; }
+.contact-link {
+  font-family:var(--ff-body); font-size:13px; font-weight:300;
+  color:var(--text2); background:none; border:none; cursor:pointer;
+  text-align:left; padding:0; transition:color var(--tr); letter-spacing:.02em;
+}
+.contact-link:hover { color:var(--text); }
+</style>
+</head>
+<body>
+
+<!-- ANNOUNCE BAR -->
+<div class="announce-bar" id="announceBar">
+  <span>Explorez la <a href="#">Collection Sillage Mirage</a> — élégance, savoir-faire et héritage olfactif.</span>
+  <button class="announce-close" onclick="document.getElementById('announceBar').style.display='none'">×</button>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-inner">
+    <!-- LEFT -->
+    <div class="nav-left">
+      <button class="hamburger" id="menuBtn" aria-label="Menu">
+        <span></span><span></span>
+      </button>
+      <button class="nav-search-btn" id="searchBtn" aria-label="Recherche" onclick="openSearch()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <span class="nav-search-text" onclick="openSearch()" style="cursor:pointer">Que recherchez-vous ?</span>
+    </div>
+    <!-- CENTER LOGO -->
+    <a href="#top" class="nav-logo">Sillage</a>
+    <!-- RIGHT -->
+    <div class="nav-right">
+      <button class="nav-right-text" onclick="openContact()" style="background:none;border:none;cursor:pointer;">Contactez-nous</button>
+      <button class="nav-icon-btn" aria-label="Favoris">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      </button>
+      <button class="nav-icon-btn" aria-label="Compte">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </button>
+      <button class="nav-icon-btn" aria-label="Panier" style="position:relative">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        <span class="cart-count">0</span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- SEARCH OVERLAY — LV style -->
+<div class="search-overlay" id="searchOverlay">
+  <div class="search-overlay-header">
+    <span class="search-overlay-logo">Sillage</span>
+    <button class="search-close" onclick="closeSearch()" aria-label="Fermer">×</button>
+  </div>
+  <div class="search-body">
+    <div class="search-input-wrap">
+      <input class="search-input" id="searchInput" type="text" placeholder="Rechercher Rose de Kelâa…" autocomplete="off">
+      <button class="search-submit" aria-label="Rechercher"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
+    </div>
+    <div class="search-popular">
+      <span class="search-popular-label">Recherches populaires</span>
+      <button class="search-tag" onclick="setSearch(this)">rose</button>
+      <button class="search-tag" onclick="setSearch(this)">oud</button>
+      <button class="search-tag" onclick="setSearch(this)">atlas</button>
+      <button class="search-tag" onclick="setSearch(this)">coffret</button>
+      <button class="search-tag" onclick="setSearch(this)">ambre</button>
+    </div>
+    <div class="search-section-title">Inspirations pour vous</div>
+    <div class="search-products">
+      <div class="search-prod"><div class="search-prod-img"><img src="https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=300&q=80&auto=format&fit=crop" alt="Rose de Kelâa"><button class="search-prod-fav"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button></div><div class="search-prod-info"><div class="search-prod-badge">Signature</div><div class="search-prod-name">Rose de Kelâa</div><div class="search-prod-price">890,00 MAD</div></div></div>
+      <div class="search-prod"><div class="search-prod-img"><img src="https://images.unsplash.com/photo-1592945403407-9caf930b0b73?w=300&q=80&auto=format&fit=crop" alt="Nuit de l'Atlas"><button class="search-prod-fav"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button></div><div class="search-prod-info"><div class="search-prod-badge">Nouveauté</div><div class="search-prod-name">Nuit de l'Atlas</div><div class="search-prod-price">1 050,00 MAD</div></div></div>
+      <div class="search-prod"><div class="search-prod-img"><img src="https://images.unsplash.com/photo-1541643600914-78b084683702?w=300&q=80&auto=format&fit=crop" alt="Brise du Détroit"><button class="search-prod-fav"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button></div><div class="search-prod-info"><div class="search-prod-badge">Aquatique</div><div class="search-prod-name">Brise du Détroit</div><div class="search-prod-price">750,00 MAD</div></div></div>
+      <div class="search-prod"><div class="search-prod-img"><img src="https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?w=300&q=80&auto=format&fit=crop" alt="Ambre du Sahara"><button class="search-prod-fav"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button></div><div class="search-prod-info"><div class="search-prod-badge">Oriental</div><div class="search-prod-name">Ambre du Sahara</div><div class="search-prod-price">920,00 MAD</div></div></div>
+      <div class="search-prod"><div class="search-prod-img"><img src="https://images.unsplash.com/photo-1615529162924-f8605388461d?w=300&q=80&auto=format&fit=crop" alt="Coffret Mirage"><button class="search-prod-fav"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button></div><div class="search-prod-info"><div class="search-prod-badge">Coffret</div><div class="search-prod-name">Coffret Mirage</div><div class="search-prod-price">1 650,00 MAD</div></div></div>
+      <div class="search-prod"><div class="search-prod-img"><img src="https://images.unsplash.com/photo-1588776814546-1ffedbe47425?w=300&q=80&auto=format&fit=crop" alt="Oud de l'Atlas"><button class="search-prod-fav"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button></div><div class="search-prod-info"><div class="search-prod-badge">Icône</div><div class="search-prod-name">Oud de l'Atlas</div><div class="search-prod-price">1 200,00 MAD</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- MEGA MENU -->
+<div class="mega-menu" id="megaMenu">
+  <div class="mm-overlay" onclick="closeMM()"></div>
+  <div class="mm-panel">
+    <div class="mm-header">
+      <button class="mm-close" onclick="closeMM()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        Fermer
+      </button>
+      <span class="mm-logo">Sillage</span>
+    </div>
+    <nav class="mm-nav">
+      <button class="mm-item mm-item-featured"><span>Collection Mirage 2025</span><span class="mm-arrow">›</span></button>
+      <button class="mm-item"><span>Nouveautés</span><span class="mm-arrow">›</span></button>
+      <button class="mm-item"><span>Eaux de Parfum</span><span class="mm-arrow">›</span></button>
+      <button class="mm-item"><span>Eaux de Toilette</span><span class="mm-arrow">›</span></button>
+      <button class="mm-item"><span>Parfums Féminins</span><span class="mm-arrow">›</span></button>
+      <button class="mm-item"><span>Parfums Masculins</span><span class="mm-arrow">›</span></button>
+      <button class="mm-item"><span>Parfums Oud</span><span class="mm-arrow">›</span></button>
+      <button class="mm-item"><span>Coffrets &amp; Cadeaux</span><span class="mm-arrow">›</span></button>
+      <button class="mm-item"><span>Bougies &amp; Maison</span><span class="mm-arrow">›</span></button>
+    </nav>
+    <div class="mm-footer">
+      <div class="mm-footer-links">
+        <button class="mm-footer-link">La Maison Sillage</button>
+        <button class="mm-footer-link">Nos ingrédients</button>
+        <button class="mm-footer-link">Boutiques</button>
+        <button class="mm-footer-link" onclick="openContact()">Contactez-nous</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HERO SLIDER -->
+<section class="hero" id="top">
+  <!-- Slide 1 -->
+  <div class="hero-slide active" id="slide0">
+    <div class="hero-poster" style="background-image:url('https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=1600&q=90&auto=format&fit=crop');"></div>
+    <video class="hero-video" id="vid0" autoplay muted loop playsinline preload="none" src="https://videos.pexels.com/video-files/4041391/4041391-uhd_3840_2160_25fps.mp4"></video>
+    <div class="hero-overlay"></div>
+    <div class="hero-caption">
+      <div class="hero-eyebrow">Défilé</div>
+      <div class="hero-title">Rose de Kelâa — Collection 2025</div>
+      <a href="#collection" class="hero-cta">Découvrir la fragrance</a>
+    </div>
+  </div>
+  <!-- Slide 2 -->
+  <div class="hero-slide" id="slide1">
+    <div class="hero-poster" style="background-image:url('https://images.unsplash.com/photo-1592945403407-9caf930b0b73?w=1600&q=90&auto=format&fit=crop');"></div>
+    <video class="hero-video" id="vid1" muted loop playsinline preload="none" src="https://videos.pexels.com/video-files/4498150/4498150-hd_1920_1080_25fps.mp4"></video>
+    <div class="hero-overlay"></div>
+    <div class="hero-caption">
+      <div class="hero-eyebrow">Nouveauté</div>
+      <div class="hero-title">Nuit de l'Atlas — Boisé & Ambré</div>
+      <a href="#collection" class="hero-cta">Explorer la collection</a>
+    </div>
+  </div>
+  <!-- Slide 3 -->
+  <div class="hero-slide" id="slide2">
+    <div class="hero-poster" style="background-image:url('https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?w=1600&q=90&auto=format&fit=crop');"></div>
+    <video class="hero-video" id="vid2" muted loop playsinline preload="none" src="https://videos.pexels.com/video-files/4041391/4041391-uhd_3840_2160_25fps.mp4"></video>
+    <div class="hero-overlay"></div>
+    <div class="hero-caption">
+      <div class="hero-eyebrow">Coffrets Cadeaux</div>
+      <div class="hero-title">L'Art du Cadeau Parfumé</div>
+      <a href="#collection" class="hero-cta">Voir les coffrets</a>
+    </div>
+  </div>
+  <!-- Dots -->
+  <div class="hero-dots">
+    <button class="hero-dot active" onclick="goSlide(0)"></button>
+    <button class="hero-dot" onclick="goSlide(1)"></button>
+    <button class="hero-dot" onclick="goSlide(2)"></button>
+  </div>
+</section>
+
+<!-- CATEGORY GRID — like LV "Maison" section -->
+<section class="cat-strip r" id="collection">
+  <h2 class="cat-strip-title">Maison</h2>
+  <div class="cat-grid">
+    <div class="cat-card r">
+      <div class="cat-card-img"><img src="https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=500&q=85&auto=format&fit=crop" alt="Parfums Féminins"></div>
+      <div class="cat-card-label">Parfums Féminins</div>
+    </div>
+    <div class="cat-card r d1">
+      <div class="cat-card-img"><img src="https://images.unsplash.com/photo-1592945403407-9caf930b0b73?w=500&q=85&auto=format&fit=crop" alt="Parfums Masculins"></div>
+      <div class="cat-card-label">Parfums Masculins</div>
+    </div>
+    <div class="cat-card r d2">
+      <div class="cat-card-img"><img src="https://images.unsplash.com/photo-1541643600914-78b084683702?w=500&q=85&auto=format&fit=crop" alt="Parfums Oud"></div>
+      <div class="cat-card-label">Parfums Oud</div>
+    </div>
+    <div class="cat-card r d3">
+      <div class="cat-card-img"><img src="https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?w=500&q=85&auto=format&fit=crop" alt="Coffrets Cadeaux"></div>
+      <div class="cat-card-label">Coffrets Cadeaux</div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCT GRID — like LV product listing -->
+<section class="products r" id="products">
+  <div class="products-header">
+    <h2 class="products-title">Nos Fragrances</h2>
+    <a href="#" class="products-link">Voir toute la collection →</a>
+  </div>
+  <div class="prod-grid">
+    <div class="prod-card r">
+      <div class="prod-img">
+        <img src="https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=500&q=85&auto=format&fit=crop" alt="Rose de Kelâa">
+        <span class="prod-badge">Signature</span>
+      </div>
+      <div class="prod-info">
+        <div class="prod-family">Oriental Floral</div>
+        <div class="prod-name">Rose de Kelâa</div>
+        <div class="prod-price">890,00 MAD</div>
+      </div>
+    </div>
+    <div class="prod-card r d1">
+      <div class="prod-img">
+        <img src="https://images.unsplash.com/photo-1592945403407-9caf930b0b73?w=500&q=85&auto=format&fit=crop" alt="Nuit de l'Atlas">
+      </div>
+      <div class="prod-info">
+        <div class="prod-family">Boisé Ambré</div>
+        <div class="prod-name">Nuit de l'Atlas</div>
+        <div class="prod-price">1 050,00 MAD</div>
+      </div>
+    </div>
+    <div class="prod-card r d2">
+      <div class="prod-img">
+        <img src="https://images.unsplash.com/photo-1541643600914-78b084683702?w=500&q=85&auto=format&fit=crop" alt="Brise du Détroit">
+        <span class="prod-badge">Nouveauté</span>
+      </div>
+      <div class="prod-info">
+        <div class="prod-family">Aquatique Frais</div>
+        <div class="prod-name">Brise du Détroit</div>
+        <div class="prod-price">750,00 MAD</div>
+      </div>
+    </div>
+    <div class="prod-card r d3">
+      <div class="prod-img">
+        <img src="https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?w=500&q=85&auto=format&fit=crop" alt="Ambre du Sahara">
+      </div>
+      <div class="prod-info">
+        <div class="prod-family">Oriental Chaud</div>
+        <div class="prod-name">Ambre du Sahara</div>
+        <div class="prod-price">920,00 MAD</div>
+      </div>
+    </div>
+  </div>
+  <div style="display:flex;gap:12px;justify-content:center;margin-top:40px;">
+    <a href="#" class="btn-lv-pill">Découvrir les eaux de parfum</a>
+    <a href="#" class="btn-lv-pill">Découvrir les coffrets</a>
+  </div>
+</section>
+
+<!-- EDITORIAL — like LV feature banner -->
+<section class="editorial r">
+  <div class="editorial-img">
+    <img src="https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=900&q=85&auto=format&fit=crop" alt="Collection Mirage">
+  </div>
+  <div class="editorial-body">
+    <div class="ed-eyebrow">Collection Exclusive</div>
+    <h2 class="ed-title">130 ans du<br><em>Savoir-faire</em></h2>
+    <p class="ed-body">Depuis Fès, Sillage crée des fragrances d'exception nées des trésors olfactifs du Maroc. Rose de Kelâa, oud du Sahara, ambre de l'Atlas — des ingrédients rares cueillis à la main.</p>
+    <a href="#story" class="btn-lv">Découvrir la maison</a>
+  </div>
+</section>
+
+<!-- PARFUM CATEGORIES CIRCLES — like LV parfum page -->
+<section class="circles r" id="categories">
+  <h2 class="circles-title">Tous les parfums</h2>
+  <div class="circles-grid">
+    <div class="circle-item r">
+      <div class="circle-img"><img src="https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=200&q=80&auto=format&fit=crop" alt="Parfums féminins"></div>
+      <div class="circle-label">Parfums féminins</div>
+    </div>
+    <div class="circle-item r d1">
+      <div class="circle-img"><img src="https://images.unsplash.com/photo-1592945403407-9caf930b0b73?w=200&q=80&auto=format&fit=crop" alt="Parfums masculins"></div>
+      <div class="circle-label">Parfums masculins</div>
+    </div>
+    <div class="circle-item r d2">
+      <div class="circle-img"><img src="https://images.unsplash.com/photo-1541643600914-78b084683702?w=200&q=80&auto=format&fit=crop" alt="Parfums Oud"></div>
+      <div class="circle-label">Parfums Oud</div>
+    </div>
+    <div class="circle-item r d2">
+      <div class="circle-img"><img src="https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?w=200&q=80&auto=format&fit=crop" alt="Parfums de cologne"></div>
+      <div class="circle-label">Parfums de cologne</div>
+    </div>
+    <div class="circle-item r d3">
+      <div class="circle-img"><img src="https://images.unsplash.com/photo-1615529162924-f8605388461d?w=200&q=80&auto=format&fit=crop" alt="Collection Les Extraits"></div>
+      <div class="circle-label">Collection Les Extraits</div>
+    </div>
+  </div>
+</section>
+
+<!-- EDITORIAL REVERSED -->
+<section class="editorial editorial-rev r">
+  <div class="editorial-img">
+    <img src="https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?w=900&q=85&auto=format&fit=crop" alt="Atelier Sillage">
+  </div>
+  <div class="editorial-body">
+    <div class="ed-eyebrow">Artisanat & Héritage</div>
+    <h2 class="ed-title">L'Atelier<br><em>de Fès</em></h2>
+    <p class="ed-body">Chaque flacon de Sillage est soufflé et gravé à la main dans notre atelier de Fès. Nos maîtres verriers perpétuent un savoir-faire centenaire au service de la parfumerie d'exception.</p>
+    <a href="#" class="btn-lv">Découvrir l'artisanat</a>
+  </div>
+</section>
+
+<!-- STORY -->
+<section class="story r" id="story">
+  <div class="story-inner">
+    <div class="story-eyebrow">La Maison</div>
+    <h2 class="story-title">Sillage — L'Art de<br><em>Parfumer le Monde</em></h2>
+    <p class="story-body">Fondée à Fès en 1995, Sillage est une maison de parfums marocaine qui puise son inspiration dans les trésors olfactifs du Maroc. Chaque fragrance est une invitation au voyage intérieur, une mémoire capturée dans un flacon artisanal.</p>
+    <div class="story-btns">
+      <a href="#" class="btn-lv">Notre histoire</a>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter r">
+  <div class="nl-title">Le Journal de Sillage</div>
+  <p class="nl-sub">Nouveautés, éditions limitées & rituels parfumés — recevez l'essentiel</p>
+  <div class="nl-form">
+    <input class="nl-input" type="email" placeholder="Votre adresse e-mail">
+    <button class="nl-btn">S'abonner</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-col footer-brand">
+      <a href="#top" class="footer-logo">Sillage</a>
+      <p>Maison de parfums marocaine. Fragrances d'exception depuis Fès, 1995.</p>
+      <div class="footer-socials">
+        <a class="fsoc" href="#" aria-label="Instagram"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+        <a class="fsoc" href="#" aria-label="Facebook"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+        <a class="fsoc" href="#" aria-label="X"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+        <a class="fsoc" href="#" aria-label="YouTube"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.97C18.88 4 12 4 12 4s-6.88 0-8.59.45A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.97C5.12 20 12 20 12 20s6.88 0 8.59-.45a2.78 2.78 0 0 0 1.95-1.97A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58zM9.75 15.02V8.98L15.5 12l-5.75 3.02z"/></svg></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Collection</h4>
+      <ul><li><a href="#">Eaux de parfum</a></li><li><a href="#">Eaux de toilette</a></li><li><a href="#">Parfums Oud</a></li><li><a href="#">Coffrets cadeaux</a></li><li><a href="#">Éditions limitées</a></li></ul>
+    </div>
+    <div class="footer-col">
+      <h4>La Maison</h4>
+      <ul><li><a href="#">Notre histoire</a></li><li><a href="#">Nos ingrédients</a></li><li><a href="#">L'atelier de Fès</a></li><li><a href="#">Engagements</a></li><li><a href="#">Presse</a></li></ul>
+    </div>
+    <div class="footer-col">
+      <h4>Service Client</h4>
+      <ul><li><a href="#">Contactez-nous</a></li><li><a href="#">Livraison</a></li><li><a href="#">Retours & échanges</a></li><li><a href="#">FAQ</a></li><li><a href="#">Boutiques</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Sillage. Tous droits réservés.</span>
+    <div class="footer-bottom-links">
+      <a href="#">Mentions légales</a>
+      <a href="#">Confidentialité</a>
+      <a href="#">CGV</a>
+      <a href="#">Accessibilité</a>
+    </div>
+  </div>
+</footer>
+
+<button id="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Haut de page">↑</button>
+
+<script>
+// ── Search overlay ──
+const searchOverlay = document.getElementById('searchOverlay');
+const searchInput = document.getElementById('searchInput');
+
+function openSearch() {
+  searchOverlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  setTimeout(() => searchInput.focus(), 350);
+}
+function closeSearch() {
+  searchOverlay.classList.remove('open');
+  document.body.style.overflow = '';
+  searchInput.value = '';
+}
+function setSearch(el) {
+  searchInput.value = el.textContent;
+  searchInput.focus();
+}
+document.addEventListener('keydown', e => {
+  if(e.key === 'Escape') { closeMM(); closeSearch(); }
+});
+
+// ── Mega menu ──
+const menuBtn = document.getElementById('menuBtn');
+const megaMenu = document.getElementById('megaMenu');
+menuBtn.addEventListener('click', () => megaMenu.classList.add('open'));
+function closeMM() { megaMenu.classList.remove('open'); }
+document.addEventListener('keydown', e => { if(e.key==='Escape') closeMM(); });
+
+// ── Hero slider ──
+let cur = 0, timer;
+const slides = document.querySelectorAll('.hero-slide');
+const dots = document.querySelectorAll('.hero-dot');
+const videos = document.querySelectorAll('.hero-video');
+
+function goSlide(n) {
+  slides[cur].classList.remove('active');
+  dots[cur].classList.remove('active');
+  videos[cur].pause();
+  cur = n;
+  slides[n].classList.add('active');
+  dots[n].classList.add('active');
+  const v = videos[n];
+  v.currentTime = 0;
+  v.play().catch(()=>{});
+  clearInterval(timer);
+  timer = setInterval(() => goSlide((cur + 1) % slides.length), 8000);
+}
+
+// Init
+videos[0].play().catch(()=>{});
+timer = setInterval(() => goSlide((cur + 1) % slides.length), 8000);
+
+// ── Scroll ──
+window.addEventListener('scroll', () => {
+  document.getElementById('scroll-top').classList.toggle('visible', scrollY > 400);
+});
+
+// ── Reveal ──
+const ro = new IntersectionObserver(es => es.forEach(e => {
+  if(e.isIntersecting) e.target.classList.add('v');
+}), { threshold: .07 });
+document.querySelectorAll('.r').forEach(el => ro.observe(el));
+</script>
+
+<!-- CONTACT PANEL — LV right-side -->
+<div class="contact-panel" id="contactPanel">
+  <div class="contact-overlay" onclick="closeContact()"></div>
+  <div class="contact-drawer">
+    <div class="contact-drawer-header">
+      <span class="contact-drawer-title">Contactez-nous</span>
+      <button class="contact-drawer-close" onclick="closeContact()">×</button>
+    </div>
+    <div class="contact-drawer-body">
+      <p class="contact-intro">Où que vous soyez, les conseillers Sillage seront ravis de vous aider.</p>
+      <div class="contact-methods">
+        <button class="contact-method">
+          <div class="contact-method-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.6 3.42 2 2 0 0 1 3.57 1.25h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.85A16 16 0 0 0 16 16.94l.46-.46a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </div>
+          <span class="contact-method-name">+212 5 22 00 00 00</span>
+        </button>
+        <button class="contact-method">
+          <div class="contact-method-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.997 2C6.476 2 2 6.477 2 12.002c0 1.765.458 3.42 1.261 4.858L2.05 21.947a.5.5 0 0 0 .596.637l5.305-1.272A9.986 9.986 0 0 0 12 22c5.523 0 10-4.477 10-10 0-5.522-4.477-10-10.003-10z"/></svg>
+          </div>
+          <span class="contact-method-name">WhatsApp</span>
+        </button>
+        <button class="contact-method">
+          <div class="contact-method-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <span class="contact-method-name">E-mail</span>
+        </button>
+        <button class="contact-method">
+          <div class="contact-method-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </div>
+          <span class="contact-method-name">Instagram</span>
+        </button>
+      </div>
+      <div class="contact-divider"></div>
+      <div class="contact-links">
+        <button class="contact-link">Besoin d'aide ?</button>
+        <button class="contact-link">Vos questions</button>
+        <button class="contact-link">Nos boutiques</button>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VOLTEX — Electric Supercar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,300;0,400;0,700;0,900;1,700&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --black:#050505;
+  --dark:#0d0d0d;
+  --white:#ffffff;
+  --muted:rgba(255,255,255,0.5);
+  --yellow:#F5C400;
+  --yellow2:#ffd940;
+  --border:rgba(255,255,255,0.1);
+  --ff-head:'Barlow Condensed',sans-serif;
+  --ff-body:'Barlow',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{background:var(--black);color:var(--white);font-family:var(--ff-body);overflow-x:hidden;cursor:none}
+
+/* CURSOR */
+#cur{position:fixed;z-index:9999;pointer-events:none;width:12px;height:12px;background:var(--yellow);border-radius:50%;transform:translate(-50%,-50%);transition:transform .15s,width .3s,height .3s}
+body:has(a:hover) #cur,body:has(button:hover) #cur{width:48px;height:48px;background:transparent;border:2px solid var(--yellow)}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-thumb{background:var(--yellow)}
+
+/* NAV */
+nav{
+  position:fixed;inset:0 0 auto;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:24px 64px;
+  transition:all .4s;
+}
+nav.solid{background:rgba(5,5,5,.95);backdrop-filter:blur(20px);padding:16px 64px;border-bottom:1px solid var(--border)}
+.nav-logo{font-family:var(--ff-head);font-size:22px;font-weight:900;letter-spacing:.12em;text-transform:uppercase}
+.nav-logo span{color:var(--yellow)}
+.nav-links{display:flex;gap:40px;list-style:none}
+.nav-links a{font-family:var(--ff-head);font-size:13px;font-weight:400;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .3s}
+.nav-links a:hover{color:var(--white)}
+.nav-right{display:flex;align-items:center;gap:24px}
+.nav-icon{width:38px;height:38px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:none;transition:border-color .3s;font-size:14px}
+.nav-icon:hover{border-color:var(--yellow)}
+.nav-cta{font-family:var(--ff-head);font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;background:var(--yellow);color:#000;padding:10px 24px;text-decoration:none;transition:background .3s}
+.nav-cta:hover{background:var(--yellow2)}
+
+/* ═══ HERO SLIDER ═══ */
+.hero{position:relative;height:100vh;min-height:600px;overflow:hidden}
+.slide{
+  position:absolute;inset:0;opacity:0;transition:opacity 1.2s ease;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:0 64px 80px;
+}
+.slide.active{opacity:1}
+.slide-bg{position:absolute;inset:0;background-size:cover;background-position:center;transform:scale(1.05);transition:transform 8s ease}
+.slide.active .slide-bg{transform:scale(1)}
+.slide-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(to right,rgba(5,5,5,.85) 0%,rgba(5,5,5,.3) 60%,transparent 100%)}
+.slide-content{position:relative;z-index:1;max-width:700px}
+.slide-tag{font-family:var(--ff-head);font-size:12px;font-weight:400;letter-spacing:.35em;text-transform:uppercase;color:var(--yellow);margin-bottom:20px;opacity:0;transform:translateY(20px);transition:all .8s ease .3s}
+.slide.active .slide-tag{opacity:1;transform:translateY(0)}
+.slide-title{font-family:var(--ff-head);font-size:clamp(72px,10vw,160px);font-weight:900;line-height:.9;letter-spacing:-.01em;text-transform:uppercase;margin-bottom:24px;opacity:0;transform:translateY(40px);transition:all .9s ease .4s}
+.slide.active .slide-title{opacity:1;transform:translateY(0)}
+.slide-sub{font-size:15px;font-weight:300;color:var(--muted);margin-bottom:40px;max-width:420px;line-height:1.7;opacity:0;transform:translateY(20px);transition:all .8s ease .6s}
+.slide.active .slide-sub{opacity:1;transform:translateY(0)}
+.slide-btns{display:flex;gap:16px;opacity:0;transition:opacity .8s ease .8s}
+.slide.active .slide-btns{opacity:1}
+.btn-main{font-family:var(--ff-head);font-size:13px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;background:var(--yellow);color:#000;padding:16px 44px;text-decoration:none;display:inline-block;transition:background .3s}
+.btn-main:hover{background:var(--yellow2)}
+.btn-ghost{font-family:var(--ff-head);font-size:13px;font-weight:400;letter-spacing:.2em;text-transform:uppercase;color:var(--white);border:1px solid rgba(255,255,255,.3);padding:16px 44px;text-decoration:none;display:inline-block;transition:border-color .3s}
+.btn-ghost:hover{border-color:var(--white)}
+
+/* SLIDER CONTROLS */
+.slider-nav{position:absolute;bottom:80px;right:64px;z-index:10;display:flex;align-items:center;gap:16px}
+.snav{width:44px;height:44px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:none;font-size:16px;transition:all .3s}
+.snav:hover{border-color:var(--yellow);background:var(--yellow);color:#000}
+.sdots{display:flex;gap:8px;align-items:center}
+.sdot{width:24px;height:2px;background:rgba(255,255,255,.3);cursor:none;transition:all .3s}
+.sdot.active{background:var(--yellow);width:48px}
+
+/* SCROLL INDICATOR */
+.scroll-hint{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;z-index:10}
+.scroll-hint span{font-family:var(--ff-head);font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted)}
+.scroll-line{width:1px;height:40px;background:linear-gradient(to bottom,var(--yellow),transparent);animation:scrollline 2s ease infinite}
+@keyframes scrollline{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* ═══ MODELS GRID ═══ */
+.models{background:var(--dark)}
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;padding:80px 64px 48px}
+.sec-head h2{font-family:var(--ff-head);font-size:clamp(48px,6vw,88px);font-weight:900;text-transform:uppercase;letter-spacing:-.01em;line-height:.95}
+.sec-head-right{text-align:right}
+.sec-sub{font-size:14px;font-weight:300;color:var(--muted);max-width:320px;line-height:1.8}
+.view-all{font-family:var(--ff-head);font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--yellow);text-decoration:none;display:inline-flex;align-items:center;gap:8px;margin-top:16px;transition:gap .3s}
+.view-all:hover{gap:16px}
+.view-all::after{content:'→'}
+
+.models-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:2px;background:rgba(255,255,255,.05);padding:0 0 2px}
+.model-card{position:relative;overflow:hidden;cursor:none}
+.model-card:first-child{grid-row:span 2}
+.model-img{width:100%;height:100%;object-fit:cover;display:block;min-height:300px;transition:transform .8s cubic-bezier(.16,1,.3,1);filter:brightness(.85)}
+.model-card:first-child .model-img{min-height:640px}
+.model-card:hover .model-img{transform:scale(1.06);filter:brightness(1)}
+.model-info{position:absolute;bottom:0;left:0;right:0;padding:32px 36px;background:linear-gradient(to top,rgba(5,5,5,.95) 0%,transparent 100%)}
+.model-name{font-family:var(--ff-head);font-size:32px;font-weight:900;text-transform:uppercase;letter-spacing:.02em;margin-bottom:4px}
+.model-card:first-child .model-name{font-size:52px}
+.model-type{font-family:var(--ff-head);font-size:11px;font-weight:400;letter-spacing:.3em;text-transform:uppercase;color:var(--yellow);margin-bottom:16px}
+.model-cta{font-family:var(--ff-head);font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#000;background:var(--yellow);padding:8px 20px;display:inline-block;opacity:0;transform:translateY(10px);transition:all .4s}
+.model-card:hover .model-cta{opacity:1;transform:translateY(0)}
+
+/* ═══ SPECS BAND ═══ */
+.specs-band{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.spec{padding:56px 48px;background:var(--black);text-align:center;position:relative;overflow:hidden}
+.spec::before{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--yellow);transform:scaleX(0);transition:transform .5s}
+.spec:hover::before{transform:scaleX(1)}
+.spec-num{font-family:var(--ff-head);font-size:clamp(52px,6vw,80px);font-weight:900;color:var(--white);line-height:1;letter-spacing:-.02em}
+.spec-unit{font-family:var(--ff-head);font-size:24px;font-weight:400;color:var(--yellow)}
+.spec-label{font-family:var(--ff-head);font-size:11px;font-weight:400;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);margin-top:8px}
+
+/* ═══ FEATURE SPLIT ═══ */
+.feature{display:grid;grid-template-columns:1fr 1fr;min-height:640px}
+.feat-img{position:relative;overflow:hidden}
+.feat-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 8s ease}
+.feat-img:hover img{transform:scale(1.04)}
+.feat-text{padding:80px 72px;display:flex;flex-direction:column;justify-content:center;background:var(--dark)}
+.feat-tag{font-family:var(--ff-head);font-size:11px;font-weight:400;letter-spacing:.35em;text-transform:uppercase;color:var(--yellow);margin-bottom:24px}
+.feat-title{font-family:var(--ff-head);font-size:clamp(48px,5vw,80px);font-weight:900;text-transform:uppercase;line-height:.95;letter-spacing:-.01em;margin-bottom:28px}
+.feat-title span{color:var(--yellow)}
+.feat-body{font-size:15px;font-weight:300;color:var(--muted);line-height:1.85;margin-bottom:48px;max-width:460px}
+.feat-list{display:flex;flex-direction:column;gap:0;margin-bottom:48px}
+.feat-item{display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-bottom:1px solid var(--border)}
+.feat-item-label{font-family:var(--ff-head);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.feat-item-val{font-family:var(--ff-head);font-size:18px;font-weight:700;color:var(--white)}
+
+/* FEATURE REVERSED */
+.feature.rev .feat-img{order:2}
+.feature.rev .feat-text{order:1;background:var(--black)}
+
+/* ═══ FILM/MEDIA STYLE GRID ═══ */
+.media-section{padding:80px 64px;background:var(--black)}
+.media-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--border);margin-top:48px}
+.media-card{position:relative;overflow:hidden;aspect-ratio:16/9;background:var(--dark);cursor:none}
+.media-img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s cubic-bezier(.16,1,.3,1);filter:brightness(.7)}
+.media-card:hover .media-img{transform:scale(1.08);filter:brightness(.9)}
+.media-overlay{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:24px 28px;background:linear-gradient(to top,rgba(5,5,5,.9) 0%,transparent 60%)}
+.media-cat{font-family:var(--ff-head);font-size:10px;font-weight:400;letter-spacing:.3em;text-transform:uppercase;color:var(--yellow);margin-bottom:6px}
+.media-title{font-family:var(--ff-head);font-size:22px;font-weight:700;text-transform:uppercase;letter-spacing:.02em}
+.play-btn{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:56px;height:56px;border:2px solid rgba(255,255,255,.5);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;opacity:0;transition:all .4s;background:rgba(0,0,0,.4)}
+.media-card:hover .play-btn{opacity:1;border-color:var(--yellow);background:rgba(245,196,0,.15)}
+
+/* ═══ CTA BAND — Apple style ═══ */
+.cta-dark{background:var(--dark);padding:120px 64px;text-align:center;border-top:1px solid var(--border)}
+.cta-dark h2{font-family:var(--ff-head);font-size:clamp(56px,8vw,128px);font-weight:900;text-transform:uppercase;line-height:.92;letter-spacing:-.02em;margin-bottom:24px}
+.cta-dark h2 span{color:var(--yellow)}
+.cta-dark p{font-size:16px;font-weight:300;color:var(--muted);margin-bottom:48px}
+.cta-actions{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+
+/* ═══ FOOTER ═══ */
+footer{background:var(--black);border-top:1px solid var(--border);padding:72px 64px 48px}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;gap:48px;margin-bottom:64px}
+.footer-brand{}
+.footer-logo{font-family:var(--ff-head);font-size:28px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px}
+.footer-logo span{color:var(--yellow)}
+.footer-tagline{font-size:13px;font-weight:300;color:var(--muted);line-height:1.8;max-width:260px}
+.footer-col h4{font-family:var(--ff-head);font-size:11px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--yellow);margin-bottom:24px}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:12px}
+.footer-col a{font-size:13px;font-weight:300;color:var(--muted);text-decoration:none;transition:color .3s}
+.footer-col a:hover{color:var(--white)}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:40px;border-top:1px solid var(--border)}
+.footer-copy{font-size:12px;font-weight:300;color:rgba(255,255,255,.25);letter-spacing:.08em}
+.footer-socials{display:flex;gap:20px}
+.soc{width:36px;height:36px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--muted);transition:all .3s;text-decoration:none}
+.soc:hover{border-color:var(--yellow);color:var(--yellow)}
+
+/* REVEAL */
+.r{opacity:0;transform:translateY(36px);transition:opacity .85s ease,transform .85s ease}
+.r.v{opacity:1;transform:translateY(0)}
+
+/* RESPONSIVE */
+@media(max-width:1024px){
+  nav{padding:20px 32px}nav.solid{padding:14px 32px}
+  .slide{padding:0 32px 72px}
+  .sec-head{padding:64px 32px 40px;flex-direction:column;gap:24px;align-items:flex-start}
+  .sec-head-right{text-align:left}
+  .models-grid{grid-template-columns:1fr 1fr}
+  .model-card:first-child{grid-column:span 2;grid-row:span 1}
+  .model-card:first-child .model-img{min-height:400px}
+  .specs-band{grid-template-columns:1fr 1fr}
+  .feature{grid-template-columns:1fr}
+  .feature.rev .feat-img,.feature.rev .feat-text{order:unset}
+  .feat-img{min-height:400px}
+  .feat-text{padding:64px 32px}
+  .media-section{padding:64px 32px}
+  .media-grid{grid-template-columns:1fr}
+  .cta-dark{padding:80px 32px}
+  footer{padding:56px 32px 40px}
+  .footer-top{grid-template-columns:1fr 1fr}
+  .slider-nav{right:32px;bottom:64px}
+}
+@media(max-width:640px){
+  .nav-links{display:none}
+  .models-grid{grid-template-columns:1fr}
+  .model-card:first-child{grid-column:span 1}
+  .specs-band{grid-template-columns:1fr 1fr}
+  .footer-top{grid-template-columns:1fr}
+  .footer-bottom{flex-direction:column;gap:16px}
+  .cta-actions{flex-direction:column;align-items:center}
+}
+</style>
+</head>
+<body>
+
+<div id="cur"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-logo">VOL<span>T</span>EX</div>
+  <ul class="nav-links">
+    <li><a href="#models">Models</a></li>
+    <li><a href="#technology">Technology</a></li>
+    <li><a href="#media">Media</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="nav-icon">⟳</div>
+    <div class="nav-icon">☰</div>
+    <a href="#contact" class="nav-cta">Configure</a>
+  </div>
+</nav>
+
+<!-- ═══ HERO SLIDER ═══ -->
+<section class="hero">
+  <!-- Slide 1 -->
+  <div class="slide active" id="slide-0">
+    <div class="slide-bg" style="background-image:url('https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=1920&q=90&auto=format&fit=crop')"></div>
+    <div class="slide-content">
+      <div class="slide-tag">New Model 2025</div>
+      <h1 class="slide-title">VOLT<br>XTREME</h1>
+      <p class="slide-sub">1,200 hp. 0–100 km/h in 2.4 seconds. The future of performance, now electric.</p>
+      <div class="slide-btns">
+        <a href="#" class="btn-main">Configure Now</a>
+        <a href="#" class="btn-ghost">Explore Model</a>
+      </div>
+    </div>
+  </div>
+  <!-- Slide 2 -->
+  <div class="slide" id="slide-1">
+    <div class="slide-bg" style="background-image:url('https://images.unsplash.com/photo-1621508638997-e30808c10653?w=1920&q=90&auto=format&fit=crop')"></div>
+    <div class="slide-content">
+      <div class="slide-tag">Limited Edition</div>
+      <h1 class="slide-title">APEX<br>GT</h1>
+      <p class="slide-sub">Only 50 units worldwide. Hand-crafted for those who refuse to compromise.</p>
+      <div class="slide-btns">
+        <a href="#" class="btn-main">Reserve Yours</a>
+        <a href="#" class="btn-ghost">View Gallery</a>
+      </div>
+    </div>
+  </div>
+  <!-- Slide 3 -->
+  <div class="slide" id="slide-2">
+    <div class="slide-bg" style="background-image:url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1920&q=90&auto=format&fit=crop')"></div>
+    <div class="slide-content">
+      <div class="slide-tag">Track Edition</div>
+      <h1 class="slide-title">STORM<br>RS</h1>
+      <p class="slide-sub">Born on the track. Built for the road. Every detail engineered for one purpose: pure performance.</p>
+      <div class="slide-btns">
+        <a href="#" class="btn-main">Discover More</a>
+        <a href="#" class="btn-ghost">Watch Trailer</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Controls -->
+  <div class="slider-nav">
+    <button class="snav" id="prev" onclick="changeSlide(-1)">&#8592;</button>
+    <div class="sdots">
+      <div class="sdot active" onclick="goSlide(0)"></div>
+      <div class="sdot" onclick="goSlide(1)"></div>
+      <div class="sdot" onclick="goSlide(2)"></div>
+    </div>
+    <button class="snav" id="next" onclick="changeSlide(1)">&#8594;</button>
+  </div>
+  <div class="scroll-hint"><span>Scroll</span><div class="scroll-line"></div></div>
+</section>
+
+<!-- ═══ MODELS ═══ -->
+<section id="models">
+  <div class="sec-head r">
+    <h2>OUR<br>MODELS</h2>
+    <div class="sec-head-right">
+      <p class="sec-sub">Three distinct personalities. One uncompromising obsession with performance and design.</p>
+      <a href="#" class="view-all">View All Models</a>
+    </div>
+  </div>
+  <div class="models-grid">
+    <div class="model-card r">
+      <img class="model-img" src="https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=900&q=85&auto=format&fit=crop" alt="XTREME">
+      <div class="model-info">
+        <div class="model-type">Electric Hypercar</div>
+        <div class="model-name">VOLT XTREME</div>
+        <a href="#" class="model-cta">Configure →</a>
+      </div>
+    </div>
+    <div class="model-card r" style="transition-delay:.1s">
+      <img class="model-img" src="https://images.unsplash.com/photo-1621508638997-e30808c10653?w=700&q=80&auto=format&fit=crop" alt="GT">
+      <div class="model-info">
+        <div class="model-type">Grand Tourer</div>
+        <div class="model-name">APEX GT</div>
+        <a href="#" class="model-cta">Configure →</a>
+      </div>
+    </div>
+    <div class="model-card r" style="transition-delay:.2s">
+      <img class="model-img" src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=700&q=80&auto=format&fit=crop" alt="Storm">
+      <div class="model-info">
+        <div class="model-type">Track Edition</div>
+        <div class="model-name">STORM RS</div>
+        <a href="#" class="model-cta">Configure →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SPECS ═══ -->
+<div class="specs-band r">
+  <div class="spec"><div class="spec-num">1,200<span class="spec-unit">hp</span></div><div class="spec-label">Peak Power</div></div>
+  <div class="spec"><div class="spec-num">2.4<span class="spec-unit">s</span></div><div class="spec-label">0–100 km/h</div></div>
+  <div class="spec"><div class="spec-num">380<span class="spec-unit">km/h</span></div><div class="spec-label">Top Speed</div></div>
+  <div class="spec"><div class="spec-num">620<span class="spec-unit">km</span></div><div class="spec-label">Range (WLTP)</div></div>
+</div>
+
+<!-- ═══ FEATURE 1 ═══ -->
+<section class="feature" id="technology">
+  <div class="feat-img">
+    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&q=85&auto=format&fit=crop" alt="Technology">
+  </div>
+  <div class="feat-text r">
+    <div class="feat-tag">— Technology</div>
+    <h2 class="feat-title">BORN FROM<br><span>RACING</span><br>DNA</h2>
+    <p class="feat-body">Every component in the VOLTEX powertrain draws from a decade of Formula circuit racing. The result is an electric drivetrain that doesn't compromise — it dominates.</p>
+    <div class="feat-list">
+      <div class="feat-item"><span class="feat-item-label">Powertrain</span><span class="feat-item-val">Quad-Motor AWD</span></div>
+      <div class="feat-item"><span class="feat-item-label">Battery</span><span class="feat-item-val">120 kWh Solid-State</span></div>
+      <div class="feat-item"><span class="feat-item-label">Charging</span><span class="feat-item-val">350 kW DC Fast</span></div>
+      <div class="feat-item"><span class="feat-item-label">Chassis</span><span class="feat-item-val">Carbon Fibre Monocoque</span></div>
+    </div>
+    <a href="#" class="btn-main" style="align-self:flex-start">Explore Technology</a>
+  </div>
+</section>
+
+<!-- ═══ FEATURE 2 REVERSED ═══ -->
+<section class="feature rev">
+  <div class="feat-img">
+    <img src="https://images.unsplash.com/photo-1612825173281-9a193378527e?w=900&q=85&auto=format&fit=crop" alt="Design">
+  </div>
+  <div class="feat-text r">
+    <div class="feat-tag">— Design Philosophy</div>
+    <h2 class="feat-title">ART<br>IN<br><span>MOTION</span></h2>
+    <p class="feat-body">The VOLTEX exterior is sculpted by aerodynamic necessity and artistic ambition in equal measure. Every surface, every line serves both form and function at speeds above 300 km/h.</p>
+    <a href="#" class="btn-ghost" style="align-self:flex-start;margin-top:8px">View Design Gallery</a>
+  </div>
+</section>
+
+<!-- ═══ MEDIA / VIDEO ═══ -->
+<section class="media-section r" id="media">
+  <div class="sec-head" style="padding:0 0 48px">
+    <h2>MEDIA<br>CENTER</h2>
+    <div class="sec-head-right"><a href="#" class="view-all">All Videos</a></div>
+  </div>
+  <div class="media-grid">
+    <div class="media-card">
+      <img class="media-img" src="https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=700&q=80&auto=format&fit=crop" alt="">
+      <div class="media-overlay">
+        <div class="media-cat">Official Film</div>
+        <div class="media-title">XTREME — OFFICIAL REVEAL</div>
+      </div>
+      <div class="play-btn">▶</div>
+    </div>
+    <div class="media-card">
+      <img class="media-img" src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=700&q=80&auto=format&fit=crop" alt="">
+      <div class="media-overlay">
+        <div class="media-cat">Track Day</div>
+        <div class="media-title">STORM RS — NÜRBURGRING LAP</div>
+      </div>
+      <div class="play-btn">▶</div>
+    </div>
+    <div class="media-card">
+      <img class="media-img" src="https://images.unsplash.com/photo-1580414057403-c5f451f30e1c?w=700&q=80&auto=format&fit=crop" alt="">
+      <div class="media-overlay">
+        <div class="media-cat">Behind the Scenes</div>
+        <div class="media-title">BUILDING THE APEX GT</div>
+      </div>
+      <div class="play-btn">▶</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CTA ═══ -->
+<section class="cta-dark r" id="contact">
+  <h2>DRIVE<br>THE <span>FUTURE</span><br>TODAY.</h2>
+  <p>Book a private test drive or configure your VOLTEX online.</p>
+  <div class="cta-actions">
+    <a href="#" class="btn-main">Book a Test Drive</a>
+    <a href="#" class="btn-ghost">Configure Online</a>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="footer-logo">VOL<span>T</span>EX</div>
+      <p class="footer-tagline">The future of performance. Engineered without compromise. Electric without apology.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Models</h4>
+      <ul>
+        <li><a href="#">Volt Xtreme</a></li>
+        <li><a href="#">Apex GT</a></li>
+        <li><a href="#">Storm RS</a></li>
+        <li><a href="#">Configure</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Technology</a></li>
+        <li><a href="#">Sustainability</a></li>
+        <li><a href="#">Careers</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Media</h4>
+      <ul>
+        <li><a href="#">News</a></li>
+        <li><a href="#">Press Kit</a></li>
+        <li><a href="#">Videos</a></li>
+        <li><a href="#">Gallery</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Support</h4>
+      <ul>
+        <li><a href="#">Find a Dealer</a></li>
+        <li><a href="#">Test Drive</a></li>
+        <li><a href="#">Contact Us</a></li>
+        <li><a href="#">Owners</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2025 VOLTEX Automobiles. All rights reserved.</span>
+    <div class="footer-socials">
+      <a class="soc" href="#">in</a>
+      <a class="soc" href="#">yt</a>
+      <a class="soc" href="#">ig</a>
+      <a class="soc" href="#">𝕏</a>
+    </div>
+    <span class="footer-copy">Privacy · Legal · Cookies</span>
+  </div>
+</footer>
+
+<script>
+// Cursor
+const cur = document.getElementById('cur');
+document.addEventListener('mousemove', e => { cur.style.left = e.clientX+'px'; cur.style.top = e.clientY+'px'; });
+
+// Nav scroll
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('solid', scrollY > 60));
+
+// Hero Slider
+let current = 0;
+const slides = document.querySelectorAll('.slide');
+const dots = document.querySelectorAll('.sdot');
+let autoplay = setInterval(() => changeSlide(1), 6000);
+
+function goSlide(n) {
+  slides[current].classList.remove('active');
+  dots[current].classList.remove('active');
+  current = n;
+  slides[current].classList.add('active');
+  dots[current].classList.add('active');
+  clearInterval(autoplay);
+  autoplay = setInterval(() => changeSlide(1), 6000);
+}
+function changeSlide(dir) {
+  goSlide((current + dir + slides.length) % slides.length);
+}
+
+// Scroll reveal
+const ro = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('v'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.r').forEach(el => ro.observe(el));
+</script>
+</body>
+</html>

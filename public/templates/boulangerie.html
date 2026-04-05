@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MAISON PAIN — Boulangerie Artisanale</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,200;0,400;0,700;1,200;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0e0b07;--bg2:#171209;--bg3:#201a0e;
+  --txt:#f5ede0;--txt2:rgba(245,237,224,.52);--txt3:rgba(245,237,224,.26);
+  --border:rgba(255,255,255,.07);--border2:rgba(210,165,100,.2);
+  --accent:#d2a564;--accent2:#e8bf88;
+  --ff-h:'Fraunces',Georgia,serif;--ff-b:'Inter',sans-serif;
+  --nav-h:60px;--tr:.3s ease;
+}
+[data-theme="light"]{--bg:#fdf8f0;--bg2:#fff;--bg3:#f7f0e4;--txt:#0e0b07;--txt2:rgba(14,11,7,.52);--txt3:rgba(14,11,7,.26);--border:rgba(0,0,0,.07);--border2:rgba(210,165,100,.25);}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--txt);font-family:var(--ff-b);overflow-x:hidden;line-height:1.7;}
+img{display:block;max-width:100%;}a{color:inherit;text-decoration:none;}
+::-webkit-scrollbar{width:2px;}::-webkit-scrollbar-thumb{background:var(--accent);}
+
+nav{position:fixed;inset:0 0 auto;z-index:500;height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;padding:0 48px;transition:all var(--tr);}
+nav.scrolled{background:rgba(14,11,7,.96);backdrop-filter:blur(14px);border-bottom:1px solid var(--border2);}
+.nav-logo{font-family:var(--ff-h);font-size:18px;font-weight:200;font-style:italic;color:var(--txt);}
+.nav-logo strong{font-weight:700;font-style:normal;color:var(--accent);}
+.nav-links{display:flex;gap:4px;list-style:none;}
+.nav-links a{font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.6);padding:6px 12px;transition:all var(--tr);}
+.nav-links a:hover{color:#fff;background:rgba(255,255,255,.08);}
+nav.scrolled .nav-links a{color:var(--txt2);}nav.scrolled .nav-links a:hover{color:var(--txt);}
+.nav-right{display:flex;align-items:center;gap:8px;}
+.nav-icon{width:34px;height:34px;border:1px solid rgba(255,255,255,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;background:none;cursor:pointer;color:rgba(255,255,255,.6);transition:all var(--tr);}
+nav.scrolled .nav-icon{border-color:var(--border2);color:var(--txt2);}
+.nav-icon:hover{border-color:var(--accent);color:var(--accent);}
+.nav-order{font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;padding:9px 20px;background:var(--accent);color:#0e0b07;transition:opacity var(--tr);}
+.nav-order:hover{opacity:.85;}
+@media(max-width:1024px){.nav-links{display:none;}}
+
+/* HERO */
+.hero{position:relative;height:100vh;min-height:640px;overflow:hidden;display:flex;align-items:flex-end;}
+.hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;transition:opacity .8s ease;}
+.hero-poster{position:absolute;inset:0;z-index:0;background-size:cover;background-position:center;}
+.hero-glow{position:absolute;bottom:0;left:0;right:0;height:55%;z-index:1;background:radial-gradient(ellipse at 30% 100%,rgba(210,165,100,.12) 0%,transparent 60%);}
+/* OVERLAY transparent — gradient bottom only */
+.hero-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(to top,rgba(14,11,7,.92) 0%,rgba(14,11,7,.38) 45%,rgba(14,11,7,.08) 75%,transparent 100%);}
+.hero-content{position:relative;z-index:2;padding:0 56px 110px;max-width:720px;}
+.hero-tag{font-size:10px;font-weight:600;letter-spacing:.3em;text-transform:uppercase;color:var(--accent);margin-bottom:18px;display:flex;align-items:center;gap:10px;}
+.hero-tag::before{content:'';width:22px;height:1px;background:var(--accent);}
+.hero-title{font-family:var(--ff-h);font-size:clamp(56px,8vw,118px);font-weight:200;line-height:.88;color:#fff;margin-bottom:20px;}
+.hero-title em{font-style:italic;color:var(--accent);}
+.hero-title strong{font-weight:700;}
+.hero-desc{font-size:14px;font-weight:300;color:rgba(255,255,255,.52);max-width:400px;line-height:1.9;margin-bottom:30px;}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;}
+.btn{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;padding:13px 26px;cursor:pointer;transition:all var(--tr);border:none;}
+.btn-warm{background:var(--accent);color:#0e0b07;}.btn-warm:hover{background:var(--accent2);}
+.btn-wire{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.3);}.btn-wire:hover{border-color:var(--accent);color:var(--accent);}
+.btn-dark{background:var(--txt);color:var(--bg);}.btn-dark:hover{opacity:.85;}
+
+/* SLIDER NAV */
+.hero-slider-nav{position:absolute;bottom:0;left:0;right:0;z-index:3;display:flex;justify-content:center;padding:0 56px 20px;pointer-events:none;}
+.hdot{pointer-events:all;background:transparent;border:none;border-bottom:2px solid rgba(255,255,255,.22);padding:10px 24px 8px;cursor:pointer;min-width:150px;text-align:left;transition:border-color var(--tr);}
+.hdot.active{border-bottom-color:#fff;}
+.hdot-title{font-family:var(--ff-h);font-size:12px;font-style:italic;color:rgba(255,255,255,.42);white-space:nowrap;transition:color var(--tr);}
+.hdot.active .hdot-title{color:#fff;}
+.hdot-date{font-size:9px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.28);margin-top:2px;}
+.hdot.active .hdot-date{color:rgba(255,255,255,.55);}
+.hdot-bar{height:2px;background:rgba(255,255,255,.1);margin-top:6px;overflow:hidden;}
+.hdot-progress{height:100%;width:0;background:var(--accent);}
+.hdot.active .hdot-progress{transition:width 8s linear;width:100%;}
+
+/* PRODUCTS */
+.products{padding:80px 48px;}
+.sh{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:32px;flex-wrap:wrap;gap:12px;}
+.sh-eye{font-size:9px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--accent);margin-bottom:6px;}
+.sh-title{font-family:var(--ff-h);font-size:clamp(28px,3.8vw,46px);font-weight:300;line-height:1.05;color:var(--txt);}
+.sh-title em{font-style:italic;}
+.sh-link{font-size:10px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--txt3);border-bottom:1px solid var(--border2);padding-bottom:2px;transition:all var(--tr);}
+.sh-link:hover{color:var(--accent);border-color:var(--accent);}
+.prod-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;}
+.prod{background:var(--bg3);cursor:pointer;}
+.prod-img{overflow:hidden;aspect-ratio:1/1;position:relative;}
+.prod-img img{width:100%;height:100%;object-fit:cover;filter:brightness(.9);transition:transform .7s,filter .5s;}
+.prod:hover .prod-img img{transform:scale(1.07);filter:brightness(1);}
+.prod-badge{position:absolute;top:10px;left:10px;font-size:8px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:4px 10px;background:var(--accent);color:#0e0b07;}
+.prod-info{padding:14px 14px 16px;}
+.prod-name{font-family:var(--ff-h);font-size:15px;font-weight:300;font-style:italic;color:var(--txt);margin-bottom:3px;}
+.prod-desc{font-size:11px;font-weight:300;color:var(--txt2);margin-bottom:8px;}
+.prod-footer{display:flex;align-items:center;justify-content:space-between;}
+.prod-price{font-size:13px;font-weight:600;color:var(--accent);}
+.prod-add{font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--txt3);border:1px solid var(--border2);padding:5px 11px;transition:all var(--tr);}
+.prod:hover .prod-add{border-color:var(--accent);color:var(--accent);}
+
+/* SAVOIR-FAIRE */
+.savoir{padding:80px 48px;background:var(--bg2);}
+.sv-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;}
+.sv-img img{width:100%;aspect-ratio:4/5;object-fit:cover;filter:brightness(.85);}
+.sv-steps{display:flex;flex-direction:column;margin-top:24px;}
+.sv-step{display:flex;gap:16px;padding:16px 0;border-bottom:1px solid var(--border);}
+.sv-n{font-family:var(--ff-h);font-size:26px;font-style:italic;color:var(--border2);flex-shrink:0;width:30px;line-height:1;transition:color var(--tr);}
+.sv-step:hover .sv-n{color:var(--accent);}
+.sv-step-name{font-size:13px;font-weight:600;color:var(--txt);margin-bottom:2px;}
+.sv-step-desc{font-size:11px;font-weight:300;color:var(--txt2);}
+
+/* SPECIALITES */
+.specialites{padding:80px 48px;}
+.spec-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:2px;margin-top:32px;}
+.spec-card{position:relative;overflow:hidden;cursor:pointer;}
+.spec-card img{width:100%;height:100%;object-fit:cover;filter:brightness(.58);transition:all .7s;}
+.spec-card.main{aspect-ratio:4/5;}
+.spec-card.sm{aspect-ratio:3/4;}
+.spec-card:hover img{transform:scale(1.05);filter:brightness(.78);}
+.spec-over{position:absolute;inset:0;background:linear-gradient(to top,rgba(14,11,7,.9) 0%,transparent 55%);}
+.spec-info{position:absolute;bottom:0;left:0;right:0;padding:18px 16px;}
+.spec-name{font-family:var(--ff-h);font-size:clamp(15px,2vw,20px);font-style:italic;color:#fff;margin-bottom:3px;}
+.spec-price{font-size:11px;font-weight:600;color:var(--accent);}
+
+/* COMMANDE */
+.commande{padding:80px 48px;background:var(--bg3);text-align:center;}
+.cmd-inner{max-width:520px;margin:0 auto;}
+.cmd-icon{font-size:30px;margin-bottom:14px;opacity:.55;}
+.cmd-title{font-family:var(--ff-h);font-size:clamp(30px,4vw,52px);font-weight:200;color:var(--txt);margin-bottom:8px;}
+.cmd-title em{font-style:italic;color:var(--accent);}
+.cmd-sub{font-size:13px;font-weight:300;color:var(--txt2);margin-bottom:26px;}
+.cmd-form{display:flex;gap:0;margin-bottom:10px;}
+.cmd-in{flex:1;background:var(--bg2);border:1px solid var(--border2);border-right:none;color:var(--txt);font-family:var(--ff-b);font-size:12px;padding:14px 16px;outline:none;}
+.cmd-in::placeholder{color:var(--txt3);}
+.cmd-btn{background:var(--accent);color:#0e0b07;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:14px 20px;border:none;cursor:pointer;white-space:nowrap;}
+.cmd-btn:hover{background:var(--accent2);}
+
+footer{background:var(--bg2);border-top:1px solid var(--border2);padding:48px 48px 24px;}
+.footer-top{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:40px;margin-bottom:32px;}
+.fb-logo{font-family:var(--ff-h);font-size:17px;font-weight:200;font-style:italic;color:var(--txt);display:block;margin-bottom:10px;}
+.fb-logo strong{font-weight:700;font-style:normal;color:var(--accent);}
+.footer-brand p{font-size:11px;color:var(--txt2);line-height:1.85;max-width:200px;margin-bottom:14px;}
+.footer-socials{display:flex;gap:8px;}
+.fsoc{width:30px;height:30px;border:1px solid var(--border2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--txt2);transition:all var(--tr);}
+.fsoc:hover{border-color:var(--accent);color:var(--accent);}
+.footer-col h4{font-size:9px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--txt);margin-bottom:12px;}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:7px;}
+.footer-col a{font-size:11px;color:var(--txt2);transition:color var(--tr);}
+.footer-col a:hover{color:var(--accent);}
+.footer-bottom{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;padding-top:22px;border-top:1px solid var(--border);font-size:10px;color:var(--txt3);}
+
+#scroll-top{position:fixed;bottom:24px;right:24px;z-index:600;width:38px;height:38px;background:var(--accent);color:#0e0b07;border:none;font-size:15px;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;pointer-events:none;transform:translateY(10px);transition:all var(--tr);}
+#scroll-top.visible{opacity:1;pointer-events:all;transform:translateY(0);}
+.r{opacity:0;transform:translateY(22px);transition:opacity .7s,transform .7s;}
+.r.v{opacity:1;transform:translateY(0);}
+.r.d1{transition-delay:.1s;}.r.d2{transition-delay:.2s;}
+@media(max-width:1024px){
+  nav,.products,.savoir,.specialites,.commande,footer{padding-left:24px;padding-right:24px;}
+  .prod-grid{grid-template-columns:1fr 1fr;}
+  .sv-grid{grid-template-columns:1fr;gap:28px;}
+  .spec-grid{grid-template-columns:1fr 1fr;}.spec-card.main{grid-column:span 2;aspect-ratio:16/9;}
+  .footer-top{grid-template-columns:1fr 1fr;}
+  .hero-slider-nav{padding:0 24px 20px;}
+}
+@media(max-width:640px){
+  .spec-grid{grid-template-columns:1fr;}.spec-card.main{grid-column:span 1;}
+  .footer-top{grid-template-columns:1fr;}.cmd-form{flex-direction:column;}.hero-slider-nav{display:none;}
+}
+</style>
+</head>
+<body id="top">
+<nav id="nav">
+  <a href="#top" class="nav-logo"><strong>Maison</strong> Pain</a>
+  <ul class="nav-links">
+    <li><a href="#products">Nos Créations</a></li>
+    <li><a href="#savoir">Savoir-faire</a></li>
+    <li><a href="#specialites">Spécialités</a></li>
+    <li><a href="#commande">Commander</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="nav-icon" id="theme-btn" aria-label="Theme">
+      <svg id="ico-sun" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg>
+      <svg id="ico-moon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+    <a href="#commande" class="nav-order">Commander</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-poster" id="hPoster" style="background-image:url('https://images.unsplash.com/photo-1509440159596-0249088772ff?w=1600&q=85&auto=format&fit=crop');"></div>
+  <video class="hero-video" id="hVideo" autoplay muted loop playsinline preload="none"></video>
+  <div class="hero-glow"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-tag" id="hTag">Boulangerie artisanale depuis 1987</div>
+    <h1 class="hero-title" id="hTitle"><strong>L'Art</strong><br><em>du Pain</em></h1>
+    <p class="hero-desc" id="hDesc">Farine d'origine locale, levain naturel, cuisson au four à bois. Chaque pain est une œuvre de patience.</p>
+    <div class="hero-btns">
+      <a href="#products" class="btn btn-warm">Voir nos créations</a>
+      <a href="#commande" class="btn btn-wire">Commander →</a>
+    </div>
+  </div>
+  <div class="hero-slider-nav">
+    <button class="hdot active" onclick="goHero(0)"><div class="hdot-title">Pains au Levain</div><div class="hdot-date">Tradition · Terroir</div><div class="hdot-bar"><div class="hdot-progress"></div></div></button>
+    <button class="hdot" onclick="goHero(1)"><div class="hdot-title">Viennoiseries</div><div class="hdot-date">Pur beurre · Feuilleté</div><div class="hdot-bar"><div class="hdot-progress"></div></div></button>
+    <button class="hdot" onclick="goHero(2)"><div class="hdot-title">Pâtisseries</div><div class="hdot-date">Créations du Chef</div><div class="hdot-bar"><div class="hdot-progress"></div></div></button>
+  </div>
+</section>
+
+<section class="products r" id="products">
+  <div class="sh"><div><div class="sh-eye">Frais du jour</div><div class="sh-title">Nos <em>Créations</em></div></div><a href="#" class="sh-link">Voir tout →</a></div>
+  <div class="prod-grid">
+    <div class="prod r"><div class="prod-img"><img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?w=500&q=80&auto=format&fit=crop" alt=""><span class="prod-badge">Signature</span></div><div class="prod-info"><div class="prod-name">Pain au levain traditionnel</div><div class="prod-desc">Farine T65, levain naturel, 24h fermentation</div><div class="prod-footer"><span class="prod-price">28 MAD</span><span class="prod-add">Ajouter</span></div></div></div>
+    <div class="prod r d1"><div class="prod-img"><img src="https://images.unsplash.com/photo-1586444248902-2f64eddc13df?w=500&q=80&auto=format&fit=crop" alt=""></div><div class="prod-info"><div class="prod-name">Croissant pur beurre</div><div class="prod-desc">Beurre AOC, feuilletage artisanal</div><div class="prod-footer"><span class="prod-price">14 MAD</span><span class="prod-add">Ajouter</span></div></div></div>
+    <div class="prod r d2"><div class="prod-img"><img src="https://images.unsplash.com/photo-1568471173242-461f0a730452?w=500&q=80&auto=format&fit=crop" alt=""></div><div class="prod-info"><div class="prod-name">Tarte aux fruits</div><div class="prod-desc">Crème pâtissière maison, fruits frais</div><div class="prod-footer"><span class="prod-price">65 MAD</span><span class="prod-add">Ajouter</span></div></div></div>
+    <div class="prod r d2"><div class="prod-img"><img src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=500&q=80&auto=format&fit=crop" alt=""></div><div class="prod-info"><div class="prod-name">Éclair Valrhona</div><div class="prod-desc">Ganache 70%, glaçage miroir</div><div class="prod-footer"><span class="prod-price">22 MAD</span><span class="prod-add">Ajouter</span></div></div></div>
+  </div>
+</section>
+
+<section class="savoir r" id="savoir">
+  <div class="sv-grid">
+    <div><img src="https://images.unsplash.com/photo-1530610476181-d83430b64dcd?w=700&q=80&auto=format&fit=crop" alt=""></div>
+    <div class="r d1">
+      <div class="sh-eye">Notre méthode</div>
+      <h2 class="sh-title">Le <em>Savoir-faire</em></h2>
+      <div class="sv-steps">
+        <div class="sv-step"><div class="sv-n">1</div><div><div class="sv-step-name">Sélection des farines</div><div class="sv-step-desc">Farine de blé locale, moulins partenaires depuis 30 ans</div></div></div>
+        <div class="sv-step"><div class="sv-n">2</div><div><div class="sv-step-name">Levain naturel</div><div class="sv-step-desc">Notre levain a 20 ans — nourri chaque jour avec soin</div></div></div>
+        <div class="sv-step"><div class="sv-n">3</div><div><div class="sv-step-name">Fermentation lente</div><div class="sv-step-desc">12 à 48h selon les recettes pour développer les arômes</div></div></div>
+        <div class="sv-step"><div class="sv-n">4</div><div><div class="sv-step-name">Cuisson au four à bois</div><div class="sv-step-desc">Temperature maîtrisée, croûte parfaite, mie alvéolée</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="specialites r" id="specialites">
+  <div class="sh"><div><div class="sh-eye">À l'honneur</div><div class="sh-title">Nos <em>Spécialités</em></div></div></div>
+  <div class="spec-grid">
+    <div class="spec-card main"><img src="https://images.unsplash.com/photo-1586444248902-2f64eddc13df?w=700&q=80&auto=format&fit=crop" alt=""><div class="spec-over"></div><div class="spec-info"><div class="spec-name">Croissants & Viennoiseries</div><div class="spec-price">à partir de 12 MAD</div></div></div>
+    <div class="spec-card sm"><img src="https://images.unsplash.com/photo-1568471173242-461f0a730452?w=500&q=80&auto=format&fit=crop" alt=""><div class="spec-over"></div><div class="spec-info"><div class="spec-name">Tartes & Gâteaux</div><div class="spec-price">à partir de 55 MAD</div></div></div>
+    <div class="spec-card sm"><img src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=500&q=80&auto=format&fit=crop" alt=""><div class="spec-over"></div><div class="spec-info"><div class="spec-name">Pâtisserie Fine</div><div class="spec-price">à partir de 18 MAD</div></div></div>
+  </div>
+</section>
+
+<section class="commande r" id="commande">
+  <div class="cmd-inner">
+    <div class="cmd-icon">🥐</div>
+    <h2 class="cmd-title">Commander<br><em>en ligne</em></h2>
+    <p class="cmd-sub">Commandez avant 20h pour retrait ou livraison le lendemain dès 7h.</p>
+    <div class="cmd-form">
+      <input class="cmd-in" type="email" placeholder="Votre e-mail pour suivre votre commande">
+      <button class="cmd-btn">Commencer →</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a href="#top" class="fb-logo"><strong>Maison</strong> Pain</a>
+      <p>Boulangerie artisanale au levain naturel. Pain, viennoiseries et pâtisseries faits main chaque matin.</p>
+      <div class="footer-socials"><a class="fsoc" href="#">f</a><a class="fsoc" href="#">📷</a><a class="fsoc" href="#">▶</a></div>
+    </div>
+    <div class="footer-col"><h4>Produits</h4><ul><li><a href="#">Pains</a></li><li><a href="#">Viennoiseries</a></li><li><a href="#">Pâtisseries</a></li><li><a href="#">Commandes spéciales</a></li></ul></div>
+    <div class="footer-col"><h4>Horaires</h4><ul><li><a href="#">Lun–Sam : 6h–19h30</a></li><li><a href="#">Dim : 6h–13h</a></li><li><a href="#">+212 5 22 00 00</a></li><li><a href="#">12 Rue du Four</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><span>© 2025 Maison Pain.</span><span>Fait avec ♥ à Casablanca</span></div>
+</footer>
+<button id="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<script>
+const heroData=[
+  {tag:'Boulangerie artisanale depuis 1987',title:'<strong>L\'Art</strong><br><em>du Pain</em>',desc:'Farine d\'origine locale, levain naturel, cuisson au four à bois.',video:'https://videos.pexels.com/video-files/5838287/5838287-hd_1920_1080_25fps.mp4',poster:'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=1600&q=85&auto=format&fit=crop'},
+  {tag:'Viennoiseries · Pur beurre',title:'<em>Croissants</em><br><strong>& Viennoiseries</strong>',desc:'Feuilletage artisanal, beurre AOC. Chaque matin, dorés à la perfection.',video:'https://videos.pexels.com/video-files/5838287/5838287-hd_1920_1080_25fps.mp4',poster:'https://images.unsplash.com/photo-1586444248902-2f64eddc13df?w=1600&q=85&auto=format&fit=crop'},
+  {tag:'Pâtisserie Fine · Créations du Chef',title:'<strong>Pâtisseries</strong><br><em>d\'Exception</em>',desc:'Tartes, éclairs, entremets. Des créations raffinées pour chaque occasion.',video:'https://videos.pexels.com/video-files/5838287/5838287-hd_1920_1080_25fps.mp4',poster:'https://images.unsplash.com/photo-1568471173242-461f0a730452?w=1600&q=85&auto=format&fit=crop'},
+];
+let hCur=0,hTimer;
+const hVideo=document.getElementById('hVideo');
+const hPoster=document.getElementById('hPoster');
+hVideo.style.transition='opacity .8s ease';
+function goHero(n){
+  document.querySelectorAll('.hdot').forEach((d,i)=>{
+    d.classList.toggle('active',i===n);
+    const bar=d.querySelector('.hdot-progress');
+    if(bar){bar.style.transition='none';bar.style.width='0';}
+  });
+  hCur=n;const d=heroData[n];
+  hVideo.style.opacity='0';
+  setTimeout(()=>{hVideo.src=d.video;hVideo.load();hVideo.play().catch(()=>{});hVideo.style.opacity='1';},400);
+  hPoster.style.backgroundImage=`url('${d.poster}')`;
+  document.getElementById('hTag').textContent=d.tag;
+  document.getElementById('hTitle').innerHTML=d.title;
+  document.getElementById('hDesc').textContent=d.desc;
+  const bar=document.querySelectorAll('.hdot')[n].querySelector('.hdot-progress');
+  if(bar){setTimeout(()=>{bar.style.transition='width 8s linear';bar.style.width='100%';},50);}
+  clearInterval(hTimer);hTimer=setInterval(()=>goHero((hCur+1)%heroData.length),8000);
+}
+goHero(0);
+window.addEventListener('scroll',()=>{document.getElementById('nav').classList.toggle('scrolled',scrollY>60);document.getElementById('scroll-top').classList.toggle('visible',scrollY>400);});
+document.getElementById('theme-btn').addEventListener('click',()=>{const dark=document.documentElement.getAttribute('data-theme')==='dark';document.documentElement.setAttribute('data-theme',dark?'light':'dark');document.getElementById('ico-sun').style.display=dark?'none':'block';document.getElementById('ico-moon').style.display=dark?'block':'none';});
+const ro=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('v');}),{threshold:.07});
+document.querySelectorAll('.r').forEach(el=>ro.observe(el));
+</script>
+</body>
+</html>

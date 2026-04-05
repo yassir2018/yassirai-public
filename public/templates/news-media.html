@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="dark" data-lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الصدى — جريدة إلكترونية</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Playfair+Display:wght@700;900&family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400&family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ══════════════════════════════════════
+   TOKENS
+══════════════════════════════════════ */
+:root {
+  --bg:        #0a0a0e;
+  --bg2:       #111118;
+  --bg3:       #18181f;
+  --card:      #1e1e28;
+  --txt:       #f0f0f5;
+  --txt2:      rgba(240,240,245,0.6);
+  --txt3:      rgba(240,240,245,0.32);
+  --border:    rgba(255,255,255,0.07);
+  --border2:   rgba(255,255,255,0.13);
+  --accent:    #e63946;
+  --accent2:   #ff6b6b;
+  --gold:      #c9a84c;
+  --blue:      #2563eb;
+  --ff-ar:     'Cairo', sans-serif;
+  --ff-fr:     'Source Serif 4', Georgia, serif;
+  --ff-head-fr:'Playfair Display', Georgia, serif;
+  --ff-ui:     'Roboto Condensed', sans-serif;
+  --nav-h:     56px;
+  --r:         3px;
+  --tr:        0.3s ease;
+}
+[data-theme="light"] {
+  --bg:        #f5f5f0;
+  --bg2:       #ffffff;
+  --bg3:       #ebebeb;
+  --card:      #ffffff;
+  --txt:       #111118;
+  --txt2:      rgba(17,17,24,0.6);
+  --txt3:      rgba(17,17,24,0.32);
+  --border:    rgba(0,0,0,0.08);
+  --border2:   rgba(0,0,0,0.14);
+}
+
+/* ══ RESET ══ */
+*,*::before,*::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  background:var(--bg); color:var(--txt);
+  font-family:var(--ff-ar);
+  transition:background var(--tr), color var(--tr);
+  overflow-x:hidden; line-height:1.7;
+}
+[data-lang="fr"] body, [data-lang="fr"] { font-family:var(--ff-fr); }
+img { display:block; max-width:100%; }
+a { color:inherit; text-decoration:none; }
+::-webkit-scrollbar { width:3px; }
+::-webkit-scrollbar-thumb { background:var(--accent); }
+
+/* ══ BREAKING TICKER ══ */
+.ticker {
+  background:var(--accent); color:#fff;
+  display:flex; align-items:center; overflow:hidden;
+  height:34px; position:relative; z-index:500;
+}
+.ticker-label {
+  flex-shrink:0; background:rgba(0,0,0,.25);
+  font-size:11px; font-weight:700; letter-spacing:.12em; text-transform:uppercase;
+  padding:0 16px; height:100%; display:flex; align-items:center; gap:6px;
+  white-space:nowrap;
+}
+.ticker-label::after { content:''; width:0; height:0; border-top:5px solid transparent; border-bottom:5px solid transparent; border-right:6px solid #fff; }
+[dir="rtl"] .ticker-label::after { border-right:none; border-left:6px solid #fff; }
+.ticker-track { display:flex; gap:48px; animation:ticker 28s linear infinite; white-space:nowrap; padding:0 24px; }
+.ticker-track:hover { animation-play-state:paused; }
+@keyframes ticker { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+[dir="rtl"] .ticker-track { animation:ticker-rtl 28s linear infinite; }
+@keyframes ticker-rtl { 0%{transform:translateX(0)} 100%{transform:translateX(50%)} }
+.ticker-item { font-size:12px; font-weight:600; display:flex; align-items:center; gap:8px; }
+.ticker-item::before { content:'•'; opacity:.6; }
+
+/* ══ TOP BAR ══ */
+.topbar {
+  background:var(--bg2); border-bottom:1px solid var(--border);
+  display:flex; align-items:center; justify-content:space-between;
+  padding:6px 48px; font-size:11px; color:var(--txt3);
+}
+.topbar-left { display:flex; gap:16px; align-items:center; }
+.topbar-right { display:flex; gap:12px; align-items:center; }
+.topbar a { color:var(--txt3); transition:color var(--tr); }
+.topbar a:hover { color:var(--accent); }
+.topbar-sep { opacity:.3; }
+
+/* ══ NAV ══ */
+nav {
+  position:sticky; top:0; z-index:400;
+  background:var(--bg2); border-bottom:2px solid var(--accent);
+  transition:all var(--tr);
+}
+.nav-main {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:0 48px; height:var(--nav-h);
+}
+.nav-logo {
+  display:flex; flex-direction:column; align-items:flex-start; gap:1px;
+  flex-shrink:0;
+}
+[dir="rtl"] .nav-logo { align-items:flex-end; }
+.logo-main {
+  font-family:var(--ff-head-fr); font-size:26px; font-weight:900;
+  letter-spacing:-.02em; color:var(--txt); line-height:1;
+  transition:color var(--tr);
+}
+[data-lang="ar"] .logo-main { font-family:var(--ff-ar); font-size:24px; font-weight:900; }
+.logo-sub { font-size:9px; font-weight:600; letter-spacing:.25em; text-transform:uppercase; color:var(--accent); }
+.nav-cats {
+  display:flex; gap:0; list-style:none;
+  overflow-x:auto; scrollbar-width:none;
+}
+.nav-cats::-webkit-scrollbar { display:none; }
+.nav-cats a {
+  display:block; padding:0 14px; height:var(--nav-h); line-height:var(--nav-h);
+  font-size:13px; font-weight:700; color:var(--txt2);
+  white-space:nowrap; transition:all var(--tr);
+  border-bottom:2px solid transparent; margin-bottom:-2px;
+}
+.nav-cats a:hover, .nav-cats a.active { color:var(--txt); border-bottom-color:var(--accent); }
+.nav-right { display:flex; align-items:center; gap:8px; flex-shrink:0; }
+.nav-icon-btn {
+  width:34px; height:34px; border:1px solid var(--border2);
+  border-radius:50%; display:flex; align-items:center; justify-content:center;
+  color:var(--txt2); background:none; cursor:pointer;
+  transition:all var(--tr); font-size:14px;
+}
+.nav-icon-btn:hover { border-color:var(--accent); color:var(--accent); }
+.lang-btn {
+  font-size:11px; font-weight:700; letter-spacing:.08em;
+  padding:6px 12px; border:1px solid var(--border2); border-radius:14px;
+  background:none; color:var(--txt2); cursor:pointer; transition:all var(--tr);
+}
+.lang-btn:hover { border-color:var(--accent); color:var(--accent); }
+.nav-subscribe {
+  font-size:12px; font-weight:700; letter-spacing:.06em;
+  padding:8px 18px; background:var(--accent); color:#fff;
+  border-radius:14px; transition:opacity var(--tr);
+}
+.nav-subscribe:hover { opacity:.85; }
+
+/* ══ HERO — VIDEO + FEATURED ══ */
+.hero {
+  display:grid; grid-template-columns:1fr 340px;
+  gap:0; height:520px; overflow:hidden;
+}
+[dir="rtl"] .hero { direction:rtl; }
+.hero-main { position:relative; overflow:hidden; }
+.hero-video {
+  position:absolute; inset:0; width:100%; height:100%;
+  object-fit:cover; filter:brightness(.55);
+}
+.hero-poster {
+  position:absolute; inset:0; z-index:0;
+  background:url('https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=1200&q=85&auto=format&fit=crop') center/cover;
+  filter:brightness(.55);
+}
+.hero-overlay {
+  position:absolute; inset:0; z-index:1;
+  background:linear-gradient(to top, rgba(10,10,14,.98) 0%, rgba(10,10,14,.4) 50%, transparent 80%);
+}
+.hero-content {
+  position:absolute; bottom:0; left:0; right:0; z-index:2;
+  padding:28px 32px;
+}
+.hero-cat {
+  display:inline-block; background:var(--accent); color:#fff;
+  font-size:10px; font-weight:700; letter-spacing:.15em; text-transform:uppercase;
+  padding:3px 10px; margin-bottom:10px;
+}
+.hero-title {
+  font-size:clamp(22px,2.8vw,36px); font-weight:900; line-height:1.25;
+  color:#fff; margin-bottom:10px;
+}
+[data-lang="fr"] .hero-title { font-family:var(--ff-head-fr); font-weight:700; }
+.hero-meta { font-size:11px; color:rgba(255,255,255,.55); display:flex; gap:12px; align-items:center; flex-wrap:wrap; }
+.hero-meta .dot { opacity:.4; }
+
+/* Hero sidebar */
+.hero-sidebar {
+  background:var(--bg3); border-right:1px solid var(--border);
+  display:flex; flex-direction:column; overflow:hidden;
+}
+[dir="rtl"] .hero-sidebar { border-right:none; border-left:1px solid var(--border); }
+.hs-title {
+  font-size:11px; font-weight:700; letter-spacing:.2em; text-transform:uppercase;
+  color:var(--accent); padding:14px 20px 10px;
+  border-bottom:1px solid var(--border);
+}
+.hs-item {
+  display:flex; gap:12px; padding:14px 18px;
+  border-bottom:1px solid var(--border); transition:background var(--tr);
+  flex:1; align-items:center;
+}
+.hs-item:hover { background:var(--card); }
+.hs-img {
+  flex-shrink:0; width:72px; height:56px; overflow:hidden; border-radius:var(--r);
+}
+.hs-img img { width:100%; height:100%; object-fit:cover; }
+.hs-info { flex:1; min-width:0; }
+.hs-cat { font-size:9px; font-weight:700; letter-spacing:.15em; text-transform:uppercase; color:var(--accent); margin-bottom:4px; }
+.hs-headline { font-size:12px; font-weight:700; line-height:1.4; color:var(--txt); display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+.hs-time { font-size:10px; color:var(--txt3); margin-top:4px; }
+
+/* ══ CATEGORY NAV BAR ══ */
+.cat-bar {
+  background:var(--bg3); border-bottom:1px solid var(--border);
+  padding:0 48px;
+  display:flex; align-items:center; gap:0; overflow-x:auto; scrollbar-width:none;
+}
+.cat-bar::-webkit-scrollbar { display:none; }
+.cat-btn {
+  flex-shrink:0; padding:12px 18px; font-size:12px; font-weight:700;
+  color:var(--txt3); border-bottom:2px solid transparent; margin-bottom:0;
+  cursor:pointer; transition:all var(--tr); background:none; border:none;
+  border-bottom:2px solid transparent; white-space:nowrap;
+}
+.cat-btn:hover, .cat-btn.active { color:var(--txt); border-bottom-color:var(--accent); }
+
+/* ══ MAIN GRID ══ */
+.main-wrap { padding:32px 48px; display:grid; grid-template-columns:1fr 300px; gap:32px; }
+
+/* News grid */
+.news-grid { display:flex; flex-direction:column; gap:28px; }
+.ng-section { }
+.ng-section-title {
+  font-size:11px; font-weight:700; letter-spacing:.22em; text-transform:uppercase;
+  color:var(--accent); padding-bottom:10px; margin-bottom:16px;
+  border-bottom:2px solid var(--accent); display:flex; align-items:center; gap:8px;
+}
+.ng-section-title::after { content:''; flex:1; height:1px; background:var(--border); }
+
+/* Featured 3 col */
+.ng-3col { display:grid; grid-template-columns:2fr 1fr 1fr; gap:16px; }
+.ng-card { position:relative; overflow:hidden; cursor:pointer; }
+.ng-card img {
+  width:100%; aspect-ratio:16/9; object-fit:cover;
+  display:block; transition:transform .5s; filter:brightness(.9);
+}
+.ng-card:hover img { transform:scale(1.04); filter:brightness(1); }
+.ng-card.tall img { aspect-ratio:3/4; }
+.ng-card-info { padding:10px 0 0; }
+.ng-card-cat { font-size:9px; font-weight:700; letter-spacing:.15em; text-transform:uppercase; color:var(--accent); margin-bottom:5px; }
+.ng-card-title { font-size:14px; font-weight:700; line-height:1.45; color:var(--txt); margin-bottom:4px; }
+.ng-card.lg .ng-card-title { font-size:18px; }
+[data-lang="fr"] .ng-card-title { font-family:var(--ff-fr); }
+.ng-card-meta { font-size:11px; color:var(--txt3); }
+
+/* List articles */
+.art-list { display:flex; flex-direction:column; gap:0; }
+.art-item {
+  display:flex; gap:14px; padding:14px 0;
+  border-bottom:1px solid var(--border); cursor:pointer;
+}
+.art-item:last-child { border-bottom:none; }
+.art-item:hover .art-title { color:var(--accent); }
+.art-num { font-size:28px; font-weight:900; color:var(--border2); flex-shrink:0; width:32px; line-height:1; font-family:var(--ff-ui); }
+.art-body { flex:1; }
+.art-cat { font-size:9px; font-weight:700; letter-spacing:.15em; text-transform:uppercase; color:var(--accent); margin-bottom:4px; }
+.art-title { font-size:13px; font-weight:700; line-height:1.45; color:var(--txt); transition:color var(--tr); }
+[data-lang="fr"] .art-title { font-family:var(--ff-fr); }
+.art-meta { font-size:10px; color:var(--txt3); margin-top:4px; }
+.art-img { flex-shrink:0; width:80px; height:64px; overflow:hidden; border-radius:var(--r); }
+.art-img img { width:100%; height:100%; object-fit:cover; }
+
+/* ══ SIDEBAR ══ */
+.sidebar { display:flex; flex-direction:column; gap:24px; }
+.sb-widget { }
+.sb-title {
+  font-size:11px; font-weight:700; letter-spacing:.22em; text-transform:uppercase;
+  color:var(--txt); padding-bottom:10px; margin-bottom:14px;
+  border-bottom:2px solid var(--border2);
+  display:flex; align-items:center; justify-content:space-between;
+}
+.sb-title span { font-size:10px; font-weight:400; color:var(--accent); letter-spacing:.05em; }
+
+/* Trending */
+.trend-item {
+  display:flex; gap:10px; padding:10px 0;
+  border-bottom:1px solid var(--border); cursor:pointer;
+}
+.trend-item:last-child { border-bottom:none; }
+.trend-num { font-size:20px; font-weight:900; color:var(--border2); flex-shrink:0; width:24px; font-family:var(--ff-ui); line-height:1; }
+.trend-title { font-size:12px; font-weight:700; line-height:1.4; color:var(--txt); transition:color var(--tr); }
+.trend-item:hover .trend-title { color:var(--accent); }
+.trend-cat { font-size:10px; color:var(--txt3); margin-top:2px; }
+
+/* Social follow */
+.social-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+.soc-card {
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:4px; padding:14px 8px; border-radius:var(--r);
+  cursor:pointer; transition:opacity var(--tr);
+}
+.soc-card:hover { opacity:.85; }
+.soc-card.fb { background:#1877f2; color:#fff; }
+.soc-card.tw { background:#000; color:#fff; }
+.soc-card.ig { background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888); color:#fff; }
+.soc-card.yt { background:#ff0000; color:#fff; }
+.soc-num { font-size:15px; font-weight:900; font-family:var(--ff-ui); }
+.soc-lbl { font-size:10px; font-weight:600; letter-spacing:.06em; }
+
+/* Newsletter */
+.nl-box { background:var(--card); border:1px solid var(--border); padding:18px; border-radius:var(--r); }
+.nl-box p { font-size:12px; color:var(--txt2); margin-bottom:12px; line-height:1.6; }
+.nl-input {
+  width:100%; background:var(--bg3); border:1px solid var(--border2);
+  color:var(--txt); font-family:var(--ff-ar); font-size:13px;
+  padding:10px 14px; border-radius:var(--r); outline:none; margin-bottom:8px;
+  transition:border-color var(--tr);
+}
+.nl-input:focus { border-color:var(--accent); }
+.nl-btn {
+  width:100%; background:var(--accent); color:#fff; border:none;
+  font-family:var(--ff-ar); font-size:13px; font-weight:700;
+  padding:10px; border-radius:var(--r); cursor:pointer; transition:opacity var(--tr);
+}
+.nl-btn:hover { opacity:.85; }
+
+/* Tags cloud */
+.tags { display:flex; flex-wrap:wrap; gap:6px; }
+.tag {
+  font-size:11px; padding:4px 10px; border:1px solid var(--border2);
+  border-radius:12px; color:var(--txt2); transition:all var(--tr); cursor:pointer;
+}
+.tag:hover { border-color:var(--accent); color:var(--accent); }
+
+/* ══ VIDEO SECTION ══ */
+.video-section { padding:32px 48px; background:var(--bg2); border-top:1px solid var(--border); }
+.vs-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:16px; }
+.vs-card { cursor:pointer; }
+.vs-thumb { position:relative; aspect-ratio:16/9; overflow:hidden; border-radius:var(--r); background:var(--bg3); }
+.vs-thumb img { width:100%; height:100%; object-fit:cover; transition:transform .5s; filter:brightness(.75); }
+.vs-card:hover .vs-thumb img { transform:scale(1.06); filter:brightness(.95); }
+.vs-play {
+  position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+}
+.vs-play-btn {
+  width:42px; height:42px; background:rgba(230,57,70,.9); border-radius:50%;
+  display:flex; align-items:center; justify-content:center; font-size:16px;
+  padding-right:2px; color:#fff; transition:transform .3s;
+}
+.vs-card:hover .vs-play-btn { transform:scale(1.1); }
+.vs-duration {
+  position:absolute; bottom:6px; right:8px;
+  font-size:10px; font-weight:700; color:#fff;
+  background:rgba(0,0,0,.7); padding:2px 6px; border-radius:2px;
+}
+[dir="rtl"] .vs-duration { right:auto; left:8px; }
+.vs-info { padding:8px 0 0; }
+.vs-title { font-size:12px; font-weight:700; line-height:1.4; color:var(--txt); margin-bottom:3px; }
+.vs-meta { font-size:10px; color:var(--txt3); }
+
+/* ══ FOOTER ══ */
+footer {
+  background:var(--bg2); border-top:3px solid var(--accent);
+  padding:48px 48px 28px;
+}
+.footer-top { display:grid; grid-template-columns:1.5fr 1fr 1fr 1fr; gap:40px; margin-bottom:40px; }
+.footer-brand .logo-main { font-size:30px; margin-bottom:10px; }
+.footer-brand p { font-size:12px; color:var(--txt2); line-height:1.8; max-width:240px; margin-bottom:16px; }
+.footer-socials { display:flex; gap:8px; }
+.fsoc {
+  width:32px; height:32px; border:1px solid var(--border);
+  border-radius:50%; display:flex; align-items:center; justify-content:center;
+  font-size:12px; color:var(--txt2); transition:all var(--tr);
+}
+.fsoc:hover { border-color:var(--accent); color:var(--accent); }
+.footer-col h4 { font-size:11px; font-weight:700; letter-spacing:.2em; text-transform:uppercase; color:var(--txt); margin-bottom:14px; }
+.footer-col ul { list-style:none; display:flex; flex-direction:column; gap:8px; }
+.footer-col a { font-size:12px; color:var(--txt2); transition:color var(--tr); }
+.footer-col a:hover { color:var(--accent); }
+.footer-bottom {
+  display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;
+  padding-top:24px; border-top:1px solid var(--border);
+  font-size:11px; color:var(--txt3);
+}
+
+/* ══ SCROLL TOP ══ */
+#scroll-top {
+  position:fixed; bottom:24px; left:24px; z-index:500;
+  width:40px; height:40px; background:var(--accent); color:#fff;
+  border:none; border-radius:var(--r); font-size:16px;
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; opacity:0; pointer-events:none;
+  transform:translateY(10px); transition:all var(--tr);
+}
+[dir="rtl"] #scroll-top { left:auto; right:24px; }
+#scroll-top.visible { opacity:1; pointer-events:all; transform:translateY(0); }
+#scroll-top:hover { opacity:.85; }
+
+/* ══ REVEAL ══ */
+.r { opacity:0; transform:translateY(20px); transition:opacity .7s ease, transform .7s ease; }
+.r.v { opacity:1; transform:translateY(0); }
+.r.d1 { transition-delay:.1s; }
+.r.d2 { transition-delay:.2s; }
+
+/* ══ RESPONSIVE ══ */
+@media(max-width:1024px) {
+  .nav-main,.topbar,.cat-bar,.main-wrap,.video-section,.footer-top,footer { padding-left:20px; padding-right:20px; }
+  .hero { grid-template-columns:1fr; height:380px; }
+  .hero-sidebar { display:none; }
+  .main-wrap { grid-template-columns:1fr; }
+  .ng-3col { grid-template-columns:1fr 1fr; }
+  .vs-grid { grid-template-columns:1fr 1fr; }
+  .footer-top { grid-template-columns:1fr 1fr; }
+}
+@media(max-width:640px) {
+  .nav-cats { display:none; }
+  .ng-3col { grid-template-columns:1fr; }
+  .vs-grid { grid-template-columns:1fr; }
+  .footer-top { grid-template-columns:1fr; }
+  .topbar { display:none; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══ BREAKING TICKER ══ -->
+<div class="ticker">
+  <div class="ticker-label" id="ticker-label">عاجل</div>
+  <div class="ticker-track" id="ticker-track">
+    <span class="ticker-item">المغرب يسجل نمواً اقتصادياً بنسبة 4.2٪ في الربع الأول من 2025</span>
+    <span class="ticker-item">اجتماع طارئ لمجلس الأمن الدولي بشأن التوترات في منطقة الشرق الأوسط</span>
+    <span class="ticker-item">الرباط تستضيف القمة الأفريقية للمناخ في شهر يونيو المقبل</span>
+    <span class="ticker-item">فريق الرجاء البيضاوي يتأهل إلى نهائي دوري أبطال أفريقيا</span>
+    <span class="ticker-item">Le Maroc renforce ses partenariats économiques avec l'Union Européenne</span>
+    <span class="ticker-item">المغرب يسجل نمواً اقتصادياً بنسبة 4.2٪ في الربع الأول من 2025</span>
+    <span class="ticker-item">اجتماع طارئ لمجلس الأمن الدولي بشأن التوترات في منطقة الشرق الأوسط</span>
+    <span class="ticker-item">الرباط تستضيف القمة الأفريقية للمناخ في شهر يونيو المقبل</span>
+    <span class="ticker-item">فريق الرجاء البيضاوي يتأهل إلى نهائي دوري أبطال أفريقيا</span>
+    <span class="ticker-item">Le Maroc renforce ses partenariats économiques avec l'Union Européenne</span>
+  </div>
+</div>
+
+<!-- ══ TOP BAR ══ -->
+<div class="topbar">
+  <div class="topbar-left">
+    <span id="topbar-date"></span>
+    <span class="topbar-sep">|</span>
+    <a href="#">الطقس: الرباط 22°</a>
+  </div>
+  <div class="topbar-right">
+    <a href="#" id="lang-switch-top">FR</a>
+    <span class="topbar-sep">|</span>
+    <a href="#">تسجيل الدخول</a>
+    <span class="topbar-sep">|</span>
+    <a href="#">اشتراك</a>
+  </div>
+</div>
+
+<!-- ══ NAV ══ -->
+<nav id="nav">
+  <div class="nav-main">
+    <a href="#top" class="nav-logo">
+      <div class="logo-main" id="logo-text">الصَّدى</div>
+      <div class="logo-sub" id="logo-sub">أخبار المغرب والعالم</div>
+    </a>
+    <ul class="nav-cats" id="nav-cats">
+      <li><a href="#" class="active" data-ar="الرئيسية" data-fr="Accueil">الرئيسية</a></li>
+      <li><a href="#" data-ar="سياسة" data-fr="Politique">سياسة</a></li>
+      <li><a href="#" data-ar="اقتصاد" data-fr="Économie">اقتصاد</a></li>
+      <li><a href="#" data-ar="مجتمع" data-fr="Société">مجتمع</a></li>
+      <li><a href="#" data-ar="رياضة" data-fr="Sport">رياضة</a></li>
+      <li><a href="#" data-ar="دولي" data-fr="International">دولي</a></li>
+      <li><a href="#" data-ar="ثقافة" data-fr="Culture">ثقافة</a></li>
+      <li><a href="#" data-ar="تقنية" data-fr="Tech">تقنية</a></li>
+      <li><a href="#" data-ar="فيديو" data-fr="Vidéo">فيديو</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="nav-icon-btn" id="search-btn" aria-label="Search">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <button class="nav-icon-btn" id="theme-btn" aria-label="Theme">
+        <svg id="ico-sun" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg>
+        <svg id="ico-moon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <button class="lang-btn" id="lang-btn">FR</button>
+      <a href="#" class="nav-subscribe" id="nav-sub">اشتراك</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section class="hero" id="top">
+  <div class="hero-main">
+    <div class="hero-poster"></div>
+    <video class="hero-video" autoplay muted loop playsinline preload="none">
+      <source src="videos/news-hero.mp4" type="video/mp4">
+    </video>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <span class="hero-cat" id="hero-cat">سياسة</span>
+      <h1 class="hero-title" id="hero-title">المغرب يُطلق مبادرة دبلوماسية كبرى لتعزيز السلام في القارة الأفريقية</h1>
+      <div class="hero-meta">
+        <span>12 مارس 2025</span>
+        <span class="dot">•</span>
+        <span>أحمد الراشدي</span>
+        <span class="dot">•</span>
+        <span>5 دقائق للقراءة</span>
+      </div>
+    </div>
+  </div>
+  <!-- Sidebar top stories -->
+  <div class="hero-sidebar">
+    <div class="hs-title" id="hs-title">أبرز الأخبار</div>
+    <div class="hs-item">
+      <div class="hs-img"><img src="https://images.unsplash.com/photo-1611273426858-450d8e3c9fce?w=150&q=75&auto=format&fit=crop" alt=""></div>
+      <div class="hs-info">
+        <div class="hs-cat">اقتصاد</div>
+        <div class="hs-headline">ارتفاع ملحوظ في احتياطيات العملة الأجنبية بالمغرب</div>
+        <div class="hs-time">منذ ساعتين</div>
+      </div>
+    </div>
+    <div class="hs-item">
+      <div class="hs-img"><img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=150&q=75&auto=format&fit=crop" alt=""></div>
+      <div class="hs-info">
+        <div class="hs-cat">رياضة</div>
+        <div class="hs-headline">المنتخب المغربي يستعد لتصفيات كأس العالم 2026</div>
+        <div class="hs-time">منذ 4 ساعات</div>
+      </div>
+    </div>
+    <div class="hs-item">
+      <div class="hs-img"><img src="https://images.unsplash.com/photo-1581092795360-fd1ca04f0952?w=150&q=75&auto=format&fit=crop" alt=""></div>
+      <div class="hs-info">
+        <div class="hs-cat">تقنية</div>
+        <div class="hs-headline">شركة تقنية مغربية تحصد جائزة الابتكار الأفريقي</div>
+        <div class="hs-time">منذ 6 ساعات</div>
+      </div>
+    </div>
+    <div class="hs-item">
+      <div class="hs-img"><img src="https://images.unsplash.com/photo-1488229297570-58520851e868?w=150&q=75&auto=format&fit=crop" alt=""></div>
+      <div class="hs-info">
+        <div class="hs-cat">مجتمع</div>
+        <div class="hs-headline">إطلاق برنامج وطني لتطوير التعليم الرقمي</div>
+        <div class="hs-time">منذ 8 ساعات</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ MAIN CONTENT ══ -->
+<div class="main-wrap">
+  <!-- Left: News -->
+  <div class="news-grid">
+
+    <!-- Top stories -->
+    <div class="ng-section r">
+      <div class="ng-section-title" id="sec1-title">أحدث الأخبار</div>
+      <div class="ng-3col">
+        <div class="ng-card lg">
+          <img src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=700&q=80&auto=format&fit=crop" alt="">
+          <div class="ng-card-info">
+            <div class="ng-card-cat">سياسة</div>
+            <div class="ng-card-title">مجلس الحكومة يصادق على مشروع قانون المالية التكميلي لسنة 2025</div>
+            <div class="ng-card-meta">12 مارس • 4 دقائق</div>
+          </div>
+        </div>
+        <div class="ng-card">
+          <img src="https://images.unsplash.com/photo-1611273426858-450d8e3c9fce?w=400&q=80&auto=format&fit=crop" alt="">
+          <div class="ng-card-info">
+            <div class="ng-card-cat">اقتصاد</div>
+            <div class="ng-card-title">بنك المغرب يثبت سعر الفائدة الرئيسي عند 2.75٪</div>
+            <div class="ng-card-meta">11 مارس • 3 دقائق</div>
+          </div>
+        </div>
+        <div class="ng-card">
+          <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&q=80&auto=format&fit=crop" alt="">
+          <div class="ng-card-info">
+            <div class="ng-card-cat">رياضة</div>
+            <div class="ng-card-title">الرجاء البيضاوي يفوز بالديربي أمام الوداد بثلاثة أهداف</div>
+            <div class="ng-card-meta">11 مارس • 2 دقائق</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Article list -->
+    <div class="ng-section r d1">
+      <div class="ng-section-title" id="sec2-title">الأكثر قراءة</div>
+      <div class="art-list">
+        <div class="art-item">
+          <div class="art-num">01</div>
+          <div class="art-body">
+            <div class="art-cat">مجتمع</div>
+            <div class="art-title">الحكومة تُعلن عن حزمة إجراءات جديدة لدعم الأسر ذات الدخل المحدود</div>
+            <div class="art-meta">10 مارس 2025 • 6 دقائق للقراءة</div>
+          </div>
+          <div class="art-img"><img src="https://images.unsplash.com/photo-1488229297570-58520851e868?w=200&q=75&auto=format&fit=crop" alt=""></div>
+        </div>
+        <div class="art-item">
+          <div class="art-num">02</div>
+          <div class="art-body">
+            <div class="art-cat">دولي</div>
+            <div class="art-title">تطورات متسارعة في ملف التطبيع بين دول المنطقة في ظل الضغوط الأمريكية</div>
+            <div class="art-meta">10 مارس 2025 • 5 دقائق للقراءة</div>
+          </div>
+          <div class="art-img"><img src="https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?w=200&q=75&auto=format&fit=crop" alt=""></div>
+        </div>
+        <div class="art-item">
+          <div class="art-num">03</div>
+          <div class="art-body">
+            <div class="art-cat">تقنية</div>
+            <div class="art-title">المغرب يُدشن أول مركز بيانات وطني للذكاء الاصطناعي في الدار البيضاء</div>
+            <div class="art-meta">9 مارس 2025 • 4 دقائق للقراءة</div>
+          </div>
+          <div class="art-img"><img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=200&q=75&auto=format&fit=crop" alt=""></div>
+        </div>
+        <div class="art-item">
+          <div class="art-num">04</div>
+          <div class="art-body">
+            <div class="art-cat">ثقافة</div>
+            <div class="art-title">مهرجان مراكش الدولي للفيلم يكشف عن قائمة أفلام الدورة الثالثة والعشرين</div>
+            <div class="art-meta">9 مارس 2025 • 3 دقائق للقراءة</div>
+          </div>
+          <div class="art-img"><img src="https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=200&q=75&auto=format&fit=crop" alt=""></div>
+        </div>
+        <div class="art-item">
+          <div class="art-num">05</div>
+          <div class="art-body">
+            <div class="art-cat">اقتصاد</div>
+            <div class="art-title">ارتفاع الاستثمارات الأجنبية المباشرة في المغرب بنسبة 18٪ خلال الربع الأول</div>
+            <div class="art-meta">8 مارس 2025 • 4 دقائق للقراءة</div>
+          </div>
+          <div class="art-img"><img src="https://images.unsplash.com/photo-1611273426858-450d8e3c9fce?w=200&q=75&auto=format&fit=crop" alt=""></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Right: Sidebar -->
+  <div class="sidebar">
+    <!-- Trending -->
+    <div class="sb-widget r">
+      <div class="sb-title" id="sb-trend-title">الأكثر تداولاً <span>اليوم</span></div>
+      <div class="trend-item">
+        <div class="trend-num">1</div>
+        <div><div class="trend-title">المغرب يحصل على عضوية مجلس الأمن غير الدائمة للمرة الثالثة</div><div class="trend-cat">سياسة</div></div>
+      </div>
+      <div class="trend-item">
+        <div class="trend-num">2</div>
+        <div><div class="trend-title">أسعار المحروقات ترتفع مجدداً مع بداية الربع الثاني</div><div class="trend-cat">اقتصاد</div></div>
+      </div>
+      <div class="trend-item">
+        <div class="trend-num">3</div>
+        <div><div class="trend-title">نهائي دوري أبطال أفريقيا: الرجاء في مواجهة الأهلي المصري</div><div class="trend-cat">رياضة</div></div>
+      </div>
+      <div class="trend-item">
+        <div class="trend-num">4</div>
+        <div><div class="trend-title">وزارة التعليم تُعلن عن مراجعة شاملة للمنهج الدراسي الوطني</div><div class="trend-cat">مجتمع</div></div>
+      </div>
+    </div>
+
+    <!-- Follow -->
+    <div class="sb-widget r d1">
+      <div class="sb-title" id="sb-follow-title">تابعونا</div>
+      <div class="social-grid">
+        <div class="soc-card fb"><div class="soc-num">248K</div><div class="soc-lbl">Facebook</div></div>
+        <div class="soc-card tw"><div class="soc-num">184K</div><div class="soc-lbl">X / Twitter</div></div>
+        <div class="soc-card ig"><div class="soc-num">312K</div><div class="soc-lbl">Instagram</div></div>
+        <div class="soc-card yt"><div class="soc-num">95K</div><div class="soc-lbl">YouTube</div></div>
+      </div>
+    </div>
+
+    <!-- Newsletter -->
+    <div class="sb-widget r d2">
+      <div class="sb-title" id="sb-nl-title">النشرة البريدية</div>
+      <div class="nl-box">
+        <p id="nl-desc">اشترك في نشرتنا اليومية واحصل على أبرز الأخبار مباشرة في بريدك الإلكتروني.</p>
+        <input class="nl-input" type="email" placeholder="بريدك الإلكتروني" id="nl-input">
+        <button class="nl-btn" id="nl-btn">اشتراك مجاني</button>
+      </div>
+    </div>
+
+    <!-- Tags -->
+    <div class="sb-widget r">
+      <div class="sb-title" id="sb-tags-title">مواضيع رائجة</div>
+      <div class="tags">
+        <span class="tag">المغرب</span><span class="tag">اقتصاد</span><span class="tag">سياسة</span>
+        <span class="tag">كأس العالم 2030</span><span class="tag">الرباط</span><span class="tag">الدار البيضاء</span>
+        <span class="tag">أفريقيا</span><span class="tag">ذكاء اصطناعي</span><span class="tag">رياضة</span>
+        <span class="tag">صحة</span><span class="tag">ثقافة</span><span class="tag">تعليم</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ VIDEO SECTION ══ -->
+<section class="video-section r">
+  <div class="ng-section-title" id="vs-title">فيديو وصوت</div>
+  <div class="vs-grid">
+    <div class="vs-card">
+      <div class="vs-thumb">
+        <img src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=500&q=75&auto=format&fit=crop" alt="">
+        <div class="vs-play"><div class="vs-play-btn">▶</div></div>
+        <div class="vs-duration">4:32</div>
+      </div>
+      <div class="vs-info"><div class="vs-title">جلسة برلمانية حول ميزانية 2025 وأولويات الإنفاق العام</div><div class="vs-meta">سياسة • 12 مارس</div></div>
+    </div>
+    <div class="vs-card">
+      <div class="vs-thumb">
+        <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=500&q=75&auto=format&fit=crop" alt="">
+        <div class="vs-play"><div class="vs-play-btn">▶</div></div>
+        <div class="vs-duration">6:15</div>
+      </div>
+      <div class="vs-info"><div class="vs-title">مباراة الديربي: ملخص المباراة وردود فعل اللاعبين والمدربين</div><div class="vs-meta">رياضة • 11 مارس</div></div>
+    </div>
+    <div class="vs-card">
+      <div class="vs-thumb">
+        <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=500&q=75&auto=format&fit=crop" alt="">
+        <div class="vs-play"><div class="vs-play-btn">▶</div></div>
+        <div class="vs-duration">8:44</div>
+      </div>
+      <div class="vs-info"><div class="vs-title">تقرير: مركز الذكاء الاصطناعي المغربي ورهانات المستقبل الرقمي</div><div class="vs-meta">تقنية • 10 مارس</div></div>
+    </div>
+    <div class="vs-card">
+      <div class="vs-thumb">
+        <img src="https://images.unsplash.com/photo-1611273426858-450d8e3c9fce?w=500&q=75&auto=format&fit=crop" alt="">
+        <div class="vs-play"><div class="vs-play-btn">▶</div></div>
+        <div class="vs-duration">3:28</div>
+      </div>
+      <div class="vs-info"><div class="vs-title">مقابلة حصرية: وزير الاقتصاد يتحدث عن خطط النمو والاستثمار</div><div class="vs-meta">اقتصاد • 9 مارس</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="logo-main" id="footer-logo">الصَّدى</div>
+      <p id="footer-desc">جريدة إلكترونية مغربية مستقلة، نقدم أخبار المغرب والعالم بموضوعية وشفافية.</p>
+      <div class="footer-socials">
+        <a class="fsoc" href="#">f</a>
+        <a class="fsoc" href="#">𝕏</a>
+        <a class="fsoc" href="#">in</a>
+        <a class="fsoc" href="#">yt</a>
+      </div>
+    </div>
+    <div class="footer-col" id="fc1">
+      <h4>الأقسام</h4>
+      <ul>
+        <li><a href="#">سياسة</a></li>
+        <li><a href="#">اقتصاد</a></li>
+        <li><a href="#">مجتمع</a></li>
+        <li><a href="#">رياضة</a></li>
+        <li><a href="#">دولي</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4 id="fc2-title">الجريدة</h4>
+      <ul>
+        <li><a href="#" id="fc2-1">من نحن</a></li>
+        <li><a href="#" id="fc2-2">اتصل بنا</a></li>
+        <li><a href="#" id="fc2-3">الإعلان</a></li>
+        <li><a href="#" id="fc2-4">اشتراك</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4 id="fc3-title">قانوني</h4>
+      <ul>
+        <li><a href="#" id="fc3-1">سياسة الخصوصية</a></li>
+        <li><a href="#" id="fc3-2">شروط الاستخدام</a></li>
+        <li><a href="#" id="fc3-3">سياسة الكوكيز</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span id="footer-copy">© 2025 الصَّدى. جميع الحقوق محفوظة.</span>
+    <span id="footer-made">صُنع بـ ♥ في المغرب</span>
+  </div>
+</footer>
+
+<!-- ══ SCROLL TOP ══ -->
+<button id="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Top">↑</button>
+
+<script>
+/* ── Date ── */
+const now = new Date();
+document.getElementById('topbar-date').textContent =
+  now.toLocaleDateString('ar-MA', {weekday:'long', year:'numeric', month:'long', day:'numeric'});
+
+/* ── Theme ── */
+const html = document.documentElement;
+document.getElementById('theme-btn').addEventListener('click', () => {
+  const dark = html.getAttribute('data-theme') === 'dark';
+  html.setAttribute('data-theme', dark ? 'light' : 'dark');
+  document.getElementById('ico-sun').style.display = dark ? 'none' : 'block';
+  document.getElementById('ico-moon').style.display = dark ? 'block' : 'none';
+});
+
+/* ── Language Toggle AR / FR ── */
+const translations = {
+  ar: {
+    title: 'الصَّدى', sub: 'أخبار المغرب والعالم',
+    ticker_label: 'عاجل', lang_btn: 'FR',
+    nav_sub: 'اشتراك', hs_title: 'أبرز الأخبار',
+    hero_cat: 'سياسة',
+    hero_title: 'المغرب يُطلق مبادرة دبلوماسية كبرى لتعزيز السلام في القارة الأفريقية',
+    sec1: 'أحدث الأخبار', sec2: 'الأكثر قراءة',
+    sb_trend: 'الأكثر تداولاً', sb_follow: 'تابعونا',
+    sb_nl: 'النشرة البريدية', sb_tags: 'مواضيع رائجة',
+    nl_desc: 'اشترك في نشرتنا اليومية واحصل على أبرز الأخبار مباشرة في بريدك الإلكتروني.',
+    nl_input: 'بريدك الإلكتروني', nl_btn: 'اشتراك مجاني',
+    vs_title: 'فيديو وصوت',
+    footer_logo: 'الصَّدى',
+    footer_desc: 'جريدة إلكترونية مغربية مستقلة، نقدم أخبار المغرب والعالم بموضوعية وشفافية.',
+    footer_copy: '© 2025 الصَّدى. جميع الحقوق محفوظة.',
+    footer_made: 'صُنع بـ ♥ في المغرب',
+    dir: 'rtl', lang: 'ar'
+  },
+  fr: {
+    title: 'L\'Écho', sub: 'Actualités du Maroc et du Monde',
+    ticker_label: 'URGENT', lang_btn: 'AR',
+    nav_sub: 'S\'abonner', hs_title: 'À la une',
+    hero_cat: 'Politique',
+    hero_title: 'Le Maroc lance une grande initiative diplomatique pour renforcer la paix en Afrique',
+    sec1: 'Dernières nouvelles', sec2: 'Les plus lus',
+    sb_trend: 'Tendances', sb_follow: 'Suivez-nous',
+    sb_nl: 'Newsletter', sb_tags: 'Sujets populaires',
+    nl_desc: 'Abonnez-vous à notre newsletter quotidienne et recevez les actualités directement.',
+    nl_input: 'Votre e-mail', nl_btn: 'S\'abonner gratuitement',
+    vs_title: 'Vidéos & Podcasts',
+    footer_logo: "L'Écho",
+    footer_desc: 'Journal en ligne marocain indépendant, couvrant l\'actualité du Maroc et du monde.',
+    footer_copy: '© 2025 L\'Écho. Tous droits réservés.',
+    footer_made: 'Fait avec ♥ au Maroc',
+    dir: 'ltr', lang: 'fr'
+  }
+};
+
+let curLang = 'ar';
+
+function setLang(lang) {
+  curLang = lang;
+  const t = translations[lang];
+  html.setAttribute('dir', t.dir);
+  html.setAttribute('lang', t.lang);
+  html.setAttribute('data-lang', t.lang);
+  document.getElementById('logo-text').textContent = t.title;
+  document.getElementById('logo-sub').textContent = t.sub;
+  document.getElementById('ticker-label').textContent = t.ticker_label;
+  document.getElementById('lang-btn').textContent = t.lang_btn;
+  document.getElementById('lang-switch-top').textContent = t.lang_btn;
+  document.getElementById('nav-sub').textContent = t.nav_sub;
+  document.getElementById('hs-title').textContent = t.hs_title;
+  document.getElementById('hero-cat').textContent = t.hero_cat;
+  document.getElementById('hero-title').textContent = t.hero_title;
+  document.getElementById('sec1-title').innerHTML = t.sec1 + '<span style="margin-right:auto;margin-left:auto"></span>';
+  document.getElementById('sec2-title').innerHTML = t.sec2 + '<span style="margin-right:auto;margin-left:auto"></span>';
+  document.getElementById('sb-trend-title').innerHTML = t.sb_trend + '<span>اليوم</span>';
+  document.getElementById('sb-follow-title').textContent = t.sb_follow;
+  document.getElementById('sb-nl-title').textContent = t.sb_nl;
+  document.getElementById('sb-tags-title').textContent = t.sb_tags;
+  document.getElementById('nl-desc').textContent = t.nl_desc;
+  document.getElementById('nl-input').placeholder = t.nl_input;
+  document.getElementById('nl-btn').textContent = t.nl_btn;
+  document.getElementById('vs-title').innerHTML = t.vs_title + '<span style="flex:1;height:1px;background:var(--border);margin-inline-start:12px;margin-block-start:6px"></span>';
+  document.getElementById('footer-logo').textContent = t.footer_logo;
+  document.getElementById('footer-desc').textContent = t.footer_desc;
+  document.getElementById('footer-copy').textContent = t.footer_copy;
+  document.getElementById('footer-made').textContent = t.footer_made;
+  // nav cats
+  document.querySelectorAll('#nav-cats a').forEach(a => {
+    a.textContent = a.getAttribute('data-' + lang) || a.textContent;
+  });
+  document.title = t.title + ' — ' + t.sub;
+}
+
+document.getElementById('lang-btn').addEventListener('click', () => setLang(curLang === 'ar' ? 'fr' : 'ar'));
+document.getElementById('lang-switch-top').addEventListener('click', (e) => { e.preventDefault(); setLang(curLang === 'ar' ? 'fr' : 'ar'); });
+
+/* ── Scroll top ── */
+const stBtn = document.getElementById('scroll-top');
+window.addEventListener('scroll', () => stBtn.classList.toggle('visible', scrollY > 400));
+
+/* ── Reveal ── */
+const ro = new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting) e.target.classList.add('v'); }), {threshold:.07});
+document.querySelectorAll('.r').forEach(el => ro.observe(el));
+</script>
+</body>
+</html>

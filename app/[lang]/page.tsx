@@ -30,7 +30,7 @@ export default async function LangPage({
         {data.bio && <About locale={locale} bio={data.bio} />}
         {data.services.length > 0 && <Services locale={locale} services={data.services} />}
         {data.projects.length > 0 && <Projects locale={locale} projects={data.projects} />}
-        {data.templates.length > 0 && <Templates locale={locale} templates={data.templates} />}
+        <Templates locale={locale} />
         <Contact locale={locale} contacts={data.contacts} />
       </main>
       <Footer locale={locale} bio={data.bio} />

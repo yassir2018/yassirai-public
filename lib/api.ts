@@ -64,6 +64,7 @@ export interface HeroVideo {
   id: string;
   url: string;
   label: string | null;
+  type?: "video" | "image";
 }
 
 export interface SiteSettings {

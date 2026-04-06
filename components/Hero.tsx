@@ -6,11 +6,17 @@ import type { Bio, HeroVideo } from "@/lib/api";
 import { MagneticButton } from "./MagneticButton";
 
 const R2 = "https://pub-9c404a6a434c4363be2c253e38e6c8d7.r2.dev";
-const FALLBACK_VIDEOS = [`${R2}/videos/action.mp4`, `${R2}/videos/cars.mp4`, `${R2}/videos/gladiator.mp4`];
+const FALLBACK_SLIDES: { url: string; type: "video" | "image" }[] = [
+  { url: `${R2}/videos/action.mp4`, type: "video" },
+  { url: `${R2}/videos/cars.mp4`, type: "video" },
+  { url: `${R2}/videos/gladiator.mp4`, type: "video" },
+];
 const SLIDE_DURATION = 8000;
 
 export function Hero({ locale, bio, videos }: { locale: Locale; bio: Bio | null; videos?: HeroVideo[] }) {
-  const VIDEOS = videos && videos.length > 0 ? videos.map((v) => v.url) : FALLBACK_VIDEOS;
+  const slides = videos && videos.length > 0
+    ? videos.map((v) => ({ url: v.url, type: (v.type || "video") as "video" | "image" }))
+    : FALLBACK_SLIDES;
   const name = bio?.name || "Yassir Mellakh";
   const title = bio?.title || "Creative Director | AI Visual Designer";
   const heroText = bio?.heroText || "";
@@ -27,11 +33,11 @@ export function Hero({ locale, bio, videos }: { locale: Locale; bio: Bio | null;
   }, []);
 
   const next = useCallback(() => {
-    goTo((current + 1) % VIDEOS.length);
+    goTo((current + 1) % slides.length);
   }, [current, goTo]);
 
   const prev = useCallback(() => {
-    goTo((current - 1 + VIDEOS.length) % VIDEOS.length);
+    goTo((current - 1 + slides.length) % slides.length);
   }, [current, goTo]);
 
   // Auto-advance timer
@@ -48,7 +54,7 @@ export function Hero({ locale, bio, videos }: { locale: Locale; bio: Bio | null;
     }, 50);
 
     timerRef.current = setTimeout(() => {
-      setCurrent((c) => (c + 1) % VIDEOS.length);
+      setCurrent((c) => (c + 1) % slides.length);
     }, SLIDE_DURATION);
 
     return () => {
@@ -69,14 +75,22 @@ export function Hero({ locale, bio, videos }: { locale: Locale; bio: Bio | null;
           exit={{ opacity: 0 }}
           transition={{ duration: 1.2, ease: "easeInOut" }}
         >
-          <video
-            src={VIDEOS[current]}
-            autoPlay
-            muted
-            loop
-            playsInline
-            className="w-full h-full object-cover"
-          />
+          {slides[current].type === "image" ? (
+            <img
+              src={slides[current].url}
+              alt={`Slide ${current + 1}`}
+              className="w-full h-full object-cover"
+            />
+          ) : (
+            <video
+              src={slides[current].url}
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="w-full h-full object-cover"
+            />
+          )}
         </motion.div>
       </AnimatePresence>
 
@@ -173,7 +187,7 @@ export function Hero({ locale, bio, videos }: { locale: Locale; bio: Bio | null;
 
             {/* Progress indicators */}
             <div className="flex-1 flex items-center gap-3">
-              {VIDEOS.map((_, i) => (
+              {slides.map((_, i) => (
                 <button
                   key={i}
                   onClick={() => goTo(i)}

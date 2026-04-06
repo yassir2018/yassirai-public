@@ -70,6 +70,7 @@ export function Navbar({ locale, siteName }: { locale: Locale; siteName?: string
                   key={l}
                   href={`/${l}`}
                   className="relative px-3 py-1.5 text-xs font-medium rounded-full transition-colors z-10"
+                  aria-current={l === locale ? "page" : undefined}
                 >
                   {l === locale && (
                     <motion.div
@@ -91,6 +92,7 @@ export function Navbar({ locale, siteName }: { locale: Locale; siteName?: string
             onClick={() => setOpen(!open)}
             className="md:hidden p-2 text-muted hover:text-foreground z-50 relative"
             aria-label="Toggle menu"
+            aria-expanded={open}
           >
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               {open ? (
@@ -149,6 +151,7 @@ export function Navbar({ locale, siteName }: { locale: Locale; siteName?: string
                     <Link
                       key={l}
                       href={`/${l}`}
+                      aria-current={l === locale ? "page" : undefined}
                       className={`px-4 py-2 text-sm font-medium rounded-full transition-all ${
                         l === locale
                           ? "bg-accent text-white"

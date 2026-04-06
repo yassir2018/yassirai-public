@@ -25,6 +25,9 @@ export default async function LangLayout({
       lang={locale}
       className={rtl ? "font-[var(--font-noto-arabic)]" : ""}
     >
+      <a href="#main-content" className="skip-link">
+        {locale === "ar" ? "انتقل إلى المحتوى" : locale === "en" ? "Skip to content" : "Aller au contenu"}
+      </a>
       <ClientProviders>
         {children}
       </ClientProviders>

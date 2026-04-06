@@ -38,7 +38,7 @@ export default async function LangPage({
     <>
       <Analytics page={`/${locale}`} lang={locale} />
       <Navbar locale={locale} siteName={siteName} />
-      <main>
+      <main id="main-content" tabIndex={-1}>
         <Hero locale={locale} bio={data.bio} videos={data.heroVideos} />
         {data.bio && <About locale={locale} bio={data.bio} />}
         {data.services.length > 0 && <Services locale={locale} services={data.services} />}

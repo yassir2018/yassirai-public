@@ -66,23 +66,38 @@ export function Projects({ locale, projects }: { locale: Locale; projects: Proje
                     </p>
                   )}
 
-                  {project.url && (
-                    <MagneticButton
-                      href={project.url}
-                      className="inline-flex items-center gap-2 text-sm text-accent hover:text-accent-hover transition-colors"
-                    >
-                      {t.projects_view[locale]}
-                      <svg
-                        className={`w-4 h-4 transition-transform group-hover:translate-x-1 ${rtl ? "rotate-180" : ""}`}
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        strokeWidth={2}
+                  <div className="flex items-center gap-4 flex-wrap">
+                    {project.url && (
+                      <MagneticButton
+                        href={project.url}
+                        className="inline-flex items-center gap-2 text-sm text-accent hover:text-accent-hover transition-colors"
                       >
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                      </svg>
-                    </MagneticButton>
-                  )}
+                        {t.projects_view[locale]}
+                        <svg
+                          className={`w-4 h-4 transition-transform group-hover:translate-x-1 ${rtl ? "rotate-180" : ""}`}
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          strokeWidth={2}
+                        >
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                        </svg>
+                      </MagneticButton>
+                    )}
+                    {project.demoUrl && (
+                      <a
+                        href={project.demoUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 text-sm text-muted hover:text-foreground transition-colors"
+                      >
+                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 010 1.972l-11.54 6.347a1.125 1.125 0 01-1.667-.986V5.653z" />
+                        </svg>
+                        Demo
+                      </a>
+                    )}
+                  </div>
                 </div>
 
                 {/* Self-drawing separator */}

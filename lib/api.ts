@@ -31,10 +31,16 @@ export interface Contact {
 export interface Project {
   id: string;
   name: string;
+  slug: string;
   stack: string | null;
   status: string;
   description: string | null;
   url: string | null;
+  demoUrl: string | null;
+  videoUrl: string | null;
+  screenshots: string[];
+  category: string | null;
+  sortOrder: number;
 }
 
 export interface Template {

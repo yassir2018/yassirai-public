@@ -2,14 +2,15 @@
 import { useRef, useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { t, isRtl, type Locale } from "@/lib/i18n";
-import type { Bio } from "@/lib/api";
+import type { Bio, HeroVideo } from "@/lib/api";
 import { MagneticButton } from "./MagneticButton";
 
 const R2 = "https://pub-9c404a6a434c4363be2c253e38e6c8d7.r2.dev";
-const VIDEOS = [`${R2}/videos/action.mp4`, `${R2}/videos/cars.mp4`, `${R2}/videos/gladiator.mp4`];
-const SLIDE_DURATION = 8000; // 8s per slide
+const FALLBACK_VIDEOS = [`${R2}/videos/action.mp4`, `${R2}/videos/cars.mp4`, `${R2}/videos/gladiator.mp4`];
+const SLIDE_DURATION = 8000;
 
-export function Hero({ locale, bio }: { locale: Locale; bio: Bio | null }) {
+export function Hero({ locale, bio, videos }: { locale: Locale; bio: Bio | null; videos?: HeroVideo[] }) {
+  const VIDEOS = videos && videos.length > 0 ? videos.map((v) => v.url) : FALLBACK_VIDEOS;
   const name = bio?.name || "Yassir Mellakh";
   const title = bio?.title || "Creative Director | AI Visual Designer";
   const heroText = bio?.heroText || "";

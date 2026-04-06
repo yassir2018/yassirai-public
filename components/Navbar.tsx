@@ -6,7 +6,7 @@ import { locales, isRtl, t, type Locale } from "@/lib/i18n";
 
 const langLabels: Record<Locale, string> = { fr: "FR", en: "EN", ar: "AR" };
 
-export function Navbar({ locale }: { locale: Locale }) {
+export function Navbar({ locale, siteName }: { locale: Locale; siteName?: string }) {
   const [open, setOpen] = useState(false);
   const [hidden, setHidden] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -47,7 +47,7 @@ export function Navbar({ locale }: { locale: Locale }) {
       >
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
           <Link href={`/${locale}`} className="text-lg font-bold tracking-tight">
-            <span className="gradient-text">YassirAI</span>
+            <span className="gradient-text">{siteName || "YassirAI"}</span>
           </Link>
 
           {/* Desktop nav */}

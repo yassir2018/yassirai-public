@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { t, type Locale } from "@/lib/i18n";
 import type { Bio } from "@/lib/api";
 
-export function Footer({ locale, bio }: { locale: Locale; bio: Bio | null }) {
+export function Footer({ locale, bio, siteName }: { locale: Locale; bio: Bio | null; siteName?: string }) {
   const name = bio?.name || "YassirAI";
   const year = new Date().getFullYear();
 
@@ -25,7 +25,7 @@ export function Footer({ locale, bio }: { locale: Locale; bio: Bio | null }) {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <span className="text-3xl font-bold tracking-tight gradient-text">YassirAI</span>
+          <span className="text-3xl font-bold tracking-tight gradient-text">{siteName || "YassirAI"}</span>
         </motion.div>
 
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">

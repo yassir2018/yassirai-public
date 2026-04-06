@@ -60,12 +60,28 @@ export interface Template {
   sortOrder: number;
 }
 
+export interface HeroVideo {
+  id: string;
+  url: string;
+  label: string | null;
+}
+
+export interface SiteSettings {
+  siteName: string;
+  siteTitle: string;
+  siteDescription: string | null;
+  logoUrl: string | null;
+}
+
 export interface PortfolioData {
   bio: Bio | null;
   services: Service[];
   contacts: Contact[];
   projects: Project[];
   templates: Template[];
+  heroVideos: HeroVideo[];
+  siteSettings: SiteSettings;
+  templateCategories: string[];
 }
 
 export async function fetchPortfolio(lang: Locale): Promise<PortfolioData> {
@@ -74,7 +90,7 @@ export async function fetchPortfolio(lang: Locale): Promise<PortfolioData> {
   });
 
   if (!res.ok) {
-    return { bio: null, services: [], contacts: [], projects: [], templates: [] };
+    return { bio: null, services: [], contacts: [], projects: [], templates: [], heroVideos: [], siteSettings: { siteName: "YassirAI", siteTitle: "Yassir AI — Portfolio", siteDescription: null, logoUrl: null }, templateCategories: [] };
   }
 
   return res.json();

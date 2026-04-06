@@ -6,10 +6,7 @@ import type { Template } from "@/lib/api";
 import { SectionHeading } from "./SectionHeading";
 import { trackEvent } from "./Analytics";
 
-const CATEGORIES = ["all", "creative", "food", "ecommerce", "entertainment"] as const;
-type Category = (typeof CATEGORIES)[number];
-
-const CATEGORY_LABELS: Record<Category, Record<string, string>> = {
+const CATEGORY_LABELS: Record<string, Record<string, string>> = {
   all: { fr: "Tout", en: "All", ar: "الكل" },
   creative: { fr: "Agence & Portfolio", en: "Agency & Portfolio", ar: "وكالة وملف" },
   food: { fr: "Restaurant & Food", en: "Restaurant & Food", ar: "مطعم وطعام" },
@@ -17,8 +14,9 @@ const CATEGORY_LABELS: Record<Category, Record<string, string>> = {
   entertainment: { fr: "Entertainment & Media", en: "Entertainment & Media", ar: "ترفيه وإعلام" },
 };
 
-export function Templates({ locale, templates }: { locale: Locale; templates: Template[] }) {
-  const [activeCategory, setActiveCategory] = useState<Category>("all");
+export function Templates({ locale, templates, categories }: { locale: Locale; templates: Template[]; categories?: string[] }) {
+  const CATEGORIES = ["all", ...(categories && categories.length > 0 ? categories : Object.keys(CATEGORY_LABELS).filter((k) => k !== "all"))];
+  const [activeCategory, setActiveCategory] = useState("all");
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
   const filtered =
@@ -115,7 +113,7 @@ export function Templates({ locale, templates }: { locale: Locale; templates: Te
                             {tmpl.name}
                           </h3>
                           <span className="shrink-0 px-2.5 py-1 rounded-full text-[10px] text-muted bg-surface-hover border border-border uppercase tracking-wider">
-                            {CATEGORY_LABELS[tmpl.category as Category]?.[locale] || tmpl.category}
+                            {CATEGORY_LABELS[tmpl.category as string]?.[locale] || tmpl.category}
                           </span>
                         </div>
                         <p className="text-sm text-muted mt-1">{tmpl.description}</p>

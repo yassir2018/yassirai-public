@@ -83,6 +83,7 @@ export interface PortfolioData {
   heroVideos: HeroVideo[];
   siteSettings: SiteSettings;
   templateCategories: string[];
+  projectCategories: string[];
 }
 
 export async function fetchPortfolio(lang: Locale): Promise<PortfolioData> {
@@ -91,7 +92,7 @@ export async function fetchPortfolio(lang: Locale): Promise<PortfolioData> {
   });
 
   if (!res.ok) {
-    return { bio: null, services: [], contacts: [], projects: [], templates: [], heroVideos: [], siteSettings: { siteName: "YassirAI", siteTitle: "Yassir AI — Portfolio", siteDescription: null, logoUrl: null }, templateCategories: [] };
+    return { bio: null, services: [], contacts: [], projects: [], templates: [], heroVideos: [], siteSettings: { siteName: "YassirAI", siteTitle: "Yassir AI — Portfolio", siteDescription: null, logoUrl: null }, templateCategories: [], projectCategories: [] };
   }
 
   return res.json();

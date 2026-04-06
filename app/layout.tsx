@@ -14,6 +14,7 @@ const notoArabic = Noto_Sans_Arabic({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://yassirai.com"),
   title: "Yassir AI — Portfolio",
   description: "Developpeur, designer et createur de solutions digitales",
 };

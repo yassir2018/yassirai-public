@@ -18,9 +18,34 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
   const { lang } = await params;
   const data = await fetchPortfolio(lang as Locale);
+  const title = data.siteSettings?.siteTitle || "Yassir AI — Portfolio";
+  const description = data.siteSettings?.siteDescription || "Directeur Artistique & AI Visual Designer";
+  const url = `https://yassirai.com/${lang}`;
+
   return {
-    title: data.siteSettings?.siteTitle || "Yassir AI — Portfolio",
-    description: data.siteSettings?.siteDescription || "Directeur Artistique & AI Visual Designer",
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      url,
+      siteName: data.siteSettings?.siteName || "YassirAI",
+      locale: lang,
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+    },
+    alternates: {
+      canonical: url,
+      languages: {
+        fr: "https://yassirai.com/fr",
+        en: "https://yassirai.com/en",
+        ar: "https://yassirai.com/ar",
+      },
+    },
   };
 }
 
@@ -34,15 +59,28 @@ export default async function LangPage({
   const data = await fetchPortfolio(locale);
   const siteName = data.siteSettings?.siteName;
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: data.bio?.name || "Yassir Mellakh",
+    jobTitle: data.bio?.title || "Creative Director & AI Visual Designer",
+    url: `https://yassirai.com/${locale}`,
+    sameAs: data.contacts?.filter((c: { type: string }) => c.type === "social").map((c: { value: string }) => c.value) || [],
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Analytics page={`/${locale}`} lang={locale} />
       <Navbar locale={locale} siteName={siteName} />
       <main id="main-content" tabIndex={-1}>
         <Hero locale={locale} bio={data.bio} videos={data.heroVideos} />
         {data.bio && <About locale={locale} bio={data.bio} />}
         {data.services.length > 0 && <Services locale={locale} services={data.services} />}
-        {data.projects.length > 0 && <Projects locale={locale} projects={data.projects} />}
+        {data.projects.length > 0 && <Projects locale={locale} projects={data.projects} categories={data.projectCategories} />}
         <Templates locale={locale} templates={data.templates} categories={data.templateCategories} />
         <Contact locale={locale} contacts={data.contacts} />
       </main>

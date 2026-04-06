@@ -1,4 +1,6 @@
 "use client";
+import { useState } from "react";
+import { motion, LayoutGroup } from "framer-motion";
 import { t, isRtl, type Locale } from "@/lib/i18n";
 import type { Project } from "@/lib/api";
 import { SectionHeading } from "./SectionHeading";
@@ -13,8 +15,23 @@ const statusColors: Record<string, string> = {
   EN_PAUSE: "text-muted bg-surface-hover border-border",
 };
 
-export function Projects({ locale, projects }: { locale: Locale; projects: Project[] }) {
+const CATEGORY_LABELS: Record<string, Record<string, string>> = {
+  all: { fr: "Tout", en: "All", ar: "الكل" },
+  web: { fr: "Web", en: "Web", ar: "ويب" },
+  ai: { fr: "IA", en: "AI", ar: "ذكاء اصطناعي" },
+  design: { fr: "Design", en: "Design", ar: "تصميم" },
+  mobile: { fr: "Mobile", en: "Mobile", ar: "موبايل" },
+};
+
+export function Projects({ locale, projects, categories }: { locale: Locale; projects: Project[]; categories?: string[] }) {
   const rtl = isRtl(locale);
+  const CATEGORIES = ["all", ...(categories && categories.length > 0 ? categories : [])];
+  const [activeCategory, setActiveCategory] = useState("all");
+  const hasCategories = CATEGORIES.length > 1;
+
+  const filtered = activeCategory === "all"
+    ? projects
+    : projects.filter((p) => p.category === activeCategory);
 
   return (
     <section id="projects" className="py-32 sm:py-40 relative">
@@ -24,8 +41,37 @@ export function Projects({ locale, projects }: { locale: Locale; projects: Proje
           subtitle={t.projects_subtitle[locale]}
         />
 
+        {hasCategories && (
+          <div className="flex flex-wrap justify-center gap-2 mb-12">
+            <LayoutGroup>
+              {CATEGORIES.map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => setActiveCategory(cat)}
+                  className="relative px-5 py-2 text-sm font-medium rounded-full transition-colors"
+                >
+                  {activeCategory === cat && (
+                    <motion.div
+                      layoutId="proj-cat-pill"
+                      className="absolute inset-0 bg-accent rounded-full"
+                      transition={{ type: "spring", damping: 25, stiffness: 300 }}
+                    />
+                  )}
+                  <span
+                    className={`relative z-10 ${
+                      activeCategory === cat ? "text-white" : "text-muted hover:text-foreground"
+                    }`}
+                  >
+                    {CATEGORY_LABELS[cat]?.[locale] || cat}
+                  </span>
+                </button>
+              ))}
+            </LayoutGroup>
+          </div>
+        )}
+
         <div className="space-y-8">
-          {projects.map((project, i) => {
+          {filtered.map((project, i) => {
             const statusKey = `status_${project.status}` as keyof typeof t;
             const statusLabel = t[statusKey]?.[locale] || project.status;
             const colors = statusColors[project.status] || statusColors.EN_COURS;
@@ -103,7 +149,7 @@ export function Projects({ locale, projects }: { locale: Locale; projects: Proje
                 </div>
 
                 {/* Self-drawing separator */}
-                {i < projects.length - 1 && (
+                {i < filtered.length - 1 && (
                   <div className="mt-8 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
                 )}
               </ScrollReveal>

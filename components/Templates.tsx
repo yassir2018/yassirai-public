@@ -112,9 +112,16 @@ export function Templates({ locale, templates, categories }: { locale: Locale; t
                           <h3 className="text-base font-semibold tracking-tight truncate">
                             {tmpl.name}
                           </h3>
-                          <span className="shrink-0 px-2.5 py-1 rounded-full text-[10px] text-muted bg-surface-hover border border-border uppercase tracking-wider">
-                            {CATEGORY_LABELS[tmpl.category as string]?.[locale] || tmpl.category}
-                          </span>
+                          <div className="flex items-center gap-2 shrink-0">
+                            {tmpl.price != null && tmpl.price > 0 && (
+                              <span className="px-2.5 py-1 rounded-full text-[10px] font-semibold text-accent bg-accent/10 border border-accent/20">
+                                {tmpl.price}{tmpl.currency ? ` ${tmpl.currency}` : " MAD"}
+                              </span>
+                            )}
+                            <span className="px-2.5 py-1 rounded-full text-[10px] text-muted bg-surface-hover border border-border uppercase tracking-wider">
+                              {CATEGORY_LABELS[tmpl.category as string]?.[locale] || tmpl.category}
+                            </span>
+                          </div>
                         </div>
                         <p className="text-sm text-muted mt-1">{tmpl.description}</p>
 
@@ -132,6 +139,22 @@ export function Templates({ locale, templates, categories }: { locale: Locale; t
                               </span>
                             )}
                           </div>
+                        )}
+
+                        {/* Buy button */}
+                        {tmpl.saleUrl && (
+                          <a
+                            href={tmpl.saleUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={(e) => e.stopPropagation()}
+                            className="mt-3 inline-flex items-center gap-1.5 px-4 py-2 text-xs font-medium text-white bg-accent hover:bg-accent-hover rounded-full transition-colors"
+                          >
+                            {t.templates_buy[locale]}
+                            <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+                            </svg>
+                          </a>
                         )}
                       </div>
                     </div>
@@ -164,6 +187,22 @@ export function Templates({ locale, templates, categories }: { locale: Locale; t
               <span className="text-sm text-muted">
                 {templates.find((tmpl) => tmpl.previewUrl === previewUrl)?.name}
               </span>
+              <div className="flex items-center gap-3">
+                {(() => {
+                  const active = templates.find((tmpl) => tmpl.previewUrl === previewUrl);
+                  return active?.saleUrl ? (
+                    <a
+                      href={active.saleUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 px-4 py-1.5 text-xs font-medium text-white bg-accent hover:bg-accent-hover rounded-full transition-colors"
+                    >
+                      {t.templates_buy[locale]}
+                      {active.price != null && active.price > 0 && ` — ${active.price} ${active.currency || "MAD"}`}
+                    </a>
+                  ) : null;
+                })()}
+              </div>
               <button
                 onClick={() => setPreviewUrl(null)}
                 className="w-8 h-8 rounded-full bg-surface hover:bg-surface-hover flex items-center justify-center transition-colors"

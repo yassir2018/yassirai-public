@@ -40,12 +40,18 @@ export interface Project {
 export interface Template {
   id: string;
   name: string;
+  slug: string;
   description: string | null;
   status: string;
   previewUrl: string | null;
   saleUrl: string | null;
   thumbnailUrl: string | null;
   category: string | null;
+  price: number | null;
+  currency: string | null;
+  demoMode: boolean;
+  features: string[];
+  sortOrder: number;
 }
 
 export interface PortfolioData {

@@ -2,16 +2,8 @@
 import { useState } from "react";
 import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
 import { t, type Locale } from "@/lib/i18n";
+import type { Template } from "@/lib/api";
 import { SectionHeading } from "./SectionHeading";
-import { ScrollReveal, StaggerContainer, StaggerItem } from "./ScrollReveal";
-
-interface LocalTemplate {
-  id: string;
-  name: string;
-  category: string;
-  previewUrl: string;
-  description: string;
-}
 
 const CATEGORIES = ["all", "creative", "food", "ecommerce", "entertainment"] as const;
 type Category = (typeof CATEGORIES)[number];
@@ -24,28 +16,16 @@ const CATEGORY_LABELS: Record<Category, Record<string, string>> = {
   entertainment: { fr: "Entertainment & Media", en: "Entertainment & Media", ar: "ترفيه وإعلام" },
 };
 
-const LOCAL_TEMPLATES: LocalTemplate[] = [
-  { id: "agency-pro", name: "APEX Studio", category: "creative", previewUrl: "/templates/agency-pro.html", description: "Creative Agency" },
-  { id: "portfolio-cv", name: "Elena Vasquez", category: "creative", previewUrl: "/templates/portfolio-cv.html", description: "Portfolio & CV" },
-  { id: "bigbrand-auto", name: "VOLTEX", category: "ecommerce", previewUrl: "/templates/bigbrand-auto.html", description: "Electric Supercar" },
-  { id: "boulangerie", name: "MAISON PAIN", category: "food", previewUrl: "/templates/boulangerie.html", description: "Boulangerie Artisanale" },
-  { id: "chaussures", name: "STRIDE", category: "ecommerce", previewUrl: "/templates/chaussures.html", description: "Chaussures Premium" },
-  { id: "ecommerce", name: "MAISON ATLAS", category: "ecommerce", previewUrl: "/templates/ecommerce.html", description: "Mode & Lifestyle" },
-  { id: "gaming", name: "PHANTOM Studios", category: "entertainment", previewUrl: "/templates/gaming-studio.html", description: "Gaming Studio" },
-  { id: "news", name: "الصدى", category: "entertainment", previewUrl: "/templates/news-media.html", description: "جريدة إلكترونية" },
-  { id: "parfums", name: "SILLAGE", category: "ecommerce", previewUrl: "/templates/parfums.html", description: "Maison de Parfums" },
-  { id: "restaurant", name: "DAR ZITOUN", category: "food", previewUrl: "/templates/restaurant.html", description: "Restaurant Gastronomique" },
-  { id: "nexus", name: "NEXUS Pictures", category: "entertainment", previewUrl: "/templates/nexus-pictures.html", description: "World-Class Entertainment" },
-];
-
-export function Templates({ locale }: { locale: Locale; templates?: unknown[] }) {
+export function Templates({ locale, templates }: { locale: Locale; templates: Template[] }) {
   const [activeCategory, setActiveCategory] = useState<Category>("all");
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
   const filtered =
     activeCategory === "all"
-      ? LOCAL_TEMPLATES
-      : LOCAL_TEMPLATES.filter((t) => t.category === activeCategory);
+      ? templates
+      : templates.filter((tmpl) => tmpl.category === activeCategory);
+
+  if (templates.length === 0) return null;
 
   return (
     <>
@@ -100,26 +80,28 @@ export function Templates({ locale }: { locale: Locale; templates?: unknown[] })
                   transition={{ duration: 0.3 }}
                 >
                   <button
-                    onClick={() => setPreviewUrl(tmpl.previewUrl)}
+                    onClick={() => tmpl.previewUrl && setPreviewUrl(tmpl.previewUrl)}
                     className="w-full text-start group"
                   >
                     <div className="glass rounded-2xl overflow-hidden transition-all duration-500 hover:translate-y-[-4px]">
                       {/* Iframe thumbnail */}
-                      <div className="relative aspect-video overflow-hidden bg-background border-b border-border">
-                        <iframe
-                          src={tmpl.previewUrl}
-                          className="w-[400%] h-[400%] origin-top-left scale-[0.25] pointer-events-none"
-                          title={tmpl.name}
-                          loading="lazy"
-                          sandbox="allow-same-origin"
-                        />
-                        {/* Hover overlay */}
-                        <div className="absolute inset-0 bg-accent/0 group-hover:bg-accent/10 transition-colors duration-300 flex items-center justify-center">
-                          <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-white text-sm font-medium bg-accent/80 backdrop-blur-sm px-4 py-2 rounded-full">
-                            {t.templates_preview[locale]}
-                          </span>
+                      {tmpl.previewUrl && (
+                        <div className="relative aspect-video overflow-hidden bg-background border-b border-border">
+                          <iframe
+                            src={tmpl.previewUrl}
+                            className="w-[400%] h-[400%] origin-top-left scale-[0.25] pointer-events-none"
+                            title={tmpl.name}
+                            loading="lazy"
+                            sandbox="allow-same-origin"
+                          />
+                          {/* Hover overlay */}
+                          <div className="absolute inset-0 bg-accent/0 group-hover:bg-accent/10 transition-colors duration-300 flex items-center justify-center">
+                            <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-white text-sm font-medium bg-accent/80 backdrop-blur-sm px-4 py-2 rounded-full">
+                              {t.templates_preview[locale]}
+                            </span>
+                          </div>
                         </div>
-                      </div>
+                      )}
 
                       <div className="p-5">
                         <div className="flex items-center justify-between gap-3">
@@ -131,6 +113,22 @@ export function Templates({ locale }: { locale: Locale; templates?: unknown[] })
                           </span>
                         </div>
                         <p className="text-sm text-muted mt-1">{tmpl.description}</p>
+
+                        {/* Features pills */}
+                        {tmpl.features && tmpl.features.length > 0 && (
+                          <div className="flex flex-wrap gap-1 mt-3">
+                            {tmpl.features.slice(0, 3).map((f) => (
+                              <span key={f} className="px-2 py-0.5 rounded-full text-[10px] text-muted bg-background border border-border">
+                                {f}
+                              </span>
+                            ))}
+                            {tmpl.features.length > 3 && (
+                              <span className="px-2 py-0.5 text-[10px] text-muted">
+                                +{tmpl.features.length - 3}
+                              </span>
+                            )}
+                          </div>
+                        )}
                       </div>
                     </div>
                   </button>
@@ -160,7 +158,7 @@ export function Templates({ locale }: { locale: Locale; templates?: unknown[] })
             {/* Top bar */}
             <div className="relative z-10 flex items-center justify-between px-4 sm:px-6 py-3 bg-background/80 backdrop-blur-xl border-b border-border">
               <span className="text-sm text-muted">
-                {LOCAL_TEMPLATES.find((t) => t.previewUrl === previewUrl)?.name}
+                {templates.find((tmpl) => tmpl.previewUrl === previewUrl)?.name}
               </span>
               <button
                 onClick={() => setPreviewUrl(null)}

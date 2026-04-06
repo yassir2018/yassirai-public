@@ -4,6 +4,7 @@ import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
 import { t, type Locale } from "@/lib/i18n";
 import type { Template } from "@/lib/api";
 import { SectionHeading } from "./SectionHeading";
+import { trackEvent } from "./Analytics";
 
 const CATEGORIES = ["all", "creative", "food", "ecommerce", "entertainment"] as const;
 type Category = (typeof CATEGORIES)[number];
@@ -80,7 +81,12 @@ export function Templates({ locale, templates }: { locale: Locale; templates: Te
                   transition={{ duration: 0.3 }}
                 >
                   <button
-                    onClick={() => tmpl.previewUrl && setPreviewUrl(tmpl.previewUrl)}
+                    onClick={() => {
+                      if (tmpl.previewUrl) {
+                        setPreviewUrl(tmpl.previewUrl);
+                        trackEvent(tmpl.slug, "template", locale);
+                      }
+                    }}
                     className="w-full text-start group"
                   >
                     <div className="glass rounded-2xl overflow-hidden transition-all duration-500 hover:translate-y-[-4px]">

@@ -4,6 +4,7 @@ import type { Project } from "@/lib/api";
 import { SectionHeading } from "./SectionHeading";
 import { ScrollReveal } from "./ScrollReveal";
 import { MagneticButton } from "./MagneticButton";
+import { trackEvent } from "./Analytics";
 
 const statusColors: Record<string, string> = {
   EN_COURS: "text-accent bg-accent/10 border-accent/20",
@@ -70,6 +71,7 @@ export function Projects({ locale, projects }: { locale: Locale; projects: Proje
                     {project.url && (
                       <MagneticButton
                         href={project.url}
+                        onClick={() => trackEvent(project.slug, "project", locale)}
                         className="inline-flex items-center gap-2 text-sm text-accent hover:text-accent-hover transition-colors"
                       >
                         {t.projects_view[locale]}

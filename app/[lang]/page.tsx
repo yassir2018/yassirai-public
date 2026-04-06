@@ -8,6 +8,7 @@ import { Projects } from "@/components/Projects";
 import { Templates } from "@/components/Templates";
 import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
+import { Analytics } from "@/components/Analytics";
 
 export function generateStaticParams() {
   return locales.map((lang) => ({ lang }));
@@ -24,6 +25,7 @@ export default async function LangPage({
 
   return (
     <>
+      <Analytics page={`/${locale}`} lang={locale} />
       <Navbar locale={locale} />
       <main>
         <Hero locale={locale} bio={data.bio} />

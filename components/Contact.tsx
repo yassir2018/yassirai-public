@@ -1,10 +1,12 @@
 "use client";
-import { useRef, useState } from "react";
-import { motion, useInView } from "framer-motion";
+import { useState } from "react";
+import { motion } from "framer-motion";
 import { t, type Locale } from "@/lib/i18n";
 import type { Contact as ContactType } from "@/lib/api";
 import { TextReveal } from "./TextReveal";
 import { StaggerContainer, StaggerItem } from "./ScrollReveal";
+
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || "https://app.yassirai.com";
 
 const typeIcons: Record<string, string> = {
   email: "M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75",
@@ -47,12 +49,136 @@ function TiltCard({ children, className }: { children: React.ReactNode; classNam
   );
 }
 
+function ContactForm({ locale }: { locale: Locale }) {
+  const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setStatus("sending");
+
+    const form = e.currentTarget;
+    const data = {
+      name: (form.elements.namedItem("name") as HTMLInputElement).value,
+      email: (form.elements.namedItem("email") as HTMLInputElement).value,
+      subject: (form.elements.namedItem("subject") as HTMLInputElement).value,
+      message: (form.elements.namedItem("message") as HTMLTextAreaElement).value,
+      lang: locale,
+    };
+
+    try {
+      const res = await fetch(`${API_BASE}/api/public/contact`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      if (!res.ok) throw new Error();
+      setStatus("success");
+      form.reset();
+    } catch {
+      setStatus("error");
+    }
+  }
+
+  const isRtl = locale === "ar";
+
+  return (
+    <motion.form
+      onSubmit={handleSubmit}
+      className="glass rounded-2xl p-6 sm:p-8 space-y-5"
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-80px" }}
+      transition={{ duration: 0.6, delay: 0.2 }}
+      dir={isRtl ? "rtl" : "ltr"}
+    >
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label htmlFor="name" className="block text-sm font-medium text-muted mb-1.5">
+            {t.form_name[locale]} *
+          </label>
+          <input
+            id="name"
+            name="name"
+            type="text"
+            required
+            className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-sm text-foreground placeholder:text-muted/50 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent/30 transition-all"
+            placeholder={t.form_name[locale]}
+          />
+        </div>
+        <div>
+          <label htmlFor="email" className="block text-sm font-medium text-muted mb-1.5">
+            {t.form_email[locale]} *
+          </label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            required
+            className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-sm text-foreground placeholder:text-muted/50 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent/30 transition-all"
+            placeholder={t.form_email[locale]}
+          />
+        </div>
+      </div>
+
+      <div>
+        <label htmlFor="subject" className="block text-sm font-medium text-muted mb-1.5">
+          {t.form_subject[locale]}
+        </label>
+        <input
+          id="subject"
+          name="subject"
+          type="text"
+          className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-sm text-foreground placeholder:text-muted/50 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent/30 transition-all"
+          placeholder={t.form_subject[locale]}
+        />
+      </div>
+
+      <div>
+        <label htmlFor="message" className="block text-sm font-medium text-muted mb-1.5">
+          {t.form_message[locale]} *
+        </label>
+        <textarea
+          id="message"
+          name="message"
+          required
+          rows={5}
+          className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-sm text-foreground placeholder:text-muted/50 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent/30 transition-all resize-none"
+          placeholder={t.form_message[locale]}
+        />
+      </div>
+
+      {status === "success" && (
+        <motion.p
+          className="text-sm text-green-400 bg-green-400/10 px-4 py-3 rounded-xl"
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+        >
+          {t.form_success[locale]}
+        </motion.p>
+      )}
+      {status === "error" && (
+        <p className="text-sm text-red-400 bg-red-400/10 px-4 py-3 rounded-xl">
+          {t.form_error[locale]}
+        </p>
+      )}
+
+      <button
+        type="submit"
+        disabled={status === "sending"}
+        className="w-full sm:w-auto px-8 py-3.5 text-sm font-medium text-white bg-accent hover:bg-accent-hover rounded-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+      >
+        {status === "sending" ? t.form_sending[locale] : t.form_send[locale]}
+      </button>
+    </motion.form>
+  );
+}
+
 export function Contact({ locale, contacts }: { locale: Locale; contacts: ContactType[] }) {
   return (
     <section id="contact" className="py-32 sm:py-40 relative">
       <div className="max-w-4xl mx-auto px-4 sm:px-6">
-        {/* Massive headline */}
-        <div className="text-center mb-20">
+        {/* Headline */}
+        <div className="text-center mb-16">
           <h2 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight mb-6">
             <TextReveal text={t.contact_title[locale]} highlightLast />
           </h2>
@@ -67,7 +193,26 @@ export function Contact({ locale, contacts }: { locale: Locale; contacts: Contac
           </motion.p>
         </div>
 
-        {contacts.length > 0 ? (
+        {/* Contact Form */}
+        <div className="mb-16">
+          <ContactForm locale={locale} />
+        </div>
+
+        {/* Separator */}
+        {contacts.length > 0 && (
+          <motion.p
+            className="text-center text-sm text-muted mb-10"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.3 }}
+          >
+            {t.form_or[locale]}
+          </motion.p>
+        )}
+
+        {/* Contact cards */}
+        {contacts.length > 0 && (
           <StaggerContainer
             className="grid grid-cols-1 sm:grid-cols-2 gap-5 max-w-2xl mx-auto"
             staggerDelay={0.1}
@@ -94,7 +239,6 @@ export function Contact({ locale, contacts }: { locale: Locale; contacts: Contac
                       <p className="text-sm font-medium truncate group-hover:text-accent transition-colors">
                         {c.value}
                       </p>
-                      {/* Underline animation */}
                       <div className="h-px w-0 group-hover:w-full bg-accent/50 transition-all duration-300 mt-0.5" />
                     </div>
                   </div>
@@ -114,20 +258,6 @@ export function Contact({ locale, contacts }: { locale: Locale; contacts: Contac
               );
             })}
           </StaggerContainer>
-        ) : (
-          <motion.div
-            className="text-center"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <a
-              href="mailto:contact@yassirai.com"
-              className="inline-flex items-center gap-2 px-8 py-4 text-sm font-medium text-white bg-accent hover:bg-accent-hover rounded-full transition-all"
-            >
-              contact@yassirai.com
-            </a>
-          </motion.div>
         )}
       </div>
     </section>

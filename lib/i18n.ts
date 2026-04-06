@@ -62,4 +62,14 @@ export const t: Record<string, Record<Locale, string>> = {
 
   empty_projects: { fr: "Aucun projet pour le moment", en: "No projects yet", ar: "لا توجد مشاريع حاليا" },
   empty_services: { fr: "Aucun service pour le moment", en: "No services yet", ar: "لا توجد خدمات حاليا" },
+
+  form_name: { fr: "Votre nom", en: "Your name", ar: "اسمك" },
+  form_email: { fr: "Votre email", en: "Your email", ar: "بريدك الإلكتروني" },
+  form_subject: { fr: "Sujet", en: "Subject", ar: "الموضوع" },
+  form_message: { fr: "Votre message", en: "Your message", ar: "رسالتك" },
+  form_send: { fr: "Envoyer", en: "Send", ar: "إرسال" },
+  form_sending: { fr: "Envoi en cours...", en: "Sending...", ar: "جارٍ الإرسال..." },
+  form_success: { fr: "Message envoye avec succes !", en: "Message sent successfully!", ar: "تم إرسال الرسالة بنجاح!" },
+  form_error: { fr: "Erreur lors de l'envoi. Reessayez.", en: "Error sending. Please try again.", ar: "خطأ في الإرسال. حاول مرة أخرى." },
+  form_or: { fr: "ou contactez-moi directement", en: "or contact me directly", ar: "أو تواصل معي مباشرة" },
 };

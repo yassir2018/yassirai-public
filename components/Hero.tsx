@@ -13,13 +13,34 @@ const FALLBACK_SLIDES: { url: string; type: "video" | "image" }[] = [
 ];
 const SLIDE_DURATION = 8000;
 
+type Slide = {
+  url: string;
+  type: "video" | "image";
+  greeting?: string | null;
+  title?: string | null;
+  subtitle?: string | null;
+  description?: string | null;
+  btn1Text?: string | null;
+  btn1Href?: string | null;
+  btn1Visible?: boolean;
+  btn2Text?: string | null;
+  btn2Href?: string | null;
+  btn2Visible?: boolean;
+};
+
 export function Hero({ locale, bio, videos }: { locale: Locale; bio: Bio | null; videos?: HeroVideo[] }) {
-  const slides = videos && videos.length > 0
-    ? videos.map((v) => ({ url: v.url, type: (v.type || "video") as "video" | "image" }))
+  const slides: Slide[] = videos && videos.length > 0
+    ? videos.map((v) => ({
+        url: v.url,
+        type: (v.type || "video") as "video" | "image",
+        greeting: v.greeting, title: v.title, subtitle: v.subtitle, description: v.description,
+        btn1Text: v.btn1Text, btn1Href: v.btn1Href, btn1Visible: v.btn1Visible,
+        btn2Text: v.btn2Text, btn2Href: v.btn2Href, btn2Visible: v.btn2Visible,
+      }))
     : FALLBACK_SLIDES;
-  const name = bio?.name || "Yassir Mellakh";
-  const title = bio?.title || "Creative Director | AI Visual Designer";
-  const heroText = bio?.heroText || "";
+  const bioName = bio?.name || "Yassir Mellakh";
+  const bioTitle = bio?.title || "Creative Director | AI Visual Designer";
+  const bioHeroText = bio?.heroText || "";
   const rtl = isRtl(locale);
 
   const [current, setCurrent] = useState(0);
@@ -108,53 +129,77 @@ export function Hero({ locale, bio, videos }: { locale: Locale; bio: Bio | null;
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
           >
-            {/* Greeting */}
-            <p className="text-sm sm:text-base text-white/60 mb-4 tracking-widest uppercase">
-              {t.hero_greeting[locale]}
-            </p>
+            {(() => {
+              const slide = slides[current];
+              const greeting = slide.greeting || t.hero_greeting[locale];
+              const displayName = slide.title || bioName;
+              const displayTitle = slide.subtitle || bioTitle;
+              const displayText = slide.description || bioHeroText;
+              const showBtn1 = slide.btn1Visible !== false;
+              const showBtn2 = slide.btn2Visible !== false;
+              const btn1Label = slide.btn1Text || t.hero_cta[locale];
+              const btn1Link = slide.btn1Href || "#projects";
+              const btn2Label = slide.btn2Text || t.hero_contact[locale];
+              const btn2Link = slide.btn2Href || "#contact";
 
-            {/* Name */}
-            <h1 className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-bold tracking-tighter text-white leading-[0.9] mb-4">
-              {name}
-            </h1>
+              return (
+                <>
+                  {/* Greeting */}
+                  <p className="text-sm sm:text-base text-white/60 mb-4 tracking-widest uppercase">
+                    {greeting}
+                  </p>
 
-            {/* Title */}
-            <p className="text-lg sm:text-xl md:text-2xl text-white/70 font-light mb-6 max-w-2xl">
-              {title}
-            </p>
+                  {/* Name */}
+                  <h1 className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-bold tracking-tighter text-white leading-[0.9] mb-4">
+                    {displayName}
+                  </h1>
 
-            {/* Hero text */}
-            {heroText && (
-              <p className="text-sm sm:text-base text-white/50 max-w-xl mb-8 leading-relaxed">
-                {heroText}
-              </p>
-            )}
+                  {/* Title */}
+                  <p className="text-lg sm:text-xl md:text-2xl text-white/70 font-light mb-6 max-w-2xl">
+                    {displayTitle}
+                  </p>
 
-            {/* CTAs */}
-            <div className="flex flex-wrap items-center gap-4">
-              <MagneticButton
-                href="#projects"
-                className="px-8 py-4 text-sm font-medium text-white bg-accent hover:bg-accent-hover rounded-full transition-colors"
-              >
-                {t.hero_cta[locale]}
-                <svg
-                  className={`w-4 h-4 ${rtl ? "rotate-180" : ""}`}
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  strokeWidth={2}
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-                </svg>
-              </MagneticButton>
+                  {/* Hero text */}
+                  {displayText && (
+                    <p className="text-sm sm:text-base text-white/50 max-w-xl mb-8 leading-relaxed">
+                      {displayText}
+                    </p>
+                  )}
 
-              <MagneticButton
-                href="#contact"
-                className="px-8 py-4 text-sm font-medium text-white/80 border border-white/20 hover:border-white/40 hover:text-white rounded-full transition-all"
-              >
-                {t.hero_contact[locale]}
-              </MagneticButton>
-            </div>
+                  {/* CTAs */}
+                  {(showBtn1 || showBtn2) && (
+                    <div className="flex flex-wrap items-center gap-4">
+                      {showBtn1 && (
+                        <MagneticButton
+                          href={btn1Link}
+                          className="px-8 py-4 text-sm font-medium text-white bg-accent hover:bg-accent-hover rounded-full transition-colors"
+                        >
+                          {btn1Label}
+                          <svg
+                            className={`w-4 h-4 ${rtl ? "rotate-180" : ""}`}
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            strokeWidth={2}
+                          >
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                          </svg>
+                        </MagneticButton>
+                      )}
+
+                      {showBtn2 && (
+                        <MagneticButton
+                          href={btn2Link}
+                          className="px-8 py-4 text-sm font-medium text-white/80 border border-white/20 hover:border-white/40 hover:text-white rounded-full transition-all"
+                        >
+                          {btn2Label}
+                        </MagneticButton>
+                      )}
+                    </div>
+                  )}
+                </>
+              );
+            })()}
           </motion.div>
         </AnimatePresence>
       </div>

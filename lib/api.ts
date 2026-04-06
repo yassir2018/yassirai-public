@@ -65,6 +65,16 @@ export interface HeroVideo {
   url: string;
   label: string | null;
   type?: "video" | "image";
+  greeting?: string | null;
+  title?: string | null;
+  subtitle?: string | null;
+  description?: string | null;
+  btn1Text?: string | null;
+  btn1Href?: string | null;
+  btn1Visible?: boolean;
+  btn2Text?: string | null;
+  btn2Href?: string | null;
+  btn2Visible?: boolean;
 }
 
 export interface SiteSettings {

@@ -5,7 +5,8 @@ import { t, isRtl, type Locale } from "@/lib/i18n";
 import type { Bio } from "@/lib/api";
 import { MagneticButton } from "./MagneticButton";
 
-const VIDEOS = ["/videos/action.mp4", "/videos/cars.mp4", "/videos/gladiator.mp4"];
+const R2 = "https://pub-9c404a6a434c4363be2c253e38e6c8d7.r2.dev";
+const VIDEOS = [`${R2}/videos/action.mp4`, `${R2}/videos/cars.mp4`, `${R2}/videos/gladiator.mp4`];
 const SLIDE_DURATION = 8000; // 8s per slide
 
 export function Hero({ locale, bio }: { locale: Locale; bio: Bio | null }) {

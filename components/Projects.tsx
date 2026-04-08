@@ -81,9 +81,9 @@ export function Projects({ locale, projects, categories }: { locale: Locale; pro
               <ScrollReveal key={project.id} variant="scaleUp" delay={i * 0.1}>
                 <div className="glass rounded-2xl p-8 sm:p-10 transition-all duration-500 hover:translate-y-[-2px]">
                   <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-4">
-                    <h3 className="text-xl sm:text-2xl font-semibold tracking-tight">
+                    <a href={`/${locale}/projects/${project.slug}`} className="text-xl sm:text-2xl font-semibold tracking-tight hover:text-accent transition-colors">
                       {project.name}
-                    </h3>
+                    </a>
                     <span
                       className={`shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium border ${colors}`}
                     >
@@ -114,21 +114,30 @@ export function Projects({ locale, projects, categories }: { locale: Locale; pro
                   )}
 
                   <div className="flex items-center gap-4 flex-wrap">
+                    <a
+                      href={`/${locale}/projects/${project.slug}`}
+                      className="inline-flex items-center gap-2 text-sm text-accent hover:text-accent-hover transition-colors"
+                    >
+                      {t.projects_details[locale]}
+                      <svg
+                        className={`w-4 h-4 transition-transform group-hover:translate-x-1 ${rtl ? "rotate-180" : ""}`}
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth={2}
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                      </svg>
+                    </a>
                     {project.url && (
                       <MagneticButton
                         href={project.url}
                         onClick={() => trackEvent(project.slug, "project", locale)}
-                        className="inline-flex items-center gap-2 text-sm text-accent hover:text-accent-hover transition-colors"
+                        className="inline-flex items-center gap-2 text-sm text-muted hover:text-foreground transition-colors"
                       >
                         {t.projects_view[locale]}
-                        <svg
-                          className={`w-4 h-4 transition-transform group-hover:translate-x-1 ${rtl ? "rotate-180" : ""}`}
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                          strokeWidth={2}
-                        >
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                        <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
                         </svg>
                       </MagneticButton>
                     )}

@@ -36,6 +36,7 @@ export interface Project {
   status: string;
   description: string | null;
   url: string | null;
+  repo: string | null;
   demoUrl: string | null;
   videoUrl: string | null;
   screenshots: string[];

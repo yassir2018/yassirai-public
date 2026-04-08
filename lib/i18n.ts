@@ -31,6 +31,18 @@ export const t: Record<string, Record<Locale, string>> = {
     ar: "مجموعة من أعمالي الحديثة",
   },
   projects_view: { fr: "Voir le projet", en: "View project", ar: "عرض المشروع" },
+  projects_details: { fr: "Voir les details", en: "View details", ar: "عرض التفاصيل" },
+
+  back_to_projects: { fr: "Retour aux projets", en: "Back to projects", ar: "العودة للمشاريع" },
+  project_screenshots: { fr: "Captures d'ecran", en: "Screenshots", ar: "لقطات الشاشة" },
+  project_video: { fr: "Video", en: "Video", ar: "فيديو" },
+  project_repo: { fr: "Code source", en: "Source code", ar: "الكود المصدري" },
+  project_demo: { fr: "Demo", en: "Demo", ar: "عرض" },
+  project_visit: { fr: "Visiter le site", en: "Visit site", ar: "زيارة الموقع" },
+  project_tech: { fr: "Technologies", en: "Technologies", ar: "التقنيات" },
+  project_status_label: { fr: "Statut", en: "Status", ar: "الحالة" },
+  project_not_found: { fr: "Projet introuvable", en: "Project not found", ar: "المشروع غير موجود" },
+  project_not_found_desc: { fr: "Ce projet n'existe pas ou n'est plus disponible.", en: "This project doesn't exist or is no longer available.", ar: "هذا المشروع غير موجود أو لم يعد متاحا." },
 
   templates_title: { fr: "Templates", en: "Templates", ar: "القوالب" },
   templates_subtitle: {

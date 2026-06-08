@@ -4,7 +4,7 @@ import { motion, useInView } from "framer-motion";
 import Image from "next/image";
 import { t, type Locale } from "@/lib/i18n";
 import type { Bio } from "@/lib/api";
-import { SectionHeading } from "./SectionHeading";
+import { EyebrowHeading } from "./SectionHeading";
 import { ScrollReveal } from "./ScrollReveal";
 
 export function About({ locale, bio }: { locale: Locale; bio: Bio }) {
@@ -12,9 +12,9 @@ export function About({ locale, bio }: { locale: Locale; bio: Bio }) {
   const isInView = useInView(avatarRef, { once: true, margin: "-100px" });
 
   return (
-    <section id="about" className="py-32 sm:py-40 relative">
+    <section id="about" className="bg-[#09090b] text-[#fafafa] py-24 sm:py-32 relative">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <SectionHeading title={t.about_title[locale]} />
+        <EyebrowHeading theme="dark" eyebrow={t.about_title[locale]} title={bio.name} />
 
         <div className="grid grid-cols-1 md:grid-cols-5 gap-12 md:gap-16 items-center">
           {/* Avatar with clip-path reveal */}

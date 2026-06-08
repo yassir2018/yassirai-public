@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
-import { Geist, Noto_Sans_Arabic } from "next/font/google";
+import { Inter, Noto_Sans_Arabic } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
+  style: ["normal", "italic"],
+  display: "swap",
 });
 
 const notoArabic = Noto_Sans_Arabic({
@@ -25,7 +27,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fr" className={`${geistSans.variable} ${notoArabic.variable} dark antialiased`}>
+    <html lang="fr" className={`${inter.variable} ${notoArabic.variable} dark antialiased`}>
       <body className="min-h-screen bg-background text-foreground font-sans">
         {children}
       </body>

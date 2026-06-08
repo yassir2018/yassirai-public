@@ -1,15 +1,22 @@
 @import "tailwindcss";
 
 :root {
-  --background: #050505;
-  --foreground: #f5f5f7;
-  --muted: #86868b;
-  --accent: #6366f1;
-  --accent-hover: #818cf8;
+  --background: #09090b;
+  --foreground: #fafafa;
+  --muted: #a1a1aa;
+  --accent: #7c3aed;
+  --accent-hover: #8b5cf6;
   --surface: #111113;
-  --surface-hover: #1c1c1e;
-  --border: #1c1c1e;
+  --surface-hover: #18181b;
+  --border: #27272a;
   --success: #22c55e;
+
+  /* ── WEAVER palette tokens (dark + light surfaces, dark/light alternance) ── */
+  --dk: #09090b; --dk2: #111113; --dk3: #18181b;
+  --dk-border: #27272a; --dk-text: #fafafa; --dk-muted: #a1a1aa; --dk-dim: #52525b;
+  --lt: #ffffff; --lt2: #f7f7f8; --lt3: #f0f0f2;
+  --lt-border: #e4e4e7; --lt-text: #09090b; --lt-muted: #71717a; --lt-dim: #a1a1aa;
+  --violet: #7c3aed; --violet-soft: rgba(124, 58, 237, .12);
 }
 
 @theme inline {
@@ -22,7 +29,7 @@
   --color-surface-hover: var(--surface-hover);
   --color-border: var(--border);
   --color-success: var(--success);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-inter);
   --font-mono: var(--font-geist-mono);
 }
 
@@ -85,24 +92,24 @@ body {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #6366f1;
+  background: #7c3aed;
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #818cf8;
+  background: #8b5cf6;
 }
 
 /* ── Utilities ──────────────────────────────── */
 
 .gradient-text {
-  background: linear-gradient(135deg, #6366f1, #a855f7, #ec4899);
+  background: linear-gradient(135deg, #7c3aed, #a855f7, #d946ef);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .gradient-border {
-  border-image: linear-gradient(135deg, #6366f1, #a855f7) 1;
+  border-image: linear-gradient(135deg, #7c3aed, #a855f7) 1;
 }
 
 .text-balance {
@@ -216,7 +223,7 @@ body {
   inset: -1px;
   border-radius: inherit;
   padding: 1px;
-  background: conic-gradient(from var(--border-angle, 0deg), transparent 60%, #6366f1, #a855f7, transparent 90%);
+  background: conic-gradient(from var(--border-angle, 0deg), transparent 60%, #7c3aed, #a855f7, transparent 90%);
   mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   mask-composite: exclude;
   -webkit-mask-composite: xor;
@@ -237,4 +244,58 @@ body {
   syntax: "<angle>";
   initial-value: 0deg;
   inherits: false;
+}
+
+/* ── WEAVER marketplace utilities ───────────── */
+
+/* Light glass card (for light sections) */
+.glass-light {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--lt-border);
+}
+
+/* Soft elevation for cards on light backgrounds */
+.card-shadow {
+  box-shadow: 0 1px 2px rgba(9, 9, 11, 0.04), 0 8px 24px -12px rgba(9, 9, 11, 0.12);
+}
+.card-shadow-hover:hover {
+  box-shadow: 0 2px 4px rgba(9, 9, 11, 0.06), 0 24px 48px -16px rgba(124, 58, 237, 0.22);
+}
+
+/* Hide scrollbars (marquee, tabs, toolbar overflow) */
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+
+/* Infinite marquee (template showcase strip) */
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 48s linear infinite;
+}
+.marquee-track:hover { animation-play-state: paused; }
+[dir="rtl"] .marquee-track { animation-direction: reverse; }
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track { animation: none; }
+}
+
+/* Violet glow blob for section accents */
+.violet-glow {
+  background: radial-gradient(circle, rgba(124, 58, 237, 0.35), transparent 70%);
+  filter: blur(60px);
+}
+
+/* Grid pattern (dark marketplace intro) */
+.grid-pattern {
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 56px 56px;
+  -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 100%);
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 100%);
 }

@@ -63,8 +63,19 @@ export function Navbar({ locale, siteName }: { locale: Locale; siteName?: string
               </a>
             ))}
 
+            {/* Templates CTA — prioritized */}
+            <a
+              href="#templates"
+              className="inline-flex items-center gap-1.5 px-4 py-2 text-sm font-semibold text-white bg-accent hover:bg-accent-hover rounded-full transition-colors"
+            >
+              {t.nav_templates[locale]}
+              <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+              </svg>
+            </a>
+
             {/* Language switcher with animated pill */}
-            <div className="flex items-center gap-0.5 ms-4 p-1 bg-surface/50 rounded-full border border-border/50">
+            <div className="flex items-center gap-0.5 ms-1 p-1 bg-surface/50 rounded-full border border-border/50">
               {locales.map((l) => (
                 <Link
                   key={l}
@@ -127,6 +138,20 @@ export function Navbar({ locale, siteName }: { locale: Locale; siteName?: string
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
             >
               <div className="pt-20 px-8 space-y-6">
+                <motion.a
+                  href="#templates"
+                  onClick={() => setOpen(false)}
+                  className="inline-flex items-center gap-2 px-5 py-2.5 text-base font-semibold text-white bg-accent hover:bg-accent-hover rounded-full transition-colors"
+                  initial={{ opacity: 0, x: rtl ? -20 : 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.05 }}
+                >
+                  {t.nav_templates[locale]}
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                  </svg>
+                </motion.a>
+
                 {links.map((l, i) => (
                   <motion.a
                     key={l.href}

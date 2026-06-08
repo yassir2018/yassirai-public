@@ -3,10 +3,12 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { t, type Locale } from "@/lib/i18n";
 import type { Contact as ContactType } from "@/lib/api";
-import { TextReveal } from "./TextReveal";
+import { EyebrowHeading } from "./SectionHeading";
 import { StaggerContainer, StaggerItem } from "./ScrollReveal";
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || "https://app.yassirai.com";
+
+const EYEBROW: Record<Locale, string> = { fr: "Contact", en: "Contact", ar: "تواصل" };
 
 const typeIcons: Record<string, string> = {
   email: "M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75",
@@ -30,24 +32,20 @@ function TiltCard({ children, className }: { children: React.ReactNode; classNam
     const rect = e.currentTarget.getBoundingClientRect();
     const x = (e.clientX - rect.left) / rect.width - 0.5;
     const y = (e.clientY - rect.top) / rect.height - 0.5;
-    setTransform(`perspective(800px) rotateX(${-y * 10}deg) rotateY(${x * 10}deg)`);
+    setTransform(`perspective(800px) rotateX(${-y * 8}deg) rotateY(${x * 8}deg)`);
   };
 
-  const handleLeave = () => {
-    setTransform("perspective(800px) rotateX(0deg) rotateY(0deg)");
-  };
+  const handleLeave = () => setTransform("perspective(800px) rotateX(0deg) rotateY(0deg)");
 
   return (
-    <div
-      className={className}
-      onMouseMove={handleMouse}
-      onMouseLeave={handleLeave}
-      style={{ transform, transition: "transform 0.2s ease-out" }}
-    >
+    <div className={className} onMouseMove={handleMouse} onMouseLeave={handleLeave} style={{ transform, transition: "transform 0.2s ease-out" }}>
       {children}
     </div>
   );
 }
+
+const inputClass =
+  "w-full px-4 py-3 bg-[#f7f7f8] border border-[#e4e4e7] rounded-xl text-sm text-[#09090b] placeholder:text-[#a1a1aa] focus:outline-none focus:border-[#7c3aed] focus:ring-2 focus:ring-[#7c3aed]/20 transition-all";
 
 function ContactForm({ locale }: { locale: Locale }) {
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
@@ -84,7 +82,7 @@ function ContactForm({ locale }: { locale: Locale }) {
   return (
     <motion.form
       onSubmit={handleSubmit}
-      className="glass rounded-2xl p-6 sm:p-8 space-y-5"
+      className="bg-white rounded-2xl p-6 sm:p-8 space-y-5 border border-[#e4e4e7] card-shadow"
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
@@ -93,79 +91,48 @@ function ContactForm({ locale }: { locale: Locale }) {
     >
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
-          <label htmlFor="name" className="block text-sm font-medium text-muted mb-1.5">
+          <label htmlFor="name" className="block text-sm font-medium text-[#52525b] mb-1.5">
             {t.form_name[locale]} *
           </label>
-          <input
-            id="name"
-            name="name"
-            type="text"
-            required
-            className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-sm text-foreground placeholder:text-muted/50 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent/30 transition-all"
-            placeholder={t.form_name[locale]}
-          />
+          <input id="name" name="name" type="text" required className={inputClass} placeholder={t.form_name[locale]} />
         </div>
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-muted mb-1.5">
+          <label htmlFor="email" className="block text-sm font-medium text-[#52525b] mb-1.5">
             {t.form_email[locale]} *
           </label>
-          <input
-            id="email"
-            name="email"
-            type="email"
-            required
-            className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-sm text-foreground placeholder:text-muted/50 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent/30 transition-all"
-            placeholder={t.form_email[locale]}
-          />
+          <input id="email" name="email" type="email" required className={inputClass} placeholder={t.form_email[locale]} />
         </div>
       </div>
 
       <div>
-        <label htmlFor="subject" className="block text-sm font-medium text-muted mb-1.5">
+        <label htmlFor="subject" className="block text-sm font-medium text-[#52525b] mb-1.5">
           {t.form_subject[locale]}
         </label>
-        <input
-          id="subject"
-          name="subject"
-          type="text"
-          className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-sm text-foreground placeholder:text-muted/50 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent/30 transition-all"
-          placeholder={t.form_subject[locale]}
-        />
+        <input id="subject" name="subject" type="text" className={inputClass} placeholder={t.form_subject[locale]} />
       </div>
 
       <div>
-        <label htmlFor="message" className="block text-sm font-medium text-muted mb-1.5">
+        <label htmlFor="message" className="block text-sm font-medium text-[#52525b] mb-1.5">
           {t.form_message[locale]} *
         </label>
-        <textarea
-          id="message"
-          name="message"
-          required
-          rows={5}
-          className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-sm text-foreground placeholder:text-muted/50 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent/30 transition-all resize-none"
-          placeholder={t.form_message[locale]}
-        />
+        <textarea id="message" name="message" required rows={5} className={`${inputClass} resize-none`} placeholder={t.form_message[locale]} />
       </div>
 
       {status === "success" && (
         <motion.p
-          className="text-sm text-green-400 bg-green-400/10 px-4 py-3 rounded-xl"
+          className="text-sm text-green-700 bg-green-100 px-4 py-3 rounded-xl"
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
         >
           {t.form_success[locale]}
         </motion.p>
       )}
-      {status === "error" && (
-        <p className="text-sm text-red-400 bg-red-400/10 px-4 py-3 rounded-xl">
-          {t.form_error[locale]}
-        </p>
-      )}
+      {status === "error" && <p className="text-sm text-red-700 bg-red-100 px-4 py-3 rounded-xl">{t.form_error[locale]}</p>}
 
       <button
         type="submit"
         disabled={status === "sending"}
-        className="w-full sm:w-auto px-8 py-3.5 text-sm font-medium text-white bg-accent hover:bg-accent-hover rounded-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+        className="w-full sm:w-auto px-8 py-3.5 text-sm font-medium text-white bg-[#7c3aed] hover:bg-[#8b5cf6] rounded-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
       >
         {status === "sending" ? t.form_sending[locale] : t.form_send[locale]}
       </button>
@@ -175,48 +142,21 @@ function ContactForm({ locale }: { locale: Locale }) {
 
 export function Contact({ locale, contacts }: { locale: Locale; contacts: ContactType[] }) {
   return (
-    <section id="contact" className="py-32 sm:py-40 relative">
+    <section id="contact" className="bg-[#f7f7f8] text-[#09090b] py-24 sm:py-32 relative">
       <div className="max-w-4xl mx-auto px-4 sm:px-6">
-        {/* Headline */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight mb-6">
-            <TextReveal text={t.contact_title[locale]} highlightLast />
-          </h2>
-          <motion.p
-            className="text-lg sm:text-xl text-muted text-balance"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-          >
-            {t.contact_subtitle[locale]}
-          </motion.p>
-        </div>
+        <EyebrowHeading theme="light" eyebrow={EYEBROW[locale]} title={t.contact_title[locale]} subtitle={t.contact_subtitle[locale]} />
 
         {/* Contact Form */}
-        <div className="mb-16">
+        <div className="mb-14">
           <ContactForm locale={locale} />
         </div>
 
         {/* Separator */}
-        {contacts.length > 0 && (
-          <motion.p
-            className="text-center text-sm text-muted mb-10"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.3 }}
-          >
-            {t.form_or[locale]}
-          </motion.p>
-        )}
+        {contacts.length > 0 && <p className="text-center text-sm text-[#71717a] mb-10">{t.form_or[locale]}</p>}
 
         {/* Contact cards */}
         {contacts.length > 0 && (
-          <StaggerContainer
-            className="grid grid-cols-1 sm:grid-cols-2 gap-5 max-w-2xl mx-auto"
-            staggerDelay={0.1}
-          >
+          <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 gap-5 max-w-2xl mx-auto" staggerDelay={0.1}>
             {contacts.map((c) => {
               const iconPath = typeIcons[c.type];
               const href = getHref(c.type, c.value);
@@ -224,22 +164,19 @@ export function Contact({ locale, contacts }: { locale: Locale; contacts: Contac
 
               const inner = (
                 <TiltCard className="h-full">
-                  <div className="glass rounded-2xl p-6 h-full flex items-center gap-5 group transition-all duration-300 hover:translate-y-[-2px]">
-                    <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center shrink-0">
+                  <div className="bg-white rounded-2xl p-6 h-full flex items-center gap-5 group border border-[#e4e4e7] card-shadow card-shadow-hover transition-all duration-300">
+                    <div className="w-12 h-12 rounded-xl bg-[#7c3aed]/10 flex items-center justify-center shrink-0">
                       {iconPath ? (
-                        <svg className="w-5 h-5 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                        <svg className="w-5 h-5 text-[#7c3aed]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                           <path strokeLinecap="round" strokeLinejoin="round" d={iconPath} />
                         </svg>
                       ) : (
-                        <span className="text-accent text-sm font-bold">{c.type[0].toUpperCase()}</span>
+                        <span className="text-[#7c3aed] text-sm font-bold">{c.type[0].toUpperCase()}</span>
                       )}
                     </div>
                     <div className="min-w-0">
-                      <p className="text-xs text-muted capitalize mb-0.5">{c.label || c.type}</p>
-                      <p className="text-sm font-medium truncate group-hover:text-accent transition-colors">
-                        {c.value}
-                      </p>
-                      <div className="h-px w-0 group-hover:w-full bg-accent/50 transition-all duration-300 mt-0.5" />
+                      <p className="text-xs text-[#71717a] capitalize mb-0.5">{c.label || c.type}</p>
+                      <p className="text-sm font-medium text-[#09090b] truncate group-hover:text-[#7c3aed] transition-colors">{c.value}</p>
                     </div>
                   </div>
                 </TiltCard>

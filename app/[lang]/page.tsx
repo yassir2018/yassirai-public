@@ -78,10 +78,11 @@ export default async function LangPage({
       <Navbar locale={locale} siteName={siteName} />
       <main id="main-content" tabIndex={-1}>
         <Hero locale={locale} bio={data.bio} videos={data.heroVideos} />
+        {/* Templates marketplace — prioritized, right after the hero */}
+        <Templates locale={locale} templates={data.templates} categories={data.templateCategories} />
         {data.bio && <About locale={locale} bio={data.bio} />}
         {data.services.length > 0 && <Services locale={locale} services={data.services} />}
         {data.projects.length > 0 && <Projects locale={locale} projects={data.projects} categories={data.projectCategories} />}
-        <Templates locale={locale} templates={data.templates} categories={data.templateCategories} />
         <Contact locale={locale} contacts={data.contacts} />
       </main>
       <Footer locale={locale} bio={data.bio} siteName={siteName} />

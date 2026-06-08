@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SILLAGE Parfums — Haute Parfumerie</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --bg-card: #121212;
+      --bg-glass: rgba(10, 10, 10, 0.7);
+      --text: #f0ece1;
+      --text-muted: rgba(240, 236, 225, 0.5);
+      --gold: #d4af37;
+      --gold-dark: #b5952f;
+      --border: rgba(255, 255, 255, 0.06);
+      --border-hover: rgba(212, 175, 55, 0.3);
+      --ff-serif: 'Playfair Display', Georgia, serif;
+      --ff-sans: 'Inter', -apple-system, sans-serif;
+      --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--ff-sans); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+    
+    /* GLASS NAVBAR */
+    .navbar {
+      position: fixed; top: 0; width: 100%; z-index: 1000;
+      padding: 1.5rem 4rem; display: flex; align-items: center; justify-content: space-between;
+      background: var(--bg-glass); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+      border-bottom: 1px solid var(--border); transition: var(--transition);
+    }
+    .navbar.scrolled { padding: 1rem 4rem; }
+    .nav-left, .nav-right { display: flex; align-items: center; gap: 2rem; flex: 1; }
+    .nav-right { justify-content: flex-end; }
+    .nav-brand { font-family: var(--ff-serif); font-size: 1.8rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; flex: 0 1 auto; text-align: center; }
+    .nav-link { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); transition: var(--transition); }
+    .nav-link:hover { color: var(--gold); }
+    .cart-btn { position: relative; }
+    .cart-badge { position: absolute; top: -8px; right: -8px; background: var(--gold); color: #000; font-size: 0.6rem; font-weight: 700; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+
+    /* HERO SECTION */
+    .hero { position: relative; height: 100vh; display: flex; align-items: center; justify-content: center; }
+    .hero-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: brightness(0.4); }
+    .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to top, var(--bg) 0%, transparent 60%); }
+    .hero-content { position: relative; z-index: 2; text-align: center; max-width: 800px; padding: 0 2rem; transform: translateY(40px); opacity: 0; animation: fadeUp 1.2s ease forwards 0.5s; }
+    @keyframes fadeUp { to { transform: translateY(0); opacity: 1; } }
+    .hero-tag { font-family: var(--ff-sans); font-size: 0.75rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem; display: block; }
+    .hero-title { font-family: var(--ff-serif); font-size: clamp(3rem, 6vw, 6rem); font-weight: 500; font-style: italic; line-height: 1.1; margin-bottom: 1.5rem; letter-spacing: 0.02em; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; padding: 1rem 2.5rem; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; border: 1px solid; transition: var(--transition); cursor: pointer; }
+    .btn-gold { background: var(--gold); border-color: var(--gold); color: #000; }
+    .btn-gold:hover { background: transparent; color: var(--gold); }
+    .btn-ghost { background: transparent; border-color: var(--border); color: var(--text); }
+    .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* CATEGORIES */
+    .section { padding: 8rem 4rem; }
+    .sh-title { font-family: var(--ff-serif); font-size: 2.5rem; font-weight: 500; text-align: center; margin-bottom: 4rem; }
+    .categories-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); }
+    .cat-card { background: var(--bg); position: relative; aspect-ratio: 3/4; overflow: hidden; cursor: pointer; }
+    .cat-img { width: 100%; height: 100%; object-fit: cover; opacity: 0.5; transition: var(--transition); transform: scale(1.05); }
+    .cat-card:hover .cat-img { opacity: 0.8; transform: scale(1); }
+    .cat-content { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2rem; }
+    .cat-title { font-family: var(--ff-serif); font-size: 1.5rem; font-style: italic; margin-bottom: 0.5rem; }
+    .cat-link { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); opacity: 0; transform: translateY(10px); transition: var(--transition); }
+    .cat-card:hover .cat-link { opacity: 1; transform: translateY(0); }
+
+    /* PRODUCTS */
+    .products-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+    .product-card { background: var(--bg-card); border: 1px solid var(--border); padding: 2rem; text-align: center; transition: var(--transition); position: relative; cursor: pointer; }
+    .product-card:hover { border-color: var(--border-hover); transform: translateY(-5px); }
+    .prod-img { height: 350px; width: 100%; object-fit: contain; margin-bottom: 2rem; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5)); transition: var(--transition); }
+    .product-card:hover .prod-img { transform: scale(1.05); }
+    .prod-tag { font-size: 0.65rem; color: var(--text-muted); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 0.5rem; display: block; }
+    .prod-title { font-family: var(--ff-serif); font-size: 1.4rem; margin-bottom: 0.5rem; }
+    .prod-price { font-size: 0.9rem; color: var(--gold); }
+    .add-to-cart { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(20px); opacity: 0; background: var(--gold); color: #000; width: calc(100% - 4rem); padding: 0.8rem 0; font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600; border: none; cursor: pointer; transition: var(--transition); }
+    .product-card:hover .add-to-cart { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    /* EDITORIAL */
+    .editorial { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .edit-img { width: 100%; height: 100%; object-fit: cover; min-height: 600px; }
+    .edit-content { padding: 6rem; display: flex; flex-direction: column; justify-content: center; background: var(--bg-card); }
+    .edit-tag { color: var(--gold); font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 1.5rem; }
+    .edit-title { font-family: var(--ff-serif); font-size: 2.2rem; line-height: 1.3; margin-bottom: 2rem; }
+    .edit-text { color: var(--text-muted); line-height: 1.8; font-size: 0.95rem; margin-bottom: 3rem; }
+
+    /* FOOTER */
+    .footer { padding: 6rem 4rem 2rem; background: var(--bg); border-top: 1px solid var(--border); }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 4rem; margin-bottom: 4rem; }
+    .footer-brand { font-family: var(--ff-serif); font-size: 1.5rem; text-transform: uppercase; margin-bottom: 1rem; }
+    .footer-desc { color: var(--text-muted); font-size: 0.85rem; line-height: 1.6; max-width: 300px; }
+    .footer-col h4 { font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text); margin-bottom: 1.5rem; }
+    .footer-link { display: block; color: var(--text-muted); font-size: 0.8rem; margin-bottom: 0.8rem; transition: var(--transition); }
+    .footer-link:hover { color: var(--gold); }
+    .footer-bottom { border-top: 1px solid var(--border); padding-top: 2rem; display: flex; justify-content: space-between; color: var(--text-muted); font-size: 0.7rem; letter-spacing: 0.05em; }
+
+    @media (max-width: 1024px) {
+      .categories-grid { grid-template-columns: repeat(2, 1fr); }
+      .products-grid { grid-template-columns: repeat(2, 1fr); }
+      .editorial { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+      .navbar { padding: 1rem 2rem; }
+      .nav-left, .nav-right .nav-link:not(:last-child) { display: none; }
+      .section { padding: 4rem 2rem; }
+      .products-grid, .categories-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .edit-content { padding: 3rem 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-left">
+      <a href="#" class="nav-link">Parfums</a>
+      <a href="#" class="nav-link">Bain & Corps</a>
+      <a href="#" class="nav-link">Maison</a>
+    </div>
+    <a href="#" class="nav-brand">SILLAGE</a>
+    <div class="nav-right">
+      <a href="#" class="nav-link">Recherche</a>
+      <a href="#" class="nav-link">Compte</a>
+      <a href="#" class="nav-link cart-btn">Panier <span class="cart-badge">2</span></a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <img src="../../../assets/img/ecommerce-shop-luxury/auto-1.webp" alt="Ambre Royale" class="hero-img">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <span class="hero-tag">Nouvelle Création</span>
+      <h1 class="hero-title">Ambre Royale</h1>
+      <p style="color: var(--text-muted); font-size: 1rem; margin-bottom: 2.5rem; letter-spacing: 0.05em;">L'essence de l'élégance obscure et du luxe intemporel.</p>
+      <a href="#shop" class="btn btn-gold">Découvrir le parfum</a>
+    </div>
+  </section>
+
+  <!-- CATEGORIES -->
+  <section class="section">
+    <h2 class="sh-title">L'Univers Sillage</h2>
+    <div class="categories-grid">
+      <div class="cat-card">
+        <img src="../../../assets/img/ecommerce-shop-luxury/auto-2.webp" alt="Femme" class="cat-img">
+        <div class="cat-content">
+          <h3 class="cat-title">Pour la Femme</h3>
+          <span class="cat-link">Découvrir →</span>
+        </div>
+      </div>
+      <div class="cat-card">
+        <img src="../../../assets/img/ecommerce-shop-luxury/auto-3.webp" alt="Homme" class="cat-img">
+        <div class="cat-content">
+          <h3 class="cat-title">Pour l'Homme</h3>
+          <span class="cat-link">Découvrir →</span>
+        </div>
+      </div>
+      <div class="cat-card">
+        <img src="../../../assets/img/ecommerce-shop-luxury/auto-4.webp" alt="Maison" class="cat-img">
+        <div class="cat-content">
+          <h3 class="cat-title">Art de Vivre</h3>
+          <span class="cat-link">Découvrir →</span>
+        </div>
+      </div>
+      <div class="cat-card">
+        <img src="../../../assets/img/ecommerce-shop-luxury/auto-5.webp" alt="Cadeaux" class="cat-img">
+        <div class="cat-content">
+          <h3 class="cat-title">Coffrets Cadeaux</h3>
+          <span class="cat-link">Découvrir →</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS SECTION -->
+  <section class="section" id="shop">
+    <h2 class="sh-title">Sélection Iconique</h2>
+    <div class="products-grid">
+      <div class="product-card">
+        <img src="../../../assets/img/ecommerce-shop-luxury/auto-6.webp" alt="Oud Noir" class="prod-img" style="filter: drop-shadow(0 10px 30px rgba(0,0,0,0.8));">
+        <span class="prod-tag">Eau de Parfum Intense</span>
+        <h3 class="prod-title">Oud Saphir</h3>
+        <p class="prod-price">280 MAD</p>
+        <button class="add-to-cart">Ajouter au panier</button>
+      </div>
+      <div class="product-card">
+        <img src="../../../assets/img/ecommerce-shop-luxury/auto-7.webp" alt="Rose Absolue" class="prod-img">
+        <span class="prod-tag">Extrait de Parfum</span>
+        <h3 class="prod-title">Rose Absolue</h3>
+        <p class="prod-price">340 MAD</p>
+        <button class="add-to-cart">Ajouter au panier</button>
+      </div>
+      <div class="product-card">
+        <img src="../../../assets/img/ecommerce-shop-luxury/auto-8.webp" alt="Nuit d'Ambre" class="prod-img">
+        <span class="prod-tag">Eau de Parfum</span>
+        <h3 class="prod-title">Nuit d'Ambre</h3>
+        <p class="prod-price">210 MAD</p>
+        <button class="add-to-cart">Ajouter au panier</button>
+      </div>
+    </div>
+    <div style="text-align: center; margin-top: 4rem;">
+      <a href="#" class="btn btn-ghost">Voir toute la collection</a>
+    </div>
+  </section>
+
+  <!-- EDITORIAL -->
+  <section class="editorial">
+    <img src="../../../assets/img/ecommerce-shop-luxury/auto-9.webp" alt="Heritage" class="edit-img">
+    <div class="edit-content">
+      <span class="edit-tag">Savoir-Faire</span>
+      <h2 class="edit-title">La quintessence<br>de la parfumerie</h2>
+      <p class="edit-text">Depuis sa création, la Maison Sillage s'engage à sélectionner les matières premières les plus rares à travers le monde. Chaque fragrance est un voyage onirique, formulé par nos maîtres parfumeurs dans le respect des traditions de l'artisanat français, encapsulant l'obscurité et la lumière dans des flacons majestueux.</p>
+      <a href="#" class="btn btn-ghost" style="align-self: flex-start; width: auto;">Notre Héritage</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">SILLAGE</div>
+        <p class="footer-desc">Une invitation à l'opulence et au mystère. Parfumerie d'exception inspirée des éléments bruts.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Boutique</h4>
+        <a href="#" class="footer-link">Parfums</a>
+        <a href="#" class="footer-link">Extraits</a>
+        <a href="#" class="footer-link">Maison</a>
+        <a href="#" class="footer-link">Cadeaux</a>
+      </div>
+      <div class="footer-col">
+        <h4>La Maison</h4>
+        <a href="#" class="footer-link">Notre Histoire</a>
+        <a href="#" class="footer-link">Savoir-Faire</a>
+        <a href="#" class="footer-link">Carrières</a>
+        <a href="#" class="footer-link">Boutiques</a>
+      </div>
+      <div class="footer-col">
+        <h4>Service Client</h4>
+        <a href="#" class="footer-link">Contact</a>
+        <a href="#" class="footer-link">Livraison</a>
+        <a href="#" class="footer-link">Retours</a>
+        <a href="#" class="footer-link">FAQ</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 SILLAGE PARFUMS. TOUS DROITS RÉSERVÉS.</span>
+      <span>MENTIONS LÉGALES | CONFIDENTIALITÉ</span>
+    </div>
+  </footer>
+
+  <script>
+    window.addEventListener('scroll', () => {
+      document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+    });
+  </script>
+</body>
+</html>

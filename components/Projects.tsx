@@ -3,10 +3,12 @@ import { useState } from "react";
 import { motion, LayoutGroup } from "framer-motion";
 import { t, isRtl, type Locale } from "@/lib/i18n";
 import type { Project } from "@/lib/api";
-import { SectionHeading } from "./SectionHeading";
+import { EyebrowHeading } from "./SectionHeading";
 import { ScrollReveal } from "./ScrollReveal";
 import { MagneticButton } from "./MagneticButton";
 import { trackEvent } from "./Analytics";
+
+const EYEBROW: Record<Locale, string> = { fr: "Réalisations", en: "Selected work", ar: "أعمال" };
 
 const statusColors: Record<string, string> = {
   EN_COURS: "text-accent bg-accent/10 border-accent/20",
@@ -34,9 +36,11 @@ export function Projects({ locale, projects, categories }: { locale: Locale; pro
     : projects.filter((p) => p.category === activeCategory);
 
   return (
-    <section id="projects" className="py-32 sm:py-40 relative">
+    <section id="projects" className="bg-[#09090b] text-[#fafafa] py-24 sm:py-32 relative">
       <div className="max-w-5xl mx-auto px-4 sm:px-6">
-        <SectionHeading
+        <EyebrowHeading
+          theme="dark"
+          eyebrow={EYEBROW[locale]}
           title={t.projects_title[locale]}
           subtitle={t.projects_subtitle[locale]}
         />

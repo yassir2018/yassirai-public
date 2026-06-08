@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Synapse | AI Architecture Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #06040A;
+      --surface: rgba(255, 255, 255, 0.02);
+      --border: rgba(176, 38, 255, 0.15);
+      --purple: #B026FF;
+      --cyan: #00F0FF;
+      --text: #ffffff;
+      --text-muted: #8A889A;
+      --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; min-height: 100vh; display: flex; }
+    h1, h2, h3, .brand { font-family: 'Outfit', sans-serif; }
+    
+    /* Background Glows */
+    .glow-1 { position: fixed; top: -10%; left: -5%; width: 50vw; height: 50vh; background: radial-gradient(circle, rgba(176, 38, 255, 0.15) 0%, transparent 60%); filter: blur(80px); z-index: -1; pointer-events: none; }
+    .glow-2 { position: fixed; bottom: -10%; right: -5%; width: 60vw; height: 60vh; background: radial-gradient(circle, rgba(0, 240, 255, 0.1) 0%, transparent 60%); filter: blur(100px); z-index: -1; pointer-events: none; }
+
+    /* Sidebar */
+    .sidebar { width: 280px; padding: 2rem; border-right: 1px solid var(--border); display: flex; flex-direction: column; background: rgba(6, 4, 10, 0.6); backdrop-filter: blur(20px); z-index: 10; }
+    .brand { font-size: 1.8rem; font-weight: 800; letter-spacing: 0.1em; margin-bottom: 3rem; display: flex; align-items: center; gap: 0.5rem; text-transform: uppercase; }
+    .brand span { width: 12px; height: 12px; background: var(--cyan); border-radius: 50%; box-shadow: 0 0 15px var(--cyan); }
+    
+    .nav-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--text-muted); margin-bottom: 1rem; font-weight: 600; }
+    .nav-menu { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 3rem; }
+    .nav-item { padding: 0.8rem 1rem; border-radius: 12px; font-weight: 500; color: var(--text-muted); transition: 0.3s; cursor: pointer; display: flex; align-items: center; gap: 1rem; }
+    .nav-item.active, .nav-item:hover { color: var(--text); background: var(--surface); border: 1px solid var(--border); box-shadow: inset 0 0 20px rgba(176, 38, 255, 0.05); }
+
+    /* Main Area */
+    .main { flex: 1; padding: 2.5rem 3rem; display: flex; flex-direction: column; z-index: 5; }
+    .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2.5rem; }
+    .title-group h1 { font-size: 2.2rem; font-weight: 600; letter-spacing: -0.02em; }
+    .title-group p { color: var(--text-muted); font-size: 0.9rem; margin-top: 0.4rem; }
+    
+    .btn-upgrade { background: linear-gradient(135deg, var(--purple), #5A11D1); color: white; padding: 0.8rem 1.5rem; border-radius: 30px; font-weight: 600; font-size: 0.85rem; border: none; box-shadow: 0 5px 20px rgba(176,38,255,0.3); transition: 0.3s; cursor: pointer; }
+    .btn-upgrade:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(176,38,255,0.5); }
+
+    /* Glass Cards */
+    .dashboard-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
+    .glass-card { background: linear-gradient(145deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%); border: 1px solid var(--border); border-radius: 20px; padding: 2rem; backdrop-filter: blur(20px); position: relative; overflow: hidden; }
+    .glass-card::before { content:''; position:absolute; top:0; left:0; right:0; height:1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent); }
+    
+    .card-title { font-family: 'Outfit'; font-size: 1.1rem; font-weight: 500; margin-bottom: 1.5rem; color: var(--text); }
+    
+    /* Complex Visual Node Area */
+    .neural-viz { height: 350px; display: flex; align-items: center; justify-content: center; position: relative; }
+    .core-node { width: 80px; height: 80px; background: radial-gradient(circle, var(--cyan) 0%, transparent 70%); border-radius: 50%; box-shadow: 0 0 40px var(--cyan); position: relative; animation: pulse 3s infinite alternate; }
+    .orbit { position: absolute; border: 1px dashed rgba(255,255,255,0.1); border-radius: 50%; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+    .o1 { width: 200px; height: 200px; animation: spin 20s linear infinite; }
+    .o2 { width: 300px; height: 300px; animation: spin-rev 30s linear infinite; }
+    .orbit-dot { position: absolute; width:10px; height:10px; background: var(--purple); border-radius: 50%; top:-5px; left: 50%; transform: translateX(-50%); box-shadow: 0 0 15px var(--purple); }
+    .orbit-dot-2 { background: var(--cyan); top: 50%; right:-5px; left: auto; transform: translateY(-50%); box-shadow: 0 0 15px var(--cyan); }
+
+    @keyframes spin { 100% { transform: translate(-50%, -50%) rotate(360deg); } }
+    @keyframes spin-rev { 100% { transform: translate(-50%, -50%) rotate(-360deg); } }
+    @keyframes pulse { 100% { transform: scale(1.2); opacity: 0.8; } }
+
+    /* Quick Stats */
+    .stats-tray { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .s-val { font-size: 2.5rem; font-family: 'Outfit'; font-weight: 700; background: linear-gradient(to right, #fff, #aaa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .s-lbl { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 0.5rem; }
+
+  </style>
+</head>
+<body>
+  <div class="glow-1"></div>
+  <div class="glow-2"></div>
+
+  <div class="sidebar">
+    <div class="brand"><span></span> SYNAPSE</div>
+    
+    <div class="nav-label">Neural Engine</div>
+    <div class="nav-menu">
+      <div class="nav-item active">Live Tracking</div>
+      <div class="nav-item">Data Models</div>
+      <div class="nav-item">Compute Nodes</div>
+    </div>
+    
+    <div class="nav-label">System</div>
+    <div class="nav-menu">
+      <div class="nav-item">API Keys</div>
+      <div class="nav-item">Settings</div>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="header">
+      <div class="title-group">
+        <h1>Global Network Status</h1>
+        <p>Real-time machine learning topology mapping.</p>
+      </div>
+      <button class="btn-upgrade">Deploy New Model</button>
+    </div>
+
+    <div class="dashboard-grid">
+      <div class="glass-card">
+        <h3 class="card-title">Real-time Node Topology</h3>
+        <div class="neural-viz">
+          <div class="orbit o2"><div class="orbit-dot"></div><div class="orbit-dot-2" style="background:#fff;box-shadow:0 0 10px #fff;"></div></div>
+          <div class="orbit o1"><div class="orbit-dot-2"></div></div>
+          <div class="core-node"></div>
+        </div>
+      </div>
+      
+      <div class="glass-card">
+        <h3 class="card-title">Compute Allocation</h3>
+        <div style="display:flex; flex-direction:column; gap:1.5rem;">
+          <div>
+            <div style="display:flex; justify-content:space-between; margin-bottom:0.5rem; font-size:0.85rem;"><span style="color:var(--text-muted);">Cluster Alpha</span><span style="color:var(--cyan);">92%</span></div>
+            <div style="height:6px; background:rgba(255,255,255,0.05); border-radius:10px; overflow:hidden;"><div style="width:92%; height:100%; background:var(--cyan); box-shadow:0 0 10px var(--cyan);"></div></div>
+          </div>
+          <div>
+            <div style="display:flex; justify-content:space-between; margin-bottom:0.5rem; font-size:0.85rem;"><span style="color:var(--text-muted);">Cluster Beta</span><span style="color:var(--purple);">64%</span></div>
+            <div style="height:6px; background:rgba(255,255,255,0.05); border-radius:10px; overflow:hidden;"><div style="width:64%; height:100%; background:var(--purple); box-shadow:0 0 10px var(--purple);"></div></div>
+          </div>
+          <div>
+            <div style="display:flex; justify-content:space-between; margin-bottom:0.5rem; font-size:0.85rem;"><span style="color:var(--text-muted);">Neural Nets</span><span style="color:#fff;">41%</span></div>
+            <div style="height:6px; background:rgba(255,255,255,0.05); border-radius:10px; overflow:hidden;"><div style="width:41%; height:100%; background:#fff; box-shadow:0 0 10px #fff;"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stats-tray">
+      <div class="glass-card">
+        <div class="s-val">849.2</div>
+        <div class="s-lbl">Teraflops Used</div>
+      </div>
+      <div class="glass-card">
+        <div class="s-val">99.9%</div>
+        <div class="s-lbl">Uptime Status</div>
+      </div>
+      <div class="glass-card">
+        <div class="s-val">12M+</div>
+        <div class="s-lbl">Inferences / Hour</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

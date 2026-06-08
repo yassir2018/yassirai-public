@@ -97,14 +97,27 @@ export interface PortfolioData {
   projectCategories: string[];
 }
 
-export async function fetchPortfolio(lang: Locale): Promise<PortfolioData> {
-  const res = await fetch(`${API_URL}?lang=${lang}`, {
-    next: { revalidate: 60 },
-  });
+const EMPTY: PortfolioData = {
+  bio: null, services: [], contacts: [], projects: [], templates: [], heroVideos: [],
+  siteSettings: { siteName: "YassirAI", siteTitle: "Yassir AI — Portfolio", siteDescription: null, logoUrl: null },
+  templateCategories: [], projectCategories: [],
+};
 
-  if (!res.ok) {
-    return { bio: null, services: [], contacts: [], projects: [], templates: [], heroVideos: [], siteSettings: { siteName: "YassirAI", siteTitle: "Yassir AI — Portfolio", siteDescription: null, logoUrl: null }, templateCategories: [], projectCategories: [] };
+export async function fetchPortfolio(lang: Locale): Promise<PortfolioData> {
+  let data: PortfolioData = EMPTY;
+  try {
+    const res = await fetch(`${API_URL}?lang=${lang}`, { next: { revalidate: 60 } });
+    if (res.ok) data = await res.json();
+  } catch {
+    // network/API unavailable — fall back to EMPTY (keeps build/dev resilient)
   }
 
-  return res.json();
+  // Dev-only: preview the Weaver marketplace locally even before the CMS is seeded.
+  if (process.env.NODE_ENV !== "production" && (!data.templates || data.templates.length === 0)) {
+    const { weaverFixture } = await import("./weaver-fixture");
+    data = { ...data, templates: weaverFixture(lang) };
+    data.templateCategories = [...new Set(data.templates.map((t) => t.category).filter(Boolean))] as string[];
+  }
+
+  return data;
 }

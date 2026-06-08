@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Etherial | Web3 Marketplace</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #000000;
+      --magenta: #FF00FF;
+      --cyan: #00FFFF;
+      --glass: rgba(255,255,255,0.03);
+      --glass-border: rgba(255,255,255,0.1);
+      --text: #FFFFFF;
+      --text-muted: #888;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family: 'Space Grotesk', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
+    a { text-decoration: none; color: inherit; }
+
+    /* Holographic Background */
+    body::before { content:''; position:fixed; top:-20%; left:-10%; width: 60vw; height: 60vh; background: radial-gradient(ellipse, rgba(255,0,255,0.15) 0%, transparent 60%); filter: blur(90px); z-index:-1; pointer-events:none; }
+    body::after { content:''; position:fixed; bottom:-20%; right:-10%; width: 60vw; height: 60vh; background: radial-gradient(ellipse, rgba(0,255,255,0.15) 0%, transparent 60%); filter: blur(90px); z-index:-1; pointer-events:none; }
+
+    .nav { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 4rem; backdrop-filter: blur(20px); border-bottom: 1px solid var(--glass-border); position: sticky; top:0; z-index: 100; }
+    .logo { font-size: 1.8rem; font-weight: 700; letter-spacing: -0.05em; background: linear-gradient(90deg, var(--cyan), var(--magenta)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .nav-search { background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); padding: 0.8rem 1.5rem; border-radius: 30px; width: 300px; color: white; outline: none; font-family: 'Space Grotesk'; backdrop-filter: blur(10px); }
+    .btn { background: linear-gradient(90deg, var(--magenta), var(--cyan)); color: #000; padding: 0.8rem 2rem; border-radius: 30px; font-weight: 700; cursor: pointer; border: none; font-family: 'Space Grotesk'; transition: 0.3s; }
+    .btn:hover { box-shadow: 0 0 20px rgba(0,255,255,0.5); transform: scale(1.05); }
+
+    .hero { min-height: 85vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 0 5%; position: relative; }
+    .badge { background: var(--glass); border: 1px solid var(--glass-border); padding: 0.5rem 1.5rem; border-radius: 30px; margin-bottom: 2rem; font-weight: 600; letter-spacing: 0.1em; color: var(--cyan); backdrop-filter: blur(10px); }
+    .title { font-size: 5rem; font-weight: 700; line-height: 1.1; margin-bottom: 1.5rem; }
+    .title span { text-decoration: underline; text-decoration-color: var(--magenta); }
+    .desc { font-size: 1.2rem; color: var(--text-muted); max-width: 600px; margin-bottom: 3rem; }
+
+    .nft-grid { padding: 4rem; display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; }
+    .nft-card { background: var(--glass); border: 1px solid var(--glass-border); border-radius: 20px; padding: 1rem; backdrop-filter: blur(20px); transition: 0.3s; cursor: pointer; }
+    .nft-card:hover { border-color: var(--cyan); box-shadow: 0 10px 40px rgba(0,255,255,0.1); transform: translateY(-10px); }
+    .nft-img { width: 100%; height: 250px; border-radius: 15px; overflow: hidden; margin-bottom: 1rem; }
+    .nft-img img { width: 100%; height: 100%; object-fit: cover; }
+    .nft-info { display: flex; justify-content: space-between; align-items: flex-end; }
+    .nft-title { font-weight: 700; font-size: 1.1rem; }
+    .nft-creator { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.3rem; }
+    .nft-price { color: var(--cyan); font-weight: 700; font-size: 1.1rem; }
+
+    .footer { padding: 3rem 4rem; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--glass-border); color: var(--text-muted); font-size: 0.85rem; }
+    .footer a:hover { color: var(--cyan); }
+
+    /* New Section Styles */
+    .section { padding: 6rem 4rem; position: relative; }
+    .section-title { font-size: 2.5rem; font-weight: 700; margin-bottom: 3rem; display: flex; align-items: center; justify-content: space-between; }
+    
+    /* Top Collections */
+    .collection-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+    .collection-item { display: flex; align-items: center; gap: 1rem; padding: 1rem; background: var(--glass); border: 1px solid var(--glass-border); border-radius: 15px; transition: 0.3s; cursor: pointer; backdrop-filter: blur(10px); }
+    .collection-item:hover { border-color: var(--magenta); transform: translateX(5px); }
+    .collection-rank { font-weight: 700; font-size: 1.2rem; color: var(--text-muted); width: 20px; text-align: center; }
+    .collection-avatar { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; }
+    .collection-info { flex-grow: 1; }
+    .collection-name { font-weight: 700; font-size: 1.1rem; }
+    .collection-vol { font-size: 0.9rem; color: var(--text-muted); }
+    .collection-change { color: #00FF66; font-weight: 600; font-size: 0.9rem; text-align: right; }
+    .change-negative { color: #FF0033; }
+
+    /* How It Works */
+    .steps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem; text-align: center; }
+    .step-card { padding: 3rem 2rem; background: rgba(255,255,255,0.01); border: 1px solid var(--glass-border); border-radius: 20px; transition: 0.3s; position: relative; overflow: hidden; }
+    .step-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: linear-gradient(90deg, var(--cyan), var(--magenta)); transform: scaleX(0); transition: 0.3s; transform-origin: left; }
+    .step-card:hover::before { transform: scaleX(1); }
+    .step-card:hover { background: var(--glass); transform: translateY(-10px); }
+    .step-icon { width: 70px; height: 70px; margin: 0 auto 2rem; background: linear-gradient(135deg, rgba(0,255,255,0.1), rgba(255,0,255,0.1)); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; border: 1px solid var(--glass-border); color: var(--text); }
+    .step-title { font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; }
+    .step-desc { color: var(--text-muted); line-height: 1.6; }
+
+    /* Top Creators */
+    .creators-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; }
+    .creator-card { background: var(--glass); border: 1px solid var(--glass-border); border-radius: 20px; padding: 2rem; text-align: center; transition: 0.3s; cursor: pointer; }
+    .creator-card:hover { border-color: var(--cyan); transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,255,255,0.05); }
+    .creator-avatar { width: 90px; height: 90px; border-radius: 50%; margin: 0 auto 1rem; padding: 3px; background: linear-gradient(45deg, var(--cyan), var(--magenta)); }
+    .creator-avatar img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 3px solid var(--bg); }
+    .creator-name { font-weight: 700; font-size: 1.2rem; margin-bottom: 0.5rem; }
+    .creator-sales { color: var(--cyan); font-weight: 600; }
+
+    /* Extended Footer */
+    .footer-extended { border-top: 1px solid var(--glass-border); padding: 5rem 4rem 2rem; background: rgba(0,0,0,0.5); backdrop-filter: blur(10px); }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 4rem; margin-bottom: 4rem; }
+    .footer-col h4 { font-size: 1.2rem; font-weight: 700; margin-bottom: 1.5rem; color: var(--text); }
+    .footer-col p { color: var(--text-muted); line-height: 1.6; margin-bottom: 1.5rem; }
+    .footer-links { list-style: none; }
+    .footer-links li { margin-bottom: 1rem; }
+    .footer-links a { color: var(--text-muted); transition: 0.3s; }
+    .footer-links a:hover { color: var(--cyan); padding-left: 5px; }
+    .newsletter-form { display: flex; gap: 0.5rem; }
+    .newsletter-form input { flex: 1; padding: 0.8rem 1rem; border-radius: 30px; border: 1px solid var(--glass-border); background: var(--glass); color: white; outline: none; font-family: inherit; }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 2rem; border-top: 1px solid var(--glass-border); color: var(--text-muted); font-size: 0.9rem; }
+    .social-links { display: flex; gap: 1rem; }
+    .social-links a { width: 40px; height: 40px; border-radius: 50%; background: var(--glass); display: flex; align-items: center; justify-content: center; transition: 0.3s; border: 1px solid var(--glass-border); color: var(--text); }
+    .social-links a:hover { background: var(--cyan); color: #000; border-color: var(--cyan); transform: translateY(-3px); }
+
+    /* Utilities & Interactivity */
+    .nav.scrolled { background: rgba(0,0,0,0.8); border-bottom: 1px solid rgba(0,255,255,0.2); }
+    .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.5, 0, 0, 1); }
+    .reveal.active { opacity: 1; transform: translateY(0); }
+    
+    .back-to-top { position: fixed; bottom: 30px; right: 30px; width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, var(--cyan), var(--magenta)); color: #000; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; cursor: pointer; opacity: 0; visibility: hidden; transition: 0.3s; border: none; z-index: 99; box-shadow: 0 5px 15px rgba(255,0,255,0.3); }
+    .back-to-top.visible { opacity: 1; visibility: visible; }
+    .back-to-top:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,255,255,0.5); }
+
+    @media (max-width: 1000px) {
+      .title { font-size: 3rem; }
+      .nav-search { display: none; }
+      .nft-grid { grid-template-columns: 1fr 1fr; }
+      .footer { flex-direction: column; gap: 1rem; text-align: center; }
+      
+      .section { padding: 4rem 2rem; }
+      .collection-list { grid-template-columns: 1fr; }
+      .steps-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .creators-grid { grid-template-columns: 1fr 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    }
+    @media (max-width: 600px) {
+      .nft-grid, .creators-grid, .footer-grid { grid-template-columns: 1fr; }
+      .title { font-size: 2.2rem; }
+      .nav { padding: 1rem 2rem; }
+      .hero { min-height: 70vh; }
+      .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+      .newsletter-form { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="logo">Etherial</div>
+    <input type="text" class="nav-search" placeholder="Search NFTs, Creators, Collections...">
+    <button class="btn">Connect Wallet</button>
+  </nav>
+
+  <section class="hero">
+    <div class="badge">Decentralized Art Platform</div>
+    <h1 class="title">Discover, Collect, & Sell <span>Extraordinary</span> NFTs</h1>
+    <p class="desc">Etherial is the world's most premium digital marketplace for crypto collectibles and non-fungible tokens.</p>
+    <div style="display:flex; gap:1.5rem;">
+      <button class="btn" style="padding: 1rem 3rem;">Explore</button>
+      <button class="btn" style="background: var(--glass); color: white; border: 1px solid var(--glass-border);">Create</button>
+    </div>
+  </section>
+
+  <section style="padding: 4rem 4rem 0;"><h2 style="font-size: 2rem;" class="reveal">Trending Drops</h2></section>
+  <div class="nft-grid reveal">
+    <div class="nft-card">
+      <div class="nft-img"><img src="../../../assets/img/dashboard-etherial-web3/auto-1.webp" alt="NFT"></div>
+      <div class="nft-info"><div><div class="nft-title">Holo #001</div><div class="nft-creator">@crypto_artist</div></div><div class="nft-price">3.2 ETH</div></div>
+    </div>
+    <div class="nft-card">
+      <div class="nft-img"><img src="../../../assets/img/dashboard-etherial-web3/auto-2.webp" alt="NFT"></div>
+      <div class="nft-info"><div><div class="nft-title">Abstract Neo</div><div class="nft-creator">@neo_vision</div></div><div class="nft-price">1.5 ETH</div></div>
+    </div>
+    <div class="nft-card">
+      <div class="nft-img"><img src="../../../assets/img/dashboard-etherial-web3/auto-3.webp" alt="NFT"></div>
+      <div class="nft-info"><div><div class="nft-title">Digital Matter</div><div class="nft-creator">@void_create</div></div><div class="nft-price">4.8 ETH</div></div>
+    </div>
+    <div class="nft-card">
+      <div class="nft-img"><img src="../../../assets/img/dashboard-etherial-web3/auto-4.webp" alt="NFT"></div>
+      <div class="nft-info"><div><div class="nft-title">Neon Punk</div><div class="nft-creator">@cyber_0x</div></div><div class="nft-price">0.9 ETH</div></div>
+    </div>
+  </div>
+  <section class="section">
+    <div class="section-title reveal">
+      <h2>Top Collections <span style="color: var(--text-muted); font-size: 1.2rem; font-weight: 400; margin-left: 1rem;">in 7 days</span></h2>
+      <a href="#" style="font-size: 1rem; color: var(--cyan); display: flex; align-items: center; gap: 0.5rem;" aria-label="View All">View All <span aria-hidden="true">&rarr;</span></a>
+    </div>
+    <div class="collection-list reveal">
+      <div class="collection-item">
+        <div class="collection-rank">1</div>
+        <img class="collection-avatar" src="../../../assets/img/dashboard-etherial-web3/auto-5.webp" alt="CyberPunks Avatar">
+        <div class="collection-info"><div class="collection-name">CyberPunks</div><div class="collection-vol">Vol: 12,450 ETH</div></div>
+        <div class="collection-change">+145.2%</div>
+      </div>
+      <div class="collection-item">
+        <div class="collection-rank">2</div>
+        <img class="collection-avatar" src="../../../assets/img/dashboard-etherial-web3/auto-6.webp" alt="Bored Apes Avatar">
+        <div class="collection-info"><div class="collection-name">Bored Apes</div><div class="collection-vol">Vol: 10,200 ETH</div></div>
+        <div class="collection-change change-negative">-12.4%</div>
+      </div>
+      <div class="collection-item">
+        <div class="collection-rank">3</div>
+        <img class="collection-avatar" src="../../../assets/img/dashboard-etherial-web3/auto-7.webp" alt="Mutant Club Avatar">
+        <div class="collection-info"><div class="collection-name">Mutant Club</div><div class="collection-vol">Vol: 8,750 ETH</div></div>
+        <div class="collection-change">+45.8%</div>
+      </div>
+      <div class="collection-item">
+        <div class="collection-rank">4</div>
+        <img class="collection-avatar" src="../../../assets/img/dashboard-etherial-web3/auto-2.webp" alt="Art Blocks Avatar">
+        <div class="collection-info"><div class="collection-name">Art Blocks</div><div class="collection-vol">Vol: 6,100 ETH</div></div>
+        <div class="collection-change">+88.1%</div>
+      </div>
+      <div class="collection-item">
+        <div class="collection-rank">5</div>
+        <img class="collection-avatar" src="../../../assets/img/dashboard-etherial-web3/auto-1.webp" alt="Doodles Avatar">
+        <div class="collection-info"><div class="collection-name">Doodles</div><div class="collection-vol">Vol: 5,420 ETH</div></div>
+        <div class="collection-change">+22.5%</div>
+      </div>
+      <div class="collection-item">
+        <div class="collection-rank">6</div>
+        <img class="collection-avatar" src="../../../assets/img/dashboard-etherial-web3/auto-4.webp" alt="Azuki Avatar">
+        <div class="collection-info"><div class="collection-name">Azuki</div><div class="collection-vol">Vol: 4,900 ETH</div></div>
+        <div class="collection-change change-negative">-5.2%</div>
+      </div>
+      <div class="collection-item">
+        <div class="collection-rank">7</div>
+        <img class="collection-avatar" src="../../../assets/img/dashboard-etherial-web3/auto-3.webp" alt="CloneX Avatar">
+        <div class="collection-info"><div class="collection-name">CloneX</div><div class="collection-vol">Vol: 4,100 ETH</div></div>
+        <div class="collection-change">+15.9%</div>
+      </div>
+      <div class="collection-item">
+        <div class="collection-rank">8</div>
+        <img class="collection-avatar" src="../../../assets/img/dashboard-etherial-web3/auto-8.webp" alt="Moonbirds Avatar">
+        <div class="collection-info"><div class="collection-name">Moonbirds</div><div class="collection-vol">Vol: 3,850 ETH</div></div>
+        <div class="collection-change change-negative">-2.4%</div>
+      </div>
+      <div class="collection-item">
+        <div class="collection-rank">9</div>
+        <img class="collection-avatar" src="../../../assets/img/dashboard-etherial-web3/auto-9.webp" alt="World of Women Avatar">
+        <div class="collection-info"><div class="collection-name">World of Women</div><div class="collection-vol">Vol: 3,200 ETH</div></div>
+        <div class="collection-change">+67.3%</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="background: rgba(255,255,255,0.02); border-top: 1px solid var(--glass-border); border-bottom: 1px solid var(--glass-border);">
+    <div class="section-title reveal" style="justify-content: center; text-align: center;">
+      <h2>Create and Sell Your NFTs</h2>
+    </div>
+    <div class="steps-grid reveal">
+      <div class="step-card">
+        <div class="step-icon">👛</div>
+        <h3 class="step-title">Set up your wallet</h3>
+        <p class="step-desc">Connect your digital wallet to Etherial. We support Metamask, WalletConnect, and all major Web3 providers.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-icon">🖼️</div>
+        <h3 class="step-title">Create collection</h3>
+        <p class="step-desc">Upload your artwork, add social links, a description, profile & banner images, and set a secondary sales fee.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-icon">🏷️</div>
+        <h3 class="step-title">List for sale</h3>
+        <p class="step-desc">Choose between auctions, fixed-price listings, and declining-price listings. You choose how you want to sell.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-title reveal">
+      <h2>Top Creators</h2>
+      <button class="btn" style="padding: 0.5rem 1.5rem; background: transparent; border: 1px solid var(--glass-border); color: white;">Following</button>
+    </div>
+    <div class="creators-grid reveal">
+      <div class="creator-card">
+        <div class="creator-avatar"><img src="../../../assets/img/dashboard-etherial-web3/auto-10.webp" alt="Mia Crypto"></div>
+        <h3 class="creator-name">Mia Crypto</h3>
+        <div class="creator-sales">24,500 ETH</div>
+      </div>
+      <div class="creator-card">
+        <div class="creator-avatar"><img src="../../../assets/img/dashboard-etherial-web3/auto-11.webp" alt="Neo Genesis"></div>
+        <h3 class="creator-name">Neo Genesis</h3>
+        <div class="creator-sales">18,200 ETH</div>
+      </div>
+      <div class="creator-card">
+        <div class="creator-avatar"><img src="../../../assets/img/dashboard-etherial-web3/auto-12.webp" alt="Sarah Void"></div>
+        <h3 class="creator-name">Sarah Void</h3>
+        <div class="creator-sales">12,100 ETH</div>
+      </div>
+      <div class="creator-card">
+        <div class="creator-avatar"><img src="../../../assets/img/dashboard-etherial-web3/auto-13.webp" alt="0xProtocol"></div>
+        <h3 class="creator-name">0xProtocol</h3>
+        <div class="creator-sales">9,850 ETH</div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer-extended">
+    <div class="footer-grid reveal">
+      <div class="footer-col">
+        <div class="logo" style="margin-bottom: 1rem; display: inline-block;">Etherial</div>
+        <p>The world's first and largest digital marketplace for crypto collectibles and non-fungible tokens. Buy, sell, and discover exclusive digital items.</p>
+        <div class="social-links">
+          <a href="#" aria-label="X (Twitter)">𝕏</a>
+          <a href="#" aria-label="Discord">D</a>
+          <a href="#" aria-label="Instagram">IG</a>
+          <a href="#" aria-label="YouTube">YT</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Marketplace</h4>
+        <ul class="footer-links">
+          <li><a href="#">All NFTs</a></li>
+          <li><a href="#">Art</a></li>
+          <li><a href="#">Gaming</a></li>
+          <li><a href="#">Memberships</a></li>
+          <li><a href="#">Photography</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>My Account</h4>
+        <ul class="footer-links">
+          <li><a href="#">Profile</a></li>
+          <li><a href="#">Favorites</a></li>
+          <li><a href="#">Watchlist</a></li>
+          <li><a href="#">My Collections</a></li>
+          <li><a href="#">Settings</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Stay in the loop</h4>
+        <p>Join our mailing list to stay in the loop with our newest feature releases, NFT drops, and tips and tricks.</p>
+        <div class="newsletter-form">
+          <input type="email" placeholder="Your email address" aria-label="Email address">
+          <button class="btn" style="padding: 0 1.5rem;">Sign Up</button>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom reveal">
+      <span>&copy; 2026 Etherial Protocol. All rights reserved.</span>
+      <div style="display: flex; gap: 2rem;">
+        <a href="#" style="color: var(--text-muted);">Privacy Policy</a>
+        <a href="#" style="color: var(--text-muted);">Terms of Service</a>
+      </div>
+    </div>
+  </footer>
+
+  <button class="back-to-top" id="backToTop" aria-label="Back to top">&uarr;</button>
+
+  <script>
+    // Sticky Nav
+    const nav = document.querySelector('.nav');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        nav.classList.add('scrolled');
+      } else {
+        nav.classList.remove('scrolled');
+      }
+    });
+
+    // Scroll Reveal Initial State Setup
+    const heroElements = document.querySelectorAll('.hero .badge, .hero .title, .hero .desc, .hero .btn');
+    heroElements.forEach((el, index) => {
+      el.classList.add('reveal');
+      el.style.transitionDelay = `${index * 0.15}s`;
+    });
+
+    // Scroll Reveal Intersection Observer
+    const revealElements = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, { threshold: 0.1 });
+    
+    // Activate observable
+    requestAnimationFrame(() => {
+      revealElements.forEach(el => revealObserver.observe(el));
+      
+      // Auto-reveal elements already in viewport
+      heroElements.forEach(el => el.classList.add('active'));
+    });
+
+    // Back to Top functionality
+    const backToTop = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 500) {
+        backToTop.classList.add('visible');
+      } else {
+        backToTop.classList.remove('visible');
+      }
+    });
+
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
+</body>
+</html>

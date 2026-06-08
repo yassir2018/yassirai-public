@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0A0A0A">
+  <meta name="description" content="Suite Royale du Palais Atlas Marrakech — 120 m² de luxe absolu, terrasse panoramique sur les jardins, hammam privé en marbre, salon Louis XVI.">
+  <title>Suite Royale — Palais Atlas Marrakech</title>
+  <link rel="canonical" href="https://palaisatlas.ma/suites/royale">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='4' fill='%230A0A0A'/%3E%3Ctext x='50%25' y='58%25' dominant-baseline='middle' text-anchor='middle' font-family='Italiana,serif' font-weight='600' font-size='14' fill='%23C5A059'%3EPA%3C/text%3E%3C/svg%3E">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Italiana&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Lato:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="preload" as="image" href="../../../assets/img/palais-atlas/suites/royale-hero.webp" fetchpriority="high">
+  <style>
+    :root {
+      --bg-dark: #0A0A0A;
+      --bg-cream: #F5F1E7;
+      --bg-cream-warm: #F5EFE3;
+      --bg-cream-light: #FAFAF7;
+      --gold: #C5A059;
+      --red: #721c24;
+      --text-dark: #222222;
+      --text-light: #FFFFFF;
+      --text-muted: #777777;
+      --border: #e5e5e5;
+      --border-faint: #eeeeee;
+      --border-gold-faint: rgba(197, 160, 89, 0.2);
+      --container: 1280px;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Lato', sans-serif; background: var(--bg-cream); color: var(--text-dark); overflow-x: hidden; }
+    h1, h2, h3, .serif { font-family: 'Cormorant Garamond', serif; font-weight: 500; text-transform: uppercase; letter-spacing: 2px; }
+    .hero-title, .logo-text, .footer-pr-brand { font-family: 'Italiana', serif; font-weight: 400; }
+    a { text-decoration: none; color: inherit; transition: 0.3s; }
+    img { max-width: 100%; }
+
+    /* ═══ MPA View Transitions — morph cross-page (Chrome 126+, FF 144+) ═══ */
+    @view-transition { navigation: auto; }
+    .vt-hero-img { view-transition-name: stay-royale; }
+    @media (prefers-reduced-motion: no-preference) {
+      ::view-transition-old(stay-royale),
+      ::view-transition-new(stay-royale) {
+        animation-duration: 0.7s;
+        animation-timing-function: cubic-bezier(0.7, 0, 0.2, 1);
+      }
+    }
+
+    /* A11y */
+    :focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+    }
+
+    /* ═══ Nav (simplified vs index) ═══ */
+    .nav { position: fixed; top: 0; width: 100%; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; padding: 1.2rem 3rem; z-index: 100; transition: background 0.4s; }
+    .nav.scrolled { background: var(--bg-dark); border-bottom: 1px solid rgba(197,160,89,0.3); padding: 0.85rem 3rem; }
+    .back-link { justify-self: start; color: var(--text-light); font-size: 0.78rem; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.5rem 0.85rem; border: 1px solid rgba(255,255,255,0.18); border-radius: 999px; display: inline-flex; align-items: center; gap: 0.4rem; }
+    .back-link:hover { border-color: var(--gold); color: var(--gold); }
+    .logo-container { text-align: center; color: var(--text-light); justify-self: center; display: flex; flex-direction: column; align-items: center; gap: 0.35rem; }
+    .logo-mark { color: var(--gold); }
+    .logo-mark svg { width: 22px; height: 22px; display: block; }
+    .logo-text { font-size: 1rem; letter-spacing: 4px; line-height: 1; text-transform: uppercase; }
+    .logo-sub { font-size: 0.55rem; letter-spacing: 5px; text-transform: uppercase; opacity: 0.85; }
+    .nav-cta { justify-self: end; }
+    .btn-reserve { background: transparent; border: none; color: var(--gold); font-size: 0.78rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; cursor: pointer; border-bottom: 1px solid var(--gold); padding: 0.35rem 0.2rem; }
+    .btn-reserve:hover { color: var(--text-light); border-bottom-color: var(--text-light); }
+
+    /* ═══ Hero ═══ */
+    .hero { min-height: 88vh; position: relative; display: flex; align-items: flex-end; isolation: isolate; overflow: hidden; padding-bottom: 5rem; }
+    .hero-bg { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
+    .hero-bg img { width: 100%; height: 100%; object-fit: cover; display: block; filter: contrast(1.05) saturate(1.1) brightness(0.92); }
+    /* Cinematic ambient video — overlays the static hero image after page load */
+    .hero-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; filter: contrast(1.05) saturate(1.1) brightness(0.92); pointer-events: none; }
+    @media (prefers-reduced-motion: reduce) { .hero-video { display: none; } }
+    .hero::after { content: ''; position: absolute; inset: 0; z-index: 1; background:
+      linear-gradient(180deg, rgba(10,10,10,0.4) 0%, rgba(10,10,10,0.15) 35%, rgba(10,10,10,0.85) 100%);
+    }
+    .hero-content { position: relative; z-index: 2; padding: 0 5%; max-width: var(--container); margin: 0 auto; width: 100%; color: var(--text-light); }
+    .hero-eyebrow { font-family: 'Cormorant Garamond', serif; font-size: 0.82rem; letter-spacing: 0.45em; color: var(--gold); text-transform: uppercase; margin-bottom: 1.2rem; }
+    .hero-title { font-size: clamp(2.8rem, 6.5vw, 5.5rem); letter-spacing: 0.14em; text-transform: uppercase; line-height: 1; margin-bottom: 1.25rem; text-shadow: 0 2px 12px rgba(0,0,0,0.6), 0 8px 40px rgba(0,0,0,0.45); }
+    .hero-tag { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: clamp(1rem, 1.5vw, 1.25rem); color: rgba(255,255,255,0.85); max-width: 540px; line-height: 1.65; }
+
+    /* ═══ Quick facts strip ═══ */
+    .facts { background: var(--bg-dark); color: white; padding: 1.5rem 5%; border-top: 1px solid rgba(197,160,89,0.25); border-bottom: 1px solid rgba(197,160,89,0.18); }
+    .facts-row { max-width: var(--container); margin: 0 auto; display: grid; grid-template-columns: repeat(5, 1fr); gap: 1rem; text-align: center; }
+    .fact-item { padding: 0.5rem 0.5rem; border-right: 1px solid rgba(255,255,255,0.08); }
+    .fact-item:last-child { border-right: none; }
+    .fact-num { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 500; color: var(--gold); margin-bottom: 0.2rem; }
+    .fact-label { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.6); }
+
+    /* ═══ Description editorial ═══ */
+    .desc { padding: 6rem 5% 5rem; background: var(--bg-cream-warm); }
+    .desc-inner { max-width: 920px; margin: 0 auto; text-align: center; }
+    .sec-eyebrow { font-family: 'Cormorant Garamond', serif; font-size: 0.78rem; letter-spacing: 0.45em; color: var(--gold); text-transform: uppercase; margin-bottom: 1rem; }
+    .desc-title { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 500; font-size: clamp(1.6rem, 2.7vw, 2.4rem); color: var(--red); line-height: 1.4; margin-bottom: 2rem; letter-spacing: 0; text-transform: none; }
+    .desc-body { font-size: 1rem; line-height: 1.95; color: #4a4540; font-weight: 300; max-width: 720px; margin: 0 auto; }
+    .desc-body + .desc-body { margin-top: 1.25rem; }
+
+    /* ═══ Gallery ═══ */
+    .gallery { padding: 4rem 5% 5rem; background: var(--bg-cream-light); }
+    .gallery-head { text-align: center; max-width: 720px; margin: 0 auto 3rem; }
+    .gallery-head h2 { font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: clamp(1.8rem, 3.2vw, 2.6rem); letter-spacing: 0.06em; }
+    .gallery-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 1rem; max-width: var(--container); margin: 0 auto; aspect-ratio: 16/9; }
+    .gallery-item { overflow: hidden; position: relative; cursor: zoom-in; }
+    .gallery-item:nth-child(1) { grid-row: 1 / 3; grid-column: 1; }
+    .gallery-item:nth-child(2) { grid-row: 1; grid-column: 2; }
+    .gallery-item:nth-child(3) { grid-row: 1; grid-column: 3; }
+    .gallery-item:nth-child(4) { grid-row: 2; grid-column: 2; }
+    .gallery-item:nth-child(5) { grid-row: 2; grid-column: 3; }
+    .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s; }
+    .gallery-item:hover img { transform: scale(1.06); }
+
+    /* ═══ Amenities ═══ */
+    .amenities { padding: 5rem 5%; background: white; }
+    .amenities-inner { max-width: var(--container); margin: 0 auto; }
+    .amenities-head { text-align: center; margin-bottom: 3rem; }
+    .amenities-head h2 { font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: clamp(1.8rem, 3.2vw, 2.6rem); letter-spacing: 0.06em; text-transform: uppercase; }
+    .amenities-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem 3rem; max-width: 920px; margin: 0 auto; }
+    .amenity { display: flex; align-items: flex-start; gap: 1rem; padding: 0.75rem 0; }
+    .amenity-icon { flex-shrink: 0; width: 28px; height: 28px; border: 1px solid var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--gold); }
+    .amenity-icon svg { width: 14px; height: 14px; }
+    .amenity-text { font-size: 0.95rem; line-height: 1.55; color: #2a2a2a; font-weight: 400; }
+
+    /* ═══ Pricing CTA ═══ */
+    .pricing { padding: 5rem 5%; background: var(--bg-dark); color: white; text-align: center; position: relative; overflow: hidden; }
+    .pricing::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(197,160,89,0.10) 0%, transparent 60%); pointer-events: none; }
+    .pricing-card { max-width: 640px; margin: 0 auto; position: relative; z-index: 1; }
+    .pricing .sec-eyebrow { color: var(--gold); }
+    .pricing h2 { font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: clamp(1.8rem, 3.2vw, 2.6rem); letter-spacing: 0.06em; text-transform: uppercase; color: white; margin: 0.6rem 0 1rem; }
+    .pricing-rate { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.2rem, 4vw, 3rem); color: var(--gold); margin: 1rem 0 0.5rem; }
+    .pricing-rate small { font-size: 0.55em; color: rgba(255,255,255,0.6); letter-spacing: 0.05em; font-weight: 400; }
+    .pricing-note { font-size: 0.85rem; color: rgba(255,255,255,0.55); font-style: italic; margin-bottom: 2rem; }
+    .pricing-btn { display: inline-block; padding: 1rem 2.5rem; background: var(--gold); color: var(--bg-dark); border: none; font-family: 'Lato'; font-size: 0.85rem; letter-spacing: 0.25em; text-transform: uppercase; cursor: pointer; transition: 0.3s; font-weight: 700; }
+    .pricing-btn:hover { background: white; transform: translateY(-2px); }
+
+    /* ═══ Other suites — cross-link ═══ */
+    .others { padding: 5rem 5%; background: var(--bg-cream); text-align: center; }
+    .others h3 { font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: 1.6rem; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.5rem; }
+    .others p { color: var(--text-muted); margin-bottom: 2rem; font-weight: 300; }
+    .others-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; max-width: 800px; margin: 0 auto; }
+    .other-card { padding: 1.75rem 1.5rem; background: white; border: 1px solid var(--border-faint); transition: all 0.3s; cursor: pointer; }
+    .other-card:hover { border-color: var(--gold); transform: translateY(-3px); box-shadow: 0 12px 30px rgba(0,0,0,0.08); }
+    .other-card-eyebrow { font-family: 'Cormorant Garamond'; font-size: 0.7rem; letter-spacing: 0.35em; color: var(--gold); text-transform: uppercase; margin-bottom: 0.5rem; }
+    .other-card-name { font-family: 'Cormorant Garamond'; font-weight: 500; font-size: 1.4rem; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.5rem; }
+    .other-card-desc { font-size: 0.85rem; color: var(--text-muted); }
+
+    /* ═══ Footer (compact) ═══ */
+    .footer-pr { background: var(--bg-dark); color: var(--text-light); padding: 3rem 5% 1.5rem; border-top: 1px solid rgba(197,160,89,0.2); text-align: center; }
+    .footer-pr-brand { font-size: 1.6rem; letter-spacing: 0.2em; color: var(--gold); margin-bottom: 0.4rem; }
+    .footer-pr-tag { font-size: 0.85rem; color: rgba(255,255,255,0.5); margin-bottom: 1.5rem; font-style: italic; }
+    .footer-pr-back { font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); border-bottom: 1px solid var(--gold); padding-bottom: 2px; }
+
+    @media (max-width: 1000px) {
+      .nav { padding: 1rem 1.25rem; }
+      .facts-row { grid-template-columns: repeat(2, 1fr); }
+      .fact-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 1rem; }
+      .gallery-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; aspect-ratio: auto; }
+      .gallery-item:nth-child(n) { grid-row: auto; grid-column: auto; aspect-ratio: 4/3; }
+      .amenities-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem 2rem; }
+      .others-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav" id="navbar">
+    <a href="index.html" class="back-link" aria-label="Retour à l'accueil">
+      <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+      Retour
+    </a>
+    <a href="index.html" class="logo-container" aria-label="Palais Atlas Marrakech — Accueil">
+      <span class="logo-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="currentColor"><rect x="5" y="5" width="14" height="14"/><rect x="5" y="5" width="14" height="14" transform="rotate(45 12 12)"/></svg>
+      </span>
+      <span class="logo-text serif">PALAIS ATLAS</span>
+      <span class="logo-sub">Marrakech</span>
+    </a>
+    <div class="nav-cta">
+      <a href="index.html#reserver" class="btn-reserve">Réserver</a>
+    </div>
+  </nav>
+
+  <!-- ═══ Hero — image arrive en morph depuis la card index via View Transition ═══ -->
+  <section class="hero">
+    <div class="hero-bg">
+      <img class="vt-hero-img" src="../../../assets/img/palais-atlas/suites/royale-hero.webp" alt="Suite Royale — chambre mauresque vue jardins" width="1024" height="1024">
+      <video class="hero-video" autoplay muted loop playsinline aria-hidden="true"
+             poster="../../../assets/img/palais-atlas/video/suite-royale-loop.poster.jpg">
+        <source src="../../../assets/img/palais-atlas/video/suite-royale-loop.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="hero-content">
+      <div class="hero-eyebrow">Hébergement Signature</div>
+      <h1 class="hero-title">Suite Royale</h1>
+      <p class="hero-tag">120 m² de luxe absolu, ouverts sur une terrasse panoramique au cœur des jardins du Palais — l'art de vivre marocain dans son expression la plus aboutie.</p>
+    </div>
+  </section>
+
+  <!-- ═══ Quick facts ═══ -->
+  <section class="facts">
+    <div class="facts-row">
+      <div class="fact-item"><div class="fact-num">120 m²</div><div class="fact-label">Superficie</div></div>
+      <div class="fact-item"><div class="fact-num">King</div><div class="fact-label">Lit Sur Mesure</div></div>
+      <div class="fact-item"><div class="fact-num">Privé</div><div class="fact-label">Hammam Marbre</div></div>
+      <div class="fact-item"><div class="fact-num">Atlas</div><div class="fact-label">Vue Jardins</div></div>
+      <div class="fact-item"><div class="fact-num">2-3</div><div class="fact-label">Personnes</div></div>
+    </div>
+  </section>
+
+  <!-- ═══ Description editorial ═══ -->
+  <section class="desc">
+    <div class="desc-inner">
+      <div class="sec-eyebrow">L'Adresse Signature du Palais</div>
+      <h2 class="desc-title">Un volume rare, baigné de lumière — chaque détail composé comme une partition, depuis le zellige cousu main jusqu'aux étoffes de soie tunisienne.</h2>
+      <p class="desc-body">La Suite Royale s'ouvre sur un salon Louis XVI réinterprété par les ateliers de l'Hivernage : canapés bordeaux profond, tables basses en marbre travertin, lustre en cristal de Bohême sur plafond peint à la feuille d'or. Au cœur de la suite, le lit king sur estrade fait face à une cheminée orientale en plâtre sculpté.</p>
+      <p class="desc-body">La salle de bain double-vasque en pierre creusée prolonge l'expérience par un hammam privé tout en marbre Calacatta — bain de vapeur, douche italienne et bassin gravé pour les rituels berbères. La terrasse de 38 m² offre une vue cinématographique sur les jardins du palais et, par temps clair, sur les neiges éternelles du Toubkal.</p>
+    </div>
+  </section>
+
+  <!-- ═══ Gallery (5 images en grille asymétrique) ═══ -->
+  <section class="gallery">
+    <div class="gallery-head">
+      <div class="sec-eyebrow">La Suite en Images</div>
+      <h2>Le Volume, le Détail, la Lumière</h2>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item"><img src="../../../assets/img/palais-atlas/suites/royale-living.webp" alt="Suite Royale — salon Louis XVI" loading="lazy"></div>
+      <div class="gallery-item"><img src="../../../assets/img/palais-atlas/suites/royale-bath.webp" alt="Hammam privé en marbre" loading="lazy"></div>
+      <div class="gallery-item"><img src="../../../assets/img/palais-atlas/suites/royale-terrace.webp" alt="Terrasse panoramique vue Atlas" loading="lazy"></div>
+      <div class="gallery-item"><img src="../../../assets/img/palais-atlas/suites/royale-detail.webp" alt="Détail zellige bordeaux et or" loading="lazy"></div>
+      <div class="gallery-item"><img src="../../../assets/img/palais-atlas/story/courtyard.webp" alt="Cour du palais — accès suite" loading="lazy"></div>
+    </div>
+  </section>
+
+  <!-- ═══ Amenities ═══ -->
+  <section class="amenities">
+    <div class="amenities-inner">
+      <div class="amenities-head">
+        <div class="sec-eyebrow">Inclus dans le Séjour</div>
+        <h2>Services &amp; Équipements</h2>
+      </div>
+      <div class="amenities-grid">
+        <div class="amenity">
+          <span class="amenity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span>
+          <span class="amenity-text">Petit-déjeuner royal en chambre ou patio</span>
+        </div>
+        <div class="amenity">
+          <span class="amenity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span>
+          <span class="amenity-text">Hammam privé en marbre — accès illimité</span>
+        </div>
+        <div class="amenity">
+          <span class="amenity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span>
+          <span class="amenity-text">Service de majordome 24/7</span>
+        </div>
+        <div class="amenity">
+          <span class="amenity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span>
+          <span class="amenity-text">Transferts privés Mercedes Classe E</span>
+        </div>
+        <div class="amenity">
+          <span class="amenity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span>
+          <span class="amenity-text">Linge de bain en coton biologique Égyptien</span>
+        </div>
+        <div class="amenity">
+          <span class="amenity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span>
+          <span class="amenity-text">Cosmétiques signature Sisley Paris</span>
+        </div>
+        <div class="amenity">
+          <span class="amenity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span>
+          <span class="amenity-text">Mini-bar premium réapprovisionné</span>
+        </div>
+        <div class="amenity">
+          <span class="amenity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span>
+          <span class="amenity-text">Bureau privé avec imprimante laser</span>
+        </div>
+        <div class="amenity">
+          <span class="amenity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span>
+          <span class="amenity-text">Wifi fibre 1 Gbps dédié</span>
+        </div>
+        <div class="amenity">
+          <span class="amenity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span>
+          <span class="amenity-text">Nespresso premium &amp; cave à thé royale</span>
+        </div>
+        <div class="amenity">
+          <span class="amenity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span>
+          <span class="amenity-text">Conciergerie privée — réservations partenaires</span>
+        </div>
+        <div class="amenity">
+          <span class="amenity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span>
+          <span class="amenity-text">Accès prioritaire spa &amp; restaurants étoilés</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Pricing CTA ═══ -->
+  <section class="pricing">
+    <div class="pricing-card">
+      <div class="sec-eyebrow">Tarif à partir de</div>
+      <h2>Vivez la Suite Royale</h2>
+      <div class="pricing-rate">€2&nbsp;400 <small>/ nuit</small></div>
+      <p class="pricing-note">Tarif minimum garanti — incluant petit-déjeuner royal et accès spa. Hors taxes touristiques.</p>
+      <a href="index.html#reserver" class="pricing-btn">Vérifier la Disponibilité →</a>
+    </div>
+  </section>
+
+  <!-- ═══ Other suites cross-link ═══ -->
+  <section class="others">
+    <h3>Autres Hébergements</h3>
+    <p>Découvrez les autres expériences signature du Palais Atlas.</p>
+    <div class="others-grid">
+      <a href="suite-deluxe.html" class="other-card">
+        <div class="other-card-eyebrow">Featured · 75 m²</div>
+        <div class="other-card-name">Suite Deluxe</div>
+        <div class="other-card-desc">Vue Atlas ou jardins, mobilier sur mesure, baignoire en pierre creusée. Dès €1 200 / nuit.</div>
+      </a>
+      <a href="riad-prive.html" class="other-card">
+        <div class="other-card-eyebrow">Privé · 3 chambres</div>
+        <div class="other-card-name">Riad Privé</div>
+        <div class="other-card-desc">Patio à fontaine, piscine et majordome 24/7 — pour une expérience marocaine totale. Dès €4 800 / nuit.</div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ═══ Footer compact ═══ -->
+  <footer class="footer-pr">
+    <div class="footer-pr-brand">Palais Atlas</div>
+    <div class="footer-pr-tag">Membre des Relais &amp; Châteaux · Marrakech depuis 1923</div>
+    <a href="index.html" class="footer-pr-back">← Retour au Palais</a>
+  </footer>
+
+  <script>
+    // Nav scroll state (cohérent avec index)
+    window.addEventListener('scroll', () => {
+      const nav = document.getElementById('navbar');
+      nav.classList.toggle('scrolled', window.scrollY > 50);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0A0A0A">
+  <meta name="description" content="Spa Royal du Palais Atlas Marrakech — 1 800 m² dédiés aux rituels millénaires, hammams traditionnels, soins berbères et collaboration exclusive Sisley Paris.">
+  <title>Spa Royal — Palais Atlas Marrakech</title>
+  <link rel="canonical" href="https://palaisatlas.ma/spa-royal">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='4' fill='%230A0A0A'/%3E%3Ctext x='50%25' y='58%25' dominant-baseline='middle' text-anchor='middle' font-family='Italiana,serif' font-weight='600' font-size='14' fill='%23C5A059'%3EPA%3C/text%3E%3C/svg%3E">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Italiana&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Lato:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="preload" as="image" href="../../../assets/img/palais-atlas/spa/hammam.webp" fetchpriority="high">
+  <style>
+    :root { --bg-dark: #0A0A0A; --bg-cream: #F5F1E7; --bg-cream-warm: #F5EFE3; --bg-cream-light: #FAFAF7; --gold: #C5A059; --red: #721c24; --text-dark: #222222; --text-light: #FFFFFF; --text-muted: #777777; --border: #e5e5e5; --border-faint: #eeeeee; --container: 1280px; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Lato', sans-serif; background: var(--bg-cream); color: var(--text-dark); overflow-x: hidden; }
+    h1, h2, h3, .serif { font-family: 'Cormorant Garamond', serif; font-weight: 500; text-transform: uppercase; letter-spacing: 2px; }
+    .hero-title, .logo-text, .footer-pr-brand { font-family: 'Italiana', serif; font-weight: 400; }
+    a { text-decoration: none; color: inherit; transition: 0.3s; }
+    img { max-width: 100%; }
+
+    @view-transition { navigation: auto; }
+    .vt-hero-img { view-transition-name: spa-royal; }
+    @media (prefers-reduced-motion: no-preference) {
+      ::view-transition-old(spa-royal), ::view-transition-new(spa-royal) {
+        animation-duration: 0.7s; animation-timing-function: cubic-bezier(0.7, 0, 0.2, 1);
+      }
+    }
+    :focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    }
+
+    .nav { position: fixed; top: 0; width: 100%; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; padding: 1.2rem 3rem; z-index: 100; transition: background 0.4s; }
+    .nav.scrolled { background: var(--bg-dark); border-bottom: 1px solid rgba(197,160,89,0.3); padding: 0.85rem 3rem; }
+    .back-link { justify-self: start; color: var(--text-light); font-size: 0.78rem; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.5rem 0.85rem; border: 1px solid rgba(255,255,255,0.18); border-radius: 999px; display: inline-flex; align-items: center; gap: 0.4rem; }
+    .back-link:hover { border-color: var(--gold); color: var(--gold); }
+    .logo-container { text-align: center; color: var(--text-light); justify-self: center; display: flex; flex-direction: column; align-items: center; gap: 0.35rem; }
+    .logo-mark { color: var(--gold); }
+    .logo-mark svg { width: 22px; height: 22px; display: block; }
+    .logo-text { font-size: 1rem; letter-spacing: 4px; line-height: 1; text-transform: uppercase; }
+    .logo-sub { font-size: 0.55rem; letter-spacing: 5px; text-transform: uppercase; opacity: 0.85; }
+    .nav-cta { justify-self: end; }
+    .btn-reserve { background: transparent; border: none; color: var(--gold); font-size: 0.78rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; cursor: pointer; border-bottom: 1px solid var(--gold); padding: 0.35rem 0.2rem; }
+    .btn-reserve:hover { color: var(--text-light); border-bottom-color: var(--text-light); }
+
+    .hero { min-height: 88vh; position: relative; display: flex; align-items: flex-end; isolation: isolate; overflow: hidden; padding-bottom: 5rem; }
+    .hero-bg { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
+    .hero-bg img { width: 100%; height: 100%; object-fit: cover; display: block; filter: contrast(1.05) saturate(1.05) brightness(0.92); }
+    .hero::after { content: ''; position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgba(10,10,10,0.4) 0%, rgba(10,10,10,0.15) 35%, rgba(10,10,10,0.85) 100%); }
+    .hero-content { position: relative; z-index: 2; padding: 0 5%; max-width: var(--container); margin: 0 auto; width: 100%; color: var(--text-light); }
+    .hero-eyebrow { font-family: 'Cormorant Garamond', serif; font-size: 0.82rem; letter-spacing: 0.45em; color: var(--gold); text-transform: uppercase; margin-bottom: 1.2rem; }
+    .hero-title { font-size: clamp(2.8rem, 6.5vw, 5.5rem); letter-spacing: 0.14em; text-transform: uppercase; line-height: 1; margin-bottom: 1.25rem; text-shadow: 0 2px 12px rgba(0,0,0,0.6), 0 8px 40px rgba(0,0,0,0.45); }
+    .hero-tag { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: clamp(1rem, 1.5vw, 1.25rem); color: rgba(255,255,255,0.85); max-width: 580px; line-height: 1.65; }
+
+    .facts { background: var(--bg-dark); color: white; padding: 1.5rem 5%; border-top: 1px solid rgba(197,160,89,0.25); border-bottom: 1px solid rgba(197,160,89,0.18); }
+    .facts-row { max-width: var(--container); margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; text-align: center; }
+    .fact-item { padding: 0.5rem; border-right: 1px solid rgba(255,255,255,0.08); }
+    .fact-item:last-child { border-right: none; }
+    .fact-num { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 500; color: var(--gold); margin-bottom: 0.2rem; }
+    .fact-label { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.6); }
+
+    .desc { padding: 6rem 5% 5rem; background: var(--bg-cream-warm); }
+    .desc-inner { max-width: 920px; margin: 0 auto; text-align: center; }
+    .sec-eyebrow { font-family: 'Cormorant Garamond', serif; font-size: 0.78rem; letter-spacing: 0.45em; color: var(--gold); text-transform: uppercase; margin-bottom: 1rem; }
+    .desc-title { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 500; font-size: clamp(1.6rem, 2.7vw, 2.4rem); color: var(--red); line-height: 1.4; margin-bottom: 2rem; letter-spacing: 0; text-transform: none; }
+    .desc-body { font-size: 1rem; line-height: 1.95; color: #4a4540; font-weight: 300; max-width: 720px; margin: 0 auto; }
+    .desc-body + .desc-body { margin-top: 1.25rem; }
+
+    /* Treatments grid — chaque soin avec prix et durée */
+    .treatments { padding: 5rem 5%; background: white; }
+    .treatments-inner { max-width: var(--container); margin: 0 auto; }
+    .treatments-head { text-align: center; margin-bottom: 3rem; }
+    .treatments-head h2 { font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: clamp(1.8rem, 3.2vw, 2.6rem); letter-spacing: 0.06em; text-transform: uppercase; }
+    .treatments-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+    .treatment-card { padding: 2.25rem 2rem; background: var(--bg-cream-warm); border: 1px solid var(--border-faint); transition: all 0.3s; position: relative; }
+    .treatment-card:hover { border-color: var(--gold); transform: translateY(-3px); box-shadow: 0 16px 40px rgba(0,0,0,0.06); }
+    .treatment-cat { font-family: 'Cormorant Garamond'; font-size: 0.7rem; letter-spacing: 0.4em; color: var(--gold); text-transform: uppercase; margin-bottom: 0.6rem; }
+    .treatment-name { font-family: 'Cormorant Garamond'; font-weight: 500; font-size: 1.5rem; letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 0.85rem; color: var(--text-dark); }
+    .treatment-desc { font-size: 0.92rem; line-height: 1.7; color: var(--text-muted); font-weight: 300; margin-bottom: 1.25rem; }
+    .treatment-foot { display: flex; justify-content: space-between; align-items: center; padding-top: 1rem; border-top: 1px solid rgba(197,160,89,0.15); }
+    .treatment-duration { font-size: 0.82rem; color: var(--text-muted); letter-spacing: 0.05em; }
+    .treatment-price { font-family: 'Cormorant Garamond'; font-size: 1.3rem; font-weight: 600; color: var(--gold); }
+
+    /* Gallery — atmosphere du spa */
+    .gallery { padding: 4rem 5% 5rem; background: var(--bg-cream-light); }
+    .gallery-head { text-align: center; max-width: 720px; margin: 0 auto 3rem; }
+    .gallery-head h2 { font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: clamp(1.8rem, 3.2vw, 2.6rem); letter-spacing: 0.06em; }
+    .gallery-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 1rem; max-width: var(--container); margin: 0 auto; aspect-ratio: 16/9; }
+    .gallery-item { overflow: hidden; position: relative; cursor: zoom-in; }
+    .gallery-item:nth-child(1) { grid-row: 1 / 3; grid-column: 1; }
+    .gallery-item:nth-child(2) { grid-row: 1; grid-column: 2; }
+    .gallery-item:nth-child(3) { grid-row: 1; grid-column: 3; }
+    .gallery-item:nth-child(4) { grid-row: 2; grid-column: 2; }
+    .gallery-item:nth-child(5) { grid-row: 2; grid-column: 3; }
+    .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s; }
+    .gallery-item:hover img { transform: scale(1.06); }
+
+    /* Sisley partnership block */
+    .partner { padding: 5rem 5%; background: var(--bg-dark); color: white; text-align: center; }
+    .partner-inner { max-width: 720px; margin: 0 auto; }
+    .partner .sec-eyebrow { color: var(--gold); }
+    .partner h2 { font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: clamp(1.6rem, 2.6vw, 2rem); letter-spacing: 0.06em; text-transform: uppercase; color: white; margin: 0.6rem 0 1.5rem; }
+    .partner p { font-size: 0.96rem; line-height: 1.95; color: rgba(255,255,255,0.75); font-weight: 300; }
+
+    /* Pricing journey CTA */
+    .pricing { padding: 5rem 5%; background: var(--bg-cream); text-align: center; }
+    .pricing h2 { font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: clamp(1.8rem, 3.2vw, 2.4rem); letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-dark); margin: 0.6rem 0 1.5rem; }
+    .pricing p { font-size: 0.95rem; color: var(--text-muted); max-width: 580px; margin: 0 auto 2rem; line-height: 1.85; }
+    .pricing-btn { display: inline-block; padding: 1rem 2.5rem; background: var(--text-dark); color: white; border: none; font-family: 'Lato'; font-size: 0.85rem; letter-spacing: 0.25em; text-transform: uppercase; cursor: pointer; transition: 0.3s; font-weight: 700; }
+    .pricing-btn:hover { background: var(--gold); transform: translateY(-2px); }
+
+    .footer-pr { background: var(--bg-dark); color: var(--text-light); padding: 3rem 5% 1.5rem; border-top: 1px solid rgba(197,160,89,0.2); text-align: center; }
+    .footer-pr-brand { font-size: 1.6rem; letter-spacing: 0.2em; color: var(--gold); margin-bottom: 0.4rem; }
+    .footer-pr-tag { font-size: 0.85rem; color: rgba(255,255,255,0.5); margin-bottom: 1.5rem; font-style: italic; }
+    .footer-pr-back { font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); border-bottom: 1px solid var(--gold); padding-bottom: 2px; }
+
+    @media (max-width: 1000px) {
+      .nav { padding: 1rem 1.25rem; }
+      .facts-row { grid-template-columns: repeat(2, 1fr); }
+      .fact-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 1rem; }
+      .treatments-grid { grid-template-columns: 1fr; }
+      .gallery-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; aspect-ratio: auto; }
+      .gallery-item:nth-child(n) { grid-row: auto; grid-column: auto; aspect-ratio: 4/3; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav" id="navbar">
+    <a href="index.html" class="back-link" aria-label="Retour à l'accueil">
+      <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+      Retour
+    </a>
+    <a href="index.html" class="logo-container" aria-label="Palais Atlas Marrakech — Accueil">
+      <span class="logo-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="currentColor"><rect x="5" y="5" width="14" height="14"/><rect x="5" y="5" width="14" height="14" transform="rotate(45 12 12)"/></svg>
+      </span>
+      <span class="logo-text serif">PALAIS ATLAS</span>
+      <span class="logo-sub">Marrakech</span>
+    </a>
+    <div class="nav-cta">
+      <a href="index.html#reserver" class="btn-reserve">Réserver</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-bg">
+      <img class="vt-hero-img" src="../../../assets/img/palais-atlas/spa/hammam.webp" alt="Spa Royal — hammam intérieur en marbre" width="1024" height="1024">
+    </div>
+    <div class="hero-content">
+      <div class="hero-eyebrow">Bien-être Royal · 1 800 m²</div>
+      <h1 class="hero-title">Spa Royal</h1>
+      <p class="hero-tag">Au cœur du palais, dix-huit cents mètres carrés dédiés aux rituels millénaires — hammams traditionnels, soins berbères, et la collaboration exclusive avec la Maison Sisley Paris.</p>
+    </div>
+  </section>
+
+  <section class="facts">
+    <div class="facts-row">
+      <div class="fact-item"><div class="fact-num">1 800 m²</div><div class="fact-label">Espace Spa</div></div>
+      <div class="fact-item"><div class="fact-num">8</div><div class="fact-label">Cabines de Soin</div></div>
+      <div class="fact-item"><div class="fact-num">3</div><div class="fact-label">Hammams Traditionnels</div></div>
+      <div class="fact-item"><div class="fact-num">Sisley</div><div class="fact-label">Paris · Exclusif</div></div>
+    </div>
+  </section>
+
+  <section class="desc">
+    <div class="desc-inner">
+      <div class="sec-eyebrow">Une Tradition Millénaire</div>
+      <h2 class="desc-title">Le hammam comme rituel sacré, le toucher comme art ancestral — chaque soin est une cérémonie composée par nos thérapeutes berbères, dans le respect des gestes transmis depuis le XII<sup>e</sup> siècle.</h2>
+      <p class="desc-body">Le Spa Royal occupe l'aile sud du palais, autour d'un patio à fontaine couvert d'une coupole en muqarnas dorée. Trois hammams en marbre Calacatta blanc — un pour les hommes, un pour les femmes, un mixte sur réservation — accueillent le rituel de purification : gommage au savon noir d'olive, masque au ghassoul du Moyen Atlas, enveloppement au lait d'argan, douche à la rose de Damas.</p>
+      <p class="desc-body">Huit cabines de soin signées par la Maison Sisley Paris — partenaire exclusif depuis 2018 — proposent les protocoles les plus avancés du soin facial et corporel européen, fusionnés à l'expertise berbère. Une journée privative permet de combiner hammam, massage, soin visage et déjeuner gastronomique dans le riad du spa.</p>
+    </div>
+  </section>
+
+  <section class="gallery">
+    <div class="gallery-head">
+      <div class="sec-eyebrow">L'Atmosphère du Spa</div>
+      <h2>Marbre, Bougies, Vapeur</h2>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item"><img src="../../../assets/img/palais-atlas/spa/hammam.webp" alt="Hammam principal en marbre" loading="lazy"></div>
+      <div class="gallery-item"><img src="../../../assets/img/palais-atlas/suites/royale-bath.webp" alt="Cabine de soin marbre" loading="lazy"></div>
+      <div class="gallery-item"><img src="../../../assets/img/palais-atlas/suites/deluxe-bath.webp" alt="Détail brass et marbre" loading="lazy"></div>
+      <div class="gallery-item"><img src="../../../assets/img/palais-atlas/inspiration/04-dome.webp" alt="Coupole muqarnas spa" loading="lazy"></div>
+      <div class="gallery-item"><img src="../../../assets/img/palais-atlas/story/courtyard.webp" alt="Patio fontaine spa" loading="lazy"></div>
+    </div>
+  </section>
+
+  <section class="treatments">
+    <div class="treatments-inner">
+      <div class="treatments-head">
+        <div class="sec-eyebrow">Carte des Soins</div>
+        <h2>Rituels Signature</h2>
+      </div>
+      <div class="treatments-grid">
+        <article class="treatment-card">
+          <div class="treatment-cat">Rituel Berbère · Signature</div>
+          <h3 class="treatment-name">Hammam Royal</h3>
+          <p class="treatment-desc">Cérémonie complète en trois temps : gommage savon noir d'olive et khessa, masque au ghassoul de l'Atlas, enveloppement au beurre d'argan brut. Conclu par une infusion de rose et menthe au patio.</p>
+          <div class="treatment-foot">
+            <span class="treatment-duration">90 minutes</span>
+            <span class="treatment-price">€280</span>
+          </div>
+        </article>
+        <article class="treatment-card">
+          <div class="treatment-cat">Soin Corps · Signature Or</div>
+          <h3 class="treatment-name">Argan &amp; Or</h3>
+          <p class="treatment-desc">Hammam court, gommage à l'huile d'argan biologique, massage sur table chauffante, enveloppement à la poudre d'or 24 carats — texture soyeuse, peau lumineuse, signature exclusive du palace.</p>
+          <div class="treatment-foot">
+            <span class="treatment-duration">120 minutes</span>
+            <span class="treatment-price">€420</span>
+          </div>
+        </article>
+        <article class="treatment-card">
+          <div class="treatment-cat">Soin Visage · Sisley Paris</div>
+          <h3 class="treatment-name">Massage Sisley Signature</h3>
+          <p class="treatment-desc">Protocole exclusif Sisley Paris combinant nettoyage en profondeur, masque sur-mesure, sérum botanique et massage Kobido japonais. Diagnostic peau personnalisé inclus.</p>
+          <div class="treatment-foot">
+            <span class="treatment-duration">60 minutes</span>
+            <span class="treatment-price">€240</span>
+          </div>
+        </article>
+        <article class="treatment-card">
+          <div class="treatment-cat">Expérience Privative · 4h</div>
+          <h3 class="treatment-name">Journée Spa Privative</h3>
+          <p class="treatment-desc">Hammam privé, double rituel berbère, déjeuner gastronomique sur la terrasse du spa, accès illimité au patio à fontaine, sieste sur lit de jasmin. Pour deux personnes en intimité totale.</p>
+          <div class="treatment-foot">
+            <span class="treatment-duration">4 heures · 2 personnes</span>
+            <span class="treatment-price">€890</span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="partner">
+    <div class="partner-inner">
+      <div class="sec-eyebrow">Partenaire Exclusif</div>
+      <h2>Sisley Paris — Exclusivité Marrakech</h2>
+      <p>Depuis 2018, le Spa Royal est l'unique adresse marocaine à proposer le protocole complet Sisley Paris — gamme Phyto, Botanical D-Tox, Sisleÿa l'Intégral Anti-Âge — avec formation continue dispensée par les ateliers parisiens de la Maison.</p>
+    </div>
+  </section>
+
+  <section class="pricing">
+    <div class="sec-eyebrow">Réserver un Soin</div>
+    <h2>Votre Cérémonie au Spa Royal</h2>
+    <p>Cabines réservables 8h–21h, créneaux femmes / hommes / mixte selon plages horaires. Pour les résidents du palais, accès prioritaire et service en chambre disponible.</p>
+    <a href="index.html#reserver" class="pricing-btn">Réserver Mon Soin →</a>
+  </section>
+
+  <footer class="footer-pr">
+    <div class="footer-pr-brand">Palais Atlas</div>
+    <div class="footer-pr-tag">Membre des Relais &amp; Châteaux · Marrakech depuis 1923</div>
+    <a href="index.html" class="footer-pr-back">← Retour au Palais</a>
+  </footer>
+
+  <script>
+    window.addEventListener('scroll', () => {
+      const nav = document.getElementById('navbar');
+      nav.classList.toggle('scrolled', window.scrollY > 50);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sketch Lab | Illustration Portfolio</title>
+  <meta name="description" content="Illustrator and comic artist portfolio. Character design, editorial illustration, and speed drawing videos.">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #FFFFFF;
+      --orange: #FF6B35;
+      --blue: #004E89;
+      --yellow: #FFC107;
+      --dark: #1E1E2E;
+      --muted: #888;
+      --light: #F8F6F3;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family: 'Poppins', sans-serif; background: var(--bg); color: var(--dark); overflow-x: hidden; }
+    h1, h2, h3, .display { font-family: 'Fredoka', sans-serif; }
+    a { text-decoration: none; color: inherit; transition: 0.3s; }
+
+    .nav { position: sticky; top: 0; padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; background: white; z-index: 100; box-shadow: 0 2px 15px rgba(0,0,0,0.04); }
+    .logo { font-family: 'Fredoka'; font-size: 1.6rem; font-weight: 700; color: var(--orange); display: flex; align-items: center; gap: 8px; }
+    .logo-icon { width: 35px; height: 35px; background: var(--orange); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem; transform: rotate(-5deg); }
+    .nav-links { display: flex; gap: 2rem; font-size: 0.9rem; font-weight: 500; }
+    .nav-links a:hover { color: var(--orange); }
+    .nav-cta { padding: 0.6rem 1.8rem; background: var(--orange); color: white; border-radius: 25px; font-weight: 600; font-size: 0.85rem; }
+    .nav-cta:hover { background: var(--blue); transform: translateY(-2px); }
+
+    .hero { min-height: 90vh; display: grid; grid-template-columns: 1fr 1fr; align-items: center; padding: 4rem 5%; gap: 4rem; background: var(--light); border-radius: 0 0 40px 40px; }
+    .hero-text { }
+    .hero-wave { font-size: 3rem; margin-bottom: 1rem; display: inline-block; animation: wave 2s infinite; transform-origin: 70% 70%; }
+    @keyframes wave { 0%,100% { transform: rotate(0); } 15% { transform: rotate(14deg); } 30% { transform: rotate(-8deg); } 40% { transform: rotate(14deg); } }
+    .hero-title { font-size: 3.5rem; line-height: 1.2; margin-bottom: 1.5rem; }
+    .hero-title .highlight { color: var(--orange); position: relative; }
+    .hero-title .highlight::after { content: ''; position: absolute; bottom: 5px; left: 0; right: 0; height: 10px; background: var(--yellow); opacity: 0.4; z-index: -1; border-radius: 5px; }
+    .hero-desc { font-size: 1.05rem; color: var(--muted); line-height: 1.8; max-width: 450px; margin-bottom: 2rem; }
+    .hero-btns { display: flex; gap: 1rem; }
+    .btn-fun { padding: 0.9rem 2rem; background: var(--orange); color: white; border-radius: 30px; font-weight: 600; border: none; cursor: pointer; font-family: 'Poppins'; font-size: 0.95rem; transition: 0.3s; box-shadow: 0 8px 25px rgba(255,107,53,0.25); }
+    .btn-fun:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(255,107,53,0.35); }
+    .btn-outline { padding: 0.9rem 2rem; background: white; color: var(--dark); border: 2px solid #eee; border-radius: 30px; font-weight: 600; font-size: 0.95rem; cursor: pointer; font-family: 'Poppins'; transition: 0.3s; }
+    .btn-outline:hover { border-color: var(--blue); color: var(--blue); }
+    .hero-image { position: relative; text-align: center; }
+    .hero-image img { width: 90%; border-radius: 30px; box-shadow: 0 20px 50px rgba(0,0,0,0.1); transform: rotate(2deg); }
+    .hero-sticker { position: absolute; background: white; padding: 0.8rem 1.5rem; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); font-weight: 600; font-size: 0.85rem; }
+    .sticker-1 { top: 10%; right: -10px; transform: rotate(5deg); }
+    .sticker-2 { bottom: 15%; left: -20px; transform: rotate(-3deg); color: var(--blue); }
+
+    .section { padding: 6rem 5%; }
+    .section-header { text-align: center; margin-bottom: 4rem; }
+    .section-tag { font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--orange); font-weight: 600; margin-bottom: 0.5rem; }
+    .section-title { font-size: 2.8rem; }
+
+    /* Bento Portfolio */
+    .bento { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 220px; gap: 1rem; }
+    .bento-card { position: relative; border-radius: 20px; overflow: hidden; cursor: pointer; box-shadow: 0 5px 20px rgba(0,0,0,0.06); transition: 0.4s; }
+    .bento-card:hover { transform: translateY(-5px) rotate(-1deg); box-shadow: 0 15px 35px rgba(0,0,0,0.12); }
+    .bento-card img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+    .bento-card:hover img { transform: scale(1.08); }
+    .bento-tag { position: absolute; top: 12px; left: 12px; padding: 4px 12px; background: var(--orange); color: white; border-radius: 20px; font-size: 0.7rem; font-weight: 600; }
+    .bento-card.wide { grid-column: span 2; }
+    .bento-card.tall { grid-row: span 2; }
+
+    /* Speed Draw Videos */
+    .speed-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .speed-card { background: var(--light); border-radius: 20px; overflow: hidden; cursor: pointer; transition: 0.3s; }
+    .speed-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.08); }
+    .speed-thumb { position: relative; }
+    .speed-thumb img { width: 100%; aspect-ratio: 16/9; object-fit: cover; }
+    .speed-play { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 55px; height: 55px; background: var(--orange); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem; transition: 0.3s; box-shadow: 0 5px 20px rgba(255,107,53,0.3); }
+    .speed-card:hover .speed-play { transform: translate(-50%,-50%) scale(1.1); }
+    .speed-meta { padding: 1.2rem; }
+    .speed-meta h4 { font-size: 1rem; margin-bottom: 0.3rem; }
+    .speed-meta span { font-size: 0.8rem; color: var(--muted); }
+
+    /* Clients */
+    .clients { background: var(--light); border-radius: 30px; padding: 4rem 5%; text-align: center; margin: 0 5%; }
+    .client-logos { display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap; align-items: center; margin-top: 2rem; }
+    .client-logos span { font-size: 1.3rem; font-weight: 700; color: #ddd; transition: 0.3s; }
+    .client-logos span:hover { color: var(--orange); }
+
+    /* Shop */
+    .shop-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+    .shop-card { background: var(--light); border-radius: 20px; overflow: hidden; text-align: center; transition: 0.3s; cursor: pointer; }
+    .shop-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.08); }
+    .shop-card img { width: 100%; aspect-ratio: 1; object-fit: cover; }
+    .shop-info { padding: 1.5rem; }
+    .shop-info h3 { font-size: 1rem; margin-bottom: 0.3rem; }
+    .shop-price { color: var(--orange); font-weight: 700; font-size: 1.1rem; }
+
+    .contact { text-align: center; background: var(--dark); color: white; border-radius: 40px 40px 0 0; }
+    .contact .section-title { color: white; }
+    .contact-email { font-family: 'Fredoka'; font-size: 2.5rem; color: var(--orange); }
+    .contact-email:hover { color: var(--yellow); }
+    .contact-social { display: flex; justify-content: center; gap: 1rem; margin-top: 2rem; }
+    .contact-social a { width: 42px; height: 42px; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; transition: 0.3s; }
+    .contact-social a:hover { background: var(--orange); }
+
+    .footer { padding: 1.5rem 5%; display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--muted); background: var(--dark); }
+
+    dialog { border: none; background: transparent; max-width: 90vw; max-height: 90vh; padding: 0; }
+    dialog::backdrop { background: rgba(0,0,0,0.9); }
+    #imgModal img { max-width: 85vw; max-height: 85vh; object-fit: contain; border-radius: 12px; }
+    #videoModal .video-container { width: 80vw; max-width: 1000px; aspect-ratio: 16/9; }
+    #videoModal .video-container iframe { width: 100%; height: 100%; border: none; border-radius: 12px; }
+    .modal-close { position: fixed; top: 2rem; right: 2rem; width: 45px; height: 45px; background: var(--orange); border: none; border-radius: 50%; color: white; font-size: 1.3rem; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 1000; }
+
+    .reveal { opacity: 0; transform: translateY(30px); transition: all 0.7s ease-out; }
+    .reveal.active { opacity: 1; transform: translateY(0); }
+    .back-to-top { position: fixed; bottom: 30px; right: 30px; width: 50px; height: 50px; background: var(--orange); color: white; border: none; border-radius: 50%; font-size: 1.2rem; cursor: pointer; opacity: 0; visibility: hidden; transition: 0.3s; z-index: 99; box-shadow: 0 5px 20px rgba(255,107,53,0.3); }
+    .back-to-top.visible { opacity: 1; visibility: visible; }
+    .back-to-top:hover { transform: translateY(-5px); }
+
+    @media (max-width: 1024px) { .bento { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; text-align: center; padding-top: 2rem; }
+      .hero-desc { margin: 0 auto 2rem; }
+      .hero-btns { justify-content: center; }
+      .hero-image { order: -1; }
+      .hero-sticker { display: none; }
+      .nav-links { display: none; }
+      .bento { grid-template-columns: 1fr; }
+      .bento-card.wide, .bento-card.tall { grid-column: span 1; grid-row: span 1; }
+      .speed-grid, .shop-grid { grid-template-columns: 1fr; }
+      .section-title { font-size: 2rem; }
+      .contact-email { font-size: 1.5rem; }
+      .footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="logo"><div class="logo-icon">✏️</div> SketchLab</div>
+    <div class="nav-links">
+      <a href="#portfolio">Work</a>
+      <a href="#videos">Speed Draws</a>
+      <a href="#shop">Prints</a>
+      <a href="#contact">Hire Me</a>
+    </div>
+    <a href="#contact" class="nav-cta">Let's Talk</a>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-text">
+      <div class="hero-wave">👋</div>
+      <h1 class="hero-title display">I draw things that make people <span class="highlight">smile.</span></h1>
+      <p class="hero-desc">Freelance illustrator crafting playful characters, editorial illustrations, and brand mascots for clients worldwide.</p>
+      <div class="hero-btns">
+        <button class="btn-fun" onclick="document.getElementById('portfolio').scrollIntoView({behavior:'smooth'})">See My Work</button>
+        <button class="btn-outline" onclick="document.getElementById('videos').scrollIntoView({behavior:'smooth'})">Watch Me Draw</button>
+      </div>
+    </div>
+    <div class="hero-image">
+      <img src="../../../assets/img/artist-sketch-lab/auto-1.webp" alt="Illustration">
+      <div class="hero-sticker sticker-1">🎨 250+ Projects</div>
+      <div class="hero-sticker sticker-2">⭐ 5.0 on Fiverr</div>
+    </div>
+  </section>
+
+  <section class="section" id="portfolio">
+    <div class="section-header reveal"><div class="section-tag">Selected Work</div><h2 class="section-title display">The Portfolio ✨</h2></div>
+    <div class="bento reveal">
+      <div class="bento-card tall" onclick="openImg(this)"><img src="../../../assets/img/artist-sketch-lab/auto-1.webp" alt="Character"><div class="bento-tag">Character</div></div>
+      <div class="bento-card wide" onclick="openImg(this)"><img src="../../../assets/img/artist-sketch-lab/auto-2.webp" alt="Editorial"><div class="bento-tag">Editorial</div></div>
+      <div class="bento-card" onclick="openImg(this)"><img src="../../../assets/img/artist-sketch-lab/auto-3.webp" alt="Mascot"><div class="bento-tag">Mascot</div></div>
+      <div class="bento-card" onclick="openImg(this)"><img src="../../../assets/img/artist-sketch-lab/auto-4.webp" alt="Book Cover"><div class="bento-tag">Book Cover</div></div>
+      <div class="bento-card wide" onclick="openImg(this)"><img src="../../../assets/img/artist-sketch-lab/auto-5.webp" alt="Pattern"><div class="bento-tag">Pattern</div></div>
+    </div>
+  </section>
+
+  <section class="section" id="videos" style="background: var(--light);">
+    <div class="section-header reveal"><div class="section-tag">Watch Me Draw</div><h2 class="section-title display">Speed Drawings 🎬</h2></div>
+    <div class="speed-grid reveal">
+      <div class="speed-card" onclick="openVideo('dQw4w9WgXcQ')">
+        <div class="speed-thumb"><img src="../../../assets/img/artist-sketch-lab/auto-1.webp" alt="Speed Draw 1"><div class="speed-play">▶</div></div>
+        <div class="speed-meta"><h4>Character Design — Robot Chef</h4><span>8 min · Procreate</span></div>
+      </div>
+      <div class="speed-card" onclick="openVideo('dQw4w9WgXcQ')">
+        <div class="speed-thumb"><img src="../../../assets/img/artist-sketch-lab/auto-6.webp" alt="Speed Draw 2"><div class="speed-play">▶</div></div>
+        <div class="speed-meta"><h4>Editorial Illustration — Magazine Cover</h4><span>12 min · Photoshop</span></div>
+      </div>
+      <div class="speed-card" onclick="openVideo('dQw4w9WgXcQ')">
+        <div class="speed-thumb"><img src="../../../assets/img/artist-sketch-lab/auto-7.webp" alt="Speed Draw 3"><div class="speed-play">▶</div></div>
+        <div class="speed-meta"><h4>Brand Mascot — From Brief to Final</h4><span>15 min · Full Process</span></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="clients reveal">
+    <div class="section-tag">Trusted By</div>
+    <div class="client-logos">
+      <span>Google</span><span>Spotify</span><span>Airbnb</span><span>Slack</span><span>Dropbox</span><span>Mailchimp</span>
+    </div>
+  </div>
+
+  <section class="section" id="shop">
+    <div class="section-header reveal"><div class="section-tag">Shop</div><h2 class="section-title display">Art Prints 🖼️</h2></div>
+    <div class="shop-grid reveal">
+      <div class="shop-card"><img src="../../../assets/img/artist-sketch-lab/auto-3.webp" alt="Print 1"><div class="shop-info"><h3>"Garden Party"</h3><div class="shop-price">$35</div></div></div>
+      <div class="shop-card"><img src="../../../assets/img/artist-sketch-lab/auto-2.webp" alt="Print 2"><div class="shop-info"><h3>"Cosmic Friends"</h3><div class="shop-price">$29</div></div></div>
+      <div class="shop-card"><img src="../../../assets/img/artist-sketch-lab/auto-5.webp" alt="Print 3"><div class="shop-info"><h3>"Midnight Bloom"</h3><div class="shop-price">$42</div></div></div>
+    </div>
+  </section>
+
+  <section class="section contact" id="contact">
+    <div class="section-header reveal"><div class="section-tag" style="color:var(--yellow);">Say Hello!</div><h2 class="section-title display">Let's make something awesome 🚀</h2></div>
+    <div class="reveal">
+      <a href="mailto:hello@sketchlab.art" class="contact-email display">hello@sketchlab.art</a>
+      <div class="contact-social">
+        <a href="#">IG</a><a href="#">YT</a><a href="#">Be</a><a href="#">Dr</a>
+      </div>
+    </div>
+  </section>
+  <footer class="footer"><span>&copy; 2026 SketchLab</span><span>Made with ❤️ and too much coffee</span></footer>
+
+  <dialog id="imgModal"><img id="modalImg" src="" alt=""><button class="modal-close" onclick="document.getElementById('imgModal').close()">✕</button></dialog>
+  <dialog id="videoModal"><div class="video-container"></div><button class="modal-close" onclick="closeVideo()">✕</button></dialog>
+  <button class="back-to-top" id="backToTop">&uarr;</button>
+
+  <script>
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('active'); }); }, { threshold: 0.1 });
+    revealEls.forEach(el => observer.observe(el));
+    const btt = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => btt.classList.toggle('visible', window.scrollY > 600));
+    btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    function openImg(item) { document.getElementById('modalImg').src = item.querySelector('img').src; document.getElementById('imgModal').showModal(); }
+    document.getElementById('imgModal').addEventListener('click', function(e) { if (e.target === this) this.close(); });
+    function openVideo(id) { const m = document.getElementById('videoModal'); m.querySelector('.video-container').innerHTML = `<iframe src="https://www.youtube.com/embed/${id}?autoplay=1&rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>`; m.showModal(); }
+    function closeVideo() { const m = document.getElementById('videoModal'); m.querySelector('.video-container').innerHTML = ''; m.close(); }
+    document.getElementById('videoModal').addEventListener('click', function(e) { if (e.target === this) closeVideo(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeVideo(); document.getElementById('imgModal').close(); } });
+  </script>
+</body>
+</html>

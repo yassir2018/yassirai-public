@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Studio Nova | Digital Agency</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #050505;
+      --text: #F3F4F6;
+      --neon: #3B82F6;
+      --neon-glow: rgba(59, 130, 246, 0.4);
+      --glass: rgba(255, 255, 255, 0.05);
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family: 'Syne', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; cursor: crosshair; }
+    h1, h2, h3, .sync { font-family: 'Syncopate', sans-serif; text-transform: uppercase; }
+    a { text-decoration: none; color: inherit; }
+
+    /* Custom Cursor Element (Simulated) */
+    .cursor-blob { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 400px; height: 400px; background: radial-gradient(circle, var(--neon-glow) 0%, transparent 70%); z-index: -1; pointer-events: none; filter: blur(50px); animation: pulse 4s infinite alternate; }
+    @keyframes pulse { 0% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); } 100% { opacity: 1; transform: translate(-50%, -50%) scale(1.2); } }
+
+    .nav { padding: 2rem 5%; display: flex; justify-content: space-between; align-items: center; position: absolute; width: 100%; z-index: 10; }
+    .logo { font-size: 1.5rem; font-weight: 700; letter-spacing: 2px; display:flex; align-items:center; gap: 1rem; }
+    .logo::before { content:''; display:block; width:20px; height:20px; background: var(--neon); }
+    
+    .nav-links { display: flex; gap: 3rem; font-weight: 600; font-size: 0.8rem; letter-spacing: 1px; text-transform: uppercase; }
+    .nav-links a { transition: 0.3s; position: relative; }
+    .nav-links a:hover { color: var(--neon); }
+    .nav-links a::after { content:''; position:absolute; bottom:-5px; left:0; width:0; height:1px; background:var(--neon); transition:0.3s; }
+    .nav-links a:hover::after { width:100%; }
+
+    .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 0 5%; position: relative; }
+    .grid-bg { position: absolute; inset:0; background-image: linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px); background-size: 50px 50px; z-index: -2; opacity: 0.5; }
+    
+    .title { font-size: 7vw; line-height: 1; margin-bottom: 2rem; font-weight: 800; letter-spacing: -2px; }
+    .title span { color: transparent; -webkit-text-stroke: 1px var(--text); }
+    .desc { font-size: 1.2rem; color: #9CA3AF; max-width: 500px; line-height: 1.6; font-weight: 400; }
+
+    .btn { background: transparent; color: var(--text); border: 1px solid var(--neon); padding: 1rem 2.5rem; font-family: 'Syne'; font-size: 1rem; font-weight: 600; text-transform: uppercase; cursor: pointer; transition: 0.3s; margin-top: 3rem; display: inline-block; box-shadow: inset 0 0 0 0 var(--neon); }
+    .btn:hover { box-shadow: inset 0 0 100px 0 var(--neon); color: #000; }
+
+    .work { padding: 5rem 5%; }
+    .work-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+    .project { background: var(--glass); border: 1px solid rgba(255,255,255,0.05); padding: 2rem; transition: 0.4s; position: relative; overflow: hidden; }
+    .project:hover { border-color: var(--neon); transform: translateY(-10px); }
+    .p-img { width: 100%; height: 400px; object-fit: cover; margin-bottom: 1.5rem; filter: grayscale(100%); transition: 0.5s; }
+    .project:hover .p-img { filter: grayscale(0%); }
+    .p-cat { color: var(--neon); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 0.5rem; }
+    .p-title { font-size: 2rem; font-weight: 700; margin-bottom: 1rem; }
+
+    /* Expanded Blocks */
+    .awards { padding: 4rem 5%; border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: center; gap: 6rem; text-align: center; }
+    .aw-item { display: flex; flex-direction: column; gap: 0.5rem; }
+    .aw-num { font-size: 3rem; font-weight: 800; color: var(--neon); }
+    .aw-label { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; color: #6B7280; }
+
+    .services { padding: 8rem 5%; }
+    .s-header { margin-bottom: 4rem; }
+    .s-header h2 { font-size: 3rem; font-weight: 800; margin-bottom: 0.5rem; }
+    .s-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+    .s-card { background: var(--glass); border: 1px solid rgba(255,255,255,0.05); padding: 3rem 2rem; transition: 0.4s; position: relative; overflow: hidden; }
+    .s-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: var(--neon); transform: scaleX(0); transform-origin: left; transition: transform 0.4s; }
+    .s-card:hover { border-color: var(--neon); transform: translateY(-8px); }
+    .s-card:hover::before { transform: scaleX(1); }
+    .s-num { font-size: 4rem; font-weight: 800; color: rgba(255,255,255,0.05); margin-bottom: 1rem; }
+    .s-name { font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; }
+    .s-desc { color: #6B7280; line-height: 1.6; font-size: 0.95rem; }
+
+    .contact { padding: 8rem 5%; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); }
+    .contact h2 { font-size: 5rem; font-weight: 800; margin-bottom: 1rem; line-height: 1; }
+    .contact h2 span { color: transparent; -webkit-text-stroke: 1px var(--text); }
+    .contact p { color: #6B7280; margin-bottom: 3rem; font-size: 1.1rem; }
+
+    .footer { padding: 3rem 5%; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.05); font-size: 0.8rem; letter-spacing: 1px; text-transform: uppercase; color: #4B5563; }
+    .footer a:hover { color: var(--neon); }
+
+    @media (max-width: 900px) {
+      .title { font-size: 4rem; }
+      .nav-links { display: none; }
+      .work-grid { grid-template-columns: 1fr; }
+      .awards { flex-direction: column; gap: 2rem; }
+      .s-grid { grid-template-columns: 1fr; }
+      .contact h2 { font-size: 3rem; }
+      .footer { flex-direction: column; gap: 1rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+  <div class="cursor-blob"></div>
+  <div class="grid-bg"></div>
+
+  <nav class="nav">
+    <div class="logo sync">NOVA</div>
+    <div class="nav-links">
+      <a href="#">Work</a>
+      <a href="#">Studio</a>
+      <a href="#">Contact</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <h1 class="title">Digital.<br><span>Experiences.</span><br>Redefined.</h1>
+    <p class="desc">Award-winning creative agency building immersive web platforms, striking brands, and next-generation interfaces.</p>
+    <div><a href="#" class="btn">View Our Work</a></div>
+  </section>
+
+  <section class="work">
+    <div style="display:flex; justify-content:space-between; align-items:flex-end; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 2rem; margin-bottom: 4rem;">
+      <h2 class="sync" style="font-size:3rem;">Selected Work</h2>
+      <a href="#" style="color:var(--neon); text-transform:uppercase; font-size:0.9rem; letter-spacing:1px;">All Projects →</a>
+    </div>
+    
+    <div class="work-grid">
+      <div class="project">
+        <img src="../../../assets/img/portfolio-studio-nova/auto-1.webp" alt="UI Design" class="p-img">
+        <div class="p-cat">Web / UI Design</div>
+        <div class="p-title">Fintech Dashboard</div>
+      </div>
+      <div class="project">
+        <img src="../../../assets/img/portfolio-studio-nova/auto-2.webp" alt="Branding" class="p-img">
+        <div class="p-cat">Branding / Identity</div>
+        <div class="p-title">Aethel Apparel</div>
+      </div>
+    </div>
+  </section>
+  <section class="awards">
+    <div class="aw-item"><div class="aw-num">47</div><div class="aw-label">Projects Delivered</div></div>
+    <div class="aw-item"><div class="aw-num">12</div><div class="aw-label">Awwwards</div></div>
+    <div class="aw-item"><div class="aw-num">8</div><div class="aw-label">CSS Awards</div></div>
+    <div class="aw-item"><div class="aw-num">3</div><div class="aw-label">FWA Sites</div></div>
+  </section>
+
+  <section class="services">
+    <div class="s-header">
+      <h2 class="sync">Our Capabilities</h2>
+      <p style="color: #6B7280; font-size: 1rem;">End-to-end digital solutions for ambitious brands.</p>
+    </div>
+    <div class="s-grid">
+      <div class="s-card">
+        <div class="s-num sync">01</div>
+        <h3 class="s-name">Web Development</h3>
+        <p class="s-desc">Custom websites and web apps built with modern frameworks. Performance-first, pixel-perfect, and accessible.</p>
+      </div>
+      <div class="s-card">
+        <div class="s-num sync">02</div>
+        <h3 class="s-name">Brand Identity</h3>
+        <p class="s-desc">Strategic brand positioning, visual identity systems, and design language that resonates with your target audience.</p>
+      </div>
+      <div class="s-card">
+        <div class="s-num sync">03</div>
+        <h3 class="s-name">Motion & 3D</h3>
+        <p class="s-desc">Immersive animations, WebGL experiences, and cinematic motion design that push the boundaries of the web.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact">
+    <h2 class="sync">Got a <span>project?</span><br>Let's talk.</h2>
+    <p>We're always looking for the next challenge. Tell us about your vision.</p>
+    <a href="#" class="btn">Start a Project</a>
+  </section>
+
+  <footer class="footer">
+    <span>© 2026 Studio Nova</span>
+    <div style="display: flex; gap: 2rem;">
+      <a href="#">Twitter</a>
+      <a href="#">Dribbble</a>
+      <a href="#">Instagram</a>
+      <a href="#">Behance</a>
+    </div>
+    <span>NYC · London · Tokyo</span>
+  </footer>
+</body>
+</html>

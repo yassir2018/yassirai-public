@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Oakbridge Academy | Private High School</title>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #0F172A;
+      --green: #166534;
+      --bg: #F8FAFC;
+      --text: #334155;
+    }
+    html { scroll-behavior: smooth; }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family: 'Open Sans', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
+    h1, h2, h3, .serif { font-family: 'Merriweather', serif; color: var(--navy); }
+    a { text-decoration: none; color: inherit; }
+
+    .nav { padding: 1.2rem 5%; display: flex; justify-content: space-between; align-items: center; background: white; border-bottom: 4px solid var(--green); }
+    .logo { display: flex; align-items: center; gap: 1rem; }
+    .shield { width: 40px; height: 50px; background: var(--green); clip-path: polygon(50% 100%, 100% 80%, 100% 0, 0 0, 0 80%); }
+    .l-text { font-family: 'Merriweather'; font-size: 1.5rem; font-weight: 700; color: var(--navy); line-height: 1.1; }
+    .l-text span { font-size: 0.8rem; font-family: 'Open Sans'; color: var(--green); text-transform: uppercase; letter-spacing: 0.1em; display:block; }
+    
+    .nav-links { display: flex; gap: 2.5rem; font-weight: 600; font-size: 0.9rem; }
+    .nav-links a { transition: 0.3s; }
+    .nav-links a:hover { color: var(--green); }
+    .btn { background: var(--navy); color: white; padding: 0.8rem 1.8rem; border-radius: 4px; font-weight: 600; transition: 0.3s; border: none; cursor: pointer; }
+    .btn:hover { background: var(--green); }
+
+    .hero { height: 80vh; position: relative; display: flex; align-items: center; justify-content: flex-start; padding: 0 10%; }
+    .hero-bg { position: absolute; inset:0; background: url('../../../assets/img/education-oakbridge-high/auto-1.webp') center/cover; z-index:-1; }
+    .hero-bg::after { content:''; position: absolute; inset:0; background: linear-gradient(90deg, rgba(15,23,42,0.9) 0%, rgba(15,23,42,0.4) 100%); }
+    
+    .hero-content { color: white; max-width: 600px; z-index: 2; }
+    .title { color: white; font-size: 4rem; margin-bottom: 1.5rem; line-height: 1.2; }
+    .desc { font-size: 1.2rem; line-height: 1.8; margin-bottom: 2.5rem; color: #CBD5E1; }
+
+    .features { padding: 5rem 10%; text-align: center; background: white; }
+    .f-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4rem; margin-top: 3rem; }
+    .f-icon { font-size: 2.5rem; color: var(--green); margin-bottom: 1rem; }
+    .f-title { font-size: 1.4rem; margin-bottom: 1rem; }
+
+    .cta-band { padding: 5rem 10%; text-align: center; background: var(--navy); color: white; }
+    .cta-band h2 { font-size: 2.5rem; color: white; margin-bottom: 1rem; }
+    .cta-band p { color: #94A3B8; margin-bottom: 2rem; }
+
+    .footer { padding: 3rem 5%; display: flex; justify-content: space-between; align-items: center; border-top: 4px solid var(--green); color: #94A3B8; font-size: 0.85rem; }
+    .footer a:hover { color: var(--green); }
+
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .f-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .title { font-size: 3rem; }
+      .footer { flex-direction: column; gap: 1rem; text-align: center; }
+    }
+
+    .acad { padding: 5rem 10%; background: var(--bg); }
+    .acad-head { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: end; margin-bottom: 3rem; }
+    .acad-eye { color: var(--green); text-transform: uppercase; letter-spacing: 0.15em; font-weight: 700; font-size: 0.8rem; margin-bottom: 0.85rem; }
+    .acad-title { font-size: 2.6rem; line-height: 1.2; }
+    .acad-line { font-family: 'Merriweather'; font-style: italic; color: var(--text); font-size: 1.05rem; line-height: 1.7; max-width: 460px; }
+    .acad-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+    .acad-card { background: white; border-top: 5px solid var(--green); padding: 2rem 1.75rem; transition: 0.3s; }
+    .acad-card:hover { transform: translateY(-4px); box-shadow: 0 14px 30px rgba(15,23,42,0.08); }
+    .acad-no { font-family: 'Merriweather'; color: var(--green); font-weight: 700; font-size: 0.9rem; letter-spacing: 0.08em; margin-bottom: 0.5rem; }
+    .acad-name { font-family: 'Merriweather'; color: var(--navy); font-weight: 700; font-size: 1.35rem; margin-bottom: 0.8rem; line-height: 1.2; }
+    .acad-meta { font-size: 0.9rem; color: var(--text); line-height: 1.6; margin-bottom: 1.1rem; }
+    .acad-tag { display: inline-block; background: #ECFDF5; color: var(--green); padding: 0.3rem 0.7rem; border-radius: 4px; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+
+    .stats-band { background: var(--navy); color: white; padding: 4rem 10%; text-align: center; }
+    .stats-eye { color: var(--green); font-weight: 700; font-size: 0.8rem; letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 0.8rem; }
+    .stats-title { color: white; font-size: 2.2rem; margin-bottom: 3rem; }
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2.5rem; max-width: 1000px; margin: 0 auto; }
+    .stat-n { font-family: 'Merriweather'; font-size: 3.2rem; color: var(--green); font-weight: 700; line-height: 1; margin-bottom: 0.7rem; }
+    .stat-l { font-size: 0.82rem; letter-spacing: 0.1em; text-transform: uppercase; color: #CBD5E1; }
+
+    @media (max-width: 900px) {
+      .acad-head { grid-template-columns: 1fr; gap: 1.5rem; }
+      .acad-grid { grid-template-columns: 1fr; }
+      .stats-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+      .acad, .stats-band { padding: 4rem 5%; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="logo">
+      <div class="shield"></div>
+      <div class="l-text">Oakbridge<br><span>Academy</span></div>
+    </div>
+    <div class="nav-links">
+      <a href="#stats">About Us</a>
+      <a href="#cta">Admissions</a>
+      <a href="#acad">Academics</a>
+      <a href="#features">Student Life</a>
+    </div>
+    <button class="btn">Inquire Now</button>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <h1 class="title">Inspiring Minds,<br>Building Character.</h1>
+      <p class="desc">A premier independent day and boarding school providing a rigorous and transformative education for students grades 9-12.</p>
+      <button class="btn" style="background:var(--green); font-size:1.1rem; padding: 1rem 3rem;">View Viewbook</button>
+    </div>
+  </section>
+
+  <section class="features" id="features">
+    <h2 class="serif" style="font-size:2.5rem;">The Oakbridge Advantage</h2>
+    <div class="f-grid">
+      <div>
+        <div class="f-icon">📚</div>
+        <h3 class="f-title serif">Rigorous Curriculum</h3>
+        <p>Over 25 AP courses and customized independent study programs designed to challenge and engage every student.</p>
+      </div>
+      <div>
+        <div class="f-icon">🌱</div>
+        <h3 class="f-title serif">Beautiful Campus</h3>
+        <p>A sprawling 200-acre lush green campus equipped with state-of-the-art laboratories and athletic facilities.</p>
+      </div>
+      <div>
+        <div class="f-icon">🤝</div>
+        <h3 class="f-title serif">Global Community</h3>
+        <p>Students representing 30+ countries living and learning together in a supportive residential environment.</p>
+      </div>
+    </div>
+  </section>
+  <section class="acad" id="acad">
+    <div class="acad-head">
+      <div>
+        <div class="acad-eye">Academic Pillars</div>
+        <h2 class="acad-title serif">Three pathways. One graduate.</h2>
+      </div>
+      <p class="acad-line">Every Oakbridge student designs a pathway combining classical scholarship, applied science, and creative practice — guided by a personal advisor from day one.</p>
+    </div>
+    <div class="acad-grid">
+      <div class="acad-card">
+        <div class="acad-no">Pathway I.</div>
+        <h3 class="acad-name">Classics &amp; Letters</h3>
+        <p class="acad-meta">Latin, philosophy, literature, history. Honors seminars taught at college level by published faculty.</p>
+        <span class="acad-tag">AP-12 honors</span>
+      </div>
+      <div class="acad-card">
+        <div class="acad-no">Pathway II.</div>
+        <h3 class="acad-name">Sciences &amp; Engineering</h3>
+        <p class="acad-meta">Calc-AB to Multivariable, biology lab year-round, robotics workshop, materials engineering.</p>
+        <span class="acad-tag">Stem-track</span>
+      </div>
+      <div class="acad-card">
+        <div class="acad-no">Pathway III.</div>
+        <h3 class="acad-name">Arts &amp; Design</h3>
+        <p class="acad-meta">Studio painting, theatre conservatory, music composition, film studies with on-site sound stage.</p>
+        <span class="acad-tag">Portfolio-ready</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="stats-band" id="stats">
+    <div class="stats-eye">Class of 2025 outcomes</div>
+    <h2 class="stats-title serif">Where our graduates went.</h2>
+    <div class="stats-grid">
+      <div><div class="stat-n">98%</div><div class="stat-l">Four-year college</div></div>
+      <div><div class="stat-n">62</div><div class="stat-l">Ivy / top-30 admits</div></div>
+      <div><div class="stat-n">$8.4 M</div><div class="stat-l">Total scholarships</div></div>
+      <div><div class="stat-n">1:9</div><div class="stat-l">Teacher : student</div></div>
+    </div>
+  </section>
+
+  <section class="cta-band" id="cta">
+    <h2 class="serif" style="color:white;">Begin Your Oakbridge Journey.</h2>
+    <p>Applications for Fall 2027 are now open. Schedule a campus tour or request our viewbook today.</p>
+    <button class="btn" style="background: var(--green); font-size: 1rem; padding: 1rem 3rem;">Request Information</button>
+  </section>
+
+  <footer class="footer">
+    <div class="logo"><div class="shield" style="width:25px; height:30px;"></div><span class="serif" style="font-size:1rem; color:var(--navy);">Oakbridge Academy</span></div>
+    <div style="display: flex; gap: 2rem;"><a href="#">Instagram</a><a href="#">LinkedIn</a><a href="#">Contact</a></div>
+    <span>&copy; 2026 Oakbridge Academy. Est. 1912.</span>
+  </footer>
+</body>
+</html>

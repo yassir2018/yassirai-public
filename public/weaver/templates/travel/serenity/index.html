@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Serenity | Tropical Vacations</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --aqua: #00B4D8;
+      --yellow: #FFD166;
+      --text: #2B2D42;
+      --bg: #F0F8FF;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family: 'Poppins', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
+    a { text-decoration: none; color: inherit; }
+
+    .nav { padding: 1.5rem 5%; display: flex; justify-content: space-between; align-items: center; position: absolute; width: 100%; top:0; z-index: 10; color: white; }
+    .logo { font-size: 2rem; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+    .nav-links { display: flex; gap: 3rem; font-weight: 600; font-size: 0.95rem; }
+    .nav-links a:hover { color: var(--yellow); }
+
+    .hero { min-height: 100vh; background: url('../../../assets/img/travel-serenity/auto-1.webp') center/cover; position: relative; display: flex; align-items: center; padding: 0 5%; }
+    .hero::before { content:''; position: absolute; inset:0; background: linear-gradient(135deg, rgba(0, 180, 216, 0.7), transparent); }
+
+    .hero-content { z-index: 2; color: white; max-width: 600px; margin-top: 5rem; }
+    .title { font-size: 5rem; line-height: 1.1; margin-bottom: 1.5rem; font-weight: 700; text-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+    .desc { font-size: 1.2rem; line-height: 1.6; margin-bottom: 2.5rem; font-weight: 400; text-shadow: 0 2px 10px rgba(0,0,0,0.2); }
+    
+    .btn { background: var(--yellow); color: var(--text); padding: 1rem 3rem; border-radius: 50px; font-weight: 700; font-size: 1.1rem; border: none; cursor: pointer; transition: 0.3s; box-shadow: 0 10px 20px rgba(255, 209, 102, 0.4); display: inline-block; }
+    .btn:hover { transform: translateY(-5px); box-shadow: 0 15px 25px rgba(255, 209, 102, 0.6); }
+
+    .search-card { background: white; padding: 2rem; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); position: absolute; bottom: -50px; right: 10%; width: 400px; z-index: 10; color: var(--text); }
+    .s-title { font-size: 1.5rem; font-weight: 700; margin-bottom: 1.5rem; }
+    .s-input { width: 100%; border: 1px solid #E2E8F0; padding: 1rem 1.5rem; border-radius: 10px; margin-bottom: 1rem; font-family: 'Poppins'; outline: none; }
+    .s-input:focus { border-color: var(--aqua); }
+
+    .popular { padding: 10rem 5% 5rem; text-align: center; }
+    .p-title { font-size: 2.5rem; font-weight: 700; margin-bottom: 3rem; color: var(--text); }
+    
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+    .card { background: white; border-radius: 20px; padding: 1rem; box-shadow: 0 10px 20px rgba(0,0,0,0.05); transition: 0.3s; }
+    .card:hover { transform: translateY(-10px); }
+    .c-img { height: 250px; border-radius: 15px; overflow: hidden; margin-bottom: 1rem; }
+    .c-img img { width: 100%; height: 100%; object-fit: cover; }
+    .c-name { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .c-price { color: var(--aqua); font-weight: 700; font-size: 1.1rem; }
+
+    .trust { padding: 4rem 5%; display: flex; justify-content: center; gap: 4rem; text-align: center; background: white; }
+    .tr-icon { font-size: 2.5rem; margin-bottom: 0.5rem; }
+    .tr-name { font-weight: 700; font-size: 1rem; }
+    .tr-desc { font-size: 0.85rem; color: #64748B; max-width: 200px; }
+
+    .cta-band { padding: 5rem 5%; text-align: center; background: var(--aqua); color: white; }
+    .cta-band h2 { font-size: 2.5rem; margin-bottom: 1rem; font-weight: 700; }
+    .cta-band p { margin-bottom: 2rem; opacity: 0.8; }
+
+    .footer { padding: 3rem 5%; display: flex; justify-content: space-between; align-items: center; color: #94A3B8; font-size: 0.85rem; }
+    .footer a:hover { color: var(--aqua); }
+
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .search-card { position: relative; bottom: 0; right: 0; width: 100%; margin-top: 3rem; }
+      .hero { flex-direction: column; text-align: center; padding-top: 6rem; }
+      .title { font-size: 3.5rem; }
+      .grid { grid-template-columns: 1fr; }
+      .trust { flex-direction: column; align-items: center; gap: 2rem; }
+      .footer { flex-direction: column; gap: 1rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="logo">🏝️ Serenity</div>
+    <div class="nav-links">
+      <a href="#">Islands</a>
+      <a href="#">Resorts</a>
+      <a href="#">Activities</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h1 class="title">Find your paradise.</h1>
+      <p class="desc">Crystal clear waters, pristine white sands, and endless sunshine await you. Book your ultimate tropical escape.</p>
+      <a href="#" class="btn">Discover Destinations</a>
+    </div>
+    
+    <div class="search-card">
+      <h2 class="s-title">Plan your escape</h2>
+      <input type="text" class="s-input" placeholder="Where to? (e.g. Maldives)">
+      <input type="text" class="s-input" placeholder="Check-in - Check-out">
+      <input type="text" class="s-input" placeholder="Guests">
+      <button class="btn" style="width: 100%; background: var(--aqua); color: white; box-shadow: 0 10px 20px rgba(0, 180, 216, 0.4);">Search</button>
+    </div>
+  </section>
+
+  <section class="popular">
+    <h2 class="p-title">Popular Escapes</h2>
+    <div class="grid">
+      <div class="card">
+        <div class="c-img"><img src="../../../assets/img/travel-serenity/auto-2.webp" alt="Maldives"></div>
+        <div class="c-name">Maldives Overwater Villas</div>
+        <div class="c-price">From $1,200 / night</div>
+      </div>
+      <div class="card">
+        <div class="c-img"><img src="../../../assets/img/travel-serenity/auto-3.webp" alt="Bora Bora"></div>
+        <div class="c-name">Bora Bora Beachfront</div>
+        <div class="c-price">From $950 / night</div>
+      </div>
+      <div class="card">
+        <div class="c-img"><img src="../../../assets/img/travel-serenity/auto-4.webp" alt="Bahamas"></div>
+        <div class="c-name">Bahamas Secluded Resort</div>
+        <div class="c-price">From $600 / night</div>
+      </div>
+    </div>
+  </section>
+  <section class="trust">
+    <div><div class="tr-icon">✨</div><div class="tr-name">Best Price Guarantee</div><div class="tr-desc">We match any competitive price</div></div>
+    <div><div class="tr-icon">📦</div><div class="tr-name">Free Cancellation</div><div class="tr-desc">Cancel up to 48h before</div></div>
+    <div><div class="tr-icon">🌟</div><div class="tr-name">5-Star Reviews</div><div class="tr-desc">Rated 4.9/5 by 12,000+ travelers</div></div>
+    <div><div class="tr-icon">📞</div><div class="tr-name">24/7 Support</div><div class="tr-desc">Help whenever you need it</div></div>
+  </section>
+
+  <section class="cta-band">
+    <h2>Your Dream Vacation Awaits.</h2>
+    <p>Book now and save up to 40% on tropical getaways.</p>
+    <a href="#" class="btn" style="background: white; color: var(--aqua); box-shadow: 0 10px 20px rgba(0,0,0,0.1);">Explore All Deals</a>
+  </section>
+
+  <footer class="footer">
+    <span style="font-weight: 700; font-size: 1.1rem; color: var(--text);">🏖️ Serenity</span>
+    <div style="display: flex; gap: 2rem;"><a href="#">Instagram</a><a href="#">TripAdvisor</a><a href="#">Contact</a></div>
+    <span>&copy; 2026 Serenity Vacations. All rights reserved.</span>
+  </footer>
+</body>
+</html>

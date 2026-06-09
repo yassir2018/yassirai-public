@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lusso | Luxury Resorts & Spas</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #FFFFFF;
+      --text: #222222;
+      --gold: #C5A059;
+      --beige: #F5F3EC;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family: 'Lato', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
+    h1, h2, h3, .serif { font-family: 'Cinzel', serif; }
+    a { text-decoration: none; color: inherit; transition: 0.3s; }
+
+    .nav { padding: 2.5rem 5%; display: flex; justify-content: space-between; align-items: center; position: absolute; width: 100%; top:0; z-index: 100; color: white; border-bottom: 1px solid rgba(255,255,255,0.2); }
+    .logo { font-size: 2rem; letter-spacing: 0.2em; text-transform: uppercase; }
+    .nav-links { display: flex; gap: 4rem; font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase; }
+    .nav-links a:hover { color: var(--gold); }
+
+    .btn { background: transparent; color: white; border: 1px solid white; padding: 1rem 3rem; font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase; cursor: pointer; transition: 0.4s; }
+    .btn:hover { background: white; color: var(--text); }
+    .btn-gold { border-color: var(--gold); color: var(--gold); }
+    .btn-gold:hover { background: var(--gold); color: white; }
+
+    .hero { height: 100vh; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+    .hero-bg { position: absolute; inset:0; background: url('../../../assets/img/travel-lusso-resorts/auto-1.webp') center/cover; filter: brightness(0.7); z-index: -1; animation: zoom 30s infinite alternate; }
+    @keyframes zoom { 0% { transform: scale(1); } 100% { transform: scale(1.1); } }
+
+    .hero-content { color: white; z-index: 2; }
+    .subtitle { font-size: 1rem; letter-spacing: 0.4em; text-transform: uppercase; margin-bottom: 1rem; color: var(--gold); }
+    .title { font-size: 5rem; letter-spacing: 0.05em; margin-bottom: 3rem; text-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+
+    .booking-bar { background: white; color: var(--text); display: flex; justify-content: center; margin: -50px auto 0; width: 80%; position: relative; z-index: 10; padding: 10px; box-shadow: 0 20px 50px rgba(0,0,0,0.1); }
+    .b-group { flex: 1; padding: 1rem 2rem; border-right: 1px solid #EEE; display: flex; flex-direction: column; }
+    .b-label { font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; color: #888; margin-bottom: 5px; }
+    .b-val { font-size: 1.1rem; font-family: 'Cinzel'; font-weight: 600; border: none; outline: none; background: transparent; }
+    .b-btn { background: var(--gold); color: white; padding: 0 3rem; border: none; font-family: 'Cinzel'; font-size: 1.2rem; cursor: pointer; transition: 0.3s; }
+    .b-btn:hover { background: #A88647; }
+
+    .intro { padding: 8rem 20%; text-align: center; }
+    .i-title { font-size: 3rem; color: var(--gold); margin-bottom: 2rem; }
+    .i-desc { font-size: 1.1rem; line-height: 2; color: #666; font-weight: 300; }
+
+    .suites { padding: 6rem 10%; }
+    .su-title { font-size: 2.5rem; color: var(--gold); text-align: center; margin-bottom: 3rem; }
+    .su-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+    .su-card { overflow: hidden; transition: 0.3s; cursor: pointer; }
+    .su-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.08); }
+    .su-img { width: 100%; height: 250px; object-fit: cover; }
+    .su-info { padding: 1.5rem; background: var(--beige); }
+    .su-name { font-size: 1.2rem; color: var(--gold); margin-bottom: 0.3rem; }
+    .su-price { color: #888; font-size: 0.9rem; font-weight: 300; }
+
+    .amenities { padding: 5rem 10%; background: var(--beige); display: grid; grid-template-columns: repeat(4, 1fr); gap: 3rem; text-align: center; }
+    .am-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+    .am-name { font-size: 1rem; letter-spacing: 0.1em; color: var(--gold); }
+    .am-desc { font-size: 0.85rem; color: #888; font-weight: 300; margin-top: 0.3rem; }
+
+    .footer { padding: 3rem 10%; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #eee; color: #999; font-size: 0.85rem; }
+    .footer a:hover { color: var(--gold); }
+
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .title { font-size: 3rem; }
+      .booking-bar { flex-direction: column; width: 90%; margin-top: 2rem; }
+      .b-group { border-right: none; border-bottom: 1px solid #EEE; }
+      .b-btn { padding: 1.5rem; }
+      .intro { padding: 5rem 5%; }
+      .su-grid { grid-template-columns: 1fr; }
+      .amenities { grid-template-columns: 1fr 1fr; }
+      .footer { flex-direction: column; gap: 1rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="logo serif">Lusso</div>
+    <div class="nav-links">
+      <a href="#">The Hotel</a>
+      <a href="#">Suites</a>
+      <a href="#">Wellness</a>
+    </div>
+    <button class="btn">Members</button>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <div class="subtitle">Welcome to Paradise</div>
+      <h1 class="title serif">Uncompromised<br>Luxury.</h1>
+      <button class="btn btn-gold">Discover The Resort</button>
+    </div>
+  </section>
+
+  <div class="booking-bar">
+    <div class="b-group">
+      <span class="b-label">Arrival</span>
+      <input type="text" class="b-val" value="24 Oct 2026">
+    </div>
+    <div class="b-group">
+      <span class="b-label">Departure</span>
+      <input type="text" class="b-val" value="29 Oct 2026">
+    </div>
+    <div class="b-group">
+      <span class="b-label">Guests</span>
+      <input type="text" class="b-val" value="2 Adults, 1 Room">
+    </div>
+    <button class="b-btn">Book</button>
+  </div>
+
+  <section class="intro">
+    <h2 class="i-title serif">A Sanctuary for the Senses</h2>
+    <p class="i-desc">Escape the ordinary. Lusso Resorts offer an unparalleled 5-star experience blending modern elegance with the breathtaking beauty of unspoiled nature. From our award-winning spa to our Michelin-starred dining, every moment is crafted for your absolute indulgence.</p>
+  </section>
+  <section class="suites">
+    <h2 class="su-title serif">Our Suites</h2>
+    <div class="su-grid">
+      <div class="su-card"><img src="../../../assets/img/travel-lusso-resorts/auto-2.webp" class="su-img" alt="Suite"><div class="su-info"><div class="su-name serif">Ocean Pavilion</div><div class="su-price">From $850/night</div></div></div>
+      <div class="su-card"><img src="../../../assets/img/travel-lusso-resorts/auto-3.webp" class="su-img" alt="Suite"><div class="su-info"><div class="su-name serif">Presidential Villa</div><div class="su-price">From $2,400/night</div></div></div>
+      <div class="su-card"><img src="../../../assets/img/travel-lusso-resorts/auto-4.webp" class="su-img" alt="Suite"><div class="su-info"><div class="su-name serif">Garden Retreat</div><div class="su-price">From $620/night</div></div></div>
+    </div>
+  </section>
+
+  <section class="amenities">
+    <div><div class="am-icon">🛁</div><div class="am-name serif">Spa</div><div class="am-desc">Award-winning treatments</div></div>
+    <div><div class="am-icon">🍴</div><div class="am-name serif">Dining</div><div class="am-desc">Michelin-starred cuisine</div></div>
+    <div><div class="am-icon">🏊</div><div class="am-name serif">Pool</div><div class="am-desc">Infinity oceanview pool</div></div>
+    <div><div class="am-icon">🎾</div><div class="am-name serif">Activities</div><div class="am-desc">Tennis, golf, diving</div></div>
+  </section>
+
+  <footer class="footer">
+    <span class="serif" style="font-size: 1.3rem; color: var(--gold);">Lusso</span>
+    <div style="display: flex; gap: 2rem;"><a href="#">Instagram</a><a href="#">Booking</a><a href="#">Press</a></div>
+    <span>&copy; 2026 Lusso Resorts & Spas</span>
+  </footer>
+</body>
+</html>

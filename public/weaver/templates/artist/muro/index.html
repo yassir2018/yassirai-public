@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MURO | Street Art & Mural Portfolio</title>
+  <meta name="description" content="Urban street artist portfolio. Large-scale murals, graffiti, live painting events, and public art installations.">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --concrete: #2D2D2D;
+      --yellow: #FFD60A;
+      --red: #E63946;
+      --white: #F8F8F8;
+      --muted: #999;
+      --bg: #1A1A1A;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family: 'Barlow', sans-serif; background: var(--bg); color: var(--white); overflow-x: hidden; }
+    h1, h2, h3, .display { font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.05em; }
+    a { text-decoration: none; color: inherit; transition: 0.3s; }
+
+    /* Nav */
+    .nav { position: fixed; top: 0; width: 100%; padding: 1.2rem 5%; display: flex; justify-content: space-between; align-items: center; z-index: 100; mix-blend-mode: difference; }
+    .logo { font-family: 'Bebas Neue'; font-size: 2.5rem; color: var(--yellow); letter-spacing: 0.15em; }
+    .nav-links { display: flex; gap: 2rem; font-size: 0.85rem; letter-spacing: 0.15em; text-transform: uppercase; font-weight: 500; }
+    .nav-links a:hover { color: var(--yellow); }
+
+    /* Hero */
+    .hero { height: 100vh; position: relative; display: flex; align-items: flex-end; padding: 5%; overflow: hidden; }
+    .hero-bg { position: absolute; inset: 0; }
+    .hero-bg img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.4) contrast(1.2); }
+    .hero-content { position: relative; z-index: 2; max-width: 800px; }
+    .hero-title { font-size: 8rem; line-height: 0.9; margin-bottom: 1.5rem; text-transform: uppercase; }
+    .hero-title .accent { color: var(--yellow); -webkit-text-stroke: 2px var(--yellow); }
+    .hero-sub { font-size: 1.2rem; color: rgba(255,255,255,0.7); max-width: 500px; margin-bottom: 2rem; line-height: 1.7; font-weight: 300; }
+    .hero-cta { display: inline-block; padding: 1rem 3rem; background: var(--yellow); color: var(--bg); font-family: 'Bebas Neue'; font-size: 1.3rem; letter-spacing: 0.15em; transition: 0.3s; }
+    .hero-cta:hover { background: var(--red); color: white; transform: skewX(-3deg); }
+    .hero-scroll { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); font-size: 0.75rem; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(255,255,255,0.4); writing-mode: vertical-rl; }
+
+    /* Section */
+    .section { padding: 6rem 5%; }
+    .section-header { margin-bottom: 4rem; }
+    .section-tag { font-size: 0.75rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--yellow); margin-bottom: 0.5rem; }
+    .section-title { font-size: 4rem; text-transform: uppercase; line-height: 1; }
+
+    /* Mural Gallery — Dense Grid */
+    .mural-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
+    .mural-item { position: relative; overflow: hidden; cursor: pointer; aspect-ratio: 1; }
+    .mural-item.wide { grid-column: span 2; aspect-ratio: 2/1; }
+    .mural-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+    .mural-item:hover img { transform: scale(1.08); filter: brightness(0.5); }
+    .mural-label { position: absolute; bottom: 0; left: 0; right: 0; padding: 1.5rem; background: linear-gradient(transparent, rgba(0,0,0,0.9)); opacity: 0; transform: translateY(10px); transition: 0.4s; }
+    .mural-item:hover .mural-label { opacity: 1; transform: translateY(0); }
+    .mural-label h3 { font-size: 1.5rem; margin-bottom: 0.3rem; text-transform: uppercase; }
+    .mural-label p { font-size: 0.85rem; color: var(--yellow); }
+
+    /* Live Painting Videos */
+    .video-wall { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .video-card { position: relative; border-radius: 4px; overflow: hidden; cursor: pointer; }
+    .video-card img { width: 100%; aspect-ratio: 16/9; object-fit: cover; transition: 0.5s; }
+    .video-card:hover img { filter: brightness(0.4); transform: scale(1.03); }
+    .v-play { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 60px; height: 60px; border: 3px solid var(--yellow); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; transition: 0.3s; }
+    .video-card:hover .v-play { background: var(--yellow); color: var(--bg); }
+    .v-info { padding: 1rem 0; }
+    .v-info h4 { font-family: 'Bebas Neue'; font-size: 1.2rem; letter-spacing: 0.05em; }
+    .v-info span { font-size: 0.8rem; color: var(--muted); }
+
+    /* Collaborations */
+    .collab-row { display: flex; gap: 0; }
+    .collab-item { flex: 1; position: relative; overflow: hidden; height: 500px; cursor: pointer; }
+    .collab-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.6s; filter: brightness(0.6); }
+    .collab-item:hover img { filter: brightness(0.3); transform: scale(1.05); }
+    .collab-info { position: absolute; bottom: 0; left: 0; right: 0; padding: 2rem; z-index: 2; }
+    .collab-info h3 { font-size: 2rem; text-transform: uppercase; margin-bottom: 0.3rem; }
+    .collab-info p { color: var(--yellow); font-size: 0.85rem; font-weight: 500; }
+    .collab-divider { position: absolute; right: 0; top: 0; bottom: 0; width: 1px; background: rgba(255,255,255,0.1); z-index: 3; }
+
+    /* Stats Bar */
+    .stats { display: flex; justify-content: center; background: var(--yellow); color: var(--bg); padding: 3rem 5%; gap: 5rem; }
+    .stat { text-align: center; }
+    .stat-num { font-family: 'Bebas Neue'; font-size: 3.5rem; letter-spacing: 0.05em; }
+    .stat-label { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 500; }
+
+    /* Contact */
+    .contact { text-align: center; background: var(--concrete); }
+    .contact-email { font-family: 'Bebas Neue'; font-size: 3rem; color: var(--yellow); letter-spacing: 0.1em; transition: 0.3s; }
+    .contact-email:hover { color: var(--red); }
+    .contact-social { display: flex; justify-content: center; gap: 1.5rem; margin-top: 2rem; }
+    .contact-social a { width: 45px; height: 45px; border: 1px solid rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; font-size: 0.85rem; color: var(--muted); transition: 0.3s; }
+    .contact-social a:hover { background: var(--yellow); color: var(--bg); border-color: var(--yellow); }
+
+    .footer { padding: 1.5rem 5%; display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--muted); }
+
+    /* Lightbox */
+    dialog { border: none; background: transparent; max-width: 90vw; max-height: 90vh; padding: 0; }
+    dialog::backdrop { background: rgba(0,0,0,0.95); }
+    #imgModal img { max-width: 85vw; max-height: 85vh; object-fit: contain; }
+    #videoModal .video-container { width: 80vw; max-width: 1000px; aspect-ratio: 16/9; }
+    #videoModal .video-container iframe { width: 100%; height: 100%; border: none; }
+    .modal-close { position: fixed; top: 2rem; right: 2rem; width: 50px; height: 50px; background: var(--yellow); border: none; color: var(--bg); font-size: 1.5rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.3s; z-index: 1000; }
+    .modal-close:hover { background: var(--red); color: white; }
+
+    .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+    .reveal.active { opacity: 1; transform: translateY(0); }
+    .back-to-top { position: fixed; bottom: 30px; right: 30px; width: 45px; height: 45px; background: var(--yellow); color: var(--bg); border: none; font-size: 1.2rem; cursor: pointer; opacity: 0; visibility: hidden; transition: 0.3s; z-index: 99; }
+    .back-to-top.visible { opacity: 1; visibility: visible; }
+    .back-to-top:hover { background: var(--red); color: white; transform: translateY(-5px); }
+
+    @media (max-width: 900px) {
+      .hero-title { font-size: 4rem; }
+      .nav-links { display: none; }
+      .mural-grid { grid-template-columns: repeat(2, 1fr); }
+      .mural-item.wide { grid-column: span 1; aspect-ratio: 1; }
+      .video-wall { grid-template-columns: 1fr; }
+      .collab-row { flex-direction: column; }
+      .collab-item { height: 300px; }
+      .stats { flex-wrap: wrap; gap: 2rem; }
+      .section-title { font-size: 2.5rem; }
+      .footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+    @media (max-width: 600px) {
+      .hero-title { font-size: 3rem; }
+      .mural-grid { grid-template-columns: 1fr; }
+      .contact-email { font-size: 2rem; }
+      .stats { gap: 1.5rem; padding: 2rem 5%; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="logo">MURO</div>
+    <div class="nav-links">
+      <a href="#murals">Murals</a>
+      <a href="#live">Live</a>
+      <a href="#collabs">Collabs</a>
+      <a href="#contact">Book</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-bg">
+      <img src="../../../assets/img/artist-muro/auto-1.webp" alt="Street Art Mural">
+    </div>
+    <div class="hero-content">
+      <h1 class="hero-title display">ART<br>BELONGS<br>TO THE <span class="accent">STREETS.</span></h1>
+      <p class="hero-sub">Transforming urban walls into living canvases. Large-scale murals, live painting events, and public art for cities that dare to dream big.</p>
+      <a href="#murals" class="hero-cta">EXPLORE MURALS →</a>
+    </div>
+    <div class="hero-scroll">SCROLL DOWN</div>
+  </section>
+
+  <!-- Stats -->
+  <div class="stats reveal">
+    <div class="stat"><div class="stat-num">120+</div><div class="stat-label">Murals Painted</div></div>
+    <div class="stat"><div class="stat-num">28</div><div class="stat-label">Cities</div></div>
+    <div class="stat"><div class="stat-num">14</div><div class="stat-label">Countries</div></div>
+    <div class="stat"><div class="stat-num">50K</div><div class="stat-label">Sq Meters of Art</div></div>
+  </div>
+
+  <!-- Mural Gallery -->
+  <section class="section" id="murals">
+    <div class="section-header reveal">
+      <div class="section-tag">Selected Walls</div>
+      <h2 class="section-title display">THE MURAL ARCHIVE</h2>
+    </div>
+    <div class="mural-grid reveal">
+      <div class="mural-item wide" onclick="openImg(this)">
+        <img src="../../../assets/img/artist-muro/auto-2.webp" alt="Mural 1">
+        <div class="mural-label"><h3>"Rebirth"</h3><p>48m × 12m — Barcelona, Spain</p></div>
+      </div>
+      <div class="mural-item" onclick="openImg(this)">
+        <img src="../../../assets/img/artist-muro/auto-3.webp" alt="Mural 2">
+        <div class="mural-label"><h3>"Spectrum"</h3><p>São Paulo, Brazil</p></div>
+      </div>
+      <div class="mural-item" onclick="openImg(this)">
+        <img src="../../../assets/img/artist-muro/auto-4.webp" alt="Mural 3">
+        <div class="mural-label"><h3>"Urban Jungle"</h3><p>Brooklyn, NY</p></div>
+      </div>
+      <div class="mural-item" onclick="openImg(this)">
+        <img src="../../../assets/img/artist-muro/auto-5.webp" alt="Mural 4">
+        <div class="mural-label"><h3>"Echoes"</h3><p>Berlin, Germany</p></div>
+      </div>
+      <div class="mural-item wide" onclick="openImg(this)">
+        <img src="../../../assets/img/artist-muro/auto-6.webp" alt="Mural 5">
+        <div class="mural-label"><h3>"Free Flow"</h3><p>32m × 8m — Lisbon, Portugal</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Live Painting Videos -->
+  <section class="section" id="live" style="background: var(--concrete);">
+    <div class="section-header reveal">
+      <div class="section-tag">Captured Live</div>
+      <h2 class="section-title display">LIVE PAINTING SESSIONS</h2>
+    </div>
+    <div class="video-wall reveal">
+      <div class="video-card" onclick="openVideo('dQw4w9WgXcQ')">
+        <img src="../../../assets/img/artist-muro/auto-7.webp" alt="Live Session">
+        <div class="v-play">▶</div>
+        <div class="v-info"><h4>"Rebirth" Full Timelapse — Barcelona</h4><span>16 min · 4K Timelapse</span></div>
+      </div>
+      <div class="video-card" onclick="openVideo('dQw4w9WgXcQ')">
+        <img src="../../../assets/img/artist-muro/auto-8.webp" alt="Festival">
+        <div class="v-play">▶</div>
+        <div class="v-info"><h4>POW! WOW! Festival 2025</h4><span>22 min · Documentary</span></div>
+      </div>
+      <div class="video-card" onclick="openVideo('dQw4w9WgXcQ')">
+        <img src="../../../assets/img/artist-muro/auto-9.webp" alt="Night Painting">
+        <div class="v-play">▶</div>
+        <div class="v-info"><h4>Night Session — Berlin Wall</h4><span>12 min · Behind the Scenes</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Collaborations -->
+  <section id="collabs">
+    <div class="collab-row reveal">
+      <div class="collab-item" onclick="openImg(this)">
+        <img src="../../../assets/img/artist-muro/auto-10.webp" alt="Nike Collab">
+        <div class="collab-info"><h3>Nike × Muro</h3><p>Air Max Day — Global Campaign</p></div>
+        <div class="collab-divider"></div>
+      </div>
+      <div class="collab-item" onclick="openImg(this)">
+        <img src="../../../assets/img/artist-muro/auto-11.webp" alt="Red Bull Collab">
+        <div class="collab-info"><h3>Red Bull Arts</h3><p>Detroit Residency Program</p></div>
+        <div class="collab-divider"></div>
+      </div>
+      <div class="collab-item" onclick="openImg(this)">
+        <img src="../../../assets/img/artist-muro/auto-12.webp" alt="Adidas Collab">
+        <div class="collab-info"><h3>City of Amsterdam</h3><p>Public Art Commission 2025</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="section contact" id="contact">
+    <div class="section-header reveal">
+      <div class="section-tag">Book a Wall</div>
+      <h2 class="section-title display">LET'S PAINT<br>SOMETHING MASSIVE.</h2>
+    </div>
+    <div class="reveal">
+      <a href="mailto:book@muro.art" class="contact-email display">BOOK@MURO.ART</a>
+      <div class="contact-social">
+        <a href="#" aria-label="Instagram">IG</a>
+        <a href="#" aria-label="YouTube">YT</a>
+        <a href="#" aria-label="TikTok">TK</a>
+        <a href="#" aria-label="Twitter">X</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <span>&copy; 2026 MURO — All rights reserved</span>
+    <span>Worldwide</span>
+  </footer>
+
+  <dialog id="imgModal"><img id="modalImg" src="" alt=""><button class="modal-close" onclick="document.getElementById('imgModal').close()">✕</button></dialog>
+  <dialog id="videoModal"><div class="video-container"></div><button class="modal-close" onclick="closeVideo()">✕</button></dialog>
+  <button class="back-to-top" id="backToTop">&uarr;</button>
+
+  <script>
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('active'); });
+    }, { threshold: 0.1 });
+    revealEls.forEach(el => observer.observe(el));
+
+    const btt = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => btt.classList.toggle('visible', window.scrollY > 600));
+    btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    function openImg(item) {
+      document.getElementById('modalImg').src = item.querySelector('img').src;
+      document.getElementById('imgModal').showModal();
+    }
+    document.getElementById('imgModal').addEventListener('click', function(e) { if (e.target === this) this.close(); });
+
+    function openVideo(id) {
+      const m = document.getElementById('videoModal');
+      m.querySelector('.video-container').innerHTML = `<iframe src="https://www.youtube.com/embed/${id}?autoplay=1&rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+      m.showModal();
+    }
+    function closeVideo() { const m = document.getElementById('videoModal'); m.querySelector('.video-container').innerHTML = ''; m.close(); }
+    document.getElementById('videoModal').addEventListener('click', function(e) { if (e.target === this) closeVideo(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeVideo(); document.getElementById('imgModal').close(); } });
+  </script>
+</body>
+</html>

@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Atlas University — Excellence académique et recherche de pointe. Programmes de licence, master et doctorat."/>
+  <title>Atlas University — Excellence & Innovation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --navy: #0e1c36; --navy-light: #162445; --navy-soft: rgba(14,28,54,0.06);
+      --gold: #d8b056; --gold-soft: rgba(216,176,86,0.1);
+      --bg: #fafaf8; --bg2: #ffffff; --bg3: #f2f1ed;
+      --text: #1a1a2e; --text-muted: #5a6270; --text-dim: #8a94a6;
+      --border: #e4e2dc; --accent: var(--navy);
+      --ff-serif: 'Playfair Display', Georgia, serif;
+      --ff-sans: 'Inter', -apple-system, sans-serif;
+      --radius: 12px; --shadow: 0 4px 24px rgba(0,0,0,0.06);
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:var(--ff-sans);background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden}
+    a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
+    .container{max-width:1200px;margin:0 auto;padding:0 2rem}
+
+    /* Navbar */
+    .navbar{position:fixed;top:0;width:100%;z-index:100;background:transparent;padding:1.5rem 0;transition:all 0.4s ease}
+    .navbar.scrolled{background:rgba(14,28,54,0.95);backdrop-filter:blur(20px);padding:0.75rem 0;border-bottom:1px solid rgba(255,255,255,0.1)}
+    .nav-inner{display:flex;align-items:center;justify-content:space-between}
+    .nav-brand{display:flex;align-items:center;gap:0.8rem;font-family:var(--ff-serif);font-weight:700;font-size:1.1rem;color:#fff;line-height:1.2;text-transform:uppercase;letter-spacing:1px}
+    .nav-shield{width:40px;height:40px;background:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--navy);font-family:var(--ff-serif);font-weight:700;font-size:1.2rem}
+    .nav-links{display:flex;gap:2rem}
+    .nav-link{font-size:0.85rem;font-weight:500;color:rgba(255,255,255,0.85);transition:color 0.2s}
+    .nav-link:hover{color:#fff}
+    .btn{display:inline-flex;align-items:center;gap:0.5rem;padding:0.6rem 1.5rem;border-radius:100px;font-size:0.85rem;font-weight:600;cursor:pointer;border:none;font-family:var(--ff-sans);transition:all 0.25s}
+    .btn-navy{background:var(--navy);color:#fff}
+    .btn-navy:hover{background:var(--navy-light);transform:translateY(-1px)}
+    .btn-outline{background:transparent;border:2px solid var(--border);color:var(--text)}
+    .btn-outline:hover{background:rgba(216,176,86,0.1);transform:translateY(-1px)}
+    .btn-gold{background:var(--gold);color:var(--navy);border:none}
+    .btn-gold:hover{background:var(--bg);transform:translateY(-1px)}
+    .btn-lg{padding:0.85rem 2rem;font-size:0.95rem}
+
+    /* Hero */
+    .hero{position:relative;min-height:90vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:8rem 0;color:#fff}
+    .hero-bg{position:absolute;inset:0;background:url('../../../assets/img/hero_elmsworth.png') center/cover}
+    .hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom, rgba(14,28,54,0.92) 0%, rgba(14,28,54,0.6) 40%, rgba(14,28,54,0.1) 100%)}
+    .hero-content{position:relative;z-index:2;max-width:850px;margin:0 auto}
+    .hero-title{font-family:var(--ff-serif);font-size:clamp(3rem,6vw,4.5rem);font-weight:700;line-height:1.1;margin-bottom:0.5rem;color:var(--gold);text-transform:uppercase;}
+    .hero-subtitle{font-family:var(--ff-serif);font-size:clamp(1.5rem,3vw,2.5rem);font-style:italic;font-weight:400;margin-bottom:1.5rem;color:#e4e2dc;}
+    .hero-desc{font-size:1.05rem;color:rgba(255,255,255,0.9);max-width:600px;line-height:1.7;margin:0 auto 2.5rem;font-weight:300}
+    .hero-actions{display:flex;gap:1.5rem;justify-content:center}
+    .hero-stat-row{display:none;}
+
+    /* Sections */
+    .section{padding:5rem 0}
+    .section-header{text-align:center;margin-bottom:3rem}
+    .section-tag{display:inline-block;padding:0.3rem 0.8rem;border-radius:100px;background:var(--navy-soft);color:var(--navy);font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.75rem}
+    .section-title{font-family:var(--ff-serif);font-size:2.25rem;font-weight:700;line-height:1.2}
+    .section-desc{font-size:1rem;color:var(--text-muted);max-width:580px;margin:0.75rem auto 0;font-weight:400}
+
+    /* Programs */
+    .programs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
+    .program-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:all 0.3s}
+    .program-card:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:var(--navy)}
+    .program-img{aspect-ratio:16/10;overflow:hidden}
+    .program-img img{width:100%;height:100%;object-fit:cover;transition:transform 0.4s}
+    .program-card:hover .program-img img{transform:scale(1.05)}
+    .program-body{padding:1.5rem}
+    .program-faculty{font-size:0.7rem;font-weight:600;color:var(--gold);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.35rem}
+    .program-name{font-family:var(--ff-serif);font-size:1.1rem;font-weight:700;margin-bottom:0.5rem}
+    .program-desc{font-size:0.85rem;color:var(--text-muted);line-height:1.6;margin-bottom:1rem}
+    .program-meta{display:flex;gap:1rem;font-size:0.75rem;color:var(--text-dim);padding-top:0.75rem;border-top:1px solid var(--border)}
+
+    /* Campus Life */
+    .campus-grid{display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:auto auto;gap:1rem}
+    .campus-card{position:relative;border-radius:var(--radius);overflow:hidden;cursor:pointer}
+    .campus-card img{width:100%;height:100%;object-fit:cover;transition:transform 0.4s}
+    .campus-card:hover img{transform:scale(1.05)}
+    .campus-card::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.6),transparent 60%)}
+    .campus-label{position:absolute;bottom:1rem;left:1rem;z-index:2;color:#fff;font-weight:600;font-size:0.9rem}
+    .campus-card:first-child{grid-row:span 2;min-height:400px}
+
+    /* Professors */
+    .profs-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem}
+    .prof-card{text-align:center;padding:1.5rem;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);transition:all 0.3s}
+    .prof-card:hover{border-color:var(--navy);box-shadow:var(--shadow)}
+    .prof-img{width:100px;height:100px;border-radius:50%;margin:0 auto 1rem;overflow:hidden;border:3px solid var(--border)}
+    .prof-img img{width:100%;height:100%;object-fit:cover}
+    .prof-name{font-family:var(--ff-serif);font-weight:700;font-size:0.95rem}
+    .prof-dept{font-size:0.75rem;color:var(--gold);font-weight:600;margin-top:0.15rem}
+    .prof-bio{font-size:0.8rem;color:var(--text-muted);margin-top:0.5rem;line-height:1.5}
+
+    /* CTA */
+    .cta-section{background:var(--navy);padding:5rem 0;text-align:center;color:#fff;position:relative;overflow:hidden}
+    .cta-section::before{content:'';position:absolute;top:-40%;right:-20%;width:500px;height:500px;background:radial-gradient(circle,rgba(200,155,60,0.06),transparent);border-radius:50%}
+    .cta-title{font-family:var(--ff-serif);font-size:2.25rem;font-weight:700;margin-bottom:1rem;position:relative}
+    .cta-desc{font-size:1.05rem;color:rgba(255,255,255,0.7);max-width:500px;margin:0 auto 2rem;position:relative}
+
+    /* Admission */
+    .admission-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem}
+    .step-card{text-align:center;padding:2rem 1.5rem;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);transition:all 0.3s}
+    .step-card:hover{border-color:var(--navy);transform:translateY(-3px)}
+    .step-num{width:44px;height:44px;border-radius:50%;background:var(--navy);color:var(--gold);font-family:var(--ff-serif);font-weight:700;font-size:1.1rem;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem}
+    .step-title{font-family:var(--ff-serif);font-weight:700;margin-bottom:0.4rem}
+    .step-desc{font-size:0.8rem;color:var(--text-muted);line-height:1.6}
+
+    /* Footer */
+    .footer{background:var(--navy);color:#fff;padding:4rem 0 2rem}
+    .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:3rem}
+    .footer-brand{font-family:var(--ff-serif);font-size:1.2rem;font-weight:700;margin-bottom:0.75rem}
+    .footer-desc{font-size:0.85rem;color:rgba(255,255,255,0.5);max-width:280px;line-height:1.6}
+    .footer-col-title{font-size:0.7rem;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--gold);margin-bottom:1rem}
+    .footer-link{display:block;font-size:0.85rem;color:rgba(255,255,255,0.6);padding:0.3rem 0;transition:color 0.2s}
+    .footer-link:hover{color:#fff}
+    .footer-bottom{border-top:1px solid rgba(255,255,255,0.08);padding-top:2rem;font-size:0.75rem;color:rgba(255,255,255,0.3);text-align:center}
+
+    .reveal{opacity:0;transform:translateY(25px);transition:opacity 0.6s ease,transform 0.6s ease}
+    .reveal.visible{opacity:1;transform:translateY(0)}
+
+    @media(max-width:1024px){
+      .hero-grid{grid-template-columns:1fr;text-align:center}.hero-desc{margin:0 auto 2rem}.hero-actions{justify-content:center}.hero-img-wrap{max-width:600px;margin:0 auto}
+      .programs-grid,.profs-grid{grid-template-columns:repeat(2,1fr)}.campus-grid{grid-template-columns:1fr 1fr}.campus-card:first-child{grid-row:auto}
+      .admission-steps{grid-template-columns:repeat(2,1fr)}.nav-links{display:none}.footer-grid{grid-template-columns:1fr 1fr}
+    }
+    @media(max-width:640px){
+      .container{padding:0 1.25rem}.hero{padding:7rem 0 3rem}.programs-grid,.profs-grid,.admission-steps{grid-template-columns:1fr}
+      .campus-grid{grid-template-columns:1fr}.hero-stat-row{grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr}
+      .section{padding:3.5rem 0}.section-title{font-size:1.75rem}
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar"><div class="container nav-inner">
+    <a href="#" class="nav-brand">
+      <div class="nav-shield">
+        <svg fill="currentColor" viewBox="0 0 24 24" style="width:24px;height:24px"><path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 15.99l-5 2.73-5-2.73v-3.72L12 15l5-2.73v3.72z"/></svg>
+      </div>
+      <span>The<br>Elmsworth<br>Institute</span>
+    </a>
+    <div class="nav-links">
+      <a href="#" class="nav-link">Home</a>
+      <a href="#programs" class="nav-link">Academics</a>
+      <a href="#admission" class="nav-link">Admissions</a>
+      <a href="#campus" class="nav-link">Research</a>
+      <a href="#campus" class="nav-link">Campus Life</a>
+      <a href="#faculty" class="nav-link">About</a>
+    </div>
+    <a href="#admission" class="btn btn-gold" style="padding:0.6rem 1.5rem;text-transform:uppercase;letter-spacing:1px;font-weight:700;">Apply Now</a>
+  </div></nav>
+
+  <main>
+    <section class="hero">
+      <div class="hero-bg"></div>
+      <div class="container hero-content">
+        <h1 class="hero-title">Pursuing Excellence.<br>Inspiring Leadership.</h1>
+        <div class="hero-subtitle">Since 1887</div>
+        <p class="hero-desc">Welcome to Elmsworth Institute, a world-class institution dedicated to shaping global leaders through rigorous academics and pioneering research.</p>
+        <div class="hero-actions">
+          <a href="#programs" class="btn btn-gold btn-lg">Explore Programs</a>
+          <a href="#campus" class="btn btn-outline btn-lg" style="border-color:#d8b056; color:#d8b056; background:rgba(14,28,54,0.4); backdrop-filter:blur(5px);">Visit Campus</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section reveal" id="programs" style="background:var(--bg3);">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-tag">Programmes académiques</div>
+          <h2 class="section-title">6 facultés, des centaines de possibilités</h2>
+          <p class="section-desc">Des cursus reconnus internationalement, de la licence au doctorat.</p>
+        </div>
+        <div class="programs-grid">
+          <div class="program-card">
+            <div class="program-img"><img src="../../../assets/img/education-university/auto-1.webp" alt="Engineering"/></div>
+            <div class="program-body">
+              <div class="program-faculty">École d'ingénieurs</div>
+              <div class="program-name">Génie Informatique & IA</div>
+              <div class="program-desc">Intelligence artificielle, cybersécurité, cloud computing et systèmes embarqués.</div>
+              <div class="program-meta"><span>🎯 5 ans</span><span>📍 Campus principal</span><span>🌍 Accrédité EUR-ACE</span></div>
+            </div>
+          </div>
+          <div class="program-card">
+            <div class="program-img"><img src="../../../assets/img/education-university/auto-2.webp" alt="Business"/></div>
+            <div class="program-body">
+              <div class="program-faculty">Business School</div>
+              <div class="program-name">MBA — Management International</div>
+              <div class="program-desc">Leadership, stratégie, finance internationale et entrepreneuriat innovant.</div>
+              <div class="program-meta"><span>🎯 2 ans</span><span>📍 Paris & Casablanca</span><span>🌍 Triple accréditation</span></div>
+            </div>
+          </div>
+          <div class="program-card">
+            <div class="program-img"><img src="../../../assets/img/education-university/auto-3.webp" alt="Medicine"/></div>
+            <div class="program-body">
+              <div class="program-faculty">Faculté de Médecine</div>
+              <div class="program-name">Doctorat en Médecine</div>
+              <div class="program-desc">Formation clinique avancée, stages hospitaliers et recherche biomédicale.</div>
+              <div class="program-meta"><span>🎯 7 ans</span><span>📍 CHU Atlas</span><span>🌍 Reconnu OMS</span></div>
+            </div>
+          </div>
+          <div class="program-card">
+            <div class="program-img"><img src="../../../assets/img/education-university/auto-4.webp" alt="Law"/></div>
+            <div class="program-body">
+              <div class="program-faculty">Faculté de Droit</div>
+              <div class="program-name">Master Droit des Affaires</div>
+              <div class="program-desc">Droit commercial, arbitrage international et compliance.</div>
+              <div class="program-meta"><span>🎯 2 ans</span><span>📍 Campus Rabat</span><span>🌍 Partenariat Sciences Po</span></div>
+            </div>
+          </div>
+          <div class="program-card">
+            <div class="program-img"><img src="../../../assets/img/education-university/auto-5.webp" alt="Architecture"/></div>
+            <div class="program-body">
+              <div class="program-faculty">École d'Architecture</div>
+              <div class="program-name">Architecture & Urbanisme</div>
+              <div class="program-desc">Design durable, urbanisme intelligent et patrimoine architectural.</div>
+              <div class="program-meta"><span>🎯 5 ans</span><span>📍 Campus Marrakech</span><span>🌍 Accrédité RIBA</span></div>
+            </div>
+          </div>
+          <div class="program-card">
+            <div class="program-img"><img src="../../../assets/img/education-university/auto-6.webp" alt="Sciences"/></div>
+            <div class="program-body">
+              <div class="program-faculty">Faculté des Sciences</div>
+              <div class="program-name">Recherche & Innovation</div>
+              <div class="program-desc">Physique quantique, biotechnologies et sciences de l'environnement.</div>
+              <div class="program-meta"><span>🎯 3-5 ans</span><span>📍 Laboratoires CNRS</span><span>🌍 Publications Nature</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section reveal" id="campus">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-tag">Vie sur le campus</div>
+          <h2 class="section-title">Un cadre d'exception pour étudier</h2>
+          <p class="section-desc">Des infrastructures modernes au cœur d'un campus verdoyant de 45 hectares.</p>
+        </div>
+        <div class="campus-grid">
+          <div class="campus-card"><img src="../../../assets/img/education-university/auto-7.webp" alt="Campus"/><div class="campus-label">🏛️ Campus principal — 45 hectares</div></div>
+          <div class="campus-card"><img src="../../../assets/img/education-university/auto-8.webp" alt="Bibliothèque"/><div class="campus-label">📚 Bibliothèque 24h/24</div></div>
+          <div class="campus-card"><img src="../../../assets/img/education-university/auto-9.webp" alt="Sport"/><div class="campus-label">🏋️ Centre sportif</div></div>
+          <div class="campus-card"><img src="../../../assets/img/education-university/auto-10.webp" alt="Labo"/><div class="campus-label">🔬 Laboratoires high-tech</div></div>
+          <div class="campus-card"><img src="../../../assets/img/education-university/auto-11.webp" alt="Résidences"/><div class="campus-label">🏠 Résidences étudiantes</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section reveal" id="faculty" style="background:var(--bg3);">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-tag">Corps professoral</div>
+          <h2 class="section-title">Des chercheurs de renommée mondiale</h2>
+        </div>
+        <div class="profs-grid">
+          <div class="prof-card"><div class="prof-img"><img src="../../../assets/img/education-university/auto-12.webp" alt="Prof 1"/></div><div class="prof-name">Pr. Hassan Benchekroun</div><div class="prof-dept">Intelligence Artificielle</div><div class="prof-bio">Ex-chercheur Google DeepMind. 120+ publications.</div></div>
+          <div class="prof-card"><div class="prof-img"><img src="../../../assets/img/education-university/auto-13.webp" alt="Prof 2"/></div><div class="prof-name">Pr. Claire Dubois</div><div class="prof-dept">Médecine & Neurosciences</div><div class="prof-bio">Prix Inserm 2024. Spécialiste Alzheimer.</div></div>
+          <div class="prof-card"><div class="prof-img"><img src="../../../assets/img/education-university/auto-14.webp" alt="Prof 3"/></div><div class="prof-name">Pr. Amine Fassi-Fihri</div><div class="prof-dept">Droit International</div><div class="prof-bio">Ancien juge CIJ. Conseil au PNUD.</div></div>
+          <div class="prof-card"><div class="prof-img"><img src="../../../assets/img/education-university/auto-15.webp" alt="Prof 4"/></div><div class="prof-name">Pr. Sarah El Mansouri</div><div class="prof-dept">Architecture & Design</div><div class="prof-bio">Prix Pritzker Junior. Projets durables.</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section reveal" id="admission">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-tag">Admissions</div>
+          <h2 class="section-title">Rejoignez l'excellence</h2>
+          <p class="section-desc">Un processus d'admission transparent et équitable.</p>
+        </div>
+        <div class="admission-steps">
+          <div class="step-card"><div class="step-num">1</div><div class="step-title">Dossier en ligne</div><div class="step-desc">Remplissez votre candidature sur notre portail dédié avec vos relevés et lettre de motivation.</div></div>
+          <div class="step-card"><div class="step-num">2</div><div class="step-title">Étude du dossier</div><div class="step-desc">Notre comité évalue votre parcours académique et vos motivations sous 15 jours.</div></div>
+          <div class="step-card"><div class="step-num">3</div><div class="step-title">Entretien</div><div class="step-desc">Un entretien individuel avec un membre du jury pour évaluer votre projet.</div></div>
+          <div class="step-card"><div class="step-num">4</div><div class="step-title">Résultat</div><div class="step-desc">Notification d'admission sous 7 jours. Inscription définitive et bienvenue sur le campus !</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-section reveal">
+      <div class="container">
+        <div class="section-tag" style="color:var(--gold);">Rentrée 2026</div>
+        <h2 class="cta-title">Les inscriptions sont ouvertes</h2>
+        <p class="cta-desc">Date limite de dépôt des candidatures : 15 juillet 2026. Bourses d'excellence disponibles.</p>
+        <a href="#" class="btn btn-gold btn-lg">Déposer ma candidature →</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer"><div class="container">
+    <div class="footer-grid">
+      <div><div class="footer-brand">🎓 Atlas University</div><p class="footer-desc">Excellence académique depuis 1952. Former les esprits qui façonneront le monde de demain.</p></div>
+      <div><div class="footer-col-title">Facultés</div><a href="#" class="footer-link">Ingénierie & IA</a><a href="#" class="footer-link">Business School</a><a href="#" class="footer-link">Médecine</a><a href="#" class="footer-link">Droit</a><a href="#" class="footer-link">Architecture</a></div>
+      <div><div class="footer-col-title">Campus</div><a href="#" class="footer-link">Visite virtuelle</a><a href="#" class="footer-link">Résidences</a><a href="#" class="footer-link">Bibliothèque</a><a href="#" class="footer-link">Sport</a></div>
+      <div><div class="footer-col-title">Contact</div><a href="#" class="footer-link">admissions@atlas-univ.edu</a><a href="#" class="footer-link">+212 5 37 00 00 00</a><a href="#" class="footer-link">Rabat, Maroc</a></div>
+    </div>
+    <div class="footer-bottom">© 2026 Atlas University — Établissement d'enseignement supérieur privé accrédité.</div>
+  </div></footer>
+
+  <script>
+    window.addEventListener('scroll',()=>document.querySelector('.navbar').classList.toggle('scrolled',window.scrollY>50));
+    const ro=new IntersectionObserver(e=>e.forEach(el=>{if(el.isIntersecting)el.target.classList.add('visible')}),{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
+    document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
+  </script>
+</body>
+</html>

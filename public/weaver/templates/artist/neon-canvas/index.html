@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Neon Canvas | Digital Art & Concept Art Portfolio</title>
+  <meta name="description" content="Digital artist and concept designer portfolio. Futuristic illustrations, character design, and environment art.">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0A0A0F;
+      --surface: #12121A;
+      --cyan: #00F0FF;
+      --magenta: #FF006E;
+      --violet: #8338EC;
+      --text: #EAEAEA;
+      --muted: #6B6B80;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
+    h1, h2, h3, .display { font-family: 'Space Grotesk', sans-serif; }
+    a { text-decoration: none; color: inherit; transition: 0.3s; }
+
+    /* Nav */
+    .nav { position: fixed; top: 0; width: 100%; padding: 1.2rem 5%; display: flex; justify-content: space-between; align-items: center; z-index: 100; transition: 0.4s; }
+    .nav.scrolled { background: rgba(10,10,15,0.9); backdrop-filter: blur(15px); border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .logo { font-family: 'Space Grotesk'; font-size: 1.4rem; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+    .logo-dot { width: 8px; height: 8px; background: var(--cyan); border-radius: 50%; box-shadow: 0 0 10px var(--cyan); animation: pulse 2s infinite; }
+    @keyframes pulse { 50% { box-shadow: 0 0 20px var(--cyan), 0 0 40px var(--cyan); } }
+    .nav-links { display: flex; gap: 2rem; font-size: 0.85rem; font-weight: 500; color: var(--muted); }
+    .nav-links a:hover { color: var(--cyan); }
+    .nav-cta { padding: 0.5rem 1.5rem; background: linear-gradient(135deg, var(--cyan), var(--violet)); border-radius: 20px; font-size: 0.8rem; font-weight: 600; color: var(--bg); }
+    .nav-cta:hover { box-shadow: 0 5px 25px rgba(0,240,255,0.3); transform: translateY(-2px); }
+
+    /* Hero */
+    .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 5%; position: relative; overflow: hidden; }
+    .hero-orb { position: absolute; border-radius: 50%; filter: blur(120px); z-index: 0; animation: float 20s infinite alternate ease-in-out; }
+    .orb1 { width: 500px; height: 500px; background: rgba(0,240,255,0.15); top: -100px; left: -200px; }
+    .orb2 { width: 400px; height: 400px; background: rgba(255,0,110,0.12); bottom: -100px; right: -150px; animation-delay: -7s; }
+    .orb3 { width: 300px; height: 300px; background: rgba(131,56,236,0.1); top: 40%; left: 60%; animation-delay: -3s; }
+    @keyframes float { 100% { transform: translate(60px, 40px); } }
+
+    .hero-content { position: relative; z-index: 1; }
+    .hero-badge { display: inline-flex; align-items: center; gap: 8px; padding: 0.4rem 1.2rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 30px; font-size: 0.8rem; color: var(--cyan); margin-bottom: 2rem; }
+    .hero-badge::before { content: ''; width: 6px; height: 6px; background: var(--magenta); border-radius: 50%; }
+    .hero-title { font-size: 5rem; font-weight: 700; line-height: 1.1; margin-bottom: 1.5rem; }
+    .hero-title .gradient { background: linear-gradient(135deg, var(--cyan), var(--magenta)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .hero-sub { font-size: 1.15rem; color: var(--muted); max-width: 550px; margin: 0 auto 3rem; line-height: 1.7; }
+    .hero-btns { display: flex; gap: 1rem; justify-content: center; }
+    .btn-glow { padding: 0.8rem 2.5rem; background: linear-gradient(135deg, var(--cyan), var(--violet)); color: var(--bg); font-weight: 600; font-size: 0.9rem; border: none; border-radius: 30px; cursor: pointer; transition: 0.3s; }
+    .btn-glow:hover { box-shadow: 0 10px 35px rgba(0,240,255,0.3); transform: translateY(-3px); }
+    .btn-outline { padding: 0.8rem 2.5rem; background: transparent; color: var(--text); border: 1px solid rgba(255,255,255,0.15); border-radius: 30px; font-size: 0.9rem; cursor: pointer; transition: 0.3s; font-family: 'Inter'; }
+    .btn-outline:hover { border-color: var(--cyan); color: var(--cyan); }
+
+    /* Showreel */
+    .showreel { padding: 0 5% 6rem; position: relative; z-index: 1; }
+    .showreel-container { max-width: 1000px; margin: 0 auto; position: relative; border-radius: 16px; overflow: hidden; cursor: pointer; border: 1px solid rgba(255,255,255,0.08); }
+    .showreel-container img { width: 100%; aspect-ratio: 16/9; object-fit: cover; transition: 0.5s; filter: brightness(0.6); }
+    .showreel-container:hover img { filter: brightness(0.4); transform: scale(1.02); }
+    .showreel-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+    .play-circle { width: 80px; height: 80px; background: rgba(0,240,255,0.15); border: 2px solid var(--cyan); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 1rem; transition: 0.3s; }
+    .showreel-container:hover .play-circle { background: var(--cyan); color: var(--bg); transform: scale(1.1); }
+    .showreel-label { font-size: 0.85rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.6); }
+
+    /* Section */
+    .section { padding: 6rem 5%; }
+    .section-header { text-align: center; margin-bottom: 4rem; }
+    .section-tag { font-size: 0.75rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--cyan); margin-bottom: 0.8rem; }
+    .section-title { font-size: 2.8rem; font-weight: 700; }
+    .section-title .gradient { background: linear-gradient(135deg, var(--cyan), var(--magenta)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+    /* Bento Grid */
+    .bento { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 280px; gap: 1rem; }
+    .bento-item { position: relative; border-radius: 12px; overflow: hidden; cursor: pointer; border: 1px solid rgba(255,255,255,0.05); }
+    .bento-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+    .bento-item:hover img { transform: scale(1.08); }
+    .bento-item::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.85) 100%); opacity: 0; transition: 0.4s; }
+    .bento-item:hover::after { opacity: 1; }
+    .bento-info { position: absolute; bottom: 0; left: 0; right: 0; padding: 1.5rem; z-index: 2; transform: translateY(20px); opacity: 0; transition: 0.4s; }
+    .bento-item:hover .bento-info { transform: translateY(0); opacity: 1; }
+    .bento-info h3 { font-size: 1rem; margin-bottom: 0.3rem; }
+    .bento-info span { font-size: 0.8rem; color: var(--cyan); }
+    .bento-item.wide { grid-column: span 2; }
+    .bento-item.tall { grid-row: span 2; }
+    .bento-glow { box-shadow: inset 0 0 0 1px var(--cyan); }
+    .bento-glow:hover { box-shadow: inset 0 0 0 1px var(--cyan), 0 0 30px rgba(0,240,255,0.15); }
+
+    /* Video Grid */
+    .video-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; max-width: 1000px; margin: 0 auto; }
+    .vid-card { position: relative; border-radius: 12px; overflow: hidden; cursor: pointer; border: 1px solid rgba(255,255,255,0.06); background: var(--surface); }
+    .vid-card img { width: 100%; aspect-ratio: 16/9; object-fit: cover; transition: 0.5s; }
+    .vid-card:hover img { filter: brightness(0.5); transform: scale(1.03); }
+    .vid-play { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 55px; height: 55px; background: rgba(0,240,255,0.2); border: 2px solid var(--cyan); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; transition: 0.3s; }
+    .vid-card:hover .vid-play { background: var(--cyan); color: var(--bg); }
+    .vid-meta { padding: 1.2rem; }
+    .vid-meta h4 { font-size: 1rem; margin-bottom: 0.3rem; }
+    .vid-meta span { font-size: 0.8rem; color: var(--muted); }
+
+    /* Software Stack */
+    .stack-grid { display: flex; justify-content: center; gap: 2.5rem; flex-wrap: wrap; }
+    .stack-item { text-align: center; padding: 2rem; background: var(--surface); border: 1px solid rgba(255,255,255,0.05); border-radius: 16px; width: 140px; transition: 0.3s; }
+    .stack-item:hover { border-color: var(--cyan); transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,240,255,0.1); }
+    .stack-icon { font-size: 2rem; margin-bottom: 0.8rem; }
+    .stack-item span { font-size: 0.8rem; color: var(--muted); }
+
+    /* Clients */
+    .clients-row { display: flex; justify-content: center; gap: 4rem; flex-wrap: wrap; align-items: center; }
+    .client-name { font-size: 1.3rem; font-weight: 600; color: rgba(255,255,255,0.15); letter-spacing: 0.1em; text-transform: uppercase; transition: 0.3s; }
+    .client-name:hover { color: var(--cyan); }
+
+    /* Contact */
+    .contact { text-align: center; background: var(--surface); border-top: 1px solid rgba(255,255,255,0.05); }
+    .contact-email { font-family: 'Space Grotesk'; font-size: 2.5rem; font-weight: 700; background: linear-gradient(135deg, var(--cyan), var(--magenta)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; transition: 0.3s; }
+    .contact-social { display: flex; justify-content: center; gap: 1rem; margin-top: 2rem; }
+    .contact-social a { width: 42px; height: 42px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; color: var(--muted); transition: 0.3s; }
+    .contact-social a:hover { border-color: var(--cyan); color: var(--cyan); box-shadow: 0 0 15px rgba(0,240,255,0.2); }
+
+    /* Footer */
+    .footer { padding: 2rem 5%; display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--muted); border-top: 1px solid rgba(255,255,255,0.05); }
+
+    /* Lightbox */
+    dialog { border: none; background: transparent; max-width: 90vw; max-height: 90vh; padding: 0; }
+    dialog::backdrop { background: rgba(0,0,0,0.95); }
+    #imgModal img { max-width: 85vw; max-height: 85vh; object-fit: contain; border-radius: 8px; }
+    #videoModal .video-container { width: 80vw; max-width: 1000px; aspect-ratio: 16/9; }
+    #videoModal .video-container iframe { width: 100%; height: 100%; border: none; border-radius: 8px; }
+    .modal-close { position: fixed; top: 2rem; right: 2rem; width: 45px; height: 45px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.2); border-radius: 50%; color: white; font-size: 1.3rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.3s; z-index: 1000; }
+    .modal-close:hover { background: var(--cyan); color: var(--bg); border-color: var(--cyan); }
+
+    /* Animations */
+    .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+    .reveal.active { opacity: 1; transform: translateY(0); }
+    .back-to-top { position: fixed; bottom: 30px; right: 30px; width: 45px; height: 45px; background: linear-gradient(135deg, var(--cyan), var(--violet)); color: var(--bg); border: none; border-radius: 50%; font-size: 1.2rem; cursor: pointer; opacity: 0; visibility: hidden; transition: 0.3s; z-index: 99; }
+    .back-to-top.visible { opacity: 1; visibility: visible; }
+    .back-to-top:hover { transform: translateY(-5px); box-shadow: 0 5px 25px rgba(0,240,255,0.3); }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .hero-title { font-size: 3.5rem; }
+      .bento { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 240px; }
+    }
+    @media (max-width: 768px) {
+      .nav-links, .nav-cta { display: none; }
+      .hero-title { font-size: 2.5rem; }
+      .bento { grid-template-columns: 1fr; grid-auto-rows: 250px; }
+      .bento-item.wide, .bento-item.tall { grid-column: span 1; grid-row: span 1; }
+      .video-grid { grid-template-columns: 1fr; }
+      .section-title { font-size: 2rem; }
+      .contact-email { font-size: 1.5rem; }
+      .footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+      .stack-grid { gap: 1rem; }
+      .stack-item { width: 100px; padding: 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="hero-orb orb1"></div>
+  <div class="hero-orb orb2"></div>
+  <div class="hero-orb orb3"></div>
+
+  <nav class="nav" id="mainNav">
+    <div class="logo"><span class="logo-dot"></span> NeonCanvas</div>
+    <div class="nav-links">
+      <a href="#portfolio">Portfolio</a>
+      <a href="#videos">Process</a>
+      <a href="#clients">Clients</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <a href="#contact" class="nav-cta">Hire Me</a>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-badge">Available for Freelance Projects</div>
+      <h1 class="hero-title display">Digital Worlds,<br><span class="gradient">Infinite Possibilities.</span></h1>
+      <p class="hero-sub">Concept artist & digital illustrator crafting immersive worlds for games, films, and brands. Turning imagination into visual reality.</p>
+      <div class="hero-btns">
+        <button class="btn-glow" onclick="document.getElementById('portfolio').scrollIntoView({behavior:'smooth'})">View Portfolio</button>
+        <button class="btn-outline" onclick="document.getElementById('showreel').scrollIntoView({behavior:'smooth'})">Watch Showreel</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Showreel -->
+  <div class="showreel" id="showreel">
+    <div class="showreel-container reveal" onclick="openVideo('dQw4w9WgXcQ')">
+      <img src="../../../assets/img/artist-neon-canvas/auto-1.webp" alt="Showreel Thumbnail">
+      <div class="showreel-overlay">
+        <div class="play-circle">▶</div>
+        <span class="showreel-label">Play Showreel — 2025</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Portfolio Bento -->
+  <section class="section" id="portfolio">
+    <div class="section-header reveal">
+      <div class="section-tag">Selected Works</div>
+      <h2 class="section-title display">The <span class="gradient">Collection</span></h2>
+    </div>
+    <div class="bento reveal">
+      <div class="bento-item tall bento-glow" onclick="openImg(this)">
+        <img src="../../../assets/img/artist-neon-canvas/auto-2.webp" alt="Neon City">
+        <div class="bento-info"><h3>Neon City 2087</h3><span>Environment Art</span></div>
+      </div>
+      <div class="bento-item" onclick="openImg(this)">
+        <img src="../../../assets/img/artist-neon-canvas/auto-3.webp" alt="Mech Warrior">
+        <div class="bento-info"><h3>Mech Genesis</h3><span>Character Design</span></div>
+      </div>
+      <div class="bento-item" onclick="openImg(this)">
+        <img src="../../../assets/img/artist-neon-canvas/auto-4.webp" alt="Space Station">
+        <div class="bento-info"><h3>Orbital Station</h3><span>Concept Art</span></div>
+      </div>
+      <div class="bento-item wide" onclick="openImg(this)">
+        <img src="../../../assets/img/artist-neon-canvas/auto-5.webp" alt="Dragon">
+        <div class="bento-info"><h3>Ancient Guardian</h3><span>Creature Design</span></div>
+      </div>
+      <div class="bento-item" onclick="openImg(this)">
+        <img src="../../../assets/img/artist-neon-canvas/auto-6.webp" alt="Abstract Digital">
+        <div class="bento-info"><h3>Quantum Drift</h3><span>Abstract Digital</span></div>
+      </div>
+      <div class="bento-item" onclick="openImg(this)">
+        <img src="../../../assets/img/artist-neon-canvas/auto-7.webp" alt="Cyberpunk">
+        <div class="bento-info"><h3>Night Market</h3><span>Environment Art</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Process Videos -->
+  <section class="section" id="videos" style="background: var(--surface);">
+    <div class="section-header reveal">
+      <div class="section-tag">Behind the Pixels</div>
+      <h2 class="section-title display">Creative <span class="gradient">Process</span></h2>
+    </div>
+    <div class="video-grid reveal">
+      <div class="vid-card" onclick="openVideo('dQw4w9WgXcQ')">
+        <img src="../../../assets/img/artist-neon-canvas/auto-8.webp" alt="Speed Paint">
+        <div class="vid-play">▶</div>
+        <div class="vid-meta"><h4>Speed Paint — Neon City 2087</h4><span>18 min · Photoshop Process</span></div>
+      </div>
+      <div class="vid-card" onclick="openVideo('dQw4w9WgXcQ')">
+        <img src="../../../assets/img/artist-neon-canvas/auto-9.webp" alt="Character Design">
+        <div class="vid-play">▶</div>
+        <div class="vid-meta"><h4>Character Concept — From Sketch to Final</h4><span>25 min · Full Workflow</span></div>
+      </div>
+      <div class="vid-card" onclick="openVideo('dQw4w9WgXcQ')">
+        <img src="../../../assets/img/artist-neon-canvas/auto-10.webp" alt="3D Modeling">
+        <div class="vid-meta"><h4>3D Sculpt in Blender — Ancient Guardian</h4><span>32 min · Blender + ZBrush</span></div>
+        <div class="vid-play">▶</div>
+      </div>
+      <div class="vid-card" onclick="openVideo('dQw4w9WgXcQ')">
+        <img src="../../../assets/img/artist-neon-canvas/auto-11.webp" alt="Lighting Study">
+        <div class="vid-meta"><h4>Cinematic Lighting Breakdown</h4><span>14 min · Tutorial</span></div>
+        <div class="vid-play">▶</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Software Stack -->
+  <section class="section">
+    <div class="section-header reveal">
+      <div class="section-tag">Tools & Software</div>
+      <h2 class="section-title display">My <span class="gradient">Stack</span></h2>
+    </div>
+    <div class="stack-grid reveal">
+      <div class="stack-item"><div class="stack-icon">🎨</div><span>Photoshop</span></div>
+      <div class="stack-item"><div class="stack-icon">🖌️</div><span>Procreate</span></div>
+      <div class="stack-item"><div class="stack-icon">🧊</div><span>Blender</span></div>
+      <div class="stack-item"><div class="stack-icon">🗿</div><span>ZBrush</span></div>
+      <div class="stack-item"><div class="stack-icon">🎬</div><span>After Effects</span></div>
+      <div class="stack-item"><div class="stack-icon">🖼️</div><span>Figma</span></div>
+    </div>
+  </section>
+
+  <!-- Clients -->
+  <section class="section" id="clients" style="background: var(--surface); border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05);">
+    <div class="section-header reveal">
+      <div class="section-tag">Trusted By</div>
+      <h2 class="section-title display">Industry <span class="gradient">Leaders</span></h2>
+    </div>
+    <div class="clients-row reveal">
+      <span class="client-name">Riot Games</span>
+      <span class="client-name">Netflix</span>
+      <span class="client-name">Epic Games</span>
+      <span class="client-name">Ubisoft</span>
+      <span class="client-name">Marvel</span>
+      <span class="client-name">CD Projekt</span>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="section contact" id="contact">
+    <div class="section-header reveal">
+      <div class="section-tag">Let's Connect</div>
+      <h2 class="section-title display">Start a <span class="gradient">Project</span></h2>
+      <p style="color: var(--muted); margin-top: 1rem;">Available for freelance, studio contracts, and creative collaborations.</p>
+    </div>
+    <div class="reveal">
+      <a href="mailto:hello@neoncanvas.art" class="contact-email">hello@neoncanvas.art</a>
+      <div class="contact-social">
+        <a href="#" aria-label="ArtStation">AS</a>
+        <a href="#" aria-label="Instagram">IG</a>
+        <a href="#" aria-label="YouTube">YT</a>
+        <a href="#" aria-label="Twitter">X</a>
+        <a href="#" aria-label="Behance">Be</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <span>&copy; 2026 NeonCanvas — All rights reserved</span>
+    <span>Los Angeles, CA</span>
+  </footer>
+
+  <!-- Modals -->
+  <dialog id="imgModal">
+    <img id="modalImg" src="" alt="Enlarged artwork">
+    <button class="modal-close" onclick="document.getElementById('imgModal').close()">✕</button>
+  </dialog>
+  <dialog id="videoModal">
+    <div class="video-container"></div>
+    <button class="modal-close" onclick="closeVideo()">✕</button>
+  </dialog>
+
+  <button class="back-to-top" id="backToTop" aria-label="Back to top">&uarr;</button>
+
+  <script>
+    const nav = document.getElementById('mainNav');
+    window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 50));
+
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('active'); });
+    }, { threshold: 0.1 });
+    revealEls.forEach(el => observer.observe(el));
+
+    const btt = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => btt.classList.toggle('visible', window.scrollY > 600));
+    btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    function openImg(item) {
+      const src = item.querySelector('img').src;
+      document.getElementById('modalImg').src = src;
+      document.getElementById('imgModal').showModal();
+    }
+    document.getElementById('imgModal').addEventListener('click', function(e) { if (e.target === this) this.close(); });
+
+    function openVideo(videoId) {
+      const modal = document.getElementById('videoModal');
+      modal.querySelector('.video-container').innerHTML =
+        `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>`;
+      modal.showModal();
+    }
+    function closeVideo() {
+      const modal = document.getElementById('videoModal');
+      modal.querySelector('.video-container').innerHTML = '';
+      modal.close();
+    }
+    document.getElementById('videoModal').addEventListener('click', function(e) { if (e.target === this) closeVideo(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { closeVideo(); document.getElementById('imgModal').close(); } });
+  </script>
+</body>
+</html>

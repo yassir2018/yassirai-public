@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ivy League | University</title>
+  <link href="https://fonts.googleapis.com/css2?family=PT+Serif:wght@400;700&family=Source+Sans+Pro:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --oxford: #002147; /* Deep Navy Blue */
+      --crimson: #A32638; /* Classic Red */
+      --gold: #C5A96A; /* Heritage Gold */
+      --bg: #F8F9FA;
+      --text: #333333;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family: 'Source Sans Pro', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
+    h1, h2, h3, .serif { font-family: 'PT Serif', serif; }
+    a { text-decoration: none; color: inherit; }
+
+    /* Top Bar */
+    .top-bar { background: var(--oxford); color: white; padding: 8px 5%; display: flex; justify-content: flex-end; gap: 20px; font-size: 0.8rem; }
+    .top-bar a:hover { color: var(--gold); }
+
+    /* Navigation */
+    .nav { background: white; padding: 1.5rem 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid var(--crimson); position: sticky; top: 0; z-index: 100; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+    .logo-area { display: flex; align-items: center; gap: 15px; }
+    
+    /* Mock Crest using CSS and SVG */
+    .crest { width: 50px; height: 50px; background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 120" fill="%23A32638"><path d="M10,10 L90,10 L90,70 C90,100 50,115 50,115 C50,115 10,100 10,70 Z"/><text x="25" y="65" font-family="serif" font-size="40" fill="white">H</text></svg>') center/contain no-repeat; }
+    
+    .logo-text h1 { font-size: 1.8rem; color: var(--oxford); text-transform: uppercase; letter-spacing: 1px; }
+    .logo-text p { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 3px; color: var(--gold); }
+
+    .nav-links { display: flex; gap: 2rem; font-weight: 600; font-size: 0.95rem; color: var(--oxford); }
+    .nav-links a:hover { color: var(--crimson); border-bottom: 2px solid var(--crimson); padding-bottom: 3px; }
+
+    /* Hero */
+    .hero { min-height: 80vh; position: relative; display: flex; flex-direction: column; justify-content: flex-end; padding: 5rem 10%; }
+    .hero::before { content:''; position:absolute; inset:0; background: url('../../../assets/img/education-ivy-league/auto-1.webp') center/cover; z-index: -2; }
+    .hero::after { content:''; position:absolute; inset:0; background: linear-gradient(to top, rgba(0,33,71,0.9) 0%, rgba(0,33,71,0.3) 100%); z-index: -1; }
+    
+    .h-content { color: white; max-width: 800px; padding-bottom: 2rem; border-left: 4px solid var(--gold); padding-left: 2rem; }
+    .h-content h2 { font-size: 4.5rem; line-height: 1.1; margin-bottom: 1.5rem; text-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+    .h-content p { font-size: 1.25rem; line-height: 1.6; color: #E0E0E0; margin-bottom: 2rem; }
+    
+    .btn { display: inline-block; background: var(--crimson); color: white; padding: 1rem 2.5rem; font-family: 'PT Serif', serif; font-size: 1.1rem; border: none; cursor: pointer; transition: 0.3s; }
+    .btn:hover { background: var(--oxford); color: var(--gold); }
+
+    /* Stats Banner */
+    .stats { display: flex; background: var(--oxford); color: white; }
+    .stat-box { flex: 1; padding: 3rem; text-align: center; border-right: 1px solid rgba(255,255,255,0.1); }
+    .s-num { font-size: 3rem; color: var(--gold); margin-bottom: 0.5rem; }
+    .s-text { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; }
+
+    /* Highlights Section */
+    .news { padding: 5rem 10%; }
+    .n-title { text-align: center; font-size: 2.5rem; color: var(--oxford); margin-bottom: 3rem; position: relative; }
+    .n-title::after { content:''; display:block; width: 60px; height: 3px; background: var(--gold); margin: 15px auto 0; }
+
+    .n-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+    .card { background: white; border: 1px solid #DDD; transition: 0.3s; cursor: pointer; }
+    .card:hover { box-shadow: 0 10px 20px rgba(0,0,0,0.1); transform: translateY(-5px); border-bottom: 3px solid var(--crimson); }
+    .card-img { width: 100%; height: 200px; object-fit: cover; }
+    .card-body { padding: 1.5rem; }
+    .card-date { font-size: 0.8rem; color: var(--crimson); font-weight: 600; text-transform: uppercase; margin-bottom: 0.5rem; }
+    .card-title { font-size: 1.3rem; color: var(--oxford); line-height: 1.4; margin-bottom: 1rem; }
+    .card-desc { font-size: 0.95rem; color: #666; line-height: 1.5; }
+
+    .cta-band { padding: 5rem 10%; text-align: center; background: var(--oxford); color: white; }
+    .cta-band h2 { color: white; font-size: 2.5rem; margin-bottom: 1rem; }
+    .cta-band p { color: #94A3B8; margin-bottom: 2rem; }
+
+    .footer { padding: 3rem 5%; display: flex; justify-content: space-between; align-items: center; border-top: 3px solid var(--crimson); color: #999; font-size: 0.85rem; }
+    .footer a:hover { color: var(--crimson); }
+
+    @media (max-width: 900px) {
+      .top-bar, .nav-links { display: none; }
+      .hero { padding: 4rem 5%; justify-content: center; }
+      .h-content h2 { font-size: 3rem; }
+      .stats { flex-direction: column; }
+      .stat-box { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); padding: 2rem; }
+      .n-grid { grid-template-columns: 1fr; }
+      .footer { flex-direction: column; gap: 1rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-bar">
+    <a href="#">Alumni</a>
+    <a href="#">Students</a>
+    <a href="#">Faculty</a>
+    <a href="#">Giving</a>
+  </div>
+
+  <nav class="nav">
+    <div class="logo-area">
+      <div class="crest"></div>
+      <div class="logo-text">
+        <h1 class="serif">Hartford</h1>
+        <p>University</p>
+      </div>
+    </div>
+    <div class="nav-links">
+      <a href="#">About</a>
+      <a href="#">Admissions</a>
+      <a href="#">Academics</a>
+      <a href="#">Research</a>
+      <a href="#">Campus Life</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="h-content">
+      <h2 class="serif">Truth, Knowledge, & Excellence.</h2>
+      <p>Since 1842, Hartford University has been dedicated to cultivating minds that transform the global landscape through rigorous inquiry and profound discovery.</p>
+      <button class="btn">Apply Now</button>
+    </div>
+  </section>
+
+  <div class="stats">
+    <div class="stat-box">
+      <div class="s-num serif">15:1</div>
+      <div class="s-text">Student-to-Faculty Ratio</div>
+    </div>
+    <div class="stat-box">
+      <div class="s-num serif">48</div>
+      <div class="s-text">Nobel Laureates</div>
+    </div>
+    <div class="stat-box">
+      <div class="s-num serif">180+</div>
+      <div class="s-text">Programs of Study</div>
+    </div>
+  </div>
+
+  <section class="news">
+    <h2 class="n-title serif">Campus News & Research</h2>
+    <div class="n-grid">
+      <div class="card">
+        <img src="../../../assets/img/education-ivy-league/auto-2.webp" alt="Library" class="card-img">
+        <div class="card-body">
+          <div class="card-date">March 14, 2026</div>
+          <h3 class="card-title serif">New Medical Research Hub Opens</h3>
+          <p class="card-desc">The $50M facility will pioneer studies in genomic medicine and autoimmune disease treatments.</p>
+        </div>
+      </div>
+      <div class="card">
+        <img src="../../../assets/img/education-ivy-league/auto-3.webp" alt="Students" class="card-img">
+        <div class="card-body">
+          <div class="card-date">March 10, 2026</div>
+          <h3 class="card-title serif">Graduating Class Breaks Employment Records</h3>
+          <p class="card-desc">98% of the Class of 2025 secured employment or graduate school placement within 6 months.</p>
+        </div>
+      </div>
+      <div class="card">
+        <img src="../../../assets/img/education-ivy-league/auto-4.webp" alt="Debate" class="card-img">
+        <div class="card-body">
+          <div class="card-date">March 05, 2026</div>
+          <h3 class="card-title serif">Global Policy Forum Hosted at Hartford</h3>
+          <p class="card-desc">World leaders convened at the main auditorium to discuss climate policy and international law.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <h2 class="serif">Begin Your Journey at Hartford.</h2>
+    <p>Applications for Fall 2027 are now open. Merit-based scholarships available.</p>
+    <button class="btn" style="font-size: 1.1rem; padding: 1rem 3rem;">Apply for Admission</button>
+  </section>
+
+  <footer class="footer">
+    <div class="logo-area" style="gap:10px;"><div class="crest" style="width:30px; height:30px;"></div><span class="serif" style="font-size:1rem; color:var(--oxford);">Hartford University</span></div>
+    <div style="display: flex; gap: 2rem;"><a href="#">Alumni</a><a href="#">Giving</a><a href="#">Careers</a></div>
+    <span>&copy; 2026 Hartford University. Est. 1842.</span>
+  </footer>
+</body>
+</html>

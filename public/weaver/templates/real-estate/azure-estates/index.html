@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sienna Properties | Luxury Properties</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #FFFFFF;
+      --sand: #CFA476;
+      --sand-light: #F4EFEA;
+      --text: #2A2C2A;
+      --text-light: #7A7C7A;
+      --ease: cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    html { scroll-behavior: smooth; }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; font-weight: 300; }
+    h1, h2, h3, .serif { font-family: 'Playfair Display', serif; }
+    a { text-decoration: none; color: inherit; }
+
+    /* Topbar */
+    .topbar { background: var(--text); color: white; padding: 0.5rem 5%; display: flex; justify-content: space-between; font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; }
+
+    /* Navbar */
+    .nav { padding: 1.5rem 5%; display: flex; justify-content: space-between; align-items: center; position: absolute; width: 100%; z-index: 10; border-bottom: 1px solid rgba(255,255,255,0.3); }
+    .logo { font-size: 1.5rem; letter-spacing: 0.15em; color: white; display: flex; flex-direction: column; align-items: center; }
+    .logo span { font-family: 'Inter'; font-size: 0.5rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--sand); }
+    .nav-links { display: flex; gap: 3rem; }
+    .nav-links a { font-size: 0.8rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; color: white; position: relative; }
+    .btn { background: var(--sand); color: white; padding: 0.8rem 2.5rem; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.15em; border: 1px solid var(--sand); transition: 0.4s; }
+    .btn:hover { background: transparent; color: white; }
+
+    /* Hero */
+    .hero { height: 100vh; position: relative; display: flex; align-items: center; padding: 0 10%; }
+    .hero-bg { position: absolute; inset: 0; z-index: -1; }
+    .hero-bg img { width: 100%; height: 100%; object-fit: cover; }
+    .hero-bg::after { content:''; position: absolute; inset: 0; background: rgba(0,0,0,0.3); }
+    
+    .hero-content { z-index: 2; max-width: 650px; color: white; }
+    .hero-title { font-size: 5.5rem; line-height: 1; margin-bottom: 2rem; font-weight: 400; }
+    .hero-title i { color: var(--sand); }
+    .hero-desc { font-size: 1.1rem; line-height: 1.8; margin-bottom: 3rem; color: rgba(255,255,255,0.9); }
+
+    /* Property Stats / Filter Bar */
+    .search-bar { background: white; padding: 2.5rem 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 10px 40px rgba(0,0,0,0.05); position: relative; margin: -50px 10% 0; z-index: 3; }
+    .s-item { border-right: 1px solid #eee; padding-right: 3rem; flex: 1; }
+    .s-item:last-child { border-right: none; padding-right: 0; }
+    .s-label { font-size: 0.75rem; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem; font-weight: 500; display: block; }
+    .s-val { font-family: 'Playfair Display'; font-size: 1.5rem; color: var(--text); }
+    .s-btn { background: var(--text); color: white; padding: 1rem 3rem; border: none; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; cursor: pointer; transition: 0.3s; }
+    .s-btn:hover { background: var(--sand); }
+
+    /* Exquisite Listing Preview */
+    .listing { padding: 8rem 10% 4rem; display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+    .l-img { position: relative; }
+    .l-img img { width: 100%; height: auto; display: block; box-shadow: -20px 20px 0 var(--sand-light); }
+    .l-content { padding-left: 2rem; border-left: 1px solid var(--sand); }
+    .l-price { font-size: 1.2rem; color: var(--sand); letter-spacing: 0.1em; margin-bottom: 1rem; }
+    .l-title { font-size: 3rem; line-height: 1.1; margin-bottom: 2rem; color: var(--text); }
+    .l-desc { font-size: 1rem; color: var(--text-light); line-height: 1.8; margin-bottom: 2rem; }
+    .l-feats { display: flex; gap: 2rem; margin-bottom: 2.5rem; }
+    .l-feat-val { font-family: 'Playfair Display'; font-size: 1.5rem; display: block; margin-bottom: 0.2rem; }
+    .l-feat-lbl { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-light); }
+
+    .footer { padding: 3rem 5%; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #eee; color: var(--text-light); font-size: 0.8rem; letter-spacing: 0.1em; }
+    .footer a:hover { color: var(--sand); }
+
+    @media (max-width: 1000px) {
+      .search-bar { flex-direction: column; margin: 0; gap: 2rem; padding: 2rem; }
+      .s-item { border-right: none; border-bottom: 1px solid #eee; padding-right: 0; padding-bottom: 1rem; width: 100%; }
+      .listing { grid-template-columns: 1fr; gap: 3rem; padding: 4rem 5%; }
+      .l-content { padding-left: 0; border-left: none; }
+      .nav-links { display: none; }
+      .hero-title { font-size: 3.5rem; }
+      .footer { flex-direction: column; gap: 1rem; text-align: center; }
+    }
+
+    .collection { padding: 6rem 10% 4rem; background: var(--sand-light); }
+    .col-head { text-align: center; margin-bottom: 3.5rem; }
+    .col-eyebrow { font-family: 'Inter'; font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--sand); font-weight: 600; margin-bottom: 0.9rem; }
+    .col-title { font-family: 'Playfair Display'; font-size: clamp(2.2rem, 3.5vw, 3rem); color: var(--text); font-weight: 400; line-height: 1.15; }
+    .col-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; max-width: 1280px; margin: 0 auto; }
+    .col-card { background: white; overflow: hidden; transition: 0.4s var(--ease); position: relative; }
+    .col-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(207,164,118,.2); }
+    .col-img { aspect-ratio: 4/3; background: linear-gradient(135deg, var(--sand) 0%, var(--sand-light) 100%); display: flex; align-items: end; padding: 1.5rem; color: white; font-family: 'Playfair Display'; font-style: italic; font-size: 0.9rem; }
+    .col-img-2 { background: linear-gradient(160deg, #6A8B98 0%, var(--sand-light) 100%); }
+    .col-img-3 { background: linear-gradient(135deg, #B97B5A 0%, var(--sand-light) 100%); }
+    .col-body { padding: 1.6rem 1.6rem 1.8rem; }
+    .col-loc { font-family: 'Inter'; font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--sand); font-weight: 500; margin-bottom: 0.5rem; }
+    .col-name { font-family: 'Playfair Display'; font-size: 1.5rem; color: var(--text); margin-bottom: 0.5rem; line-height: 1.2; }
+    .col-meta { font-family: 'Inter'; font-size: 0.82rem; color: var(--text-light); margin-bottom: 1.1rem; }
+    .col-price { font-family: 'Playfair Display'; font-size: 1.2rem; color: var(--text); padding-top: 1rem; border-top: 1px solid #eee; }
+
+    .agents { padding: 6rem 10%; }
+    .ag-head { display: grid; grid-template-columns: 1fr 1fr; align-items: end; gap: 3rem; margin-bottom: 3.5rem; }
+    .ag-title { font-family: 'Playfair Display'; font-size: clamp(2.2rem, 3.5vw, 3rem); color: var(--text); font-weight: 400; line-height: 1.15; }
+    .ag-line { font-family: 'Playfair Display'; font-style: italic; font-size: 1.1rem; color: var(--sand); line-height: 1.5; max-width: 480px; }
+    .ag-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; }
+    .ag-card { text-align: center; padding: 0; transition: 0.3s; }
+    .ag-card:hover { transform: translateY(-4px); }
+    .ag-photo { width: 100%; aspect-ratio: 1/1; background: var(--sand-light); margin-bottom: 1.2rem; display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display'; font-size: 3rem; color: var(--sand); font-style: italic; }
+    .ag-name { font-family: 'Playfair Display'; font-size: 1.25rem; color: var(--text); margin-bottom: 0.3rem; }
+    .ag-role { font-family: 'Inter'; font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--sand); font-weight: 500; }
+    .ag-cities { font-family: 'Inter'; font-size: 0.82rem; color: var(--text-light); margin-top: 0.4rem; }
+
+    @media (max-width: 1000px) {
+      .col-grid { grid-template-columns: 1fr; }
+      .ag-head { grid-template-columns: 1fr; gap: 1.5rem; }
+      .ag-grid { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+      .collection, .agents { padding: 4rem 5%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <span>International Luxury Real Estate</span>
+    <span>Call +1 (800) 888-0000</span>
+  </div>
+  <nav class="nav">
+    <div class="logo">SIENNA<br><span>Estates</span></div>
+    <div class="nav-links">
+      <a href="#listing">Properties</a>
+      <a href="#collection">Collections</a>
+      <a href="#agents">Agents</a>
+      <a href="#listing">Journal</a>
+    </div>
+    <a href="#" class="btn" style="background:transparent; border-color:white;">Contact Us</a>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-bg">
+      <img src="../../../assets/img/real-estate-azure-estates/auto-1.webp" alt="Luxury Villa">
+    </div>
+    <div class="hero-content">
+      <h1 class="hero-title">Experience <i>Unmatched</i> Elegance</h1>
+      <p class="hero-desc">Discover the world's most exquisite coastal villas and architectural masterpieces. Curated for the few who demand nothing but perfection.</p>
+    </div>
+  </section>
+
+  <div class="search-bar">
+    <div class="s-item"><span class="s-label">Location</span><span class="s-val">Ibiza, Spain</span></div>
+    <div class="s-item"><span class="s-label">Property Type</span><span class="s-val">Seaside Villa</span></div>
+    <div class="s-item" style="border:none;"><span class="s-label">Price Range</span><span class="s-val">$2M - $10M+</span></div>
+    <button class="s-btn">Explore</button>
+  </div>
+
+  <section class="listing" id="listing">
+    <div class="l-img">
+      <img src="../../../assets/img/real-estate-azure-estates/auto-2.webp" alt="Villa Interior">
+    </div>
+    <div class="l-content">
+      <div class="l-price">€ 4,250,000</div>
+      <h2 class="l-title">Villa Serenity</h2>
+      <p class="l-desc">Perched on the cliffs of the Mediterranean, this breathtaking modern estate offers floor-to-ceiling glass walls, an infinity pool blending with the ocean, and bespoke Italian furnishings.</p>
+      <div class="l-feats">
+        <div><span class="l-feat-val">6</span><span class="l-feat-lbl">Beds</span></div>
+        <div><span class="l-feat-val">8</span><span class="l-feat-lbl">Baths</span></div>
+        <div><span class="l-feat-val">12,500</span><span class="l-feat-lbl">Sq. Ft.</span></div>
+      </div>
+      <a href="#" class="btn" style="background: var(--text); color: white; border: none;">View Property Details</a>
+    </div>
+  </section>
+  <section class="collection" id="collection">
+    <div class="col-head">
+      <div class="col-eyebrow">Curated Collection</div>
+      <h2 class="col-title">Three coastlines, twelve properties.</h2>
+    </div>
+    <div class="col-grid">
+      <div class="col-card">
+        <div class="col-img">Aegean light · whitewashed terraces · sea below</div>
+        <div class="col-body">
+          <div class="col-loc">Mykonos · Greece</div>
+          <h3 class="col-name">Villa Astéri</h3>
+          <p class="col-meta">5 beds · 6 baths · 8,400 sq.ft · private cove</p>
+          <div class="col-price">€ 6,800,000</div>
+        </div>
+      </div>
+      <div class="col-card">
+        <div class="col-img col-img-2">Cornish coast · slate cliffs · Atlantic spray</div>
+        <div class="col-body">
+          <div class="col-loc">Cornwall · England</div>
+          <h3 class="col-name">Pendennis House</h3>
+          <p class="col-meta">7 beds · 8 baths · 11,200 sq.ft · 4 acres</p>
+          <div class="col-price">£ 5,250,000</div>
+        </div>
+      </div>
+      <div class="col-card">
+        <div class="col-img col-img-3">Amalfi cliffs · lemon terraces · Tyrrhenian Sea</div>
+        <div class="col-body">
+          <div class="col-loc">Positano · Italy</div>
+          <h3 class="col-name">Casa Limonaia</h3>
+          <p class="col-meta">4 beds · 5 baths · 6,800 sq.ft · panoramic terrace</p>
+          <div class="col-price">€ 7,400,000</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="agents" id="agents">
+    <div class="ag-head">
+      <h2 class="ag-title">Local specialists,<br>global reach.</h2>
+      <p class="ag-line">Each of our forty agents lives in the region they sell — they swim the same coves, walk the same hill paths, eat at the same trattorias.</p>
+    </div>
+    <div class="ag-grid">
+      <div class="ag-card"><div class="ag-photo">M</div><div class="ag-name">Marco Conti</div><div class="ag-role">Senior Partner</div><div class="ag-cities">Positano · Capri</div></div>
+      <div class="ag-card"><div class="ag-photo">É</div><div class="ag-name">Élodie Vasseur</div><div class="ag-role">Partner</div><div class="ag-cities">St-Tropez · Antibes</div></div>
+      <div class="ag-card"><div class="ag-photo">A</div><div class="ag-name">Andreas Voss</div><div class="ag-role">Partner</div><div class="ag-cities">Mykonos · Paros</div></div>
+      <div class="ag-card"><div class="ag-photo">C</div><div class="ag-name">Caroline Pearce</div><div class="ag-role">Partner</div><div class="ag-cities">Cornwall · Devon</div></div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="logo" style="font-size: 1.2rem; color: var(--text);">SIENNA<br><span>Estates</span></div>
+    <div style="display: flex; gap: 2rem;"><a href="#">Instagram</a><a href="#">LinkedIn</a><a href="#">Journal</a></div>
+    <span>&copy; 2026 Sienna Properties International</span>
+  </footer>
+</body>
+</html>

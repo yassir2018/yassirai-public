@@ -47,6 +47,7 @@ export function weaverFixture(lang: Locale): Template[] {
     saleUrl: null,
     thumbnailUrl: `/weaver/assets/img/${x.thumb}`,
     category: x.category,
+    badge: x.price >= 500 ? "Premium" : "Standard",
     price: x.price,
     currency: "MAD",
     demoMode: true,

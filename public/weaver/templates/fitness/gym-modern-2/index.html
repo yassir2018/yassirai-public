@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FORGE Fitness | Redefine Your Strength</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #09090b;
+      --bg-alt: #121214;
+      --red: #FB192B; /* Cyberpunk vivid red */
+      --red-glow: rgba(251, 25, 43, 0.4);
+      --text: #ffffff;
+      --text-muted: rgba(255,255,255,0.6);
+      --border: rgba(255,255,255,0.1);
+      --ease: cubic-bezier(0.8, 0, 0.2, 1);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
+    h1, h2, h3, .bebas { font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.05em; text-transform: uppercase; }
+    a { text-decoration: none; color: inherit; }
+    
+    /* Navbar */
+    .navbar { position: fixed; top: 0; width: 100%; padding: 1.5rem 5%; display: flex; justify-content: space-between; align-items: center; z-index: 100; background: linear-gradient(to bottom, rgba(9,9,11,0.9), transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); }
+    .logo { font-size: 2.2rem; font-family: 'Bebas Neue'; color: var(--text); display: flex; align-items: center; gap: 0.5rem; text-shadow: 0 0 10px var(--red-glow); letter-spacing: 0.08em; }
+    .logo span { color: var(--red); }
+    .nav-links { display: flex; gap: 2.5rem; }
+    .nav-links a { font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; transition: color 0.3s; position: relative; }
+    .nav-links a:hover { color: var(--red); }
+    .nav-links a::after { content:''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: var(--red); box-shadow: 0 0 8px var(--red); transition: width 0.3s var(--ease); }
+    .nav-links a:hover::after { width: 100%; }
+    .btn { display: inline-block; padding: 0.8rem 2rem; background: var(--red); color: white; font-weight: 800; text-transform: uppercase; letter-spacing: 0.15em; border-radius: 40px; box-shadow: 0 4px 20px var(--red-glow); transition: all 0.3s var(--ease); font-size: 0.85rem; border: 1px solid transparent; }
+    .btn:hover { background: transparent; border-color: var(--red); box-shadow: 0 0 25px var(--red-glow), inset 0 0 15px var(--red-glow); transform: translateY(-2px); }
+    .btn-outline { background: transparent; border: 1px solid rgba(255,255,255,0.3); box-shadow: none; }
+    .btn-outline:hover { background: var(--text); color: var(--bg); border-color: var(--text); box-shadow: 0 0 20px rgba(255,255,255,0.4); }
+
+    /* Hero */
+    .hero { position: relative; min-height: 100vh; display: flex; align-items: center; padding: 0 5%; overflow: hidden; }
+    .hero-bg { position: absolute; inset: 0; z-index: -2; background: url('../../../assets/img/fitness-gym-modern-2/auto-1.webp') center/cover; }
+    .hero-bg::after { content:''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(9,9,11,1) 0%, rgba(9,9,11,0.85) 40%, rgba(9,9,11,0.2) 100%); }
+    .hero-neon { position: absolute; right: 10%; top: 20%; width: 500px; height: 500px; border: 3px solid var(--red); border-radius: 50%; box-shadow: 0 0 60px var(--red-glow), inset 0 0 60px var(--red-glow); opacity: 0.5; z-index: -1; transform: scale(1.2); filter: blur(4px); }
+    
+    .hero-content { position: relative; z-index: 2; max-width: 650px; }
+    .hero-subtitle { font-size: 1.2rem; color: var(--red); font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; margin-bottom: 0.5rem; display: block; text-shadow: 0 0 10px var(--red-glow); }
+    .hero-title { font-size: 7.5rem; line-height: 0.9; margin-bottom: 1.5rem; text-shadow: 0 10px 30px rgba(0,0,0,0.8); }
+    .hero-title .outline { -webkit-text-stroke: 2px var(--text); color: transparent; }
+    .hero-title .accent { color: var(--red); text-shadow: 0 0 20px var(--red-glow); }
+    .hero-desc { font-size: 1.15rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 2.5rem; max-width: 450px; border-left: 3px solid var(--red); padding-left: 1.5rem; background: linear-gradient(90deg, rgba(251,25,43,0.1) 0%, transparent 100%); padding-top: 0.5rem; padding-bottom: 0.5rem; }
+    .hero-actions { display: flex; gap: 1.5rem; align-items: center; }
+
+    /* Stats Scroll */
+    .ticker { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 1.5rem 0; display: flex; overflow: hidden; background: var(--bg-alt); position: relative; }
+    .ticker::before, .ticker::after { content: ''; position: absolute; top:0; bottom:0; width: 100px; z-index: 2; pointer-events: none; }
+    .ticker::before { left: 0; background: linear-gradient(90deg, var(--bg-alt), transparent); }
+    .ticker::after { right: 0; background: linear-gradient(-90deg, var(--bg-alt), transparent); }
+    .ticker-wrap { display: flex; gap: 4rem; animation: scroll 20s linear infinite; white-space: nowrap; }
+    .ticker-item { font-size: 2.5rem; font-family: 'Bebas Neue'; color: rgba(255,255,255,0.4); display: flex; align-items: center; gap: 2rem; }
+    .ticker-item .dot { color: var(--red); font-size: 1.5rem; text-shadow: 0 0 10px var(--red-glow); }
+    @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+    /* Classes Grid */
+    .classes { padding: 8rem 5%; background: var(--bg); position: relative; }
+    .classes::before { content:''; position: absolute; top: -200px; right: -200px; width: 600px; height: 600px; background: radial-gradient(circle, var(--red-glow) 0%, transparent 60%); filter: blur(100px); opacity: 0.3; z-index: 0; pointer-events: none; }
+    .section-header { text-align: center; margin-bottom: 4rem; position: relative; z-index: 1; }
+    .section-title { font-size: 4.5rem; text-shadow: 0 5px 15px rgba(0,0,0,0.5); }
+    .section-title span { color: var(--red); text-shadow: 0 0 15px var(--red-glow); }
+    .class-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem; position: relative; z-index: 1; }
+    .class-card { background: var(--bg-alt); border: 1px solid var(--border); position: relative; overflow: hidden; transition: all 0.4s var(--ease); border-radius: 4px; }
+    .class-img { width: 100%; height: 300px; object-fit: cover; filter: grayscale(100%) contrast(1.2); transition: all 0.5s var(--ease); opacity: 0.7; }
+    .class-card:hover { border-color: var(--red); transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.8), 0 0 20px rgba(251,25,43,0.2); }
+    .class-card:hover .class-img { filter: grayscale(0%); transform: scale(1.08); opacity: 1; }
+    .class-card::after { content:''; position: absolute; inset: 0; border: 2px solid var(--red); opacity: 0; transition: opacity 0.4s; pointer-events: none; }
+    .class-card:hover::after { opacity: 1; }
+    .class-content { padding: 2.5rem; position: relative; background: linear-gradient(to top, var(--bg-alt) 70%, transparent); margin-top: -80px; }
+    .class-title { font-size: 2.5rem; margin-bottom: 1rem; transition: color 0.3s; letter-spacing: 0.05em; }
+    .class-card:hover .class-title { color: var(--red); text-shadow: 0 0 10px rgba(251,25,43,0.3); }
+    .class-desc { font-size: 0.95rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 2rem; }
+    
+    /* Footer */
+    .footer { border-top: 1px solid var(--border); padding: 4rem 5%; display: flex; justify-content: space-between; align-items: center; background: var(--bg-alt); }
+    
+    @media (max-width: 900px) {
+      .hero-title { font-size: 5rem; }
+      .class-grid { grid-template-columns: 1fr; }
+      .hero-neon { right: -20%; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">FORGE<span>.</span></div>
+    <div class="nav-links">
+      <a href="#">Training</a>
+      <a href="#">Programs</a>
+      <a href="#">Coaches</a>
+      <a href="#">Pricing</a>
+    </div>
+    <a href="#" class="btn">Get Started</a>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-neon"></div>
+    <div class="hero-content">
+      <span class="hero-subtitle">// Elite Performance</span>
+      <h1 class="hero-title">
+        UNLEASH <span class="outline">YOUR</span><br>
+        <span class="accent">STRENGTH</span><br>
+        REDEFINE <span class="outline">YOURSELF</span>
+      </h1>
+      <p class="hero-desc">Experience high-intensity training, state-of-the-art facilities, and expert coaching to achieve your ultimate fitness goals. Join the movement today.</p>
+      <div class="hero-actions">
+        <a href="#" class="btn">Get Started</a>
+        <a href="#" class="btn btn-outline" style="border-radius: 40px; padding: 0.8rem 2rem; text-transform: uppercase; font-weight:800; letter-spacing: 0.15em;">Explore Classes</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="ticker">
+    <div class="ticker-wrap">
+      <div class="ticker-item"><span class="dot">◆</span> NO EXCUSES <span class="dot">◆</span> PUSH HARDER <span class="dot">◆</span> STAY FOCUSED <span class="dot">◆</span> LIFT HEAVY <span class="dot">◆</span> BUILD MASS <span class="dot">◆</span> NEVER SURRENDER <span class="dot">◆</span> SHRED FAT <span class="dot">◆</span> BE UNSTOPPABLE </div>
+      <div class="ticker-item"><span class="dot">◆</span> NO EXCUSES <span class="dot">◆</span> PUSH HARDER <span class="dot">◆</span> STAY FOCUSED <span class="dot">◆</span> LIFT HEAVY <span class="dot">◆</span> BUILD MASS <span class="dot">◆</span> NEVER SURRENDER <span class="dot">◆</span> SHRED FAT <span class="dot">◆</span> BE UNSTOPPABLE </div>
+    </div>
+  </div>
+
+  <section class="classes">
+    <div class="section-header">
+      <h2 class="section-title">CHOOSE YOUR <span>BATTLEGROUND</span></h2>
+      <p style="color:var(--text-muted); margin-top:1rem; font-size: 1.1rem;">Programs engineered to break your limits and build your legacy.</p>
+    </div>
+    <div class="class-grid">
+      <div class="class-card">
+        <img src="../../../assets/img/fitness-gym-modern-2/auto-2.webp" alt="HIIT" class="class-img">
+        <div class="class-content">
+          <h3 class="class-title">HIIT INFERNO</h3>
+          <p class="class-desc">Ignite your metabolism and torch calories with our high-intensity cardiovascular intervals designed for maximum fat burn.</p>
+          <a href="#" class="btn btn-outline" style="width:100%; text-align:center; border-radius: 40px;">View Details</a>
+        </div>
+      </div>
+      <div class="class-card">
+        <img src="../../../assets/img/fitness-gym-modern-2/auto-3.webp" alt="Strength" class="class-img">
+        <div class="class-content">
+          <h3 class="class-title">IRON FORGE</h3>
+          <p class="class-desc">Build raw power and lean muscle mass with our dedicated powerlifting and functional strength training sessions.</p>
+          <a href="#" class="btn btn-outline" style="width:100%; text-align:center; border-radius: 40px;">View Details</a>
+        </div>
+      </div>
+      <div class="class-card">
+        <img src="../../../assets/img/fitness-gym-modern-2/auto-4.webp" alt="Combat" class="class-img">
+        <div class="class-content">
+          <h3 class="class-title">STRIKE ZONE</h3>
+          <p class="class-desc">Master striking techniques, improve agility, and build endurance in our authentic kickboxing and MMA conditioning classes.</p>
+          <a href="#" class="btn btn-outline" style="width:100%; text-align:center; border-radius: 40px;">View Details</a>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <footer class="footer">
+    <div class="logo">FORGE<span>.</span></div>
+    <div style="color:var(--text-muted); font-size:0.85rem;">© 2026 FORGE Fitness. All rights reserved.</div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ashford College | Shaping Tomorrow</title>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --burgundy: #800020;
+      --burgundy-light: #A31238;
+      --gold: #C5A059;
+      --white: #FFFFFF;
+      --text: #333333;
+    }
+    html { scroll-behavior: smooth; }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family: 'Montserrat', sans-serif; background: #FAF9F6; color: var(--text); overflow-x: hidden; }
+    h1, h2, h3, .serif { font-family: 'Libre Baskerville', serif; }
+    a { text-decoration: none; color: inherit; }
+
+    .top-bar { background: var(--burgundy); color: var(--gold); padding: 0.5rem 5%; font-size: 0.8rem; display: flex; justify-content: space-between; font-weight: 500; letter-spacing: 0.05em; }
+    
+    .nav { padding: 1.5rem 5%; display: flex; justify-content: space-between; align-items: center; background: var(--white); box-shadow: 0 4px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 100; }
+    .logo { font-size: 2rem; font-family: 'Libre Baskerville'; font-weight: 700; color: var(--burgundy); }
+    .nav-links { display: flex; gap: 2rem; font-weight: 600; font-size: 0.9rem; text-transform: uppercase; color: var(--text); }
+    .nav-links a:hover { color: var(--burgundy); }
+    .btn { background: var(--gold); color: var(--white); padding: 0.8rem 2rem; font-weight: 600; font-family: 'Montserrat'; text-transform: uppercase; transition: 0.3s; }
+    .btn:hover { background: #E0BA75; }
+
+    .hero { min-height: 80vh; display: grid; grid-template-columns: 1fr 1fr; border-bottom: 8px solid var(--gold); }
+    .hero-text { padding: 10%; display: flex; flex-direction: column; justify-content: center; background: var(--burgundy); color: var(--white); }
+    .title { font-size: 4.5rem; line-height: 1.1; margin-bottom: 1.5rem; }
+    .desc { font-size: 1.1rem; line-height: 1.8; color: #EAD0D6; margin-bottom: 2.5rem; }
+    
+    .hero-img { background: url('../../../assets/img/education-atlas-university/auto-1.webp') center/cover; position: relative; }
+    .hero-img::after { content:''; position: absolute; inset:0; background: linear-gradient(90deg, var(--burgundy) 0%, transparent 50%); }
+
+    .news { padding: 5rem 10%; text-align: center; }
+    .n-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem; margin-top: 3rem; }
+    .n-card { border: 1px solid #EAEAEA; background: var(--white); text-align: left; transition: transform 0.3s; }
+    .n-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+    .n-img { height: 200px; background: #DDD; }
+    .n-content { padding: 1.5rem; }
+    .n-date { color: var(--gold); font-size: 0.8rem; font-weight: 600; margin-bottom: 1rem; text-transform: uppercase; }
+
+    .cta-band { padding: 5rem 10%; text-align: center; background: var(--burgundy); color: white; }
+    .cta-band h2 { font-size: 2.5rem; color: white; margin-bottom: 1rem; }
+    .cta-band p { color: #EAD0D6; margin-bottom: 2rem; }
+
+    .footer { padding: 3rem 5%; display: flex; justify-content: space-between; align-items: center; color: #999; font-size: 0.85rem; border-top: 1px solid #EAEAEA; }
+    .footer a:hover { color: var(--burgundy); }
+
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero-img { display: none; }
+      .nav-links { display: none; }
+      .n-grid { grid-template-columns: 1fr; }
+      .title { font-size: 3.5rem; }
+      .footer { flex-direction: column; gap: 1rem; text-align: center; }
+    }
+
+    .programs { padding: 5rem 10%; background: #FAF9F6; }
+    .p-head { text-align: center; margin-bottom: 3.5rem; }
+    .p-eyebrow { color: var(--gold); font-family: 'Montserrat'; font-weight: 600; font-size: 0.78rem; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 0.9rem; }
+    .p-title { font-family: 'Libre Baskerville'; font-size: 2.6rem; color: var(--burgundy); font-weight: 700; }
+    .p-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; }
+    .p-card { background: white; border: 1px solid #EAEAEA; border-top: 4px solid var(--gold); padding: 2.2rem 1.5rem; text-align: left; transition: 0.3s; }
+    .p-card:hover { transform: translateY(-4px); box-shadow: 0 10px 26px rgba(128,0,32,0.12); border-top-color: var(--burgundy); }
+    .p-num { font-family: 'Libre Baskerville'; font-size: 1rem; color: var(--gold); font-style: italic; margin-bottom: 0.5rem; }
+    .p-name { font-family: 'Libre Baskerville'; font-weight: 700; font-size: 1.35rem; color: var(--burgundy); margin-bottom: 0.85rem; line-height: 1.2; }
+    .p-meta { font-size: 0.88rem; color: #777; line-height: 1.6; margin-bottom: 1.1rem; }
+    .p-stat { font-size: 0.74rem; color: var(--gold); letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600; padding-top: 0.85rem; border-top: 1px solid #EAEAEA; }
+
+    .h-stats { padding: 5rem 10%; background: var(--burgundy); color: white; text-align: center; }
+    .h-eyebrow { color: var(--gold); font-family: 'Montserrat'; font-weight: 600; font-size: 0.78rem; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 0.9rem; }
+    .h-line { font-family: 'Libre Baskerville'; font-style: italic; font-size: 1.2rem; color: #EAD0D6; margin-bottom: 3rem; max-width: 580px; margin-left: auto; margin-right: auto; line-height: 1.6; }
+    .h-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2.5rem; max-width: 1000px; margin: 0 auto; }
+    .h-num { font-family: 'Libre Baskerville'; font-size: 3.5rem; line-height: 1; color: var(--gold); font-weight: 700; margin-bottom: 0.7rem; }
+    .h-label { font-family: 'Montserrat'; font-size: 0.78rem; letter-spacing: 0.16em; text-transform: uppercase; color: #EAD0D6; }
+
+    @media (max-width: 900px) {
+      .p-grid { grid-template-columns: 1fr 1fr; }
+      .h-grid { grid-template-columns: 1fr 1fr; }
+      .programs, .h-stats { padding: 4rem 5%; }
+    }
+    @media (max-width: 560px) {
+      .p-grid, .h-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="top-bar">
+    <span>Students | Faculty | Alumni | Parents</span>
+    <span>Apply for Fall 2026</span>
+  </div>
+  <nav class="nav">
+    <div class="logo">Ashford College.</div>
+    <div class="nav-links">
+      <a href="#cta">Admissions</a>
+      <a href="#programs">Academics</a>
+      <a href="#news">Research</a>
+      <a href="#heritage">Athletics</a>
+    </div>
+    <a href="#" class="btn">Apply Now</a>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-text">
+      <h1 class="title serif">Veritas et<br>Virtus.</h1>
+      <p class="desc">For over 130 years, Ashford College has been dedicated to cultivating globally-minded leaders, pioneering rigorous academic research, and inspiring truth.</p>
+      <a href="#" class="btn" style="width:max-content; border:1px solid var(--gold);">Discover Ashford</a>
+    </div>
+    <div class="hero-img"></div>
+  </section>
+
+  <section class="news" id="news">
+    <h2 class="serif" style="font-size:3rem; color:var(--burgundy);">Academic Excellence</h2>
+    <div class="n-grid">
+      <div class="n-card">
+        <div class="n-img" style="background:url('../../../assets/img/education-atlas-university/auto-2.webp') center/cover;"></div>
+        <div class="n-content">
+          <div class="n-date">Campus Life</div>
+          <h3 class="serif" style="font-size:1.4rem; color:var(--burgundy); margin-bottom:1rem;">New Library Expansion Project Begins</h3>
+          <p style="color:var(--text-muted); font-size:0.95rem; line-height:1.6;">State-of-the-art facilities added to the historic central library.</p>
+        </div>
+      </div>
+      <div class="n-card">
+        <div class="n-img" style="background:url('../../../assets/img/education-atlas-university/auto-3.webp') center/cover;"></div>
+        <div class="n-content">
+          <div class="n-date">Research</div>
+          <h3 class="serif" style="font-size:1.4rem; color:var(--burgundy); margin-bottom:1rem;">Global AI Ethics Symposium 2026</h3>
+          <p style="color:var(--text-muted); font-size:0.95rem; line-height:1.6;">Ashford faculty lead the charge in navigating future technologies.</p>
+        </div>
+      </div>
+      <div class="n-card">
+        <div class="n-img" style="background:url('../../../assets/img/education-atlas-university/auto-4.webp') center/cover;"></div>
+        <div class="n-content">
+          <div class="n-date">Admissions</div>
+          <h3 class="serif" style="font-size:1.4rem; color:var(--burgundy); margin-bottom:1rem;">Record Breaking Applicant Pool</h3>
+          <p style="color:var(--text-muted); font-size:0.95rem; line-height:1.6;">Welcoming the brightest minds of the next generation to campus.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="programs" id="programs">
+    <div class="p-head">
+      <div class="p-eyebrow">Schools &amp; Programs</div>
+      <h2 class="p-title">Four schools, one heritage.</h2>
+    </div>
+    <div class="p-grid">
+      <div class="p-card">
+        <div class="p-num">I.</div>
+        <h3 class="p-name">School of Liberal Arts</h3>
+        <p class="p-meta">Philosophy, literature, history, classics. The cornerstone of Ashford since 1894.</p>
+        <div class="p-stat">36 majors · 12 minors</div>
+      </div>
+      <div class="p-card">
+        <div class="p-num">II.</div>
+        <h3 class="p-name">School of Sciences</h3>
+        <p class="p-meta">Biology, chemistry, physics, mathematics. Research-led, lab-equipped.</p>
+        <div class="p-stat">22 majors · 4 PhDs</div>
+      </div>
+      <div class="p-card">
+        <div class="p-num">III.</div>
+        <h3 class="p-name">School of Business</h3>
+        <p class="p-meta">Finance, management, entrepreneurship. Ranked top 30 nationally for ROI.</p>
+        <div class="p-stat">18 majors · MBA evening</div>
+      </div>
+      <div class="p-card">
+        <div class="p-num">IV.</div>
+        <h3 class="p-name">School of Fine Arts</h3>
+        <p class="p-meta">Studio art, music composition, theatre, film studies. Conservatory-grade.</p>
+        <div class="p-stat">14 majors · BFA studio</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="h-stats" id="heritage">
+    <div class="h-eyebrow">Heritage in Numbers</div>
+    <p class="h-line">"From a single classroom in 1894 to a global community of scholars — Ashford carries 130 years of <em>veritas et virtus</em>."</p>
+    <div class="h-grid">
+      <div><div class="h-num">1894</div><div class="h-label">Founded</div></div>
+      <div><div class="h-num">9 200</div><div class="h-label">Students</div></div>
+      <div><div class="h-num">76 000</div><div class="h-label">Alumni worldwide</div></div>
+      <div><div class="h-num">4</div><div class="h-label">Nobel laureates</div></div>
+    </div>
+  </section>
+
+  <section class="cta-band" id="cta">
+    <h2 class="serif">Shape Your Future at Ashford.</h2>
+    <p>Applications for Fall 2027 are now open. Merit and need-based aid available.</p>
+    <a href="#" class="btn" style="font-size: 1rem; padding: 1rem 3rem;">Start Your Application</a>
+  </section>
+
+  <footer class="footer">
+    <span class="logo" style="font-size: 1.3rem;">Ashford College.</span>
+    <div style="display: flex; gap: 2rem;"><a href="#">Alumni</a><a href="#">Giving</a><a href="#">Careers</a></div>
+    <span>&copy; 2026 Ashford College. Est. 1894.</span>
+  </footer>
+</body>
+</html>

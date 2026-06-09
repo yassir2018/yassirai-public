@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Artisan Roasters | Specialty Coffee</title>
+  <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #FFF3E0;
+      --espresso: #3E2723;
+      --mocha: #5D4037;
+      --orange: #E65100;
+      --text: #3E2723;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
+    h1, h2, h3, .serif { font-family: 'Abril Fatface', cursive; font-weight: 400; letter-spacing: 0.05em; }
+    a { text-decoration: none; color: inherit; }
+
+    .nav { padding: 2rem 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--espresso); position: sticky; top: 0; background: var(--bg); z-index: 100; }
+    .logo { font-size: 2.2rem; color: var(--espresso); font-family: 'Abril Fatface'; }
+    .logo span { font-size: 1rem; font-family: 'Inter'; text-transform: uppercase; font-weight: 600; letter-spacing: 0.2em; color: var(--orange); display: block; margin-top: -5px; }
+    .nav-links { display: flex; gap: 3rem; font-weight: 600; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 0.1em; }
+    .nav-links a:hover { color: var(--orange); }
+
+    .hero { min-height: 80vh; display: grid; grid-template-columns: 1fr 1fr; border-bottom: 5px solid var(--espresso); }
+    .hero-text { padding: 8rem 5%; display: flex; flex-direction: column; justify-content: center; }
+    .title { font-size: 6rem; line-height: 1; margin-bottom: 1.5rem; color: var(--espresso); }
+    .desc { font-size: 1.2rem; line-height: 1.8; color: var(--mocha); margin-bottom: 3rem; }
+    .btn { background: var(--espresso); color: var(--bg); padding: 1.2rem 3rem; font-weight: 600; font-size: 1rem; text-transform: uppercase; letter-spacing: 0.2em; display: inline-block; width: max-content; transition: 0.3s; }
+    .btn:hover { background: var(--orange); }
+
+    .hero-img { background: url('../../../assets/img/restaurant-artisan-roasters/auto-1.webp') center/cover; border-left: 5px solid var(--espresso); }
+    
+    .ticker { background: var(--orange); color: var(--bg); padding: 1rem 0; font-family: 'Abril Fatface'; font-size: 1.5rem; white-space: nowrap; overflow: hidden; border-bottom: 2px solid var(--espresso); }
+    .ticker span { display: inline-block; padding-left: 100%; animation: scroll 20s linear infinite; }
+    @keyframes scroll { 0% { transform: translate(0, 0); } 100% { transform: translate(-100%, 0); } }
+
+    .menu { padding: 6rem 5%; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
+    .menu h2 { font-size: 3rem; text-decoration: underline; text-decoration-color: var(--orange); margin-bottom: 3rem; }
+    .m-item { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px dotted var(--mocha); padding-bottom: 1rem; margin-bottom: 1.5rem; }
+    .m-name { font-size: 1.3rem; font-weight: 600; }
+    .m-price { font-family: 'Abril Fatface'; font-size: 1.5rem; color: var(--orange); }
+
+    /* Expanded Blocks */
+    .process { padding: 0; display: flex; border-top: 5px solid var(--espresso); border-bottom: 5px solid var(--espresso); }
+    .pr-img { flex: 1; background: url('../../../assets/img/restaurant-artisan-roasters/auto-2.webp') center/cover; background-attachment: fixed; min-height: 500px; border-right: 5px solid var(--espresso); }
+    .pr-text { flex: 1; padding: 6rem 5%; display: flex; flex-direction: column; justify-content: center; background: var(--bg); }
+    .pr-title { font-size: 3.5rem; color: var(--espresso); margin-bottom: 1.5rem; }
+    .pr-desc { font-size: 1.1rem; line-height: 1.8; color: var(--mocha); max-width: 500px; }
+
+    .subscriptions { padding: 8rem 5%; text-align: center; background: white; }
+    .s-title { font-size: 3.5rem; margin-bottom: 1rem; color: var(--espresso); }
+    .s-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem; margin-top: 4rem; max-width: 1200px; margin-inline: auto; }
+    .sub-card { border: 3px solid var(--espresso); padding: 3rem 2rem; background: var(--bg); transition: 0.3s; position: relative; }
+    .sub-card:hover { transform: translateY(-10px); box-shadow: 10px 10px 0 var(--espresso); }
+    .sub-popular { background: var(--espresso); color: var(--bg); border: none; }
+    .sub-popular .sc-price { color: var(--orange); }
+    
+    .sc-title { font-size: 1.8rem; margin-bottom: 0.5rem; text-transform: uppercase; font-family: 'Inter'; font-weight: 800; letter-spacing: 0.1em; }
+    .sc-price { font-family: 'Abril Fatface'; font-size: 3.5rem; color: var(--espresso); margin-bottom: 1.5rem; }
+    .sc-desc { line-height: 1.6; margin-bottom: 2rem; }
+    
+    .footer { background: var(--text); color: white; padding: 4rem 5%; display: flex; justify-content: space-between; align-items: top; }
+    .f-logo { font-size: 2rem; color: var(--orange); font-family: 'Abril Fatface'; margin-bottom: 1rem; }
+    .f-logo span { color: white; font-family: 'Inter'; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.2em; display: block; }
+    .f-links a { display: block; color: #aaa; margin-bottom: 0.8rem; font-weight: 500; }
+    .f-links a:hover { color: var(--orange); }
+
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero-img { min-height: 400px; border-left: none; border-top: 5px solid var(--espresso); }
+      .title { font-size: 4rem; }
+      .nav-links { display: none; }
+      .menu { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="logo">ARTISAN<span>Roasters</span></div>
+    <div class="nav-links">
+      <a href="#">Coffee</a>
+      <a href="#">Brew Gear</a>
+      <a href="#">Locations</a>
+      <a href="#">Our Story</a>
+    </div>
+    <a href="#" class="btn" style="padding: 0.8rem 2rem;">Shop Beans</a>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-text">
+      <h1 class="title">Honest<br>Coffee.</h1>
+      <p class="desc">Ethically sourced, masterfully roasted in small batches, and crafted to perfection. Experience the rich, bold flavors of Artisan Roasters.</p>
+      <a href="#" class="btn">Discover Our Blends</a>
+    </div>
+    <div class="hero-img"></div>
+  </section>
+
+  <div class="ticker">
+    <span>FRESHLY ROASTED WEEKLY • 100% FAIR TRADE • ORGANIC BEANS • AVAILABLE IN-STORE & ONLINE • </span>
+  </div>
+
+  <section class="menu">
+    <div>
+      <h2>Espresso Bar</h2>
+      <div class="m-item"><div class="m-name">Cortado</div><div class="m-price">$4.50</div></div>
+      <div class="m-item"><div class="m-name">Flat White</div><div class="m-price">$5.00</div></div>
+      <div class="m-item"><div class="m-name">Ethiopian Pour Over</div><div class="m-price">$6.00</div></div>
+    </div>
+    <div>
+      <h2>Single Origins</h2>
+      <div class="m-item"><div class="m-name">Guatemala Antigua (12oz)</div><div class="m-price">$18.00</div></div>
+      <div class="m-item"><div class="m-name">Sumatra Mandheling (12oz)</div><div class="m-price">$20.00</div></div>
+      <div class="m-item"><div class="m-name">House Blend Espresso (12oz)</div><div class="m-price">$16.00</div></div>
+    </div>
+  </section>
+
+  <section class="process">
+    <div class="pr-img"></div>
+    <div class="pr-text">
+      <h2 class="pr-title serif">The Roasting<br>Process.</h2>
+      <p class="pr-desc">We roast on vintage cast-iron machines, using sense and intuition rather than automated computers. Our master roasters coax out the sweetest, most complex notes locked within every single bean. When you drink Artisan, you are drinking craftsmanship.</p>
+    </div>
+  </section>
+
+  <section class="subscriptions">
+    <h2 class="s-title serif">Never Run Out.</h2>
+    <p style="color: var(--mocha); font-size: 1.1rem;">Freshly roasted coffee delivered to your doorstep.</p>
+    <div class="s-grid">
+      <div class="sub-card">
+        <h3 class="sc-title">Casual</h3>
+        <div class="sc-price">$22</div>
+        <p class="sc-desc">One 12oz bag per month.<br>Perfect for the casual weekend brewer.</p>
+        <button class="btn" style="width: 100%;">Subscribe</button>
+      </div>
+      <div class="sub-card sub-popular">
+        <div style="position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: var(--orange); color: white; padding: 5px 15px; font-weight: 600; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.1em;">Most Popular</div>
+        <h3 class="sc-title">Enthusiast</h3>
+        <div class="sc-price">$40</div>
+        <p class="sc-desc" style="color: #ccc;">Two 12oz bags per month.<br>For the daily coffee ritualist.</p>
+        <button class="btn" style="width: 100%; background: var(--orange); color: white;">Subscribe</button>
+      </div>
+      <div class="sub-card">
+        <h3 class="sc-title">Addict</h3>
+        <div class="sc-price">$75</div>
+        <p class="sc-desc">Four 12oz bags per month.<br>Keep the office or home completely stocked.</p>
+        <button class="btn" style="width: 100%;">Subscribe</button>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div>
+      <div class="f-logo">ARTISAN<span>Roasters</span></div>
+      <p style="color: #aaa; font-size: 0.9rem; max-width: 300px;">Crafting the finest specialty coffee experiences since 2018.</p>
+    </div>
+    <div class="f-links">
+      <a href="#">Shop Whole Bean</a>
+      <a href="#">Brewing Guides</a>
+      <a href="#">Our Ethics</a>
+    </div>
+    <div class="f-links">
+      <a href="#">Instagram</a>
+      <a href="#">Wholesale</a>
+      <a href="#">Contact Us</a>
+    </div>
+  </footer>
+</body>
+</html>

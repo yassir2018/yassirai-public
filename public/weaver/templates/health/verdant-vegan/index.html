@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verdant | Organic Vegan Delivery</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #FAF8F5;
+      --green: #4CAF50;
+      --green-dark: #2E5C31;
+      --text: #333333;
+      --text-muted: #777777;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family: 'Poppins', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
+    h1, h2, h3, .serif { font-family: 'DM Serif Display', serif; }
+    a { text-decoration: none; color: inherit; }
+
+    .nav { padding: 2rem 5%; display: flex; justify-content: space-between; align-items: center; background: transparent; position: absolute; width: 100%; z-index: 10; }
+    .logo { font-size: 2rem; color: var(--green-dark); font-family: 'DM Serif Display'; display: flex; align-items: center; gap: 0.5rem; }
+    .nav-links { display: flex; gap: 3rem; font-weight: 500; font-size: 0.95rem; }
+    .nav-links a { transition: 0.3s; }
+    .nav-links a:hover { color: var(--green); }
+    .btn { background: var(--green-dark); color: white; padding: 0.8rem 2rem; border-radius: 50px; font-weight: 500; transition: 0.3s; }
+    .btn:hover { background: var(--green); box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4); transform: translateY(-2px); }
+
+    .hero { min-height: 100vh; display: flex; align-items: center; padding: 0 5%; position: relative; }
+    .hero-content { width: 45%; z-index: 2; padding-top: 5rem; }
+    .title { font-size: 5rem; line-height: 1.1; margin-bottom: 2rem; color: var(--green-dark); }
+    .desc { font-size: 1.1rem; color: var(--text-muted); line-height: 1.8; margin-bottom: 3rem; }
+    
+    .hero-img { position: absolute; right: 0; top: 0; width: 55%; height: 100%; clip-path: polygon(15% 0, 100% 0, 100% 100%, 0% 100%); overflow: hidden; }
+    .hero-img img { width: 100%; height: 100%; object-fit: cover; }
+
+    .featured { padding: 8rem 5%; text-align: center; }
+    .section-title { font-size: 2.5rem; color: var(--green-dark); margin-bottom: 1rem; }
+    .section-subtitle { color: var(--text-muted); margin-bottom: 4rem; }
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem; }
+    .item-card { background: white; border-radius: 20px; overflow: hidden; padding-bottom: 2rem; box-shadow: 0 10px 40px rgba(0,0,0,0.03); transition: 0.3s; }
+    .item-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(76, 175, 80, 0.1); }
+    .item-img { height: 250px; overflow: hidden; }
+    .item-img img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+    .item-card:hover .item-img img { transform: scale(1.05); }
+    .item-title { font-size: 1.4rem; font-weight: 600; margin: 1.5rem 0 0.5rem; color: var(--green-dark); }
+    .item-price { color: var(--green); font-weight: 600; font-size: 1.2rem; }
+
+    .trust { padding: 4rem 5%; display: flex; justify-content: center; gap: 4rem; text-align: center; background: white; }
+    .tr-icon { font-size: 2.5rem; margin-bottom: 0.5rem; }
+    .tr-name { font-weight: 600; font-size: 1rem; color: var(--green-dark); }
+    .tr-desc { font-size: 0.85rem; color: var(--text-muted); max-width: 200px; }
+
+    .cta-band { padding: 5rem 5%; text-align: center; background: var(--green-dark); color: white; }
+    .cta-band h2 { font-size: 3rem; margin-bottom: 1rem; }
+    .cta-band p { margin-bottom: 2rem; opacity: 0.7; }
+    .btn-w { background: white; color: var(--green-dark); padding: 1rem 3rem; border-radius: 50px; font-weight: 500; display: inline-block; transition: 0.3s; }
+    .btn-w:hover { background: #f0f0f0; }
+
+    .footer { padding: 3rem 5%; display: flex; justify-content: space-between; align-items: center; color: var(--text-muted); font-size: 0.85rem; }
+    .footer a:hover { color: var(--green); }
+
+    @media (max-width: 900px) {
+      .hero { flex-direction: column; text-align: center; justify-content: center; padding-top: 8rem; }
+      .hero-content { width: 100%; }
+      .hero-img { position: relative; width: 100%; height: 400px; clip-path: none; border-radius: 30px; margin-top: 3rem; }
+      .nav-links { display: none; }
+      .grid { grid-template-columns: 1fr; }
+      .trust { flex-direction: column; align-items: center; gap: 2rem; }
+      .footer { flex-direction: column; gap: 1rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="logo">🌿 Verdant</div>
+    <div class="nav-links">
+      <a href="#">Menu</a>
+      <a href="#">Farms</a>
+      <a href="#">Sustainability</a>
+      <a href="#">About</a>
+    </div>
+    <a href="#" class="btn">Order Now</a>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h1 class="title">Earth to Table.</h1>
+      <p class="desc">100% organic, locally sourced, and masterfully crafted vegan meals delivered straight to your door. Experience the true taste of nature.</p>
+      <a href="#" class="btn" style="padding: 1rem 3rem; font-size: 1.1rem;">Explore Menu</a>
+    </div>
+    <div class="hero-img">
+      <img src="../../../assets/img/health-verdant-vegan/auto-1.webp" alt="Healthy Vegan Food">
+    </div>
+  </section>
+
+  <section class="featured">
+    <h2 class="section-title serif">Seasonal Favorites</h2>
+    <p class="section-subtitle">Freshly picked ingredients, prepared today.</p>
+    
+    <div class="grid">
+      <div class="item-card">
+        <div class="item-img"><img src="../../../assets/img/health-verdant-vegan/auto-2.webp" alt="Salad"></div>
+        <h3 class="item-title">Avocado Bliss Bowl</h3>
+        <p class="item-price">$14.00</p>
+      </div>
+      <div class="item-card">
+        <div class="item-img"><img src="../../../assets/img/health-verdant-vegan/auto-3.webp" alt="Salad"></div>
+        <h3 class="item-title">Rainbow Quinoa</h3>
+        <p class="item-price">$12.50</p>
+      </div>
+      <div class="item-card">
+        <div class="item-img"><img src="../../../assets/img/health-verdant-vegan/auto-4.webp" alt="Wrap"></div>
+        <h3 class="item-title">Spicy Tofu Wrap</h3>
+        <p class="item-price">$10.00</p>
+      </div>
+    </div>
+  </section>
+  <section class="trust">
+    <div><div class="tr-icon">🌿</div><div class="tr-name">100% Organic</div><div class="tr-desc">Certified organic ingredients</div></div>
+    <div><div class="tr-icon">📦</div><div class="tr-name">Free Delivery</div><div class="tr-desc">On orders over $30</div></div>
+    <div><div class="tr-icon">♻️</div><div class="tr-name">Zero Waste</div><div class="tr-desc">Fully compostable packaging</div></div>
+    <div><div class="tr-icon">❤️</div><div class="tr-name">Plant-Based</div><div class="tr-desc">Always 100% vegan</div></div>
+  </section>
+
+  <section class="cta-band">
+    <h2 class="serif">Nourish Your Body, Naturally.</h2>
+    <p>Get 20% off your first order with code VERDANT20</p>
+    <a href="#" class="btn-w">Order Now</a>
+  </section>
+
+  <footer class="footer">
+    <span class="serif" style="font-size: 1.3rem; color: var(--green-dark);">🌿 Verdant</span>
+    <div style="display: flex; gap: 2rem;"><a href="#">Instagram</a><a href="#">Blog</a><a href="#">Contact</a></div>
+    <span>&copy; 2026 Verdant Organic Delivery</span>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dr. Care | Medical Clinic</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --blue: #0284C7;
+      --blue-dark: #0369A1;
+      --blue-light: #E0F2FE;
+      --text: #1E293B;
+      --grey: #F8FAFC;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background: white; color: var(--text); overflow-x: hidden; }
+    a { text-decoration: none; color: inherit; }
+
+    .top-bar { background: var(--blue-dark); color: white; padding: 0.5rem 5%; display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 500; }
+    .nav { padding: 1.5rem 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #E2E8F0; position: sticky; top:0; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); z-index: 100; }
+    .logo { font-size: 1.8rem; font-weight: 700; color: var(--blue-dark); display: flex; align-items: center; gap: 10px; }
+    .logo span { color: var(--blue); }
+    
+    .nav-links { display: flex; gap: 2rem; font-weight: 600; font-size: 0.95rem; color: #475569; }
+    .nav-links a:hover { color: var(--blue); }
+    
+    .btn { background: var(--blue); color: white; padding: 0.8rem 2rem; border-radius: 6px; font-weight: 600; cursor: pointer; transition: 0.3s; display: inline-block; border: none; }
+    .btn:hover { background: var(--blue-dark); }
+
+    .hero { padding: 6rem 5%; display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 4rem; background: linear-gradient(135deg, var(--grey) 0%, white 100%); }
+    .badge { background: var(--blue-light); color: var(--blue-dark); padding: 0.5rem 1rem; border-radius: 20px; font-weight: 700; font-size: 0.85rem; display: inline-block; margin-bottom: 1.5rem; text-transform: uppercase; letter-spacing: 1px; }
+    .title { font-size: 3.5rem; line-height: 1.2; margin-bottom: 1.5rem; font-weight: 700; color: #0F172A; }
+    .desc { font-size: 1.1rem; line-height: 1.7; color: #64748B; margin-bottom: 2.5rem; }
+
+    .hero-img { position: relative; }
+    .hero-img img { width: 100%; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.08); }
+    .floating-card { position: absolute; bottom: -20px; left: -20px; background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); display: flex; gap: 1rem; align-items: center; }
+    .fc-icon { background: var(--blue-light); color: var(--blue); width: 50px; height: 50px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.5rem; font-weight: bold; }
+
+    .services { padding: 5rem 5%; }
+    .s-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+    .s-card { border: 1px solid #E2E8F0; padding: 2rem; border-radius: 10px; transition: 0.3s; background: white; }
+    .s-card:hover { border-color: var(--blue); box-shadow: 0 10px 20px rgba(2, 132, 199, 0.1); transform: translateY(-5px); }
+    .s-icon { font-size: 2rem; color: var(--blue); margin-bottom: 1rem; }
+    .s-title { font-weight: 700; margin-bottom: 0.5rem; font-size: 1.1rem; }
+    .s-desc { color: #64748B; font-size: 0.9rem; line-height: 1.5; }
+
+    .cta-band { padding: 5rem 5%; text-align: center; background: var(--blue-dark); color: white; }
+    .cta-band h2 { font-size: 2.5rem; margin-bottom: 1rem; font-weight: 700; }
+    .cta-band p { margin-bottom: 2rem; opacity: 0.8; }
+    .btn-white { background: white; color: var(--blue-dark); padding: 1rem 3rem; border-radius: 6px; font-weight: 600; display: inline-block; transition: 0.3s; }
+    .btn-white:hover { background: var(--blue-light); }
+
+    .footer { padding: 3rem 5%; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #E2E8F0; color: #94A3B8; font-size: 0.85rem; }
+    .footer a:hover { color: var(--blue); }
+
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; padding-top: 3rem; }
+      .nav-links { display: none; }
+      .s-grid { grid-template-columns: 1fr 1fr; }
+      .floating-card { display: none; }
+      .footer { flex-direction: column; gap: 1rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+  <div class="top-bar">
+    <div>📞 1-800-DR-CARE (24/7 Emergency Line)</div>
+    <div>📍 123 Health Ave, Medical District</div>
+  </div>
+
+  <nav class="nav">
+    <div class="logo">Dr.<span>Care</span></div>
+    <div class="nav-links">
+      <a href="#">Departments</a>
+      <a href="#">Doctors</a>
+      <a href="#">Find a Location</a>
+    </div>
+    <button class="btn">Book Appointment</button>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-text">
+      <div class="badge">Trusted Healthcare</div>
+      <h1 class="title">Exceptional Care,<br>Close to Home.</h1>
+      <p class="desc">Providing world-class medical services with compassion. Our team of board-certified specialists is dedicated to your absolute well-being and recovery.</p>
+      <div style="display:flex; gap: 1rem;">
+        <a href="#" class="btn">Find a Doctor</a>
+        <a href="#" class="btn" style="background:#F1F5F9; color:var(--text);">View Services</a>
+      </div>
+    </div>
+    <div class="hero-img">
+      <img src="../../../assets/img/health-dr-care/auto-1.webp" alt="Hospital Room">
+      <div class="floating-card">
+        <div class="fc-icon">✓</div>
+        <div>
+          <div style="font-weight:700; color:var(--text);">Top Rated</div>
+          <div style="color:#64748B; font-size:0.9rem;">4.9/5 Patient Satisfaction</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="services">
+    <div class="s-grid">
+      <div class="s-card">
+        <div class="s-icon">🦷</div>
+        <div class="s-title">Dental Care</div>
+        <div class="s-desc">Comprehensive oral health, from cleanings to cosmetic dentistry.</div>
+      </div>
+      <div class="s-card">
+        <div class="s-icon">❤️</div>
+        <div class="s-title">Cardiology</div>
+        <div class="s-desc">Advanced heart care and preventative health screening.</div>
+      </div>
+      <div class="s-card">
+        <div class="s-icon">👶</div>
+        <div class="s-title">Pediatrics</div>
+        <div class="s-desc">Gentle and dedicated medical care for infants and children.</div>
+      </div>
+      <div class="s-card">
+        <div class="s-icon">🔬</div>
+        <div class="s-title">Laboratory</div>
+        <div class="s-desc">Fast, accurate on-site testing for quick diagnostics.</div>
+      </div>
+    </div>
+  </section>
+  <section class="cta-band">
+    <h2>Your Health, Our Priority.</h2>
+    <p>Book an appointment online or call our 24/7 emergency line.</p>
+    <a href="#" class="btn-white">Schedule Appointment</a>
+  </section>
+
+  <footer class="footer">
+    <div class="logo" style="font-size: 1.2rem;">Dr.<span>Care</span></div>
+    <div style="display: flex; gap: 2rem;"><a href="#">Locations</a><a href="#">Careers</a><a href="#">Contact</a></div>
+    <span>&copy; 2026 Dr. Care Medical Clinic</span>
+  </footer>
+</body>
+</html>

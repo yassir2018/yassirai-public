@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tech Bootcamp | Code Academy</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Rubik:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0C0F12;
+      --surface: #151A20;
+      --primary: #00FF88;
+      --secondary: #6B46C1;
+      --text: #E2E8F0;
+      --text-muted: #94A3B8;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family: 'Rubik', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
+    .mono { font-family: 'Fira Code', monospace; }
+    a { text-decoration: none; color: inherit; }
+
+    /* Navigation */
+    .nav { padding: 1.5rem 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .logo { font-weight: 800; font-size: 1.5rem; letter-spacing: -1px; display: flex; align-items: center; gap: 8px; }
+    .logo span { color: var(--primary); }
+
+    .nav-links { display: flex; gap: 2.5rem; font-weight: 600; font-size: 0.9rem; letter-spacing: 1px; text-transform: uppercase; }
+    .nav-links a { position: relative; }
+    .nav-links a:hover { color: var(--primary); }
+
+    .btn { background: transparent; color: var(--primary); border: 2px solid var(--primary); padding: 0.8rem 1.8rem; font-weight: 600; text-transform: uppercase; cursor: pointer; transition: 0.3s; position: relative; overflow: hidden; z-index: 1; }
+    .btn::before { content:''; position:absolute; top:0; left:-100%; width:100%; height:100%; background: var(--primary); z-index: -1; transition: 0.3s; }
+    .btn:hover::before { left: 0; }
+    .btn:hover { color: var(--bg); box-shadow: 0 0 20px rgba(0,255,136,0.4); }
+
+    /* Hero */
+    .hero { min-height: 85vh; display: flex; align-items: center; padding: 0 5%; position: relative; }
+    /* Grid background */
+    .hero::before { content:''; position:absolute; inset:0; background: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px); background-size: 50px 50px; z-index: -1; transform: perspective(500px) rotateX(60deg) scale(2); transform-origin: top; animation: scrollGrid 10s linear infinite; }
+    @keyframes scrollGrid { 0% { background-position: 0 0; } 100% { background-position: 0 50px; } }
+
+    .h-content { max-width: 700px; }
+    .badge-mono { display: inline-block; background: rgba(0,255,136,0.1); color: var(--primary); padding: 6px 15px; border-radius: 4px; font-size: 0.85rem; margin-bottom: 2rem; border: 1px solid rgba(0,255,136,0.2); }
+    
+    .title { font-size: 5rem; font-weight: 800; line-height: 1; margin-bottom: 1.5rem; letter-spacing: -2px; }
+    .title span { background: linear-gradient(90deg, var(--primary), #00BFFF); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .desc { font-size: 1.25rem; line-height: 1.6; color: var(--text-muted); margin-bottom: 2.5rem; }
+
+    /* Code Terminal graphic */
+    .terminal { position: absolute; right: 5%; top: 50%; transform: translateY(-50%); width: 500px; height: 350px; background: var(--surface); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; box-shadow: 0 30px 60px rgba(0,0,0,0.8); display: flex; flex-direction: column; overflow: hidden; }
+    .t-head { background: #000; padding: 12px; display: flex; gap: 8px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .dot { width: 12px; height: 12px; border-radius: 50%; }
+    .t-body { padding: 1.5rem; flex: 1; font-size: 0.9rem; line-height: 1.5; color: #A5D6FF; }
+    .t-body .k { color: #FF7B72; }
+    .t-body .f { color: #D2A8FF; }
+    .t-body .s { color: #A5D6FF; }
+    .cursor { display: inline-block; width: 8px; height: 15px; background: var(--primary); animation: blink 1s infinite; vertical-align: middle; }
+    @keyframes blink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0; } }
+
+    /* Stats container */
+    .programs { padding: 5rem 5%; background: var(--surface); }
+    .p-title { font-size: 3rem; font-weight: 800; margin-bottom: 3rem; text-align: center; }
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+    .card { background: var(--bg); border: 1px solid rgba(255,255,255,0.05); padding: 3rem 2rem; text-align: center; transition: 0.3s; }
+    .card:hover { border-color: var(--primary); transform: translateY(-10px); }
+    .c-icon { font-size: 3rem; margin-bottom: 1.5rem; color: var(--primary); }
+    .c-title { font-size: 1.5rem; font-weight: 800; margin-bottom: 1rem; }
+    .c-desc { color: var(--text-muted); line-height: 1.6; }
+
+    .stats { display: flex; background: var(--bg); border-top: 1px solid rgba(0,255,136,0.1); border-bottom: 1px solid rgba(0,255,136,0.1); padding: 3rem 5%; justify-content: space-around; text-align: center; }
+    .st-val { font-size: 3rem; font-weight: 800; color: var(--primary); }
+    .st-lbl { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 0.3rem; }
+
+    .cta-band { padding: 5rem 5%; text-align: center; background: linear-gradient(135deg, rgba(0,255,136,0.05), transparent); }
+    .cta-band h2 { font-size: 2.5rem; font-weight: 800; margin-bottom: 1rem; }
+    .cta-band p { color: var(--text-muted); margin-bottom: 2rem; }
+
+    .footer { padding: 3rem 5%; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.05); color: #555; font-size: 0.85rem; }
+    .footer a:hover { color: var(--primary); }
+
+    @media (max-width: 1100px) {
+      .nav-links { display: none; }
+      .hero { padding: 6rem 5%; justify-content: center; text-align: center; flex-direction: column; gap: 4rem; }
+      .terminal { position: relative; transform: none; width: 100%; top: 0; right: 0; }
+      .title { font-size: 3.5rem; }
+      .grid { grid-template-columns: 1fr; }
+      .stats { flex-direction: column; gap: 2rem; }
+      .footer { flex-direction: column; gap: 1rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="logo">TECH<span>/</span>CAMP</div>
+    <div class="nav-links">
+      <a href="#">Curriculum</a>
+      <a href="#">Alumni</a>
+      <a href="#">Tuition</a>
+      <a href="#">Enterprise</a>
+    </div>
+    <button class="btn">Apply Cohort #24</button>
+  </nav>
+
+  <section class="hero">
+    <div class="h-content">
+      <div class="badge-mono mono">> init_career_launch.sh</div>
+      <h1 class="title">Code your way<br>to <span>the future.</span></h1>
+      <p class="desc">A rigorous 12-week immersive software engineering bootcamp. Go from absolute beginner to full-stack developer, backed by our job placement guarantee.</p>
+      <div style="display: flex; gap: 20px;">
+        <button class="btn" style="background: var(--primary); color: var(--bg);">View Syllabus</button>
+        <div class="mono" style="color: var(--text-muted); display:flex; align-items:center;">Next cohort: Oct 15th</div>
+      </div>
+    </div>
+
+    <div class="terminal mono">
+      <div class="t-head">
+        <div class="dot" style="background:#FF5F56;"></div>
+        <div class="dot" style="background:#FFBD2E;"></div>
+        <div class="dot" style="background:#27C93F;"></div>
+      </div>
+      <div class="t-body">
+        <div><span class="k">function</span> <span class="f">becomeDeveloper</span>() {</div>
+        <div style="padding-left: 20px;"><span class="k">const</span> skills = [<span class="s">'React'</span>, <span class="s">'Node.js'</span>, <span class="s">'Python'</span>, <span class="s">'SQL'</span>];</div>
+        <div style="padding-left: 20px;"><span class="k">while</span> (!hired) {</div>
+        <div style="padding-left: 40px;"><span class="f">code</span>();</div>
+        <div style="padding-left: 40px;"><span class="f">buildProjects</span>();</div>
+        <div style="padding-left: 40px;"><span class="f">mockInterviews</span>();</div>
+        <div style="padding-left: 20px;">}</div>
+        <div style="padding-left: 20px;"><span class="k">return</span> <span class="s">'Senior Engineer'</span>;</div>
+        <div>}</div>
+        <br>
+        <div style="color: var(--primary);">> npm run start_career<span class="cursor"></span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="programs">
+    <h2 class="p-title">Choose your path</h2>
+    <div class="grid">
+      <div class="card">
+        <div class="c-icon mono">{/}</div>
+        <h3 class="c-title">Full-Stack Web</h3>
+        <p class="c-desc">Master JavaScript, React, Node.js and PostgreSQL. Build production-ready web applications from scratch.</p>
+      </div>
+      <div class="card">
+        <div class="c-icon mono">[ ]</div>
+        <h3 class="c-title">Data Science</h3>
+        <p class="c-desc">Dive into Python, Machine Learning, TensorFlow, and statistical analysis to extract meaning from big data.</p>
+      </div>
+      <div class="card">
+        <div class="c-icon mono">< ></div>
+        <h3 class="c-title">Cybersecurity</h3>
+        <p class="c-desc">Learn ethical hacking, network defense, and cryptography to protect systems against modern threats.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="stats">
+    <div><div class="st-val">94%</div><div class="st-lbl">Job Placement Rate</div></div>
+    <div><div class="st-val">$85K</div><div class="st-lbl">Avg Starting Salary</div></div>
+    <div><div class="st-val">12</div><div class="st-lbl">Weeks to Launch</div></div>
+    <div><div class="st-val">2,500+</div><div class="st-lbl">Graduates</div></div>
+  </section>
+
+  <section class="cta-band">
+    <h2>Ready to <span style="color:var(--primary);">compile</span> your future?</h2>
+    <p>Applications for Cohort #24 close October 1st. Scholarships available.</p>
+    <button class="btn" style="background: var(--primary); color: var(--bg);">Apply Now — Free</button>
+  </section>
+
+  <footer class="footer">
+    <div class="logo">TECH<span style="color:var(--primary);">/</span>CAMP</div>
+    <div style="display: flex; gap: 2rem;"><a href="#">GitHub</a><a href="#">Discord</a><a href="#">Blog</a></div>
+    <span>&copy; 2026 Tech/Camp Academy</span>
+  </footer>
+</body>
+</html>

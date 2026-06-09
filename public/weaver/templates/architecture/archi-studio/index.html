@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Atelier Forma — Studio d'architecture. Conception, urbanisme, design intérieur et projets durables."/>
+  <title>Atelier Forma — Architecture & Design</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root{--bg:#fafafa;--bg2:#fff;--bg3:#f0f0f0;--text:#111;--text-muted:#666;--text-dim:#999;--accent:#111;--border:#e0e0e0;--ff:'Space Grotesk','Inter',sans-serif;--radius:6px;--shadow:0 2px 16px rgba(0,0,0,0.06)}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+    body{font-family:var(--ff);background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden}
+    a{color:inherit;text-decoration:none}img{max-width:100%;display:block}.container{max-width:1200px;margin:0 auto;padding:0 2rem}
+    .btn{display:inline-flex;align-items:center;gap:0.5rem;padding:0.75rem 1.75rem;border-radius:var(--radius);font-size:0.85rem;font-weight:600;cursor:pointer;border:none;font-family:var(--ff);transition:all 0.25s}
+    .btn-black{background:#111;color:#fff}.btn-black:hover{background:#333}
+    .btn-outline{background:transparent;border:2px solid var(--border);color:var(--text)}.btn-outline:hover{border-color:#111}
+
+    .navbar{position:fixed;top:0;width:100%;z-index:100;background:rgba(250,250,250,0.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:0.75rem 0}
+    .nav-inner{display:flex;align-items:center;justify-content:space-between}
+    .nav-brand{font-size:1.2rem;font-weight:700;letter-spacing:-0.02em}.nav-brand span{font-weight:400;color:var(--text-muted)}
+    .nav-links{display:flex;gap:2rem}.nav-link{font-size:0.85rem;font-weight:500;color:var(--text-muted);transition:color 0.2s}.nav-link:hover{color:#111}
+
+    .hero{padding:10rem 0 6rem;position:relative}
+    .hero-inner{max-width:800px}
+    .hero-tag{display:inline-block;padding:0.3rem 0.75rem;border:1px solid var(--border);border-radius:var(--radius);font-size:0.75rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:1.5rem}
+    .hero-title{font-size:clamp(3rem,5.5vw,4.5rem);font-weight:700;line-height:1.05;letter-spacing:-0.03em;margin-bottom:1.5rem}
+    .hero-desc{font-size:1.1rem;color:var(--text-muted);max-width:520px;line-height:1.7;margin-bottom:2rem;font-weight:400}
+    .hero-actions{display:flex;gap:0.75rem}
+
+    .section{padding:5rem 0}.section-header{margin-bottom:3rem}
+    .section-header.center{text-align:center}
+    .section-tag{display:inline-block;font-size:0.7rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-muted);margin-bottom:0.75rem}
+    .section-title{font-size:2.25rem;font-weight:700;letter-spacing:-0.02em;line-height:1.15}
+    .section-desc{font-size:1rem;color:var(--text-muted);max-width:550px;margin-top:0.75rem}
+    .section-header.center .section-desc{margin-left:auto;margin-right:auto}
+
+    /* Projects — Asymmetric grid */
+    .projects-grid{display:grid;grid-template-columns:1.5fr 1fr;gap:1rem}
+    .project-card{position:relative;overflow:hidden;border-radius:var(--radius);cursor:pointer}
+    .project-card img{width:100%;height:100%;object-fit:cover;transition:transform 0.5s}
+    .project-card:hover img{transform:scale(1.04)}
+    .project-card::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.6),transparent 50%);opacity:0;transition:opacity 0.3s}
+    .project-card:hover::after{opacity:1}
+    .project-info{position:absolute;bottom:1.5rem;left:1.5rem;z-index:2;color:#fff;opacity:0;transition:opacity 0.3s;transform:translateY(10px);transition:all 0.3s}
+    .project-card:hover .project-info{opacity:1;transform:translateY(0)}
+    .project-name{font-size:1.15rem;font-weight:700;margin-bottom:0.15rem}
+    .project-meta{font-size:0.8rem;color:rgba(255,255,255,0.7)}
+    .project-tall{grid-row:span 2;min-height:500px}
+    .projects-grid2{display:grid;grid-template-columns:1fr 1.5fr;gap:1rem;margin-top:1rem}
+
+    /* Services */
+    .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
+    .service-card{padding:2rem;border:1px solid var(--border);border-radius:var(--radius);transition:all 0.3s}
+    .service-card:hover{border-color:#111;transform:translateY(-3px)}
+    .service-num{font-size:2.5rem;font-weight:700;color:var(--bg3);margin-bottom:0.75rem;line-height:1}
+    .service-title{font-weight:700;font-size:1.05rem;margin-bottom:0.35rem}
+    .service-desc{font-size:0.85rem;color:var(--text-muted);line-height:1.6}
+
+    /* Stats */
+    .stats-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;padding:3rem 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);text-align:center}
+    .stat-num{font-size:2.5rem;font-weight:700;letter-spacing:-0.02em}
+    .stat-label{font-size:0.8rem;color:var(--text-muted);margin-top:0.15rem}
+
+    .cta-section{background:#111;color:#fff;padding:5rem 0;text-align:center;border-radius:var(--radius);margin:0 2rem 3rem}
+    .cta-title{font-size:2.25rem;font-weight:700;letter-spacing:-0.02em;margin-bottom:1rem}
+    .cta-desc{font-size:1.05rem;color:rgba(255,255,255,0.6);max-width:500px;margin:0 auto 2rem}
+
+    .footer{padding:2.5rem 0 1.5rem;border-top:1px solid var(--border)}
+    .footer-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+    .footer-brand{font-weight:700;font-size:1.1rem}.footer-brand span{font-weight:400;color:var(--text-muted)}
+    .footer-links{display:flex;gap:1.5rem}.footer-link{font-size:0.8rem;color:var(--text-muted)}.footer-link:hover{color:#111}
+    .footer-copy{font-size:0.75rem;color:var(--text-dim);text-align:center;margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--border)}
+
+    .reveal{opacity:0;transform:translateY(25px);transition:opacity 0.6s,transform 0.6s}.reveal.visible{opacity:1;transform:translateY(0)}
+    @media(max-width:1024px){.projects-grid,.projects-grid2{grid-template-columns:1fr}.project-tall{grid-row:auto;min-height:300px}.services-grid{grid-template-columns:1fr 1fr}.stats-bar{grid-template-columns:repeat(2,1fr)}.nav-links{display:none}}
+    @media(max-width:640px){.container{padding:0 1.25rem}.services-grid,.stats-bar{grid-template-columns:1fr}.hero-title{font-size:2.5rem}.section{padding:3.5rem 0}.footer-inner{flex-direction:column;text-align:center}.cta-section{margin:0 1rem 2rem}}
+  </style>
+</head>
+<body>
+  <nav class="navbar"><div class="container nav-inner"><a href="#" class="nav-brand">Forma<span>studio</span></a><div class="nav-links"><a href="#projects" class="nav-link">Projets</a><a href="#services" class="nav-link">Services</a><a href="#about" class="nav-link">À propos</a></div><a href="#" class="btn btn-black">Nous contacter</a></div></nav>
+  <main>
+    <section class="hero"><div class="container"><div class="hero-inner">
+      <div class="hero-tag">Studio d'architecture — Depuis 2008</div>
+      <h1 class="hero-title">Nous concevons les espaces qui inspirent</h1>
+      <p class="hero-desc">Architecture contemporaine, design intérieur et urbanisme durable. Chaque projet est une vision qui prend forme.</p>
+      <div class="hero-actions"><a href="#projects" class="btn btn-black">Voir nos projets</a><a href="#" class="btn btn-outline">Nous contacter</a></div>
+    </div></div></section>
+
+    <section class="section reveal" id="projects">
+      <div class="container"><div class="section-header"><div class="section-tag">Projets sélectionnés</div><h2 class="section-title">Architecture en action</h2></div>
+        <div class="projects-grid">
+          <div class="project-card project-tall"><img src="assets/img/architecture-archi-studio/image-1.webp" alt="Projet 1"/><div class="project-info"><div class="project-name">Tour Horizon</div><div class="project-meta">Casablanca · Tour de bureaux · 2024</div></div></div>
+          <div class="project-card" style="min-height:240px"><img src="assets/img/architecture-archi-studio/image-2.webp" alt="Projet 2"/><div class="project-info"><div class="project-name">Villa Lumière</div><div class="project-meta">Tanger · Résidentiel · 2023</div></div></div>
+          <div class="project-card" style="min-height:240px"><img src="assets/img/architecture-archi-studio/image-3.webp" alt="Projet 3"/><div class="project-info"><div class="project-name">Résidence Les Palmiers</div><div class="project-meta">Marrakech · Complexe · 2024</div></div></div>
+        </div>
+        <div class="projects-grid2">
+          <div class="project-card" style="min-height:300px"><img src="assets/img/architecture-archi-studio/image-4.webp" alt="Projet 4"/><div class="project-info"><div class="project-name">Éco-Campus Atlas</div><div class="project-meta">Rabat · Éducation · 2025</div></div></div>
+          <div class="project-card" style="min-height:300px"><img src="assets/img/architecture-archi-studio/image-5.webp" alt="Projet 5"/><div class="project-info"><div class="project-name">Musée d'Art Contemporain</div><div class="project-meta">Fès · Culturel · 2025</div></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="reveal" id="about"><div class="container">
+      <div class="stats-bar">
+        <div><div class="stat-num">120+</div><div class="stat-label">Projets livrés</div></div>
+        <div><div class="stat-num">15</div><div class="stat-label">Prix d'architecture</div></div>
+        <div><div class="stat-num">35</div><div class="stat-label">Architectes & designers</div></div>
+        <div><div class="stat-num">8</div><div class="stat-label">Pays d'intervention</div></div>
+      </div>
+    </div></section>
+
+    <section class="section reveal" id="services">
+      <div class="container"><div class="section-header center"><div class="section-tag">Services</div><h2 class="section-title">Notre expertise</h2></div>
+        <div class="services-grid">
+          <div class="service-card"><div class="service-num">01</div><div class="service-title">Architecture</div><div class="service-desc">Conception architecturale complète, du programme à la livraison. Résidentiel, tertiaire et culturel.</div></div>
+          <div class="service-card"><div class="service-num">02</div><div class="service-title">Design Intérieur</div><div class="service-desc">Aménagement d'espaces résidentiels et professionnels avec un souci du détail exceptionnel.</div></div>
+          <div class="service-card"><div class="service-num">03</div><div class="service-title">Urbanisme Durable</div><div class="service-desc">Masterplans, éco-quartiers et projets urbains à impact positif sur l'environnement.</div></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="container"><section class="cta-section reveal">
+      <h2 class="cta-title">Un projet en tête ?</h2>
+      <p class="cta-desc">Discutons de votre vision. Première consultation gratuite pour tous les projets de plus de 200m².</p>
+      <a href="#" class="btn" style="background:#fff;color:#111;border-radius:var(--radius)">Prendre rendez-vous →</a>
+    </section></div>
+  </main>
+
+  <footer class="footer"><div class="container">
+    <div class="footer-inner"><div class="footer-brand">Forma<span>studio</span></div><div class="footer-links"><a href="#" class="footer-link">Projets</a><a href="#" class="footer-link">Services</a><a href="#" class="footer-link">Presse</a><a href="#" class="footer-link">Recrutement</a></div></div>
+    <div class="footer-copy">© 2026 Atelier Forma — Ordre des Architectes du Maroc — CNOA n° 2008/A/001</div>
+  </div></footer>
+  <script>const ro=new IntersectionObserver(e=>e.forEach(el=>{if(el.isIntersecting)el.target.classList.add('visible')}),{threshold:0.1});document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));</script>
+</body>
+</html>

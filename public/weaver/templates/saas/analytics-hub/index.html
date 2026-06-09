@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Analytics Hub | Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0F172A;
+      --panel: #1E293B;
+      --border: #334155;
+      --text: #F8FAFC;
+      --muted: #94A3B8;
+      --primary: #3B82F6;
+      --success: #10B981;
+      --danger: #EF4444;
+      --purple: #8B5CF6;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); display: flex; height: 100vh; overflow: hidden; }
+    
+    /* Sidebar */
+    .sidebar { width: 260px; background: var(--panel); border-right: 1px solid var(--border); display: flex; flex-direction: column; padding: 1.5rem; }
+    .logo { font-size: 1.5rem; font-weight: 700; color: white; margin-bottom: 2rem; display: flex; align-items: center; gap: 10px; }
+    .logo span { color: var(--primary); }
+    .nav-item { padding: 10px 15px; border-radius: 8px; color: var(--muted); cursor: pointer; display: flex; align-items: center; gap: 15px; margin-bottom: 5px; font-weight: 500; transition: 0.2s; }
+    .nav-item:hover { background: rgba(255,255,255,0.05); color: white; }
+    .nav-item.active { background: var(--primary); color: white; }
+    
+    /* Main Content */
+    .main { flex: 1; display: flex; flex-direction: column; overflow-y: auto; }
+    .header { padding: 1.5rem 2rem; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; background: var(--panel); position: sticky; top: 0; z-index: 10; }
+    .search { background: var(--bg); border: 1px solid var(--border); padding: 8px 15px; border-radius: 6px; color: white; outline: none; width: 300px; }
+    .user { display: flex; align-items: center; gap: 15px; }
+    .avatar { width: 35px; height: 35px; border-radius: 50%; background: var(--purple); display: flex; justify-content: center; align-items: center; font-weight: 700; }
+
+    .content { padding: 2rem; }
+    .page-title { font-size: 1.8rem; font-weight: 700; margin-bottom: 1.5rem; }
+
+    /* Stats Grid */
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-bottom: 2rem; }
+    .stat-card { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; }
+    .s-title { color: var(--muted); font-size: 0.9rem; margin-bottom: 10px; font-weight: 500; }
+    .s-val { font-size: 2rem; font-weight: 700; margin-bottom: 5px; }
+    .s-change { font-size: 0.85rem; font-weight: 600; display: flex; align-items: center; gap: 5px; }
+    .s-change.up { color: var(--success); }
+    .s-change.down { color: var(--danger); }
+
+    /* Charts Area */
+    .charts-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 1.5rem; margin-bottom: 2rem; }
+    .chart-card { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; }
+    .c-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
+    .c-title { font-weight: 600; font-size: 1.1rem; }
+    
+    /* Mock Chart Graphics */
+    .mock-chart-line { height: 250px; background: linear-gradient(to top, rgba(59, 130, 246, 0.2), transparent); border-bottom: 2px solid var(--primary); position: relative; margin-top: 2rem; border-radius: 0 0 8px 8px;}
+    .mock-chart-line::before { content:''; position:absolute; width: 50%; height: 100%; border-right: 2px solid var(--primary); transform: skewY(-20deg); transform-origin: bottom right; bottom: 0; left: 0; }
+    .mock-chart-line::after { content:''; position:absolute; width: 50%; height: 100%; border-left: 2px solid var(--primary); transform: skewY(15deg); transform-origin: bottom left; bottom: 0; right: 0; }
+    
+    .mock-bar-wrap { display: flex; align-items: flex-end; justify-content: space-between; height: 200px; padding-top: 1rem; }
+    .mock-bar { width: 12%; background: var(--primary); border-radius: 4px 4px 0 0; }
+
+    @media (max-width: 1000px) {
+      .charts-grid { grid-template-columns: 1fr; }
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar">
+    <div class="logo"><span>❖</span> DataHub</div>
+    <div class="nav-item active">📊 Overview</div>
+    <div class="nav-item">📈 Real-time</div>
+    <div class="nav-item">👥 Audience</div>
+    <div class="nav-item">Acquisition</div>
+    <div class="nav-item">Behavior</div>
+    <div style="margin-top: auto;">
+      <div class="nav-item">⚙️ Settings</div>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="header">
+      <input type="text" class="search" placeholder="Search analytics...">
+      <div class="user">
+        <span style="color: var(--muted); font-size:0.9rem;">Admin</span>
+        <div class="avatar">A</div>
+      </div>
+    </div>
+    
+    <div class="content">
+      <div style="display:flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+        <h1 class="page-title" style="margin:0;">Dashboard Overview</h1>
+        <select style="background:var(--panel); border:1px solid var(--border); color:white; padding:8px 15px; border-radius:6px; outline:none;">
+          <option>Last 7 Days</option>
+          <option>Last 30 Days</option>
+        </select>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="s-title">Total Users</div>
+          <div class="s-val">84,230</div>
+          <div class="s-change up">↑ 12.5% vs last week</div>
+        </div>
+        <div class="stat-card">
+          <div class="s-title">Sessions</div>
+          <div class="s-val">122,500</div>
+          <div class="s-change up">↑ 8.2% vs last week</div>
+        </div>
+        <div class="stat-card">
+          <div class="s-title">Bounce Rate</div>
+          <div class="s-val">42.3%</div>
+          <div class="s-change down">↓ 2.1% vs last week</div>
+        </div>
+        <div class="stat-card">
+          <div class="s-title">Session Duration</div>
+          <div class="s-val">3m 42s</div>
+          <div class="s-change up">↑ 0.5% vs last week</div>
+        </div>
+      </div>
+
+      <div class="charts-grid">
+        <div class="chart-card">
+          <div class="c-header">
+            <span class="c-title">Active Users (Traffic)</span>
+            <span style="color:var(--muted); font-size:0.9rem;">Jan 1 - Jan 7</span>
+          </div>
+          <div class="mock-chart-line"></div>
+        </div>
+        <div class="chart-card">
+          <div class="c-header">
+            <span class="c-title">Device Usage</span>
+          </div>
+          <div class="mock-bar-wrap">
+            <div class="mock-bar" style="height: 80%;"></div>
+            <div class="mock-bar" style="height: 45%; background: var(--purple);"></div>
+            <div class="mock-bar" style="height: 15%; background: var(--success);"></div>
+          </div>
+          <div style="display:flex; justify-content:space-between; margin-top:10px; color:var(--muted); font-size:0.8rem;">
+            <span>Desktop</span><span>Mobile</span><span>Tablet</span>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</body>
+</html>

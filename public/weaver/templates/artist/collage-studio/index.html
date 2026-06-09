@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Collage Studio | Mixed Media & Experimental Art</title>
+  <meta name="description" content="Mixed media artist portfolio. Collage, assemblage, and experimental art combining analog and digital processes.">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Space+Grotesk:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #F0ECE3;
+      --rose: #D4A5A5;
+      --blue: #3D5A80;
+      --mustard: #E9C46A;
+      --dark: #2A2A2A;
+      --muted: #8A857E;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family: 'Space Grotesk', sans-serif; background: var(--bg); color: var(--dark); overflow-x: hidden; }
+    h1, h2, h3, .display { font-family: 'Syne', sans-serif; }
+    a { text-decoration: none; color: inherit; transition: 0.3s; }
+
+    .nav { position: sticky; top: 0; padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; background: rgba(240,236,227,0.9); backdrop-filter: blur(10px); z-index: 100; }
+    .logo { font-family: 'Syne'; font-size: 1.5rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; }
+    .logo .r { color: var(--rose); display: inline-block; transform: rotate(-8deg); }
+    .logo .b { color: var(--blue); }
+    .logo .m { color: var(--mustard); display: inline-block; transform: rotate(4deg); }
+    .nav-links { display: flex; gap: 2rem; font-size: 0.85rem; font-weight: 500; }
+    .nav-links a:hover { color: var(--blue); }
+
+    /* Hero — Collage Style */
+    .hero { min-height: 100vh; display: flex; align-items: center; padding: 6rem 5%; position: relative; }
+    .hero-text { max-width: 550px; z-index: 2; }
+    .hero-title { font-size: 4.5rem; font-weight: 800; line-height: 1.05; margin-bottom: 1.5rem; text-transform: uppercase; }
+    .hero-title .line2 { color: var(--blue); -webkit-text-stroke: 2px var(--blue); -webkit-text-fill-color: transparent; }
+    .hero-title .line3 { color: var(--rose); }
+    .hero-desc { font-size: 1.05rem; color: var(--muted); line-height: 1.8; margin-bottom: 2rem; }
+    .btn-collage { padding: 0.9rem 2.5rem; background: var(--blue); color: white; border: none; border-radius: 0; font-family: 'Syne'; font-weight: 700; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.1em; cursor: pointer; transition: 0.3s; }
+    .btn-collage:hover { background: var(--dark); transform: skewX(-3deg); }
+
+    /* Floating hero images */
+    .hero-fragments { position: absolute; top: 0; right: 0; width: 55%; height: 100%; pointer-events: none; }
+    .fragment { position: absolute; box-shadow: 8px 8px 0 rgba(0,0,0,0.08); transition: 0.5s; pointer-events: auto; cursor: pointer; }
+    .fragment img { width: 100%; height: 100%; object-fit: cover; }
+    .fragment:hover { z-index: 10; transform: scale(1.05) !important; }
+    .f1 { width: 280px; height: 350px; top: 10%; right: 20%; transform: rotate(-5deg); }
+    .f2 { width: 220px; height: 280px; top: 35%; right: 5%; transform: rotate(8deg); }
+    .f3 { width: 200px; height: 200px; bottom: 15%; right: 35%; transform: rotate(-3deg); border: 6px solid var(--mustard); }
+
+    .section { padding: 6rem 5%; }
+    .section-header { margin-bottom: 4rem; }
+    .section-tag { font-size: 0.75rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--blue); font-weight: 600; margin-bottom: 0.5rem; }
+    .section-title { font-size: 3rem; font-weight: 800; text-transform: uppercase; }
+
+    /* Overlap Gallery */
+    .overlap-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem; position: relative; }
+    .overlap-item { position: relative; cursor: pointer; transition: 0.4s; }
+    .overlap-item:nth-child(2) { transform: translateY(40px); }
+    .overlap-item:nth-child(5) { transform: translateY(-30px); }
+    .overlap-item:hover { z-index: 5; transform: scale(1.03) rotate(-2deg); }
+    .overlap-item img { width: 100%; height: 350px; object-fit: cover; display: block; }
+    .overlap-item:nth-child(odd) img { box-shadow: 6px 6px 0 var(--mustard); }
+    .overlap-item:nth-child(even) img { box-shadow: -6px 6px 0 var(--rose); }
+    .overlap-label { padding: 1rem 0; }
+    .overlap-label h3 { font-size: 1.1rem; font-weight: 700; text-transform: uppercase; margin-bottom: 0.2rem; }
+    .overlap-label span { font-size: 0.8rem; color: var(--muted); }
+
+    /* Process Reel */
+    .reel-section { background: var(--dark); color: var(--bg); text-align: center; }
+    .reel-section .section-title { color: var(--bg); }
+    .reel-featured { max-width: 900px; margin: 3rem auto 0; position: relative; cursor: pointer; }
+    .reel-featured img { width: 100%; aspect-ratio: 16/9; object-fit: cover; filter: brightness(0.5); transition: 0.4s; }
+    .reel-featured:hover img { filter: brightness(0.3); }
+    .r-play { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 75px; height: 75px; border: 3px solid var(--mustard); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: var(--mustard); transition: 0.3s; }
+    .reel-featured:hover .r-play { background: var(--mustard); color: var(--dark); }
+    .reel-thumbs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; max-width: 900px; margin: 2rem auto 0; }
+    .reel-thumb { position: relative; cursor: pointer; overflow: hidden; }
+    .reel-thumb img { width: 100%; aspect-ratio: 1; object-fit: cover; transition: 0.4s; }
+    .reel-thumb:hover img { filter: brightness(0.4); transform: scale(1.05); }
+    .rt-play { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 35px; height: 35px; border: 1px solid white; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; transition: 0.3s; opacity: 0; }
+    .reel-thumb:hover .rt-play { opacity: 1; }
+
+    /* Exhibitions */
+    .exhibitions { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+    .exhibit-card { padding: 2rem; background: white; border-left: 4px solid var(--rose); transition: 0.3s; }
+    .exhibit-card:hover { border-color: var(--blue); transform: translateX(5px); }
+    .exhibit-card h3 { font-size: 1.1rem; font-weight: 700; text-transform: uppercase; margin-bottom: 0.3rem; }
+    .exhibit-card p { font-size: 0.85rem; color: var(--muted); margin-bottom: 0.2rem; }
+    .exhibit-year { font-family: 'Syne'; font-size: 0.75rem; font-weight: 700; color: var(--blue); letter-spacing: 0.1em; }
+
+    /* Press */
+    .press-logos { display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap; margin-top: 2rem; }
+    .press-logos span { font-family: 'Syne'; font-size: 1.3rem; font-weight: 700; color: rgba(0,0,0,0.12); text-transform: uppercase; transition: 0.3s; }
+    .press-logos span:hover { color: var(--blue); }
+
+    .contact { text-align: center; background: white; border-radius: 20px; margin: 3rem 5%; padding: 4rem; }
+    .contact-email { font-family: 'Syne'; font-size: 2.5rem; font-weight: 800; color: var(--blue); text-transform: uppercase; }
+    .contact-email:hover { color: var(--rose); }
+    .contact-social { display: flex; justify-content: center; gap: 1rem; margin-top: 2rem; }
+    .contact-social a { width: 42px; height: 42px; background: var(--bg); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; color: var(--dark); font-weight: 600; transition: 0.3s; }
+    .contact-social a:hover { background: var(--blue); color: white; }
+
+    .footer { padding: 2rem 5%; display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--muted); }
+
+    dialog { border: none; background: transparent; max-width: 90vw; max-height: 90vh; padding: 0; }
+    dialog::backdrop { background: rgba(42,42,42,0.95); }
+    #imgModal img { max-width: 85vw; max-height: 85vh; object-fit: contain; }
+    #videoModal .video-container { width: 80vw; max-width: 1000px; aspect-ratio: 16/9; }
+    #videoModal .video-container iframe { width: 100%; height: 100%; border: none; }
+    .modal-close { position: fixed; top: 2rem; right: 2rem; width: 45px; height: 45px; background: var(--mustard); border: none; color: var(--dark); font-size: 1.3rem; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 1000; font-weight: bold; }
+
+    .reveal { opacity: 0; transform: translateY(25px); transition: all 0.8s ease-out; }
+    .reveal.active { opacity: 1; transform: translateY(0); }
+    .back-to-top { position: fixed; bottom: 30px; right: 30px; width: 45px; height: 45px; background: var(--blue); color: white; border: none; font-size: 1.2rem; cursor: pointer; opacity: 0; visibility: hidden; transition: 0.3s; z-index: 99; }
+    .back-to-top.visible { opacity: 1; visibility: visible; }
+    .back-to-top:hover { transform: translateY(-5px) rotate(-3deg); }
+
+    @media (max-width: 900px) {
+      .hero { flex-direction: column; text-align: center; padding-top: 5rem; }
+      .hero-fragments { position: relative; width: 100%; height: 400px; margin-top: 2rem; }
+      .f1 { width:180px; height:220px; top:5%; right:10%; }
+      .f2 { width:160px; height:200px; top:30%; right:55%; }
+      .f3 { width:140px; height:140px; bottom:5%; right:15%; }
+      .hero-title { font-size: 3rem; }
+      .nav-links { display: none; }
+      .overlap-grid { grid-template-columns: 1fr; }
+      .overlap-item:nth-child(2), .overlap-item:nth-child(5) { transform: none; }
+      .reel-thumbs { grid-template-columns: repeat(2, 1fr); }
+      .exhibitions { grid-template-columns: 1fr; }
+      .section-title { font-size: 2.2rem; }
+      .contact { margin: 2rem 0; border-radius: 0; }
+      .contact-email { font-size: 1.5rem; }
+      .footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="logo">C<span class="r">O</span>LLA<span class="b">G</span>E <span class="m">S</span>TUDIO</div>
+    <div class="nav-links">
+      <a href="#work">Work</a>
+      <a href="#reel">Process</a>
+      <a href="#exhibitions">Shows</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-text">
+      <h1 class="hero-title display">CUT.<br><span class="line2">PASTE.</span><br><span class="line3">CREATE.</span></h1>
+      <p class="hero-desc">Mixed media artist deconstructing visual culture through collage, assemblage, and experimental processes. Every piece is a conversation between found materials and new meaning.</p>
+      <button class="btn-collage" onclick="document.getElementById('work').scrollIntoView({behavior:'smooth'})">View Works →</button>
+    </div>
+    <div class="hero-fragments">
+      <div class="fragment f1" onclick="openImg(this)"><img src="../../../assets/img/artist-collage-studio/auto-1.webp" alt="Collage 1"></div>
+      <div class="fragment f2" onclick="openImg(this)"><img src="../../../assets/img/artist-collage-studio/auto-2.webp" alt="Collage 2"></div>
+      <div class="fragment f3" onclick="openImg(this)"><img src="../../../assets/img/artist-collage-studio/auto-3.webp" alt="Collage 3"></div>
+    </div>
+  </section>
+
+  <section class="section" id="work">
+    <div class="section-header reveal"><div class="section-tag">Selected Works</div><h2 class="section-title display">THE ARCHIVE</h2></div>
+    <div class="overlap-grid reveal">
+      <div class="overlap-item" onclick="openImg(this)"><img src="../../../assets/img/artist-collage-studio/auto-1.webp" alt="Work 1"><div class="overlap-label"><h3>"Fragment #42"</h3><span>Paper Collage on Wood Panel</span></div></div>
+      <div class="overlap-item" onclick="openImg(this)"><img src="../../../assets/img/artist-collage-studio/auto-4.webp" alt="Work 2"><div class="overlap-label"><h3>"Digital Archaeology"</h3><span>Mixed Media — Digital + Found Objects</span></div></div>
+      <div class="overlap-item" onclick="openImg(this)"><img src="../../../assets/img/artist-collage-studio/auto-5.webp" alt="Work 3"><div class="overlap-label"><h3>"Botanical Memory"</h3><span>Pressed Flowers + Vintage Ephemera</span></div></div>
+      <div class="overlap-item" onclick="openImg(this)"><img src="../../../assets/img/artist-collage-studio/auto-6.webp" alt="Work 4"><div class="overlap-label"><h3>"Portrait Deconstruct"</h3><span>Magazine Collage on Canvas</span></div></div>
+      <div class="overlap-item" onclick="openImg(this)"><img src="../../../assets/img/artist-collage-studio/auto-2.webp" alt="Work 5"><div class="overlap-label"><h3>"City Layers"</h3><span>Mixed Media — Maps + Acrylic</span></div></div>
+      <div class="overlap-item" onclick="openImg(this)"><img src="../../../assets/img/artist-collage-studio/auto-3.webp" alt="Work 6"><div class="overlap-label"><h3>"Untitled #7"</h3><span>Assemblage — Found Objects</span></div></div>
+    </div>
+  </section>
+
+  <section class="section reel-section" id="reel">
+    <div class="section-header reveal"><div class="section-tag" style="color:var(--mustard);">Process</div><h2 class="section-title display">PROCESS REEL</h2></div>
+    <div class="reel-featured reveal" onclick="openVideo('dQw4w9WgXcQ')">
+      <img src="../../../assets/img/artist-collage-studio/auto-7.webp" alt="Process Reel">
+      <div class="r-play">▶</div>
+    </div>
+    <p style="text-align:center; margin-top:1rem; color:var(--muted); font-style:italic;">Studio Session — Cut, layer, reveal · 18 min</p>
+    <div class="reel-thumbs reveal">
+      <div class="reel-thumb" onclick="openVideo('dQw4w9WgXcQ')"><img src="../../../assets/img/artist-collage-studio/auto-8.webp" alt="Thumb 1"><div class="rt-play">▶</div></div>
+      <div class="reel-thumb" onclick="openVideo('dQw4w9WgXcQ')"><img src="../../../assets/img/artist-collage-studio/auto-1.webp" alt="Thumb 2"><div class="rt-play">▶</div></div>
+      <div class="reel-thumb" onclick="openVideo('dQw4w9WgXcQ')"><img src="../../../assets/img/artist-collage-studio/auto-2.webp" alt="Thumb 3"><div class="rt-play">▶</div></div>
+      <div class="reel-thumb" onclick="openVideo('dQw4w9WgXcQ')"><img src="../../../assets/img/artist-collage-studio/auto-3.webp" alt="Thumb 4"><div class="rt-play">▶</div></div>
+    </div>
+  </section>
+
+  <section class="section" id="exhibitions">
+    <div class="section-header reveal"><div class="section-tag">Shows</div><h2 class="section-title display">EXHIBITIONS</h2></div>
+    <div class="exhibitions reveal">
+      <div class="exhibit-card"><div class="exhibit-year">2026</div><h3>"Cut & Reveal" — Solo</h3><p>MoMA PS1, New York</p></div>
+      <div class="exhibit-card"><div class="exhibit-year">2025</div><h3>"Digital Archaeology" — Solo</h3><p>Palais de Tokyo, Paris</p></div>
+      <div class="exhibit-card"><div class="exhibit-year">2025</div><h3>"New Materiality" — Group</h3><p>Whitechapel Gallery, London</p></div>
+      <div class="exhibit-card"><div class="exhibit-year">2024</div><h3>"Found / Lost" — Residency</h3><p>ISCP, Brooklyn</p></div>
+    </div>
+  </section>
+
+  <section class="section" style="text-align:center;">
+    <div class="section-header reveal"><div class="section-tag">Press</div><h2 class="section-title display">FEATURED IN</h2></div>
+    <div class="press-logos reveal">
+      <span>Artforum</span><span>Frieze</span><span>The Guardian</span><span>Juxtapoz</span><span>Hyperallergic</span>
+    </div>
+  </section>
+
+  <div class="contact reveal" id="contact">
+    <div class="section-tag">Contact</div>
+    <h2 class="section-title display" style="margin-bottom:2rem;">LET'S COLLABORATE</h2>
+    <a href="mailto:studio@collagestudio.art" class="contact-email display">studio@collagestudio.art</a>
+    <div class="contact-social"><a href="#">IG</a><a href="#">YT</a><a href="#">Be</a><a href="#">TW</a></div>
+  </div>
+
+  <footer class="footer"><span>&copy; 2026 Collage Studio</span><span>Berlin, Germany</span></footer>
+
+  <dialog id="imgModal"><img id="modalImg" src="" alt=""><button class="modal-close" onclick="document.getElementById('imgModal').close()">✕</button></dialog>
+  <dialog id="videoModal"><div class="video-container"></div><button class="modal-close" onclick="closeVideo()">✕</button></dialog>
+  <button class="back-to-top" id="backToTop">&uarr;</button>
+
+  <script>
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('active'); }); }, { threshold: 0.1 });
+    revealEls.forEach(el => observer.observe(el));
+    const btt = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => btt.classList.toggle('visible', window.scrollY > 600));
+    btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    function openImg(item) { const img = item.querySelector('img'); document.getElementById('modalImg').src = img.src; document.getElementById('imgModal').showModal(); }
+    document.getElementById('imgModal').addEventListener('click', function(e) { if (e.target === this) this.close(); });
+    function openVideo(id) { const m = document.getElementById('videoModal'); m.querySelector('.video-container').innerHTML = `<iframe src="https://www.youtube.com/embed/${id}?autoplay=1&rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>`; m.showModal(); }
+    function closeVideo() { const m = document.getElementById('videoModal'); m.querySelector('.video-container').innerHTML = ''; m.close(); }
+    document.getElementById('videoModal').addEventListener('click', function(e) { if (e.target === this) closeVideo(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeVideo(); document.getElementById('imgModal').close(); } });
+  </script>
+</body>
+</html>

@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Forme Libre | Sculpture & 3D Art</title>
+  <meta name="description" content="Contemporary sculptor portfolio. Bronze, marble, and mixed-media installations.">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Work+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #FAFAFA;
+      --stone: #8B8680;
+      --dark: #1C1C1C;
+      --muted: #A0A0A0;
+      --light: #F0EFED;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family: 'Work Sans', sans-serif; background: var(--bg); color: var(--dark); overflow-x: hidden; }
+    h1, h2, h3, .display { font-family: 'DM Sans', sans-serif; font-weight: 300; }
+    a { text-decoration: none; color: inherit; transition: 0.3s; }
+
+    .nav { position: fixed; top: 0; width: 100%; padding: 1.5rem 5%; display: flex; justify-content: space-between; align-items: center; z-index: 100; mix-blend-mode: difference; color: white; }
+    .logo { font-family: 'DM Sans'; font-size: 1.4rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; }
+    .nav-links { display: flex; gap: 2rem; font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 400; }
+
+    /* Hero — Artist intro */
+    .hero-main { min-height: 100vh; position: relative; display: flex; align-items: center; padding: 8rem 5% 5rem; overflow: hidden; isolation: isolate; background: #0d0d0d; color: white; }
+    .hero-main::before { content:''; position:absolute; inset:0; background-image: url('../../../assets/img/artist-forme-libre/auto-1.webp'); background-size: cover; background-position: center; opacity: 0.35; z-index: 0; }
+    .hero-main::after { content:''; position:absolute; inset:0; background: linear-gradient(180deg, rgba(13,13,13,0.6) 0%, rgba(13,13,13,0.85) 100%); z-index: 1; }
+    .hero-inner { position: relative; z-index: 2; max-width: 1100px; width: 100%; margin: 0 auto; }
+    .hero-eyebrow { font-size: 0.72rem; letter-spacing: 0.4em; text-transform: uppercase; color: var(--stone); margin-bottom: 2rem; display: inline-block; padding: 0.4rem 1rem; border: 1px solid rgba(255,255,255,0.15); border-radius: 100px; }
+    .hero-name { font-family: 'DM Sans'; font-size: clamp(3rem, 7vw, 6rem); font-weight: 300; line-height: 0.95; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+    .hero-role { font-size: 1.1rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--stone); font-weight: 300; margin-bottom: 2rem; }
+    .hero-desc { max-width: 580px; font-size: 1.05rem; line-height: 1.85; color: #ccc; font-weight: 300; margin-bottom: 2.5rem; }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 3.5rem; }
+    .hero-btn { display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.9rem 2rem; border: 1px solid rgba(255,255,255,0.25); font-size: 0.85rem; letter-spacing: 0.15em; text-transform: uppercase; color: white; cursor: pointer; transition: 0.3s; background: transparent; font-family: inherit; }
+    .hero-btn.primary { background: white; color: var(--dark); border-color: white; }
+    .hero-btn.primary:hover { background: transparent; color: white; }
+    .hero-btn:not(.primary):hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.5); }
+    .hero-stats { display: flex; gap: 4rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); flex-wrap: wrap; }
+    .hero-stat { font-size: 0.85rem; }
+    .hero-stat-num { font-family: 'DM Sans'; font-size: 1.6rem; font-weight: 300; color: white; display: block; margin-bottom: 0.25rem; }
+    .hero-stat-label { font-size: 0.7rem; color: var(--muted); letter-spacing: 0.2em; text-transform: uppercase; }
+
+    /* Awards & Press */
+    .awards-section { background: var(--light); padding: 6rem 5%; }
+    .awards-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; max-width: 1100px; margin: 0 auto; }
+    .award-card { background: white; padding: 2.5rem; border: 1px solid #eee; transition: 0.3s; }
+    .award-card:hover { border-color: var(--dark); transform: translateY(-3px); }
+    .award-quote { font-family: 'DM Sans'; font-style: italic; font-size: 1.15rem; line-height: 1.6; color: var(--dark); font-weight: 300; margin-bottom: 1.5rem; }
+    .award-source { display: flex; align-items: center; justify-content: space-between; padding-top: 1.25rem; border-top: 1px solid #eee; }
+    .award-publication { font-size: 0.85rem; font-weight: 500; letter-spacing: 0.05em; color: var(--dark); }
+    .award-meta { font-size: 0.75rem; color: var(--stone); letter-spacing: 0.1em; text-transform: uppercase; }
+
+    /* Premium Footer */
+    .footer-premium { background: var(--dark); color: white; padding: 5rem 5% 0; }
+    .footer-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 3rem; padding-bottom: 4rem; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .footer-col h4 { font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--stone); margin-bottom: 1.5rem; font-weight: 500; }
+    .footer-brand { font-family: 'DM Sans'; font-size: 1.6rem; font-weight: 300; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 1rem; }
+    .footer-tag { font-size: 0.9rem; color: var(--stone); line-height: 1.7; max-width: 280px; margin-bottom: 1.5rem; font-weight: 300; }
+    .footer-addr { font-size: 0.85rem; color: var(--muted); line-height: 1.7; font-style: italic; }
+    .footer-list { list-style: none; display: flex; flex-direction: column; gap: 0.85rem; }
+    .footer-list a { font-size: 0.9rem; color: #c9c9c9; transition: 0.2s; font-weight: 300; }
+    .footer-list a:hover { color: white; }
+    .footer-bottom { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; padding: 1.75rem 0; flex-wrap: wrap; gap: 1rem; }
+    .footer-copy { font-size: 0.78rem; color: var(--muted); letter-spacing: 0.05em; }
+    .footer-legal { display: flex; gap: 1.75rem; }
+    .footer-legal a { font-size: 0.78rem; color: var(--muted); transition: 0.2s; }
+    .footer-legal a:hover { color: white; }
+
+    /* Fullscreen Sculpture Slides */
+    .slide-container { scroll-snap-type: y mandatory; height: 100vh; overflow-y: auto; }
+    .slide { height: 100vh; scroll-snap-align: start; position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+    .slide-bg { position: absolute; inset: 0; }
+    .slide-bg img { width: 100%; height: 100%; object-fit: cover; transition: 0.8s; }
+    .slide:hover .slide-bg img { transform: scale(1.02); }
+    .slide-content { position: relative; z-index: 2; text-align: center; color: white; max-width: 600px; padding: 2rem; }
+    .slide-num { font-size: 0.75rem; letter-spacing: 0.4em; text-transform: uppercase; opacity: 0.5; margin-bottom: 1rem; }
+    .slide-title { font-size: 4rem; font-weight: 300; margin-bottom: 1rem; }
+    .slide-meta { font-size: 0.9rem; opacity: 0.7; line-height: 1.6; }
+    .slide-dark::after { content:''; position: absolute; inset: 0; background: rgba(0,0,0,0.45); z-index: 1; }
+    .slide-view { display: inline-block; margin-top: 1.5rem; padding: 0.6rem 2rem; border: 1px solid rgba(255,255,255,0.4); font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; color: white; transition: 0.3s; cursor: pointer; }
+    .slide-view:hover { background: white; color: var(--dark); }
+
+    /* Regular Sections */
+    .section { padding: 6rem 5%; }
+    .section-header { text-align: center; margin-bottom: 4rem; }
+    .section-tag { font-size: 0.7rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--stone); margin-bottom: 0.8rem; }
+    .section-title { font-size: 3rem; font-weight: 300; }
+
+    /* About */
+    .about { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+    .about-img { width: 100%; height: 600px; object-fit: cover; filter: grayscale(30%); }
+    .about-quote { font-family: 'DM Sans'; font-size: 2rem; font-weight: 300; font-style: italic; line-height: 1.5; margin-bottom: 2rem; }
+    .about-bio { font-size: 0.95rem; line-height: 1.9; color: var(--stone); margin-bottom: 0.8rem; }
+
+    /* Video */
+    .video-section { background: var(--dark); color: white; text-align: center; }
+    .video-section .section-title { color: white; }
+    .video-featured { max-width: 900px; margin: 0 auto; position: relative; cursor: pointer; }
+    .video-featured img { width: 100%; aspect-ratio: 16/9; object-fit: cover; filter: brightness(0.5); transition: 0.4s; }
+    .video-featured:hover img { filter: brightness(0.3); }
+    .v-play { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 70px; height: 70px; border: 2px solid white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; transition: 0.3s; }
+    .video-featured:hover .v-play { background: white; color: var(--dark); }
+    .video-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; max-width: 900px; margin: 2rem auto 0; }
+    .video-sm { position: relative; cursor: pointer; }
+    .video-sm img { width: 100%; aspect-ratio: 16/9; object-fit: cover; filter: brightness(0.5); transition: 0.4s; }
+    .video-sm:hover img { filter: brightness(0.3); }
+    .v-play-sm { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 40px; height: 40px; border: 1px solid white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; transition: 0.3s; }
+    .video-sm:hover .v-play-sm { background: white; color: var(--dark); }
+
+    /* Exhibitions */
+    .exhibitions-list { max-width: 800px; margin: 0 auto; }
+    .exhibition-item { display: grid; grid-template-columns: 100px 1fr auto; gap: 2rem; align-items: center; padding: 2rem 0; border-bottom: 1px solid #eee; }
+    .exhibition-year { font-size: 2.5rem; font-weight: 300; color: var(--light); }
+    .exhibition-info h3 { font-size: 1.1rem; font-weight: 400; margin-bottom: 0.2rem; }
+    .exhibition-info p { font-size: 0.85rem; color: var(--stone); }
+    .exhibition-loc { font-size: 0.8rem; color: var(--muted); text-align: right; letter-spacing: 0.1em; text-transform: uppercase; }
+
+    .contact { text-align: center; border-top: 1px solid #eee; }
+    .contact-email { font-family: 'DM Sans'; font-size: 2.5rem; font-weight: 300; color: var(--dark); border-bottom: 1px solid var(--stone); padding-bottom: 3px; }
+    .contact-email:hover { color: var(--stone); }
+    .contact-social { display: flex; justify-content: center; gap: 1.5rem; margin-top: 2rem; }
+    .contact-social a { font-size: 0.85rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; }
+    .contact-social a:hover { color: var(--dark); }
+
+    .footer { padding: 2rem 5%; display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--muted); }
+
+    dialog { border: none; background: transparent; max-width: 90vw; max-height: 90vh; padding: 0; }
+    dialog::backdrop { background: rgba(0,0,0,0.95); }
+    #imgModal img { max-width: 85vw; max-height: 85vh; object-fit: contain; }
+    #videoModal .video-container { width: 80vw; max-width: 1000px; aspect-ratio: 16/9; }
+    #videoModal .video-container iframe { width: 100%; height: 100%; border: none; }
+    .modal-close { position: fixed; top: 2rem; right: 2rem; width: 45px; height: 45px; background: white; border: none; border-radius: 50%; color: var(--dark); font-size: 1.3rem; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 1000; }
+
+    .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+    .reveal.active { opacity: 1; transform: translateY(0); }
+    .back-to-top { position: fixed; bottom: 30px; right: 30px; width: 45px; height: 45px; background: var(--dark); color: white; border: none; border-radius: 50%; font-size: 1.2rem; cursor: pointer; opacity: 0; visibility: hidden; transition: 0.3s; z-index: 99; }
+    .back-to-top.visible { opacity: 1; visibility: visible; }
+    .back-to-top:hover { transform: translateY(-5px); }
+
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .slide-title { font-size: 2.5rem; }
+      .about { grid-template-columns: 1fr; }
+      .about-img { height: 350px; }
+      .video-row { grid-template-columns: 1fr; }
+      .exhibition-item { grid-template-columns: 70px 1fr; }
+      .exhibition-loc { display: none; }
+      .section-title { font-size: 2.2rem; }
+      .contact-email { font-size: 1.5rem; }
+      .footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+      .hero-main { padding: 7rem 1.5rem 4rem; }
+      .hero-stats { gap: 2rem; }
+      .awards-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; padding-bottom: 2.5rem; }
+      .footer-grid .footer-col:first-child { grid-column: 1 / -1; }
+      .footer-bottom { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="logo">Forme Libre</div>
+    <div class="nav-links">
+      <a href="#works">Work</a>
+      <a href="#about">About</a>
+      <a href="#videos">Process</a>
+      <a href="#exhibitions">Shows</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+
+  <!-- Hero — Artist intro -->
+  <section class="hero-main">
+    <div class="hero-inner">
+      <span class="hero-eyebrow">Portfolio · 2026</span>
+      <h1 class="hero-name display">Marina<br>Bertelli</h1>
+      <p class="hero-role">Contemporary Sculptor — Bronze · Marble · Steel</p>
+      <p class="hero-desc">Three decades exploring the tension between solid form and empty space. From Pietrasanta to Tokyo, my installations inhabit public squares, private gardens, and the world's most discerning collections.</p>
+      <div class="hero-actions">
+        <a href="#works" class="hero-btn primary">View Selected Works →</a>
+        <a href="#contact" class="hero-btn">Press &amp; Commissions</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat"><span class="hero-stat-num">30+</span><span class="hero-stat-label">Years</span></div>
+        <div class="hero-stat"><span class="hero-stat-num">4</span><span class="hero-stat-label">Continents</span></div>
+        <div class="hero-stat"><span class="hero-stat-num">60+</span><span class="hero-stat-label">Collections</span></div>
+        <div class="hero-stat"><span class="hero-stat-num">12</span><span class="hero-stat-label">Solo Shows</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sculpture Slides -->
+  <div id="works"></div>
+  <div class="slide slide-dark" onclick="openImg(this)">
+    <div class="slide-bg"><img src="../../../assets/img/artist-forme-libre/auto-2.webp" alt="Sculpture 1"></div>
+    <div class="slide-content">
+      <div class="slide-num">01 / 04</div>
+      <h1 class="slide-title display">Emergence</h1>
+      <p class="slide-meta">Bronze — 180 × 90 × 75 cm<br>Installed at Tuileries Garden, Paris</p>
+    </div>
+  </div>
+
+  <div class="slide slide-dark" onclick="openImg(this)">
+    <div class="slide-bg"><img src="../../../assets/img/artist-forme-libre/auto-3.webp" alt="Sculpture 2"></div>
+    <div class="slide-content">
+      <div class="slide-num">02 / 04</div>
+      <h1 class="slide-title display">Continuity</h1>
+      <p class="slide-meta">Carrera Marble — 120 × 60 × 60 cm<br>Private Collection, Milan</p>
+    </div>
+  </div>
+
+  <div class="slide slide-dark" onclick="openImg(this)">
+    <div class="slide-bg"><img src="../../../assets/img/artist-forme-libre/auto-4.webp" alt="Sculpture 3"></div>
+    <div class="slide-content">
+      <div class="slide-num">03 / 04</div>
+      <h1 class="slide-title display">Resonance</h1>
+      <p class="slide-meta">Cor-Ten Steel — 300 × 200 × 150 cm<br>Commission, Guggenheim Bilbao</p>
+    </div>
+  </div>
+
+  <div class="slide slide-dark" onclick="openImg(this)">
+    <div class="slide-bg"><img src="../../../assets/img/artist-forme-libre/auto-5.webp" alt="Sculpture 4"></div>
+    <div class="slide-content">
+      <div class="slide-num">04 / 04</div>
+      <h1 class="slide-title display">Absence</h1>
+      <p class="slide-meta">Alabaster — 45 × 30 × 30 cm<br>Venice Biennale 2025</p>
+    </div>
+  </div>
+
+  <!-- About -->
+  <section class="section about" id="about">
+    <img src="../../../assets/img/artist-forme-libre/auto-6.webp" alt="Sculptor" class="about-img">
+    <div class="reveal">
+      <div class="section-tag">About</div>
+      <p class="about-quote display">"Sculpture is the art of subtracting everything that is not the idea."</p>
+      <p class="about-bio">Working primarily in bronze, marble, and steel, I explore the tension between solid form and empty space. Each piece begins as a conversation with the raw material.</p>
+      <p class="about-bio">My studio is located in Pietrasanta, Italy — the city of sculptors — where I've worked for over two decades alongside master artisans. My installations span public spaces from Paris to Tokyo.</p>
+    </div>
+  </section>
+
+  <!-- Making-of Video -->
+  <section class="section video-section" id="videos">
+    <div class="section-header reveal"><div class="section-tag">Making Of</div><h2 class="section-title display">The Process</h2></div>
+    <div class="video-featured reveal" onclick="openVideo('dQw4w9WgXcQ')">
+      <img src="../../../assets/img/artist-forme-libre/auto-7.webp" alt="Making of Emergence">
+      <div class="v-play">▶</div>
+    </div>
+    <p style="text-align:center; margin-top:1rem; color:var(--muted); font-style:italic;">Making of "Emergence" — From clay model to bronze casting · 28 min</p>
+    <div class="video-row reveal">
+      <div class="video-sm" onclick="openVideo('dQw4w9WgXcQ')"><img src="../../../assets/img/artist-forme-libre/auto-6.webp" alt="Stone Carving"><div class="v-play-sm">▶</div></div>
+      <div class="video-sm" onclick="openVideo('dQw4w9WgXcQ')"><img src="../../../assets/img/artist-forme-libre/auto-8.webp" alt="Welding"><div class="v-play-sm">▶</div></div>
+      <div class="video-sm" onclick="openVideo('dQw4w9WgXcQ')"><img src="../../../assets/img/artist-forme-libre/auto-9.webp" alt="Patina"><div class="v-play-sm">▶</div></div>
+    </div>
+  </section>
+
+  <!-- Awards & Press -->
+  <section class="awards-section" id="press">
+    <div class="section-header reveal"><div class="section-tag">Press &amp; Critical Acclaim</div><h2 class="section-title display">In Their Words</h2></div>
+    <div class="awards-grid">
+      <article class="award-card reveal">
+        <p class="award-quote">"A retrospective of unparalleled depth — Bertelli's bronzes inhabit space the way poetry inhabits silence."</p>
+        <div class="award-source"><span class="award-publication">Le Monde</span><span class="award-meta">Mar 2026 · Paris</span></div>
+      </article>
+      <article class="award-card reveal">
+        <p class="award-quote">"Among the most distinctive sculptural voices working today. Material becomes meditation."</p>
+        <div class="award-source"><span class="award-publication">The Guardian</span><span class="award-meta">Sep 2024 · London</span></div>
+      </article>
+      <article class="award-card reveal">
+        <p class="award-quote">"Pavilion of the year. Bertelli's 'Absence' series operates on a register few contemporaries reach."</p>
+        <div class="award-source"><span class="award-publication">Frieze Magazine</span><span class="award-meta">2025 · Venice</span></div>
+      </article>
+      <article class="award-card reveal">
+        <p class="award-quote">"The negative space is the protagonist. A masterclass in restraint and presence."</p>
+        <div class="award-source"><span class="award-publication">Artforum</span><span class="award-meta">Nov 2024</span></div>
+      </article>
+      <article class="award-card reveal">
+        <p class="award-quote">"Carved with the precision of a watchmaker, weighted with the gravity of monuments."</p>
+        <div class="award-source"><span class="award-publication">Domus</span><span class="award-meta">Jun 2025 · Milan</span></div>
+      </article>
+      <article class="award-card reveal">
+        <p class="award-quote">"Each piece is an argument — and Bertelli always wins."</p>
+        <div class="award-source"><span class="award-publication">The New York Times</span><span class="award-meta">Feb 2026</span></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" id="exhibitions">
+    <div class="section-header reveal"><div class="section-tag">Exhibitions</div><h2 class="section-title display">Selected Shows</h2></div>
+    <div class="exhibitions-list reveal">
+      <div class="exhibition-item"><div class="exhibition-year">2026</div><div class="exhibition-info"><h3>"Forme Libre" — Solo Retrospective</h3><p>A 30-year retrospective spanning bronze, marble and steel</p></div><div class="exhibition-loc">Centre Pompidou<br>Paris</div></div>
+      <div class="exhibition-item"><div class="exhibition-year">2025</div><div class="exhibition-info"><h3>Venice Biennale — Main Pavilion</h3><p>Invited artist, "Absence" series · Pavilion of the Year</p></div><div class="exhibition-loc">Arsenale<br>Venice</div></div>
+      <div class="exhibition-item"><div class="exhibition-year">2024</div><div class="exhibition-info"><h3>"Gravity &amp; Grace" — Group Show</h3><p>With Anish Kapoor, Tony Cragg, and Antony Gormley</p></div><div class="exhibition-loc">Tate Modern<br>London</div></div>
+      <div class="exhibition-item"><div class="exhibition-year">2023</div><div class="exhibition-info"><h3>"Material Memory" — Solo</h3><p>Eight new bronzes from the Pietrasanta foundry</p></div><div class="exhibition-loc">Hauser &amp; Wirth<br>Zurich</div></div>
+      <div class="exhibition-item"><div class="exhibition-year">2022</div><div class="exhibition-info"><h3>"Forms in Dialogue" — Group</h3><p>Curated by Hans-Ulrich Obrist</p></div><div class="exhibition-loc">Centre d'Art<br>Geneva</div></div>
+      <div class="exhibition-item"><div class="exhibition-year">2021</div><div class="exhibition-info"><h3>"Bronze Age Reborn" — Outdoor</h3><p>Permanent installation across 4 hectares</p></div><div class="exhibition-loc">Yorkshire Sculpture Park<br>UK</div></div>
+      <div class="exhibition-item"><div class="exhibition-year">2020</div><div class="exhibition-info"><h3>"Threshold" — Solo</h3><p>Stone and shadow series, 12 works</p></div><div class="exhibition-loc">MAXXI<br>Rome</div></div>
+      <div class="exhibition-item"><div class="exhibition-year">2018</div><div class="exhibition-info"><h3>Kassel Documenta 14 — Invited</h3><p>"The Weight of Light" outdoor commission</p></div><div class="exhibition-loc">Friedrichsplatz<br>Kassel</div></div>
+    </div>
+  </section>
+
+  <section class="section contact" id="contact">
+    <div class="section-header reveal"><div class="section-tag">Contact</div><h2 class="section-title display">Commissions & Inquiries</h2></div>
+    <div class="reveal">
+      <a href="mailto:studio@formelibre.art" class="contact-email">studio@formelibre.art</a>
+      <div class="contact-social"><a href="#">Instagram</a><a href="#">YouTube</a><a href="#">Artsy</a></div>
+    </div>
+  </section>
+  <footer class="footer-premium">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="footer-brand">Forme Libre</div>
+        <p class="footer-tag">The studio of Marina Bertelli — three decades of sculpture in bronze, marble and steel.</p>
+        <p class="footer-addr">Studio Bertelli<br>Via dei Marmi 14, 55045<br>Pietrasanta · Italy</p>
+      </div>
+      <div class="footer-col">
+        <h4>Discover</h4>
+        <ul class="footer-list">
+          <li><a href="#works">Selected Works</a></li>
+          <li><a href="#about">About Marina</a></li>
+          <li><a href="#videos">The Process</a></li>
+          <li><a href="#exhibitions">Exhibitions</a></li>
+          <li><a href="#press">Press</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Studio</h4>
+        <ul class="footer-list">
+          <li><a href="#contact">Commissions</a></li>
+          <li><a href="#contact">Press Kit (PDF)</a></li>
+          <li><a href="#contact">Visit the Atelier</a></li>
+          <li><a href="#contact">Gallery Inquiries</a></li>
+          <li><a href="#contact">Public Installations</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <ul class="footer-list">
+          <li><a href="mailto:studio@formelibre.art">studio@formelibre.art</a></li>
+          <li><a href="tel:+39058471XXXX">+39 0584 71 XX XX</a></li>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">YouTube</a></li>
+          <li><a href="#">Artsy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2026 Studio Bertelli · Forme Libre. All works and images copyright the artist.</span>
+      <div class="footer-legal">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Imprint</a>
+      </div>
+    </div>
+  </footer>
+
+  <dialog id="imgModal"><img id="modalImg" src="" alt=""><button class="modal-close" onclick="document.getElementById('imgModal').close()">✕</button></dialog>
+  <dialog id="videoModal"><div class="video-container"></div><button class="modal-close" onclick="closeVideo()">✕</button></dialog>
+  <button class="back-to-top" id="backToTop">&uarr;</button>
+
+  <script>
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('active'); }); }, { threshold: 0.1 });
+    revealEls.forEach(el => observer.observe(el));
+    const btt = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => btt.classList.toggle('visible', window.scrollY > 600));
+    btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    function openImg(item) { const img = item.querySelector('.slide-bg img, img'); document.getElementById('modalImg').src = img.src; document.getElementById('imgModal').showModal(); }
+    document.getElementById('imgModal').addEventListener('click', function(e) { if (e.target === this) this.close(); });
+    function openVideo(id) { const m = document.getElementById('videoModal'); m.querySelector('.video-container').innerHTML = `<iframe src="https://www.youtube.com/embed/${id}?autoplay=1&rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>`; m.showModal(); }
+    function closeVideo() { const m = document.getElementById('videoModal'); m.querySelector('.video-container').innerHTML = ''; m.close(); }
+    document.getElementById('videoModal').addEventListener('click', function(e) { if (e.target === this) closeVideo(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeVideo(); document.getElementById('imgModal').close(); } });
+  </script>
+</body>
+</html>

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chromatic | Contemporary Color Art</title>
+  <meta name="description" content="Contemporary artist exploring color theory through painting, installation, and immersive environments.">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#FAFAFA;
+      --dark:#111;
+      --muted:#888;
+      --c1:#FF3366;--c2:#3366FF;--c3:#FFCC00;--c4:#00CC99;--c5:#9933FF;
+    }
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--dark);overflow-x:hidden}
+    a{text-decoration:none;color:inherit;transition:.3s}
+
+    /* Rainbow gradient bar at top */
+    .rainbow-bar{position:fixed;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--c1),var(--c3),var(--c4),var(--c2),var(--c5),var(--c1));background-size:200% 100%;animation:rainbow 6s linear infinite;z-index:200}
+    @keyframes rainbow{0%{background-position:0}100%{background-position:200%}}
+
+    .nav{position:sticky;top:4px;padding:1rem 5%;display:flex;justify-content:space-between;align-items:center;background:rgba(250,250,250,.92);backdrop-filter:blur(12px);z-index:100;border-bottom:1px solid rgba(0,0,0,.04)}
+    .logo{font-size:1.6rem;font-weight:800;letter-spacing:-.02em}
+    .logo span{background:linear-gradient(135deg,var(--c1),var(--c2),var(--c5));-webkit-background-clip:text;background-clip:text;color:transparent}
+    .nav-links{display:flex;gap:2rem;font-size:.85rem;font-weight:500;color:var(--muted)}
+    .nav-links a:hover{color:var(--dark)}
+
+    .hero{min-height:90vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:6rem 5%;position:relative}
+    .hero-title{font-size:6rem;font-weight:800;line-height:1;letter-spacing:-.04em;margin-bottom:1.5rem}
+    .hero-title .w1{color:var(--c1)}
+    .hero-title .w2{color:var(--c2)}
+    .hero-title .w3{color:var(--c3)}
+    .hero-sub{font-size:1.1rem;color:var(--muted);max-width:500px;margin:0 auto 2.5rem;line-height:1.8;font-weight:300}
+    .btn-gradient{display:inline-block;padding:.9rem 2.5rem;background:linear-gradient(135deg,var(--c1),var(--c2));color:white;border-radius:50px;font-weight:600;font-size:.9rem;transition:.3s;box-shadow:0 8px 30px rgba(255,51,102,.2)}
+    .btn-gradient:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(255,51,102,.3)}
+    /* Floating color circles */
+    .hero-orb{position:absolute;border-radius:50%;filter:blur(80px);opacity:.15;pointer-events:none}
+    .orb1{width:400px;height:400px;background:var(--c1);top:10%;left:5%}
+    .orb2{width:350px;height:350px;background:var(--c2);top:20%;right:10%}
+    .orb3{width:300px;height:300px;background:var(--c3);bottom:10%;left:40%}
+
+    .section{padding:6rem 5%}
+    .section-header{text-align:center;margin-bottom:4rem}
+    .section-tag{font-size:.75rem;letter-spacing:.25em;text-transform:uppercase;color:var(--c2);font-weight:600;margin-bottom:.5rem}
+    .section-title{font-size:3rem;font-weight:800;letter-spacing:-.02em}
+
+    /* Color-Coded Masonry Grid */
+    .color-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+    .color-card{position:relative;border-radius:20px;overflow:hidden;cursor:pointer;transition:.4s;box-shadow:0 4px 20px rgba(0,0,0,.06)}
+    .color-card:hover{transform:translateY(-8px) rotate(-1deg);box-shadow:0 20px 50px rgba(0,0,0,.12)}
+    .color-card img{width:100%;height:380px;object-fit:cover;transition:.5s}
+    .color-card:hover img{transform:scale(1.05)}
+    .color-card.tall{grid-row:span 2}
+    .color-card.tall img{height:100%}
+    .color-label{position:absolute;bottom:0;left:0;right:0;padding:1.5rem;background:linear-gradient(transparent,rgba(0,0,0,.8));color:white;opacity:0;transform:translateY(10px);transition:.4s}
+    .color-card:hover .color-label{opacity:1;transform:translateY(0)}
+    .color-label h3{font-size:1.2rem;font-weight:700;margin-bottom:.2rem}
+    .color-label span{font-size:.8rem;opacity:.8}
+    .color-dot{position:absolute;top:15px;left:15px;width:14px;height:14px;border-radius:50%;border:2px solid white;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+
+    /* Series Section */
+    .series{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
+    .series-item{text-align:center}
+    .series-swatch{width:100%;aspect-ratio:1;border-radius:16px;margin-bottom:1rem;cursor:pointer;transition:.3s;position:relative;overflow:hidden}
+    .series-swatch img{width:100%;height:100%;object-fit:cover;transition:.4s}
+    .series-swatch:hover img{transform:scale(1.1)}
+    .series-swatch:hover{transform:rotate(-2deg) scale(1.03)}
+    .series-name{font-weight:700;font-size:.95rem;margin-bottom:.2rem}
+    .series-desc{font-size:.8rem;color:var(--muted)}
+
+    /* Videos */
+    .vid-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;max-width:900px;margin:0 auto}
+    .vid-card{border-radius:16px;overflow:hidden;cursor:pointer;background:white;box-shadow:0 2px 15px rgba(0,0,0,.04);transition:.3s}
+    .vid-card:hover{transform:translateY(-5px);box-shadow:0 15px 40px rgba(0,0,0,.1)}
+    .vid-thumb{position:relative}
+    .vid-thumb img{width:100%;aspect-ratio:16/9;object-fit:cover}
+    .vid-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:55px;height:55px;background:linear-gradient(135deg,var(--c1),var(--c5));border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-size:1.2rem;transition:.3s;box-shadow:0 5px 20px rgba(255,51,102,.3)}
+    .vid-card:hover .vid-play{transform:translate(-50%,-50%) scale(1.15)}
+    .vid-meta{padding:1.2rem}
+    .vid-meta h4{font-size:1rem;font-weight:600;margin-bottom:.3rem}
+    .vid-meta span{font-size:.8rem;color:var(--muted)}
+
+    /* Press Marquee */
+    .marquee-wrap{overflow:hidden;padding:3rem 0;border-top:1px solid rgba(0,0,0,.06);border-bottom:1px solid rgba(0,0,0,.06)}
+    .marquee-inner{display:flex;gap:4rem;animation:scroll 25s linear infinite;white-space:nowrap}
+    .marquee-inner span{font-size:1.4rem;font-weight:700;color:rgba(0,0,0,.08);flex-shrink:0}
+    @keyframes scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+    .contact{text-align:center;background:var(--dark);color:var(--bg);border-radius:30px;margin:0 5%;padding:5rem}
+    .contact .section-title{color:white}
+    .contact-email{font-size:2.5rem;font-weight:800;background:linear-gradient(135deg,var(--c1),var(--c3),var(--c2));-webkit-background-clip:text;background-clip:text;color:transparent}
+    .contact-email:hover{opacity:.8}
+    .contact-social{display:flex;justify-content:center;gap:1rem;margin-top:2rem}
+    .contact-social a{width:42px;height:42px;background:rgba(255,255,255,.08);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.85rem;color:rgba(255,255,255,.6);transition:.3s}
+    .contact-social a:hover{background:var(--c1);color:white}
+
+    .footer{padding:2rem 5%;display:flex;justify-content:space-between;font-size:.8rem;color:var(--muted);margin-top:3rem}
+
+    dialog{border:none;background:transparent;max-width:90vw;max-height:90vh;padding:0}
+    dialog::backdrop{background:rgba(0,0,0,.92)}
+    #imgModal img{max-width:85vw;max-height:85vh;object-fit:contain;border-radius:8px}
+    #videoModal .video-container{width:80vw;max-width:1000px;aspect-ratio:16/9}
+    #videoModal .video-container iframe{width:100%;height:100%;border:none;border-radius:8px}
+    .modal-close{position:fixed;top:2rem;right:2rem;width:45px;height:45px;background:linear-gradient(135deg,var(--c1),var(--c5));border:none;border-radius:50%;color:white;font-size:1.3rem;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:1000}
+
+    .reveal{opacity:0;transform:translateY(25px);transition:all .7s ease-out}
+    .reveal.active{opacity:1;transform:translateY(0)}
+    .back-to-top{position:fixed;bottom:30px;right:30px;width:50px;height:50px;background:linear-gradient(135deg,var(--c1),var(--c2));color:white;border:none;border-radius:50%;font-size:1.2rem;cursor:pointer;opacity:0;visibility:hidden;transition:.3s;z-index:99;box-shadow:0 5px 20px rgba(255,51,102,.25)}
+    .back-to-top.visible{opacity:1;visibility:visible}
+    .back-to-top:hover{transform:translateY(-5px)}
+
+    @media(max-width:1024px){.color-grid{grid-template-columns:repeat(2,1fr)}.series{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:900px){
+      .hero-title{font-size:3.5rem}
+      .nav-links{display:none}
+      .color-grid{grid-template-columns:1fr}
+      .color-card.tall{grid-row:span 1}
+      .vid-grid{grid-template-columns:1fr}
+      .series{grid-template-columns:1fr}
+      .section-title{font-size:2.2rem}
+      .contact{margin:0;border-radius:0}
+      .contact-email{font-size:1.5rem}
+      .footer{flex-direction:column;gap:.5rem;text-align:center}
+    }
+  </style>
+</head>
+<body>
+  <div class="rainbow-bar"></div>
+  <nav class="nav">
+    <div class="logo"><span>Chromatic</span></div>
+    <div class="nav-links"><a href="#works">Works</a><a href="#series">Series</a><a href="#videos">Films</a><a href="#contact">Contact</a></div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-orb orb1"></div><div class="hero-orb orb2"></div><div class="hero-orb orb3"></div>
+    <div>
+      <h1 class="hero-title"><span class="w1">Color</span> is<br><span class="w2">Emotion</span> is<br><span class="w3">Truth.</span></h1>
+      <p class="hero-sub">Contemporary artist pushing the boundaries of color theory through large-scale painting, immersive installations, and light environments.</p>
+      <a href="#works" class="btn-gradient">Explore the Spectrum</a>
+    </div>
+  </section>
+
+  <section class="section" id="works">
+    <div class="section-header reveal"><div class="section-tag">Selected Works</div><h2 class="section-title">The Collection</h2></div>
+    <div class="color-grid reveal">
+      <div class="color-card tall" onclick="openImg(this)"><img src="../../../assets/img/artist-chromatic/auto-1.webp" alt="Red Study"><div class="color-dot" style="background:var(--c1)"></div><div class="color-label"><h3>"Red Field #7"</h3><span>Oil on Canvas — 300 × 200 cm</span></div></div>
+      <div class="color-card" onclick="openImg(this)"><img src="../../../assets/img/artist-chromatic/auto-2.webp" alt="Blue Wave"><div class="color-dot" style="background:var(--c2)"></div><div class="color-label"><h3>"Cerulean Drift"</h3><span>Acrylic & Pigment — 180 × 150 cm</span></div></div>
+      <div class="color-card" onclick="openImg(this)"><img src="../../../assets/img/artist-chromatic/auto-3.webp" alt="Gold"><div class="color-dot" style="background:var(--c3)"></div><div class="color-label"><h3>"Solar Meditation"</h3><span>Gold Leaf & Oil — 120 × 120 cm</span></div></div>
+      <div class="color-card" onclick="openImg(this)"><img src="../../../assets/img/artist-chromatic/auto-4.webp" alt="Green"><div class="color-dot" style="background:var(--c4)"></div><div class="color-label"><h3>"Viridian Passage"</h3><span>Mixed Media — 200 × 160 cm</span></div></div>
+      <div class="color-card" onclick="openImg(this)"><img src="../../../assets/img/artist-chromatic/auto-5.webp" alt="Violet"><div class="color-dot" style="background:var(--c5)"></div><div class="color-label"><h3>"Ultra Violet Hour"</h3><span>Fluorescent Pigment — 250 × 180 cm</span></div></div>
+    </div>
+  </section>
+
+  <section class="section" id="series" style="background:white">
+    <div class="section-header reveal"><div class="section-tag">Ongoing Series</div><h2 class="section-title">Color Studies</h2></div>
+    <div class="series reveal">
+      <div class="series-item"><div class="series-swatch" onclick="openImg(this)"><img src="../../../assets/img/artist-chromatic/auto-6.webp" alt="Infrared"></div><div class="series-name">Infrared</div><div class="series-desc">Warmth & Intensity</div></div>
+      <div class="series-item"><div class="series-swatch" onclick="openImg(this)"><img src="../../../assets/img/artist-chromatic/auto-7.webp" alt="Ultraviolet"></div><div class="series-name">Ultraviolet</div><div class="series-desc">Beyond Vision</div></div>
+      <div class="series-item"><div class="series-swatch" onclick="openImg(this)"><img src="../../../assets/img/artist-chromatic/auto-8.webp" alt="Monochrome"></div><div class="series-name">Monochrome</div><div class="series-desc">Absence of Color</div></div>
+      <div class="series-item"><div class="series-swatch" onclick="openImg(this)"><img src="../../../assets/img/artist-chromatic/auto-9.webp" alt="Prismatic"></div><div class="series-name">Prismatic</div><div class="series-desc">Full Spectrum</div></div>
+    </div>
+  </section>
+
+  <div class="marquee-wrap">
+    <div class="marquee-inner">
+      <span>Artforum</span><span>Frieze</span><span>The Guardian</span><span>New York Times</span><span>Hyperallergic</span><span>Art Basel</span><span>Wallpaper*</span><span>Dazed</span>
+      <span>Artforum</span><span>Frieze</span><span>The Guardian</span><span>New York Times</span><span>Hyperallergic</span><span>Art Basel</span><span>Wallpaper*</span><span>Dazed</span>
+    </div>
+  </div>
+
+  <section class="section" id="videos">
+    <div class="section-header reveal"><div class="section-tag">Films</div><h2 class="section-title">Studio & Exhibitions</h2></div>
+    <div class="vid-grid reveal">
+      <div class="vid-card" onclick="openVideo('dQw4w9WgXcQ')"><div class="vid-thumb"><img src="../../../assets/img/artist-chromatic/auto-1.webp" alt="Immersive"><div class="vid-play">▶</div></div><div class="vid-meta"><h4>"Color Room" — Immersive Installation Walk-Through</h4><span>Art Basel · 8 min</span></div></div>
+      <div class="vid-card" onclick="openVideo('dQw4w9WgXcQ')"><div class="vid-thumb"><img src="../../../assets/img/artist-chromatic/auto-8.webp" alt="Studio"><div class="vid-play">▶</div></div><div class="vid-meta"><h4>Studio Practice — A Year of Color Research</h4><span>Documentary · 24 min</span></div></div>
+    </div>
+  </section>
+
+  <div class="contact reveal" id="contact">
+    <div class="section-tag" style="color:var(--c3)">Contact</div>
+    <h2 class="section-title" style="margin-bottom:2rem">Let's create something vivid</h2>
+    <a href="mailto:hello@chromatic.art" class="contact-email">hello@chromatic.art</a>
+    <div class="contact-social"><a href="#">IG</a><a href="#">YT</a><a href="#">Ar</a><a href="#">Be</a></div>
+  </div>
+
+  <footer class="footer"><span>&copy; 2026 Chromatic Studio</span><span>Los Angeles, CA</span></footer>
+
+  <dialog id="imgModal"><img id="modalImg" src="" alt=""><button class="modal-close" onclick="document.getElementById('imgModal').close()">✕</button></dialog>
+  <dialog id="videoModal"><div class="video-container"></div><button class="modal-close" onclick="closeVideo()">✕</button></dialog>
+  <button class="back-to-top" id="backToTop">&uarr;</button>
+
+  <script>
+    const revealEls=document.querySelectorAll('.reveal');
+    const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('active')})},{threshold:.1});
+    revealEls.forEach(el=>observer.observe(el));
+    const btt=document.getElementById('backToTop');
+    window.addEventListener('scroll',()=>btt.classList.toggle('visible',window.scrollY>600));
+    btt.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+    function openImg(item){document.getElementById('modalImg').src=item.querySelector('img').src;document.getElementById('imgModal').showModal()}
+    document.getElementById('imgModal').addEventListener('click',function(e){if(e.target===this)this.close()});
+    function openVideo(id){const m=document.getElementById('videoModal');m.querySelector('.video-container').innerHTML=`<iframe src="https://www.youtube.com/embed/${id}?autoplay=1&rel=0" allow="autoplay;encrypted-media" allowfullscreen></iframe>`;m.showModal()}
+    function closeVideo(){const m=document.getElementById('videoModal');m.querySelector('.video-container').innerHTML='';m.close()}
+    document.getElementById('videoModal').addEventListener('click',function(e){if(e.target===this)closeVideo()});
+    document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeVideo();document.getElementById('imgModal').close()}});
+  </script>
+</body>
+</html>

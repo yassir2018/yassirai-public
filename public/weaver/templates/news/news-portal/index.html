@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Le Phare — Journal en ligne. Actualité, politique, économie, culture et sport."/>
+  <title>Le Phare — Actualité & Information</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root{--bg:#0a0a0e;--bg2:#111118;--bg3:#18181f;--card:#1e1e28;--text:#f0f0f5;--text2:rgba(240,240,245,0.6);--text3:rgba(240,240,245,0.32);--border:rgba(255,255,255,0.07);--red:#e63946;--blue:#2563eb;--ff-serif:'Lora',Georgia,serif;--ff-sans:'Inter',sans-serif;--nav-h:52px}
+    [data-theme="light"]{--bg:#f5f5f0;--bg2:#fff;--bg3:#ebebeb;--card:#fff;--text:#111118;--text2:rgba(17,17,24,0.6);--text3:rgba(17,17,24,0.32);--border:rgba(0,0,0,0.08)}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+    body{font-family:var(--ff-sans);background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden;transition:background 0.3s,color 0.3s}
+    a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
+    .container{max-width:1200px;margin:0 auto;padding:0 2rem}
+
+    /* Ticker */
+    .ticker{background:var(--red);color:#fff;display:flex;align-items:center;overflow:hidden;height:32px;position:relative;z-index:200}
+    .ticker-label{flex-shrink:0;background:rgba(0,0,0,0.25);font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:0 14px;height:100%;display:flex;align-items:center;gap:4px;white-space:nowrap}
+    .ticker-track{display:flex;gap:48px;animation:tick 25s linear infinite;white-space:nowrap;padding:0 24px;font-size:13px}
+    @keyframes tick{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+    .navbar{position:sticky;top:0;z-index:100;background:var(--bg2);border-bottom:1px solid var(--border);padding:0.6rem 0}
+    .nav-inner{display:flex;align-items:center;justify-content:space-between}
+    .nav-brand{font-family:var(--ff-serif);font-size:1.5rem;font-weight:700}
+    .nav-brand span{color:var(--red)}
+    .nav-links{display:flex;gap:1.5rem}.nav-link{font-size:0.8rem;font-weight:600;color:var(--text2);transition:color 0.2s;text-transform:uppercase;letter-spacing:0.04em}.nav-link:hover{color:var(--red)}
+    .theme-toggle{background:none;border:1px solid var(--border);color:var(--text);padding:0.4rem 0.75rem;border-radius:4px;font-size:0.75rem;cursor:pointer;font-family:var(--ff-sans);font-weight:600}
+
+    /* Hero News */
+    .hero-news{padding:2rem 0}
+    .hero-grid{display:grid;grid-template-columns:1.5fr 1fr;gap:1.25rem}
+    .featured-card{position:relative;aspect-ratio:16/10;border-radius:6px;overflow:hidden;cursor:pointer}
+    .featured-card img{width:100%;height:100%;object-fit:cover;transition:transform 0.4s}
+    .featured-card:hover img{transform:scale(1.03)}
+    .featured-card::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.8),transparent 50%)}
+    .featured-info{position:absolute;bottom:1.5rem;left:1.5rem;right:1.5rem;z-index:2}
+    .featured-cat{display:inline-block;padding:0.2rem 0.6rem;background:var(--red);color:#fff;font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.5rem}
+    .featured-title{font-family:var(--ff-serif);font-size:1.5rem;font-weight:700;color:#fff;line-height:1.25;margin-bottom:0.35rem}
+    .featured-meta{font-size:0.75rem;color:rgba(255,255,255,0.6)}
+
+    .side-stories{display:flex;flex-direction:column;gap:1rem}
+    .side-card{display:flex;gap:1rem;padding:0.75rem;background:var(--card);border:1px solid var(--border);border-radius:6px;transition:border-color 0.2s;cursor:pointer}
+    .side-card:hover{border-color:var(--red)}
+    .side-card-img{width:120px;flex-shrink:0;border-radius:4px;overflow:hidden;aspect-ratio:4/3}
+    .side-card-img img{width:100%;height:100%;object-fit:cover}
+    .side-card-cat{font-size:0.6rem;font-weight:700;color:var(--red);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.2rem}
+    .side-card-title{font-family:var(--ff-serif);font-size:0.95rem;font-weight:600;line-height:1.3;margin-bottom:0.2rem}
+    .side-card-meta{font-size:0.7rem;color:var(--text3)}
+
+    /* Articles Grid */
+    .articles-section{padding:2rem 0 4rem}
+    .articles-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;padding-bottom:0.75rem;border-bottom:2px solid var(--red)}
+    .articles-header h2{font-family:var(--ff-serif);font-size:1.5rem;font-weight:700}
+    .articles-header a{font-size:0.8rem;font-weight:600;color:var(--red)}
+    .articles-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem}
+    .article-card{background:var(--card);border:1px solid var(--border);border-radius:6px;overflow:hidden;transition:all 0.3s;cursor:pointer}
+    .article-card:hover{border-color:var(--red);transform:translateY(-3px)}
+    .article-img{aspect-ratio:16/10;overflow:hidden}
+    .article-img img{width:100%;height:100%;object-fit:cover;transition:transform 0.4s}
+    .article-card:hover .article-img img{transform:scale(1.05)}
+    .article-body{padding:1rem}
+    .article-cat{font-size:0.6rem;font-weight:700;color:var(--red);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.25rem}
+    .article-title{font-family:var(--ff-serif);font-size:0.95rem;font-weight:600;line-height:1.3;margin-bottom:0.35rem}
+    .article-excerpt{font-size:0.8rem;color:var(--text2);line-height:1.5;margin-bottom:0.5rem}
+    .article-meta{font-size:0.7rem;color:var(--text3)}
+
+    /* Categories bar */
+    .categories{padding:1.5rem 0;border-bottom:1px solid var(--border);display:flex;gap:0.75rem;overflow-x:auto;-webkit-overflow-scrolling:touch}
+    .categories::-webkit-scrollbar{display:none}
+    .cat-pill{padding:0.35rem 1rem;border:1px solid var(--border);border-radius:4px;font-size:0.75rem;font-weight:600;color:var(--text2);background:transparent;cursor:pointer;white-space:nowrap;transition:all 0.2s;font-family:var(--ff-sans)}
+    .cat-pill:hover,.cat-pill.active{background:var(--red);color:#fff;border-color:var(--red)}
+
+    .footer{padding:3rem 0 1.5rem;border-top:1px solid var(--border)}
+    .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:2rem}
+    .footer-brand{font-family:var(--ff-serif);font-size:1.2rem;font-weight:700;margin-bottom:0.5rem}.footer-brand span{color:var(--red)}
+    .footer-desc{font-size:0.8rem;color:var(--text3);max-width:250px}
+    .footer-col-title{font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--red);margin-bottom:0.75rem}
+    .footer-link{display:block;font-size:0.8rem;color:var(--text2);padding:0.25rem 0}.footer-link:hover{color:var(--text)}
+    .footer-bottom{border-top:1px solid var(--border);padding-top:1.5rem;font-size:0.7rem;color:var(--text3);text-align:center}
+
+    @media(max-width:1024px){.hero-grid{grid-template-columns:1fr}.articles-grid{grid-template-columns:repeat(2,1fr)}.nav-links{display:none}.footer-grid{grid-template-columns:1fr 1fr}}
+    @media(max-width:640px){.container{padding:0 1rem}.articles-grid{grid-template-columns:1fr}.side-card-img{width:80px}.footer-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div class="ticker"><div class="ticker-label">⚡ FLASH</div><div class="ticker-track">
+    <span>🌍 Sommet sur le climat : les dirigeants mondiaux s'engagent pour 2030</span>
+    <span>📈 Bourse : le Masi en hausse de 2.3% sur la semaine</span>
+    <span>⚽ CAN 2026 : le Maroc qualifié pour les demi-finales</span>
+    <span>🌍 Sommet sur le climat : les dirigeants mondiaux s'engagent pour 2030</span>
+    <span>📈 Bourse : le Masi en hausse de 2.3% sur la semaine</span>
+    <span>⚽ CAN 2026 : le Maroc qualifié pour les demi-finales</span>
+  </div></div>
+
+  <nav class="navbar"><div class="container nav-inner">
+    <a href="#" class="nav-brand">Le Phare<span>.</span></a>
+    <div class="nav-links"><a href="#" class="nav-link">Politique</a><a href="#" class="nav-link">Économie</a><a href="#" class="nav-link">Société</a><a href="#" class="nav-link">Culture</a><a href="#" class="nav-link">Sport</a><a href="#" class="nav-link">Tech</a></div>
+    <button class="theme-toggle" onclick="document.documentElement.dataset.theme=document.documentElement.dataset.theme==='dark'?'light':'dark'">🌓 Thème</button>
+  </div></nav>
+
+  <div class="container"><div class="categories">
+    <button class="cat-pill active">À la une</button><button class="cat-pill">Politique</button><button class="cat-pill">Économie</button><button class="cat-pill">Société</button><button class="cat-pill">Culture</button><button class="cat-pill">Sport</button><button class="cat-pill">Tech</button><button class="cat-pill">International</button><button class="cat-pill">Opinion</button>
+  </div></div>
+
+  <main>
+    <section class="hero-news"><div class="container"><div class="hero-grid">
+      <div class="featured-card"><img src="../../../assets/img/news-news-portal/auto-1.webp" alt="Article principal"/><div class="featured-info"><div class="featured-cat">Politique</div><div class="featured-title">Réforme constitutionnelle : les enjeux du nouveau texte soumis au référendum</div><div class="featured-meta">Par Karim Bennani · il y a 2 heures · 8 min de lecture</div></div></div>
+      <div class="side-stories">
+        <div class="side-card"><div class="side-card-img"><img src="../../../assets/img/news-news-portal/auto-2.webp" alt="Économie"/></div><div><div class="side-card-cat">Économie</div><div class="side-card-title">Le dirham se renforce face à l'euro : analyse et perspectives</div><div class="side-card-meta">il y a 3 heures</div></div></div>
+        <div class="side-card"><div class="side-card-img"><img src="../../../assets/img/news-news-portal/auto-3.webp" alt="Tech"/></div><div><div class="side-card-cat">Tech</div><div class="side-card-title">IA en Afrique : les startups qui révolutionnent le continent</div><div class="side-card-meta">il y a 5 heures</div></div></div>
+        <div class="side-card"><div class="side-card-img"><img src="../../../assets/img/news-news-portal/auto-4.webp" alt="Sport"/></div><div><div class="side-card-cat">Sport</div><div class="side-card-title">CAN 2026 : résumé des quarts de finale et programme</div><div class="side-card-meta">il y a 6 heures</div></div></div>
+      </div>
+    </div></div></section>
+
+    <section class="articles-section"><div class="container">
+      <div class="articles-header"><h2>Derniers articles</h2><a href="#">Voir tout →</a></div>
+      <div class="articles-grid">
+        <div class="article-card"><div class="article-img"><img src="../../../assets/img/news-news-portal/auto-5.webp" alt="Article"/></div><div class="article-body"><div class="article-cat">Société</div><div class="article-title">Éducation : le programme de la rentrée 2026 dévoilé</div><div class="article-excerpt">Les grandes lignes de la réforme éducative présentées par le ministère...</div><div class="article-meta">Sara El Fassi · il y a 4h</div></div></div>
+        <div class="article-card"><div class="article-img"><img src="../../../assets/img/news-news-portal/auto-6.webp" alt="Article"/></div><div class="article-body"><div class="article-cat">Tech</div><div class="article-title">Cybersécurité : les nouvelles menaces qui visent les entreprises</div><div class="article-excerpt">Les experts alertent sur une recrudescence des attaques par ransomware...</div><div class="article-meta">Ahmed Tazi · il y a 6h</div></div></div>
+        <div class="article-card"><div class="article-img"><img src="../../../assets/img/news-news-portal/auto-7.webp" alt="Article"/></div><div class="article-body"><div class="article-cat">Culture</div><div class="article-title">Festival Gnaoua d'Essaouira : édition record avec 500 000 visiteurs</div><div class="article-excerpt">L'édition 2026 du festival a battu tous les records de fréquentation...</div><div class="article-meta">Nadia Berrada · il y a 8h</div></div></div>
+        <div class="article-card"><div class="article-img"><img src="../../../assets/img/news-news-portal/auto-8.webp" alt="Article"/></div><div class="article-body"><div class="article-cat">International</div><div class="article-title">Climat : les océans atteignent une température record en 2026</div><div class="article-excerpt">Les données satellitaires confirment une accélération du réchauffement...</div><div class="article-meta">Leila Amrani · il y a 10h</div></div></div>
+      </div>
+    </div></section>
+  </main>
+
+  <footer class="footer"><div class="container">
+    <div class="footer-grid">
+      <div><div class="footer-brand">Le Phare<span>.</span></div><p class="footer-desc">Information indépendante et vérifiée. Le journal de référence depuis 2015.</p></div>
+      <div><div class="footer-col-title">Rubriques</div><a href="#" class="footer-link">Politique</a><a href="#" class="footer-link">Économie</a><a href="#" class="footer-link">Culture</a><a href="#" class="footer-link">Sport</a></div>
+      <div><div class="footer-col-title">Services</div><a href="#" class="footer-link">Newsletter</a><a href="#" class="footer-link">App Mobile</a><a href="#" class="footer-link">Flux RSS</a></div>
+      <div><div class="footer-col-title">Légal</div><a href="#" class="footer-link">Mentions légales</a><a href="#" class="footer-link">Confidentialité</a><a href="#" class="footer-link">CGU</a></div>
+    </div>
+    <div class="footer-bottom">© 2026 Le Phare — Publication indépendante enregistrée — ISSN 2026-XXXX</div>
+  </div></footer>
+</body>
+</html>

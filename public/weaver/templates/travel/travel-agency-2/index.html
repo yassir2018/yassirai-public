@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wanderlust Travel | Extraordinary Destinations</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cream: #FDFBF7;
+      --text: #2D2318;
+      --text-light: #5A4E43;
+      --terra: #B94D31;
+      --terra-hover: #9E3F27;
+      --border: rgba(45, 35, 24, 0.1);
+      --ease: cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family: 'Inter', sans-serif; background: var(--cream); color: var(--text); overflow-x: hidden; }
+    h1, h2, h3, .serif { font-family: 'Playfair Display', serif; }
+    a { text-decoration: none; color: inherit; }
+    
+    /* Navbar */
+    .nav { position: absolute; top:0; width:100%; padding: 2rem 5%; display: flex; justify-content: space-between; align-items: center; z-index: 100; }
+    .logo { font-family: 'Playfair Display'; font-size: 1.5rem; font-weight: 700; display: flex; flex-direction: column; line-height: 0.9; }
+    .logo span { font-family: 'Inter'; font-size: 0.5rem; letter-spacing: 0.3em; margin-top: 0.3rem; text-transform: uppercase; color: var(--terra); }
+    .nav-links { display: flex; gap: 2.5rem; }
+    .nav-links a { font-size: 0.8rem; font-weight: 500; color: var(--text); position: relative; }
+    .nav-links a:hover { color: var(--terra); }
+    .nav-btn { padding: 0.7rem 1.8rem; background: var(--terra); color: #fff; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; transition: all 0.3s; }
+    .nav-btn:hover { background: var(--text); }
+
+    /* Hero */
+    .hero { min-height: 100vh; display: grid; grid-template-columns: 1.2fr 1fr; position: relative; }
+    .hero-content { padding: 25% 10% 10% 10%; display: flex; flex-direction: column; justify-content: center; z-index: 2; position: relative; }
+    .hero-title { font-size: 4.5rem; line-height: 1.05; color: var(--terra); margin-bottom: 2rem; font-weight: 500; letter-spacing: -0.02em; }
+    .hero-desc { font-size: 1.1rem; line-height: 1.7; color: var(--text-light); margin-bottom: 3rem; max-width: 480px; }
+    .hero-cta { padding: 1rem 2.5rem; background: var(--terra); color: white; display: inline-block; width: max-content; font-weight: 500; font-size: 0.9rem; letter-spacing: 0.05em; transition: 0.3s; }
+    .hero-cta:hover { background: var(--text); }
+    
+    .hero-img { position: relative; height: 100%; overflow: hidden; border-bottom-left-radius: 40px; }
+    .hero-img img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* Search Box */
+    .search-panel { position: absolute; bottom: 8%; left: 5%; width: 90%; max-width: 850px; background: rgba(253, 251, 247, 0.95); backdrop-filter: blur(10px); padding: 2rem 3rem; border-radius: 12px; box-shadow: 0 20px 40px rgba(0,0,0,0.08); z-index: 10; display: flex; align-items: center; justify-content: space-between; gap: 2rem; }
+    .s-group { display: flex; flex-direction: column; gap: 0.6rem; flex: 1; border-right: 1px solid var(--border); }
+    .s-group:last-child { border-right: none; }
+    .s-label { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-light); }
+    .s-input { font-size: 1.1rem; font-family: 'Playfair Display'; border: none; background: transparent; color: var(--text); outline: none; }
+    .s-btn { background: var(--terra); width: 60px; height: 60px; border-radius: 50%; color: white; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; transition: 0.3s transform; }
+    .s-btn:hover { transform: scale(1.05); }
+
+    /* Destinations */
+    .destinations { padding: 10rem 5% 6rem; }
+    .section-header { margin-bottom: 4rem; text-align: center; }
+    .section-title { font-size: 3rem; color: var(--text); margin-bottom: 1rem; }
+    .dest-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem; }
+    .d-card { border-radius: 12px; overflow: hidden; position: relative; group; cursor: pointer; }
+    .d-img { height: 400px; overflow: hidden; }
+    .d-img img { width: 100%; height: 100%; object-fit: cover; transition: 0.6s var(--ease); }
+    .d-card:hover .d-img img { transform: scale(1.08); }
+    .d-info { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(45,35,24,0.9), transparent); padding: 3rem 1.5rem 1.5rem; color: white; display: flex; justify-content: space-between; align-items: flex-end; }
+    .d-title { font-size: 1.8rem; font-family: 'Playfair Display'; }
+    .d-price { font-size: 0.9rem; font-weight: 500; font-family: 'Inter'; }
+
+    .cta-band { padding: 6rem 5%; text-align: center; background: var(--text); color: white; }
+    .cta-band h2 { font-size: 2.5rem; margin-bottom: 1rem; color: white; }
+    .cta-band p { color: #94897E; margin-bottom: 2rem; }
+
+    .footer { padding: 3rem 5%; display: flex; justify-content: space-between; align-items: center; color: var(--text-light); font-size: 0.85rem; border-top: 1px solid var(--border); }
+    .footer a:hover { color: var(--terra); }
+
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; min-height: 120vh; }
+      .search-panel { position: static; margin: -50px auto 2rem; width: 95%; flex-direction: column; gap: 1rem; }
+      .s-group { border-right: none; border-bottom: 1px solid var(--border); padding-bottom: 1rem; width: 100%; }
+      .dest-grid { grid-template-columns: 1fr; }
+      .footer { flex-direction: column; gap: 1rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="logo">TERRA<span>Journeys</span></div>
+    <div class="nav-links">
+      <a href="#">Destinations</a>
+      <a href="#">Experiences</a>
+      <a href="#">Curated Trips</a>
+      <a href="#">About Us</a>
+      <a href="#">Contact</a>
+    </div>
+    <a href="#" class="nav-btn">BOOK NOW</a>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h1 class="hero-title">EMBRACE THE JOURNEY.<br>DISCOVER EXTRAORDINARY DESTINATIONS.</h1>
+      <p class="hero-desc">Curated luxury travel experiences for the discerning explorer. From desert dunes to lush escapes, let us craft your ultimate adventure.</p>
+      <a href="#" class="hero-cta">START YOUR ADVENTURE</a>
+    </div>
+    <div class="hero-img">
+      <img src="../../../assets/img/travel-travel-agency-2/auto-1.webp" alt="Desert Kasbah">
+    </div>
+    <!-- Search Bar -->
+    <div class="search-panel">
+      <div style="font-family:'Playfair Display'; font-size:1.5rem; margin-right:1rem;">Where to next?</div>
+      <div class="s-group">
+        <span class="s-label">Destination</span>
+        <select class="s-input"><option>Marrakech</option><option>Bali</option><option>Tulum</option></select>
+      </div>
+      <div class="s-group">
+        <span class="s-label">Dates</span>
+        <select class="s-input"><option>Oct 12 - 20</option></select>
+      </div>
+      <div class="s-group" style="border:none;">
+        <span class="s-label">Travelers</span>
+        <select class="s-input"><option>2 Adults</option></select>
+      </div>
+      <button class="s-btn">🔍</button>
+    </div>
+  </section>
+
+  <section class="destinations">
+    <div class="section-header">
+      <h2 class="section-title">Inspiring Escapes</h2>
+      <p style="color:var(--text-light);">Explore our handpicked collection of awe-inspiring locations.</p>
+    </div>
+    <div class="dest-grid">
+      <div class="d-card">
+        <div class="d-img"><img src="../../../assets/img/travel-travel-agency-2/auto-2.webp" alt="Marrakech"></div>
+        <div class="d-info"><div class="d-title">Marrakech</div><div class="d-price">From $1,200</div></div>
+      </div>
+      <div class="d-card">
+        <div class="d-img"><img src="../../../assets/img/travel-travel-agency-2/auto-3.webp" alt="Bali"></div>
+        <div class="d-info"><div class="d-title">Bali Oasis</div><div class="d-price">From $2,100</div></div>
+      </div>
+      <div class="d-card">
+        <div class="d-img"><img src="../../../assets/img/travel-travel-agency-2/auto-4.webp" alt="Santorini"></div>
+        <div class="d-info"><div class="d-title">Santorini</div><div class="d-price">From $1,800</div></div>
+      </div>
+    </div>
+  </section>
+  <section class="cta-band">
+    <h2 class="serif">Let Us Craft Your Story.</h2>
+    <p>Bespoke travel experiences, tailored to your desires.</p>
+    <a href="#" class="hero-cta" style="background: var(--terra);">Plan My Journey</a>
+  </section>
+
+  <footer class="footer">
+    <div class="logo" style="font-size: 1.2rem;">TERRA<span>Journeys</span></div>
+    <div style="display: flex; gap: 2rem;"><a href="#">Instagram</a><a href="#">Pinterest</a><a href="#">Contact</a></div>
+    <span>&copy; 2026 Terra Journeys</span>
+  </footer>
+</body>
+</html>

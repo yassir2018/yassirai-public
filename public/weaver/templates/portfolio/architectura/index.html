@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Architectura | Studio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #EAEAEA;
+      --panel: #D1D1D1;
+      --text: #1C1C1C;
+      --accent: #E63946;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
+    h1, h2, h3, .brutal { font-family: 'Oswald', sans-serif; text-transform: uppercase; }
+    a { text-decoration: none; color: inherit; }
+
+    .nav { padding: 2rem 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--text); }
+    .logo { font-size: 2rem; font-weight: 700; letter-spacing: 0.1em; }
+    .nav-links { display: flex; gap: 4rem; font-weight: 600; font-size: 0.85rem; letter-spacing: 0.15em; text-transform: uppercase; }
+    .nav-links a:hover { color: var(--accent); }
+
+    .hero { min-height: 80vh; display: grid; grid-template-columns: 1fr 1fr; border-bottom: 2px solid var(--text); }
+    .hero-text { padding: 5rem 10%; border-right: 2px solid var(--text); display: flex; flex-direction: column; justify-content: center; }
+    .title { font-size: 5rem; line-height: 1; margin-bottom: 2rem; }
+    .desc { font-weight: 300; font-size: 1.1rem; line-height: 1.6; color: #444; margin-bottom: 3rem; }
+    
+    .btn { background: var(--text); color: var(--bg); border: none; padding: 1rem 3rem; font-family: 'Oswald'; font-size: 1rem; letter-spacing: 0.1em; cursor: pointer; transition: 0.3s; align-self: flex-start; }
+    .btn:hover { background: var(--accent); }
+
+    .hero-img { background: url('../../../assets/img/portfolio-architectura/auto-1.webp') center/cover; filter: grayscale(100%); transition: 0.5s; }
+    .hero-img:hover { filter: grayscale(0%); }
+
+    .projects { padding: 6rem 5%; }
+    .p-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 3rem; border-bottom: 2px solid var(--text); padding-bottom: 1rem; }
+    .p-title { font-size: 3rem; }
+    
+    .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0; border: 2px solid var(--text); }
+    .p-card { border: 1px solid var(--text); position: relative; overflow: hidden; background: #FFF; }
+    .c-img { width: 100%; height: 400px; object-fit: cover; filter: grayscale(80%); transition: 0.4s; display: block; }
+    .p-card:hover .c-img { filter: grayscale(0%); transform: scale(1.02); }
+    .c-info { padding: 1.5rem; background: var(--text); color: var(--bg); display: flex; justify-content: space-between; align-items: center; }
+    .c-name { font-size: 1.4rem; font-family: 'Oswald'; letter-spacing: 0.05em; }
+    .c-year { font-family: 'Inter'; font-weight: 300; font-size: 0.9rem; color: #999; }
+
+    /* Expanded Blocks */
+    .philosophy { display: grid; grid-template-columns: 1fr 1fr; border-top: 2px solid var(--text); }
+    .ph-text { padding: 6rem 5%; border-right: 2px solid var(--text); }
+    .ph-title { font-size: 3rem; margin-bottom: 2rem; }
+    .ph-desc { line-height: 1.8; color: #555; font-weight: 300; margin-bottom: 1rem; font-size: 1.05rem; }
+    .ph-img { background: url('../../../assets/img/portfolio-architectura/auto-2.webp') center/cover; filter: grayscale(100%); transition: 0.6s; min-height: 400px; }
+    .ph-img:hover { filter: grayscale(0%); }
+
+    .awards-strip { display: flex; border-top: 2px solid var(--text); border-bottom: 2px solid var(--text); }
+    .as-item { flex: 1; padding: 3rem 2rem; text-align: center; border-right: 2px solid var(--text); transition: 0.3s; }
+    .as-item:last-child { border-right: none; }
+    .as-item:hover { background: var(--text); color: var(--bg); }
+    .as-item:hover .as-num { color: var(--accent); }
+    .as-num { font-size: 3.5rem; font-weight: 700; margin-bottom: 0.5rem; transition: 0.3s; }
+    .as-label { font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; color: #888; }
+
+    .contact { display: grid; grid-template-columns: 1fr 1fr; border-top: 2px solid var(--text); }
+    .ct-left { padding: 6rem 5%; border-right: 2px solid var(--text); }
+    .ct-title { font-size: 4rem; margin-bottom: 1.5rem; }
+    .ct-desc { color: #555; line-height: 1.8; font-weight: 300; margin-bottom: 2rem; }
+    .ct-right { display: flex; flex-direction: column; justify-content: center; padding: 4rem 5%; }
+    .ct-info { margin-bottom: 2rem; }
+    .ct-label { font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; color: #888; margin-bottom: 0.5rem; }
+    .ct-val { font-size: 1.3rem; font-weight: 600; }
+
+    .footer { padding: 2rem 5%; display: flex; justify-content: space-between; align-items: center; border-top: 2px solid var(--text); background: var(--text); color: var(--bg); font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase; }
+    .footer a { color: var(--accent); }
+
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; border-bottom: none; }
+      .hero-text { border-right: none; border-bottom: 2px solid var(--text); text-align: center; align-items: center; }
+      .hero-img { min-height: 50vh; }
+      .nav-links { display: none; }
+      .grid { grid-template-columns: 1fr; border: none; gap: 2rem; }
+      .title { font-size: 4rem; }
+      .philosophy { grid-template-columns: 1fr; }
+      .ph-text { border-right: none; }
+      .awards-strip { flex-direction: column; }
+      .as-item { border-right: none; border-bottom: 2px solid var(--text); }
+      .contact { grid-template-columns: 1fr; }
+      .ct-left { border-right: none; }
+      .footer { flex-direction: column; gap: 1rem; text-align: center; padding: 2rem; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-links">
+      <a href="#">Projects</a>
+      <a href="#">Studio</a>
+    </div>
+    <div class="logo brutal">ARCHITECTURA</div>
+    <div class="nav-links">
+      <a href="#">Journal</a>
+      <a href="#">Contact</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-text">
+      <h1 class="title brutal">Form.<br>Function.<br>Future.</h1>
+      <p class="desc">A monolithic approach to modern spaces. We design brutalist residential, commercial, and cultural institutions that stand the test of time.</p>
+      <button class="btn">View Monograph</button>
+    </div>
+    <div class="hero-img"></div>
+  </section>
+
+  <section class="projects">
+    <div class="p-header">
+      <h2 class="p-title brutal">Selected Works</h2>
+      <a href="#" style="font-family:'Oswald'; letter-spacing:0.1em; text-decoration:underline;">Index View [05]</a>
+    </div>
+    <div class="grid">
+      <div class="p-card">
+        <img src="../../../assets/img/portfolio-architectura/auto-3.webp" alt="Building" class="c-img">
+        <div class="c-info">
+          <div class="c-name">HEXA TOWER</div>
+          <div class="c-year">2025 // TOKYO</div>
+        </div>
+      </div>
+      <div class="p-card">
+        <img src="../../../assets/img/portfolio-architectura/auto-4.webp" alt="Museum" class="c-img">
+        <div class="c-info">
+          <div class="c-name">THE CONCRETE VAULT</div>
+          <div class="c-year">2026 // BERLIN</div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="philosophy">
+    <div class="ph-text">
+      <h2 class="ph-title brutal">Our Studio<br>Philosophy.</h2>
+      <p class="ph-desc">We believe architecture is the ultimate expression of human ambition. Our practice is rooted in the conviction that raw materials — concrete, steel, glass — carry an inherent beauty that needs no embellishment.</p>
+      <p class="ph-desc">Every structure we design is a dialogue between form, function, and the land it inhabits. We do not follow trends. We build monuments.</p>
+    </div>
+    <div class="ph-img"></div>
+  </section>
+
+  <section class="awards-strip">
+    <div class="as-item">
+      <div class="as-num brutal">23</div>
+      <div class="as-label">International Awards</div>
+    </div>
+    <div class="as-item">
+      <div class="as-num brutal">67</div>
+      <div class="as-label">Projects Built</div>
+    </div>
+    <div class="as-item">
+      <div class="as-num brutal">14</div>
+      <div class="as-label">Countries</div>
+    </div>
+    <div class="as-item">
+      <div class="as-num brutal">31</div>
+      <div class="as-label">Team Members</div>
+    </div>
+  </section>
+
+  <section class="contact">
+    <div class="ct-left">
+      <h2 class="ct-title brutal">Start a<br>Project.</h2>
+      <p class="ct-desc">Whether you're envisioning a private residence, a commercial tower, or a cultural landmark, we'd love to hear your ideas. Our team is ready to transform your vision into enduring architecture.</p>
+      <button class="btn">Request Consultation</button>
+    </div>
+    <div class="ct-right">
+      <div class="ct-info">
+        <div class="ct-label">Studio</div>
+        <div class="ct-val">45 Brutalist Lane, London EC2A 4NE</div>
+      </div>
+      <div class="ct-info">
+        <div class="ct-label">Email</div>
+        <div class="ct-val">studio@architectura.com</div>
+      </div>
+      <div class="ct-info">
+        <div class="ct-label">Phone</div>
+        <div class="ct-val">+44 20 7946 0958</div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <span>© 2026 Architectura Studio</span>
+    <span>London · Tokyo · New York</span>
+    <div style="display: flex; gap: 2rem;">
+      <a href="#">Instagram</a>
+      <a href="#">LinkedIN</a>
+      <a href="#">Archdaily</a>
+    </div>
+  </footer>
+</body>
+</html>

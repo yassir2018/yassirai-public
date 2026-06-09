@@ -54,6 +54,7 @@ export interface Template {
   saleUrl: string | null;
   thumbnailUrl: string | null;
   category: string | null;
+  badge: string | null;
   price: number | null;
   currency: string | null;
   demoMode: boolean;

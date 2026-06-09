@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Synapse | AI Assistant</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0F1218;
+      --text: #FFFFFF;
+      --primary: #8C52FF;
+      --secondary: #5CE1E6;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family: 'Outfit', sans-serif; background: var(--bg); color: var(--text); height: 100vh; display: flex; justify-content: center; align-items: center; overflow: hidden; position: relative; }
+    
+    /* Glowing Orbs */
+    .orb { position: absolute; border-radius: 50%; filter: blur(100px); z-index: -1; animation: float 15s infinite alternate ease-in-out; }
+    .orb-1 { width: 500px; height: 500px; background: rgba(140, 82, 255, 0.4); top: -100px; left: -100px; }
+    .orb-2 { width: 400px; height: 400px; background: rgba(92, 225, 230, 0.3); bottom: -100px; right: -50px; animation-delay: -5s; }
+    @keyframes float { 100% { transform: translateY(50px) translateX(50px); } }
+
+    /* Main Chat Container - Glassmorphism */
+    .chat-container { width: 90%; max-width: 1000px; height: 85vh; background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); border-radius: 24px; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 30px 60px rgba(0,0,0,0.5); }
+    
+    /* Header */
+    .chat-header { padding: 20px 30px; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between; align-items: center; }
+    .logo { font-size: 1.5rem; font-weight: 600; display: flex; align-items: center; gap: 10px; }
+    .status-dot { width: 10px; height: 10px; background: var(--secondary); border-radius: 50%; box-shadow: 0 0 10px var(--secondary); }
+    
+    .actions { display: flex; gap: 15px; }
+    .btn-icon { width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.05); display: flex; justify-content: center; align-items: center; cursor: pointer; transition: 0.3s; border: 1px solid rgba(255,255,255,0.1); }
+    .btn-icon:hover { background: rgba(255,255,255,0.1); }
+
+    /* Chat Area */
+    .chat-body { flex: 1; padding: 30px; overflow-y: auto; display: flex; flex-direction: column; gap: 20px; }
+    
+    .msg { max-width: 70%; padding: 15px 20px; border-radius: 20px; line-height: 1.5; font-size: 1.05rem; }
+    .msg-user { align-self: flex-end; background: rgba(255,255,255,0.1); border-bottom-right-radius: 5px; }
+    .msg-ai { align-self: flex-start; background: linear-gradient(135deg, rgba(140,82,255,0.1), rgba(92,225,230,0.1)); border: 1px solid rgba(255,255,255,0.05); border-bottom-left-radius: 5px; }
+
+    /* Input Area */
+    .chat-footer { padding: 20px 30px; border-top: 1px solid rgba(255,255,255,0.05); }
+    .input-wrapper { display: flex; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); border-radius: 30px; padding: 10px 15px; align-items: center; transition: 0.3s; box-shadow: inset 0 2px 10px rgba(0,0,0,0.2); }
+    .input-wrapper:focus-within { border-color: var(--primary); box-shadow: inset 0 2px 10px rgba(0,0,0,0.2), 0 0 20px rgba(140,82,255,0.2); }
+    .chat-input { flex: 1; background: transparent; border: none; outline: none; color: white; font-family: 'Outfit'; font-size: 1.1rem; padding: 0 15px; }
+    .chat-input::placeholder { color: rgba(255,255,255,0.4); }
+    
+    .send-btn { background: linear-gradient(135deg, var(--primary), var(--secondary)); width: 40px; height: 40px; border-radius: 50%; border: none; color: white; display: flex; justify-content: center; align-items: center; cursor: pointer; box-shadow: 0 5px 15px rgba(140,82,255,0.3); transition: 0.3s; }
+    .send-btn:hover { transform: scale(1.05); box-shadow: 0 5px 25px rgba(92,225,230,0.5); }
+
+    /* Sidebar */
+    .sidebar { width: 280px; border-right: 1px solid rgba(255,255,255,0.05); display: flex; flex-direction: column; background: rgba(0,0,0,0.2); }
+    .sidebar-header { padding: 20px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .new-chat-btn { width: 100%; padding: 12px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; color: white; display: flex; align-items: center; gap: 10px; cursor: pointer; transition: 0.3s; font-family: 'Outfit'; font-size: 1rem; }
+    .new-chat-btn:hover { background: rgba(255,255,255,0.1); border-color: var(--primary); }
+    .history-list { flex: 1; overflow-y: auto; padding: 15px; display: flex; flex-direction: column; gap: 5px; }
+    .history-item { padding: 12px 15px; border-radius: 10px; cursor: pointer; font-size: 0.9rem; color: rgba(255,255,255,0.7); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: 0.3s; }
+    .history-item:hover, .history-item.active { background: rgba(255,255,255,0.05); color: white; }
+    .user-profile { padding: 20px; border-top: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; gap: 12px; }
+    .user-avatar { width: 35px; height: 35px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--secondary)); display: flex; justify-content: center; align-items: center; font-weight: 600; color: #000; }
+    
+    /* Layout Adjustments */
+    .chat-container { flex-direction: row; max-width: 1200px; width: 95%; }
+    .chat-main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+    
+    /* Model Selector */
+    .model-selector { display: flex; background: rgba(0,0,0,0.3); border-radius: 30px; padding: 5px; margin: 0 auto; border: 1px solid rgba(255,255,255,0.05); }
+    .model-btn { padding: 6px 15px; border-radius: 20px; font-size: 0.85rem; font-family: 'Outfit'; border: none; background: transparent; color: rgba(255,255,255,0.6); cursor: pointer; transition: 0.3s; font-weight: 600; }
+    .model-btn.active { background: rgba(255,255,255,0.1); color: white; box-shadow: 0 2px 10px rgba(0,0,0,0.2); }
+    .model-btn:hover:not(.active) { color: white; }
+    
+    /* Prompts & Code */
+    .suggestions { display: flex; gap: 10px; padding: 0 30px 15px; overflow-x: auto; scrollbar-width: none; }
+    .suggestion-chip { padding: 10px 15px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 20px; font-size: 0.85rem; color: rgba(255,255,255,0.8); cursor: pointer; transition: 0.3s; white-space: nowrap; }
+    .suggestion-chip:hover { border-color: var(--secondary); background: rgba(255,255,255,0.08); transform: translateY(-2px); }
+    
+    .code-block { margin-top: 15px; background: rgba(0,0,0,0.5); border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); }
+    .code-header { background: rgba(255,255,255,0.05); padding: 8px 15px; display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; font-family: monospace; color: rgba(255,255,255,0.6); }
+    .code-body { padding: 15px; overflow-x: auto; font-family: monospace; font-size: 0.9rem; line-height: 1.5; color: #e5e5e5; }
+    .syntax-keyword { color: #ff7b72; }
+    .syntax-func { color: #d2a8ff; }
+    .syntax-string { color: #a5d6ff; }
+    .syntax-comment { color: #8b949e; }
+    
+    /* Scrollbars */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
+
+    @media (max-width: 768px) {
+      .chat-container { width: 100%; height: 100vh; border-radius: 0; flex-direction: column; }
+      .sidebar { display: none; }
+      .msg { max-width: 90%; font-size: 0.95rem; }
+      .chat-header { padding: 15px 20px; }
+      .chat-body { padding: 20px; }
+      .chat-footer { padding: 15px 20px; }
+    }
+
+  </style>
+</head>
+<body>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+
+  <div class="chat-container">
+    <div class="sidebar">
+      <div class="sidebar-header">
+        <button class="new-chat-btn"><span style="font-size: 1.2rem;">+</span> New Chat</button>
+      </div>
+      <div class="history-list">
+        <div style="font-size: 0.75rem; color: rgba(255,255,255,0.4); margin: 10px 0 5px; text-transform: uppercase; font-weight: 600;">Today</div>
+        <div class="history-item active">Python sorting optimization</div>
+        <div class="history-item">React useEffect dependencies</div>
+        <div class="history-item">AWS S3 CORS policy</div>
+        
+        <div style="font-size: 0.75rem; color: rgba(255,255,255,0.4); margin: 15px 0 5px; text-transform: uppercase; font-weight: 600;">Previous 7 Days</div>
+        <div class="history-item">Regex for email validation</div>
+        <div class="history-item">Docker compose vs swarm</div>
+        <div class="history-item">Figma to React workflow</div>
+        <div class="history-item">Tailwind custom themes</div>
+        <div class="history-item">GitHub Actions CI/CD</div>
+      </div>
+      <div class="user-profile">
+        <div class="user-avatar">JD</div>
+        <div style="font-size: 0.9rem; flex: 1;">John Developer</div>
+        <button class="btn-icon" style="width: 30px; height: 30px; font-size: 0.8rem; border: none; background: transparent; cursor: pointer;">⋮</button>
+      </div>
+    </div>
+
+    <div class="chat-main">
+    <div class="chat-header">
+      <div class="logo" style="flex: 1; display: flex; align-items: center; white-space: nowrap;">
+        <div class="status-dot"></div> Synapse AI
+      </div>
+      <div class="model-selector">
+        <button class="model-btn active">Synapse-Pro</button>
+        <button class="model-btn">Synapse-Fast</button>
+      </div>
+      <div class="actions" style="flex: 1; justify-content: flex-end;">
+        <div class="btn-icon">⚙️</div>
+        <div class="btn-icon">🌙</div>
+      </div>
+    </div>
+
+    <div class="chat-body">
+      <div class="msg msg-user">
+        Can you optimize this Python sorting function for a billion elements?
+      </div>
+      <div class="msg msg-ai">
+        For sorting a billion elements in Python, the built-in <code>Timsort</code> is highly optimized. However, if you are hitting memory limits, I recommend using an external sort algorithm or relying on <strong>Dask</strong> for out-of-core computation.
+        <br><br>
+        Would you prefer I write a chunked external merge sort, or show you how to set up a Dask dataframe?
+      </div>
+      <div class="msg msg-user">
+        Let's go with the chunked external merge sort strategy.
+      </div>
+      <div class="msg msg-ai">
+        Here is a robust implementation of a chunked external merge sort optimized for large files:
+        
+        <div class="code-block">
+          <div class="code-header">
+            <span>python</span>
+            <span style="display:flex;gap:5px;"><button class="btn-icon" style="width:24px;height:24px;border:none;font-size:0.8rem;background:transparent;cursor:pointer;" title="Copy Code">📋</button></span>
+          </div>
+          <div class="code-body">
+<span class="syntax-keyword">import</span> tempfile
+<span class="syntax-keyword">import</span> heapq
+
+<span class="syntax-keyword">def</span> <span class="syntax-func">external_sort</span>(input_file, output_file, chunk_size=<span class="syntax-string">1000000</span>):
+    <span class="syntax-comment"># Phase 1: Create sorted chunks</span>
+    temp_files = []
+    <span class="syntax-keyword">with</span> open(input_file, <span class="syntax-string">'r'</span>) <span class="syntax-keyword">as</span> f:
+        <span class="syntax-keyword">while True</span>:
+            lines = f.readlines(chunk_size)
+            <span class="syntax-keyword">if not</span> lines: <span class="syntax-keyword">break</span>
+            lines.sort()
+            temp_files.append(<span class="syntax-func">write_temp_file</span>(lines))
+            
+    <span class="syntax-comment"># Phase 2: Merge sorted chunks</span>
+    <span class="syntax-func">merge_files</span>(temp_files, output_file)
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="chat-footer">
+      <div class="suggestions">
+        <div class="suggestion-chip">Explain external merge sort</div>
+        <div class="suggestion-chip">Use Dask instead</div>
+        <div class="suggestion-chip">Write tests for this</div>
+        <div class="suggestion-chip">Optimize for multi-core</div>
+      </div>
+      <div class="input-wrapper">
+        <div style="color: rgba(255,255,255,0.5); font-size:1.2rem; cursor:pointer;" title="Attach file">+</div>
+        <input type="text" class="chat-input" placeholder="Message Synapse...">
+        <button class="send-btn">↑</button>
+      </div>
+      <div style="text-align: center; margin-top: 15px; font-size: 0.8rem; color: rgba(255,255,255,0.3);">Synapse AI can make mistakes. Consider verifying important information.</div>
+    </div>
+    </div>
+  </div>
+</body>
+</html>

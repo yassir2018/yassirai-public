@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SalesFlow | CRM Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #F3F4F6;
+      --sidebar: #1E3A8A;
+      --white: #FFFFFF;
+      --text: #1F2937;
+      --border: #E5E7EB;
+      --primary: #2563EB;
+      --blue-light: #EFF6FF;
+      --muted: #6B7280;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family: 'Public Sans', sans-serif; background: var(--bg); color: var(--text); display: flex; height: 100vh; }
+    
+    .sidebar { width: 250px; background: var(--sidebar); color: var(--white); display: flex; flex-direction: column; }
+    .s-logo { padding: 1.5rem; font-size: 1.5rem; font-weight: 700; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 1rem; }
+    .s-item { padding: 12px 1.5rem; display: flex; align-items: center; gap: 15px; color: rgba(255,255,255,0.7); cursor: pointer; font-weight: 500; transition: 0.2s; }
+    .s-item:hover { color: var(--white); background: rgba(255,255,255,0.05); }
+    .s-item.active { color: var(--white); background: rgba(255,255,255,0.1); border-left: 4px solid #60A5FA; }
+    
+    .main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+    .header { height: 70px; background: var(--white); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 2rem; }
+    .btn { background: var(--primary); color: var(--white); border: none; padding: 8px 16px; border-radius: 6px; font-weight: 600; cursor: pointer; }
+    
+    .content { padding: 2rem; overflow-y: auto; flex: 1; }
+    .c-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+    .c-title { font-size: 1.5rem; font-weight: 700; }
+    
+    .kpi-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 2rem; }
+    .kpi-card { background: var(--white); padding: 1.5rem; border-radius: 8px; border: 1px solid var(--border); border-left: 4px solid var(--primary); box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+    .kpi-label { color: var(--muted); font-size: 0.9rem; font-weight: 600; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.5px; }
+    .kpi-val { font-size: 2rem; font-weight: 700; color: var(--text); }
+    
+    .table-card { background: var(--white); border-radius: 8px; border: 1px solid var(--border); box-shadow: 0 1px 3px rgba(0,0,0,0.05); overflow: hidden; }
+    .t-head { padding: 1.5rem; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; background: #FAFAFA; }
+    .t-title { font-weight: 700; font-size: 1.1rem; }
+    
+    table { width: 100%; border-collapse: collapse; text-align: left; }
+    th { padding: 12px 1.5rem; background: var(--white); border-bottom: 1px solid var(--border); color: var(--muted); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; }
+    td { padding: 1rem 1.5rem; border-bottom: 1px solid var(--border); font-size: 0.95rem; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover { background: var(--blue-light); }
+    
+    .status { padding: 4px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; display: inline-block; }
+    .st-won { background: #D1FAE5; color: #065F46; }
+    .st-prog { background: #DBEAFE; color: #1E40AF; }
+    .st-new { background: #FEF3C7; color: #92400E; }
+
+    @media (max-width: 900px) {
+      .kpi-row { grid-template-columns: 1fr; }
+      .sidebar { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar">
+    <div class="s-logo">SalesFlow.</div>
+    <div class="s-item active">Dashboard</div>
+    <div class="s-item">Leads</div>
+    <div class="s-item">Opportunities</div>
+    <div class="s-item">Accounts</div>
+    <div class="s-item">Reports</div>
+  </div>
+
+  <div class="main">
+    <div class="header">
+      <div style="font-weight:600; color:var(--muted);">Global Sales Search...</div>
+      <button class="btn">+ New Lead</button>
+    </div>
+    
+    <div class="content">
+      <div class="c-header">
+        <h1 class="c-title">Sales Overview</h1>
+        <select style="padding:8px; border:1px solid var(--border); border-radius:6px;">
+          <option>Q3 2026</option>
+          <option>Q2 2026</option>
+        </select>
+      </div>
+
+      <div class="kpi-row">
+        <div class="kpi-card">
+          <div class="kpi-label">Total Revenue</div>
+          <div class="kpi-val">$482,500</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Active Deals</div>
+          <div class="kpi-val">64</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Win Rate</div>
+          <div class="kpi-val">68.2%</div>
+        </div>
+      </div>
+
+      <div class="table-card">
+        <div class="t-head">
+          <span class="t-title">Recent Opportunities</span>
+          <button style="background:transparent; border:1px solid var(--border); padding:6px 12px; border-radius:4px; cursor:pointer;">View All</button>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Client Name</th>
+              <th>Deal Name</th>
+              <th>Amount</th>
+              <th>Stage</th>
+              <th>Closing Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="font-weight:600;">Acme Corp</td>
+              <td>Enterprise License - 500 Seats</td>
+              <td style="font-weight:600;">$120,000</td>
+              <td><span class="status st-won">Closed Won</span></td>
+              <td style="color:var(--muted);">Oct 12, 2026</td>
+            </tr>
+            <tr>
+              <td style="font-weight:600;">TechNova</td>
+              <td>Q4 Cloud Migration</td>
+              <td style="font-weight:600;">$85,000</td>
+              <td><span class="status st-prog">Negotiation</span></td>
+              <td style="color:var(--muted);">Oct 28, 2026</td>
+            </tr>
+            <tr>
+              <td style="font-weight:600;">Global Logistics</td>
+              <td>Fleet Tracking Implementation</td>
+              <td style="font-weight:600;">$42,500</td>
+              <td><span class="status st-new">Discovery</span></td>
+              <td style="color:var(--muted);">Nov 15, 2026</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

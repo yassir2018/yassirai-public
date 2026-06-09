@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PhysioLife | Sports Rehab</title>
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,400;0,600;0,800;1,800&family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --orange: #FF6B35;
+      --navy: #004E89;
+      --grey: #F0F2F5;
+      --text: #1C2321;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family: 'Outfit', sans-serif; background: var(--grey); color: var(--text); overflow-x: hidden; }
+    h1, h2, h3, .kanit { font-family: 'Kanit', sans-serif; text-transform: uppercase; }
+    a { text-decoration: none; color: inherit; }
+
+    .nav { padding: 1.5rem 5%; justify-content: space-between; align-items: center; display: flex; background: white; border-bottom: 4px solid var(--orange); }
+    .logo { font-size: 2rem; font-weight: 800; color: var(--navy); display:flex; align-items:center; gap: 0.5rem; }
+    .logo span { color: var(--orange); }
+    
+    .nav-links { display: flex; gap: 2.5rem; font-weight: 600; font-size: 1rem; color: var(--navy); }
+    .nav-links a { position: relative; transition: 0.3s; }
+    .nav-links a:hover { color: var(--orange); }
+
+    .btn { background: var(--orange); color: white; border: none; padding: 1rem 2rem; font-family: 'Kanit'; font-size: 1.2rem; cursor: pointer; transition: 0.3s; border-radius: 8px; box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3); }
+    .btn:hover { background: var(--navy); box-shadow: 0 4px 15px rgba(0, 78, 137, 0.3); transform: translateY(-2px); }
+
+    .hero { min-height: 80vh; display: flex; align-items: center; padding: 0 5%; position: relative; background: #fff; }
+    .stripe { position: absolute; right: 20%; top: -10%; width: 200px; height: 120%; background: var(--orange); transform: skewX(-15deg); z-index: 1; }
+    .stripe2 { position: absolute; right: 5%; top: -10%; width: 50px; height: 120%; background: var(--navy); transform: skewX(-15deg); z-index: 1; }
+    
+    .hero-text { z-index: 2; width: 50%; }
+    .title { font-size: 5rem; line-height: 1; margin-bottom: 1.5rem; color: var(--navy); font-weight: 800; font-style: italic; }
+    .desc { font-size: 1.2rem; line-height: 1.6; color: #555; margin-bottom: 2.5rem; max-width: 500px; font-weight: 400; }
+    
+    .hero-img { position: absolute; right: 10%; top: 50%; transform: translateY(-50%); width: 45%; height: 70%; z-index: 2; overflow: hidden; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); border: 8px solid white; }
+    .hero-img img { width: 100%; height: 100%; object-fit: cover; }
+
+    .programs { padding: 6rem 5%; }
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 3rem; }
+    .card { background: white; padding: 2.5rem; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); border-top: 5px solid transparent; transition: 0.3s; }
+    .card:hover { border-top-color: var(--orange); transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
+    .card-title { color: var(--navy); font-size: 1.8rem; margin-bottom: 1rem; }
+    .card-desc { color: #666; line-height: 1.6; font-size: 1.05rem; }
+
+    .stats { display: flex; background: white; border-top: 5px solid var(--orange); }
+    .stat-box { flex: 1; padding: 2.5rem; text-align: center; border-right: 1px solid #eee; }
+    .stat-box:last-child { border-right: none; }
+    .s-val { font-size: 3rem; color: var(--orange); }
+    .s-lbl { font-size: 0.85rem; color: #888; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
+
+    .cta-band { padding: 5rem 5%; text-align: center; background: var(--navy); color: white; }
+    .cta-band h2 { font-size: 3rem; margin-bottom: 1rem; }
+    .cta-band p { margin-bottom: 2rem; opacity: 0.7; }
+
+    .footer { padding: 2.5rem 5%; display: flex; justify-content: space-between; align-items: center; color: #888; font-size: 0.85rem; font-weight: 600; }
+    .footer a:hover { color: var(--orange); }
+
+    @media (max-width: 900px) {
+      .hero { flex-direction: column; text-align: center; padding-top: 4rem; }
+      .hero-text { width: 100%; }
+      .stripe, .stripe2, .hero-img { display: none; }
+      .nav-links { display: none; }
+      .grid { grid-template-columns: 1fr; }
+      .title { font-size: 3.5rem; }
+      .stats { flex-direction: column; }
+      .stat-box { border-right: none; border-bottom: 1px solid #eee; }
+      .footer { flex-direction: column; gap: 1rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="logo kanit">PHYSIO<span>LIFE</span></div>
+    <div class="nav-links">
+      <a href="#">Services</a>
+      <a href="#">Our Team</a>
+      <a href="#">Locations</a>
+    </div>
+    <button class="btn">Book Assessment</button>
+  </nav>
+
+  <section class="hero">
+    <div class="stripe"></div>
+    <div class="stripe2"></div>
+    <div class="hero-text">
+      <h1 class="title kanit">RECOVER.<br>REBUILD.<br>RETURN.</h1>
+      <p class="desc">Expert physiotherapy and sports rehabilitation designed to get you back to your absolute best, faster and stronger than before.</p>
+      <button class="btn" style="padding: 1.2rem 3rem;">Start Recovery</button>
+    </div>
+    <div class="hero-img">
+      <img src="../../../assets/img/health-physio-life/auto-1.webp" alt="Physical Therapy">
+    </div>
+  </section>
+
+  <section class="programs">
+    <div style="text-align:center;">
+      <h2 class="kanit" style="font-size: 3.5rem; color: var(--navy);">Specialized Care</h2>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <h3 class="card-title kanit">Sports Rehab</h3>
+        <p class="card-desc">Targeted treatments for athletes recovering from acute injuries, focusing on mobility and strength restoration.</p>
+      </div>
+      <div class="card">
+        <h3 class="card-title kanit">Post-Op Care</h3>
+        <p class="card-desc">Safe and progressive programs formulated specifically for post-surgical recovery and pain management.</p>
+      </div>
+      <div class="card">
+        <h3 class="card-title kanit">Posture Fix</h3>
+        <p class="card-desc">Ergonomic adjustments and structural alignment to resolve chronic back and neck pain.</p>
+      </div>
+    </div>
+  </section>
+  <section class="stats">
+    <div class="stat-box"><div class="s-val kanit">12K+</div><div class="s-lbl">Patients Treated</div></div>
+    <div class="stat-box"><div class="s-val kanit">98%</div><div class="s-lbl">Recovery Rate</div></div>
+    <div class="stat-box"><div class="s-val kanit">25+</div><div class="s-lbl">Specialists</div></div>
+    <div class="stat-box"><div class="s-val kanit">3</div><div class="s-lbl">Locations</div></div>
+  </section>
+
+  <section class="cta-band">
+    <h2 class="kanit">Ready to Recover?</h2>
+    <p>Book a free 15-minute assessment with one of our specialists.</p>
+    <button class="btn" style="border-radius: 8px;">Book Free Assessment</button>
+  </section>
+
+  <footer class="footer">
+    <div class="logo kanit" style="font-size: 1.5rem;">PHYSIO<span>LIFE</span></div>
+    <div style="display: flex; gap: 2rem;"><a href="#">Instagram</a><a href="#">Locations</a><a href="#">Contact</a></div>
+    <span>&copy; 2026 PhysioLife Sports Rehab</span>
+  </footer>
+</body>
+</html>

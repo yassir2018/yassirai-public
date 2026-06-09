@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ÉclatPro | Premium Home Cleaning</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #FFFFFF;
+      --blue: #0B5ED7;
+      --blue-light: #F0F5FF;
+      --text: #0F172A;
+      --text-muted: #64748B;
+      --border: #E2E8F0;
+    }
+    html { scroll-behavior: smooth; }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text); }
+    a { text-decoration: none; color: inherit; }
+    
+    .nav { padding: 1.5rem 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); }
+    .logo { font-size: 1.5rem; font-weight: 800; color: var(--blue); }
+    .nav-links { display: flex; gap: 2rem; font-weight: 600; font-size: 0.95rem; }
+    .nav-links a:hover { color: var(--blue); }
+    .btn { background: var(--blue); color: white; padding: 0.8rem 2rem; border-radius: 50px; font-weight: 700; font-size: 0.95rem; display: inline-block; transition: 0.2s; box-shadow: 0 4px 15px rgba(11, 94, 215, 0.3); }
+    .btn:hover { background: #094eb8; transform: translateY(-2px); }
+
+    .hero { display: flex; min-height: 85vh; }
+    .hero-content { flex: 1; padding: 8% 5%; }
+    .hero-title { font-size: 4rem; line-height: 1.1; margin-bottom: 1.5rem; font-weight: 800; letter-spacing: -0.03em; color: var(--blue); }
+    .hero-desc { font-size: 1.2rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 2.5rem; max-width: 500px; }
+    .hero-img { flex: 1; background: url('../../../assets/img/services-cleaning-2/auto-1.webp') center/cover; position: relative; clip-path: polygon(10% 0, 100% 0, 100% 100%, 0% 100%); }
+    
+    .stats { display: flex; gap: 3rem; margin-top: 4rem; border-top: 1px solid var(--border); padding-top: 2rem; }
+    .stat-val { font-size: 2rem; font-weight: 800; color: var(--text); }
+    .stat-lbl { font-size: 0.9rem; color: var(--text-muted); font-weight: 500; }
+
+    .services { padding: 5rem 5%; background: var(--blue-light); }
+    .sec-title { font-size: 2rem; font-weight: 800; text-align: center; margin-bottom: 2.5rem; color: var(--text); }
+    .svc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .svc-card { background: white; border-radius: 16px; padding: 2rem; border: 1px solid var(--border); transition: 0.3s; }
+    .svc-card:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(0,0,0,0.06); }
+    .svc-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+    .svc-name { font-weight: 800; font-size: 1.1rem; margin-bottom: 0.5rem; }
+    .svc-desc { color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; }
+
+    .testimonials { padding: 5rem 5%; text-align: center; }
+    .t-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 2rem; }
+    .t-card { background: white; border-radius: 16px; padding: 2rem; border: 1px solid var(--border); text-align: left; }
+    .t-stars { color: #F59E0B; margin-bottom: 0.8rem; }
+    .t-text { font-size: 0.95rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 1rem; font-style: italic; }
+    .t-author { font-weight: 700; font-size: 0.85rem; }
+
+    .footer { padding: 3rem 5%; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); color: var(--text-muted); font-size: 0.85rem; }
+    .footer a:hover { color: var(--blue); }
+
+    @media (max-width: 900px) {
+      .hero { flex-direction: column; }
+      .hero-img { min-height: 400px; clip-path: none; margin-top: 2rem; }
+      .nav-links { display: none; }
+      .svc-grid, .t-grid { grid-template-columns: 1fr; }
+      .footer { flex-direction: column; gap: 1rem; text-align: center; }
+    }
+
+    .price { padding: 5rem 5%; background: white; }
+    .price-head { text-align: center; max-width: 600px; margin: 0 auto 3rem; }
+    .price-eye { display: inline-block; background: var(--blue-light); color: var(--blue); font-weight: 700; padding: 0.4rem 1rem; border-radius: 999px; font-size: 0.78rem; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.06em; }
+    .price-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; max-width: 1100px; margin: 0 auto; }
+    .price-card { background: white; border: 2px solid var(--border); border-radius: 20px; padding: 2.2rem 1.9rem; transition: 0.3s; position: relative; }
+    .price-card:hover { transform: translateY(-4px); box-shadow: 0 16px 36px rgba(11,94,215,0.08); border-color: var(--blue); }
+    .price-card.feat { border-color: var(--blue); background: var(--blue-light); }
+    .price-tag { font-size: 0.78rem; color: var(--blue); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.6rem; }
+    .price-name { font-size: 1.5rem; font-weight: 800; margin-bottom: 0.4rem; }
+    .price-amt { font-size: 2.4rem; font-weight: 800; color: var(--blue); line-height: 1; margin: 1rem 0 0.4rem; }
+    .price-per { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem; display: block; }
+    .price-incl { list-style: none; padding: 0; margin: 1.2rem 0; }
+    .price-incl li { padding: 0.45rem 0; color: var(--text); font-size: 0.92rem; display: flex; gap: 0.55rem; }
+    .price-incl li::before { content: '✓'; color: var(--blue); font-weight: 800; }
+    .price-cta { display: block; text-align: center; background: var(--blue); color: white; padding: 0.85rem 1rem; border-radius: 999px; font-weight: 700; font-size: 0.9rem; }
+
+    .promise { padding: 5rem 5%; background: var(--text); color: white; }
+    .promise-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 4rem; max-width: 1100px; margin: 0 auto; align-items: start; }
+    .promise-title { font-size: 2.2rem; font-weight: 800; line-height: 1.15; color: white; }
+    .promise-line { color: #94A3B8; font-size: 1rem; line-height: 1.7; margin-top: 1rem; }
+    .promise-list { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .promise-item { padding: 1.3rem; background: rgba(255,255,255,0.04); border-radius: 12px; border: 1px solid rgba(255,255,255,0.08); }
+    .promise-no { color: var(--blue); font-weight: 800; font-size: 0.85rem; margin-bottom: 0.5rem; letter-spacing: 0.06em; }
+    .promise-name { font-weight: 800; margin-bottom: 0.4rem; }
+    .promise-desc { font-size: 0.88rem; color: #94A3B8; line-height: 1.55; }
+
+    @media (max-width: 900px) {
+      .price-grid { grid-template-columns: 1fr; }
+      .promise-grid, .promise-list { grid-template-columns: 1fr; gap: 1.5rem; }
+      .price, .promise { padding: 4rem 5%; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="logo">ÉclatPro</div>
+    <div class="nav-links">
+      <a href="#services">Services</a>
+      <a href="#price">Pricing</a>
+      <a href="#testimonials">Reviews</a>
+      <a href="#promise">About Us</a>
+    </div>
+    <a href="#" class="btn">Get a Quote</a>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h1 class="hero-title">Expert Home Cleaning for a Sparkling Life.</h1>
+      <p class="hero-desc">Premium cleaning services tailored for your sanctuary. Enjoy a spotless, healthy home with our trusted and reliable team.</p>
+      <div style="display:flex; gap:1rem; align-items:center;">
+        <a href="#" class="btn">Schedule Your Clean</a>
+        <a href="#" style="font-weight:700; color:var(--text); text-decoration:underline;">Explore Our Services</a>
+      </div>
+      
+      <div class="stats">
+        <div><div class="stat-val">10k+</div><div class="stat-lbl">Homes Cleaned</div></div>
+        <div><div class="stat-val">4.9/5</div><div class="stat-lbl">Average Rating</div></div>
+        <div><div class="stat-val">100%</div><div class="stat-lbl">Guaranteed</div></div>
+      </div>
+    </div>
+    <div class="hero-img"></div>
+  </section>
+  <section class="services" id="services">
+    <h2 class="sec-title">Our Services</h2>
+    <div class="svc-grid">
+      <div class="svc-card"><div class="svc-icon">✨</div><div class="svc-name">Deep Clean</div><div class="svc-desc">Top-to-bottom thorough cleaning for a fresh start. Kitchens, bathrooms, and every corner.</div></div>
+      <div class="svc-card"><div class="svc-icon">🏠</div><div class="svc-name">Regular Clean</div><div class="svc-desc">Weekly or bi-weekly maintenance cleaning to keep your home in perfect condition.</div></div>
+      <div class="svc-card"><div class="svc-icon">📦</div><div class="svc-name">Move In/Out</div><div class="svc-desc">Comprehensive cleaning for moving day. Leave spotless, arrive to sparkle.</div></div>
+    </div>
+  </section>
+
+  <section class="price" id="price">
+    <div class="price-head">
+      <span class="price-eye">Transparent pricing</span>
+      <h2 class="sec-title" style="margin:0;">No surprises, no hidden fees.</h2>
+    </div>
+    <div class="price-grid">
+      <div class="price-card">
+        <div class="price-tag">Weekly</div>
+        <div class="price-name">Essentiel</div>
+        <div class="price-amt">€89</div>
+        <span class="price-per">per visit · 2h average</span>
+        <ul class="price-incl">
+          <li>Full kitchen &amp; bathrooms</li>
+          <li>Vacuum &amp; mop all floors</li>
+          <li>Dust all surfaces</li>
+          <li>Bed making + waste out</li>
+        </ul>
+        <a href="#" class="price-cta">Book Essentiel</a>
+      </div>
+      <div class="price-card feat">
+        <div class="price-tag">Most popular</div>
+        <div class="price-name">Confort</div>
+        <div class="price-amt">€129</div>
+        <span class="price-per">per visit · 3h average</span>
+        <ul class="price-incl">
+          <li>Everything in Essentiel</li>
+          <li>Deep oven &amp; fridge</li>
+          <li>Inside windows &amp; mirrors</li>
+          <li>Laundry start (1 cycle)</li>
+          <li>Linen change</li>
+        </ul>
+        <a href="#" class="price-cta">Book Confort</a>
+      </div>
+      <div class="price-card">
+        <div class="price-tag">Monthly deep</div>
+        <div class="price-name">Premium</div>
+        <div class="price-amt">€199</div>
+        <span class="price-per">per visit · 5h average</span>
+        <ul class="price-incl">
+          <li>Everything in Confort</li>
+          <li>Inside cabinets &amp; drawers</li>
+          <li>Baseboards &amp; door frames</li>
+          <li>Light fixtures &amp; vents</li>
+          <li>Eco product upgrade</li>
+        </ul>
+        <a href="#" class="price-cta">Book Premium</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="promise" id="promise">
+    <div class="promise-grid">
+      <div>
+        <h2 class="promise-title">The ÉclatPro promise.</h2>
+        <p class="promise-line">Insured, vetted, and on time — or we come back free.</p>
+      </div>
+      <div class="promise-list">
+        <div class="promise-item"><div class="promise-no">01.</div><div class="promise-name">Background-checked staff</div><div class="promise-desc">Every cleaner passes ID, references and a 30-day trial before serving clients.</div></div>
+        <div class="promise-item"><div class="promise-no">02.</div><div class="promise-name">€2M liability insurance</div><div class="promise-desc">Every visit is covered — your home, your belongings, our responsibility.</div></div>
+        <div class="promise-item"><div class="promise-no">03.</div><div class="promise-name">Eco-certified products</div><div class="promise-desc">EU Ecolabel cleaners by default. No bleach, no ammonia, allergy-safe.</div></div>
+        <div class="promise-item"><div class="promise-no">04.</div><div class="promise-name">100% satisfaction</div><div class="promise-desc">Not happy? Tell us within 24h and we re-clean — same day, no charge.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="testimonials" id="testimonials">
+    <h2 class="sec-title">What Our Clients Say</h2>
+    <div class="t-grid">
+      <div class="t-card"><div class="t-stars">★★★★★</div><div class="t-text">"Absolutely spotless every single time. The team is reliable, fast, and incredibly thorough."</div><div class="t-author">Sarah M.</div></div>
+      <div class="t-card"><div class="t-stars">★★★★★</div><div class="t-text">"Best cleaning service I've ever used. They even cleaned areas I forgot existed!"</div><div class="t-author">James L.</div></div>
+      <div class="t-card"><div class="t-stars">★★★★★</div><div class="t-text">"Eco-friendly products and the house smells amazing after. Highly recommend."</div><div class="t-author">Nadia K.</div></div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div style="font-weight: 800; font-size: 1.2rem; color: var(--blue);">ÉclatPro</div>
+    <div style="display: flex; gap: 2rem;"><a href="#">Services</a><a href="#">Pricing</a><a href="#">Contact</a></div>
+    <span>&copy; 2026 ÉclatPro. Clean with confidence.</span>
+  </footer>
+</body>
+</html>

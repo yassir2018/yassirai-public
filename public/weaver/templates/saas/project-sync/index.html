@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ProjectSync | Workspace</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #F4F7FE;
+      --white: #FFFFFF;
+      --text: #2B3674;
+      --purple: #4318FF;
+      --purple-light: #E9E3FF;
+      --gray: #A3AED0;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Nunito', sans-serif; background: var(--bg); color: var(--text); display: flex; height: 100vh; overflow: hidden; }
+
+    /* Sidebar */
+    .sidebar { width: 280px; background: var(--white); padding: 2rem; display: flex; flex-direction: column; }
+    .logo { font-size: 1.8rem; font-weight: 800; color: var(--text); margin-bottom: 2.5rem; display: flex; align-items: center; gap: 10px; }
+    .logo span { background: var(--purple); color: white; width: 35px; height: 35px; border-radius: 8px; display: flex; justify-content: center; align-items: center; }
+    
+    .menu-group { margin-bottom: 2rem; }
+    .menu-title { font-size: 0.8rem; color: var(--gray); text-transform: uppercase; font-weight: 700; margin-bottom: 1rem; letter-spacing: 1px; }
+    .menu-item { display: flex; align-items: center; gap: 15px; padding: 12px 15px; border-radius: 12px; font-weight: 600; color: var(--gray); cursor: pointer; transition: 0.2s; margin-bottom: 5px; }
+    .menu-item:hover { background: var(--bg); }
+    .menu-item.active { background: var(--purple); color: white; box-shadow: 0 10px 20px rgba(67, 24, 255, 0.2); }
+
+    /* Main Area */
+    .main { flex: 1; display: flex; flex-direction: column; }
+    .header { height: 80px; display: flex; justify-content: space-between; align-items: center; padding: 0 2rem; }
+    .h-title { font-size: 1.5rem; font-weight: 700; }
+    .h-actions { display: flex; align-items: center; gap: 20px; background: var(--white); padding: 5px 20px; border-radius: 30px; box-shadow: 0 5px 15px rgba(0,0,0,0.02); }
+    .search { border: none; outline: none; padding: 10px; font-family: 'Nunito'; }
+
+    /* Kanban Board */
+    .board { flex: 1; padding: 0 2rem 2rem; display: flex; gap: 2rem; overflow-x: auto; align-items: flex-start; }
+    .column { width: 320px; flex-shrink: 0; background: var(--bg); display: flex; flex-direction: column; gap: 1rem; }
+    .c-header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 10px; border-bottom: 2px solid var(--gray); margin-bottom: 10px; }
+    .c-title { font-weight: 700; font-size: 1.1rem; }
+    .task-count { background: var(--purple-light); color: var(--purple); padding: 2px 8px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; }
+
+    /* Task Card */
+    .task { background: var(--white); border-radius: 16px; padding: 1.5rem; cursor: grab; box-shadow: 0 5px 15px rgba(0,0,0,0.02); transition: 0.2s; }
+    .task:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
+    .t-labels { display: flex; gap: 10px; margin-bottom: 15px; }
+    .t-label { font-size: 0.7rem; font-weight: 700; padding: 4px 10px; border-radius: 10px; text-transform: uppercase; }
+    .l-design { background: #E9E3FF; color: #4318FF; }
+    .l-dev { background: #FFE2E5; color: #F65959; }
+    .l-market { background: #E1F8EB; color: #05CD99; }
+    
+    .t-title { font-weight: 700; margin-bottom: 10px; font-size: 1.1rem; line-height: 1.4; }
+    .t-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 15px; border-top: 1px dashed #E2E8F0; padding-top: 15px; }
+    .t-avatars { display: flex; }
+    .avatar { width: 30px; height: 30px; border-radius: 50%; background: var(--gray); border: 2px solid var(--white); margin-left: -10px; }
+    .avatar:first-child { margin-left: 0; }
+    .t-date { font-size: 0.85rem; color: var(--gray); font-weight: 600; }
+
+    @media (max-width: 900px) {
+      .sidebar { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar">
+    <div class="logo"><span>P</span> ProjectSync</div>
+    
+    <div class="menu-group">
+      <div class="menu-title">Main Menu</div>
+      <div class="menu-item active">📋 Kanban Board</div>
+      <div class="menu-item">📊 Dashboard</div>
+      <div class="menu-item">💬 Messages</div>
+      <div class="menu-item">📅 Calendar</div>
+    </div>
+    
+    <div class="menu-group">
+      <div class="menu-title">Projects</div>
+      <div class="menu-item">Website Redesign</div>
+      <div class="menu-item">Mobile App Launch</div>
+      <div class="menu-item">Brand Guideline</div>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="header">
+      <div>
+        <h1 class="h-title">Website Redesign V2.0</h1>
+        <div style="font-size: 0.9rem; color: var(--gray); font-weight: 600;">Active Sprint • Ends in 4 days</div>
+      </div>
+      <div class="h-actions">
+        <span>🔍</span>
+        <input type="text" class="search" placeholder="Search tasks...">
+        <div style="width:40px; height:40px; background:var(--purple); border-radius:50%; margin-left:20px;"></div>
+      </div>
+    </div>
+
+    <div class="board">
+      
+      <!-- Column 1 -->
+      <div class="column">
+        <div class="c-header">
+          <div class="c-title">To Do</div>
+          <div class="task-count">2</div>
+        </div>
+        
+        <div class="task">
+          <div class="t-labels">
+            <span class="t-label l-design">Design</span>
+          </div>
+          <div class="t-title">Create high-fidelity mockups for Dashboard</div>
+          <p style="color:var(--gray); font-size:0.9rem;">Need 5 varied styles for the SaaS category before Friday review.</p>
+          <div class="t-footer">
+            <div class="t-avatars">
+              <img src="../../../assets/img/saas-project-sync/auto-1.webp" class="avatar" alt="User">
+            </div>
+            <div class="t-date">Oct 24</div>
+          </div>
+        </div>
+
+        <div class="task">
+          <div class="t-labels">
+            <span class="t-label l-market">Marketing</span>
+          </div>
+          <div class="t-title">Update SEO Meta Tags across new URLs</div>
+          <div class="t-footer">
+            <div class="t-avatars">
+              <img src="../../../assets/img/saas-project-sync/auto-2.webp" class="avatar" alt="User">
+            </div>
+            <div class="t-date">Oct 26</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Column 2 -->
+      <div class="column">
+        <div class="c-header">
+          <div class="c-title">In Progress</div>
+          <div class="task-count">1</div>
+        </div>
+        
+        <div class="task">
+          <div class="t-labels">
+            <span class="t-label l-dev">Development</span>
+          </div>
+          <div class="t-title">Integrate Payment Gateway via Stripe API</div>
+          <p style="color:var(--gray); font-size:0.9rem;">Ensure webhooks are properly catching the success and fail events.</p>
+          <div class="t-footer">
+            <div class="t-avatars">
+              <img src="../../../assets/img/saas-project-sync/auto-3.webp" class="avatar" alt="User">
+              <img src="../../../assets/img/saas-project-sync/auto-4.webp" class="avatar" alt="User">
+            </div>
+            <div class="t-date">Oct 22</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Column 3 -->
+      <div class="column">
+        <div class="c-header">
+          <div class="c-title">Done</div>
+          <div class="task-count">1</div>
+        </div>
+        
+        <div class="task" style="opacity: 0.7;">
+          <div class="t-labels">
+            <span class="t-label l-design">Design</span>
+            <span class="t-label l-dev">Dev</span>
+          </div>
+          <div class="t-title" style="text-decoration: line-through;">Initialize React App with Tailwind</div>
+          <div class="t-footer">
+            <div class="t-avatars">
+              <img src="../../../assets/img/saas-project-sync/auto-5.webp" class="avatar" alt="User">
+            </div>
+            <div class="t-date">Oct 21</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</body>
+</html>

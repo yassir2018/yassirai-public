@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ink & Skin | Tattoo Artist Portfolio</title>
+  <meta name="description" content="Professional tattoo artist portfolio. Custom designs, flash sheets, and booking information.">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #111111;
+      --surface: #1A1A1A;
+      --white: #F5F5F5;
+      --gold: #D4AF37;
+      --gold-dim: rgba(212,175,55,0.15);
+      --muted: #777;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family: 'Raleway', sans-serif; background: var(--bg); color: var(--white); overflow-x: hidden; }
+    h1, h2, h3, .display { font-family: 'Cinzel', serif; }
+    a { text-decoration: none; color: inherit; transition: 0.3s; }
+
+    .nav { position: fixed; top: 0; width: 100%; padding: 1.5rem 5%; display: flex; justify-content: space-between; align-items: center; z-index: 100; transition: 0.4s; }
+    .nav.scrolled { background: rgba(17,17,17,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(212,175,55,0.1); }
+    .logo { font-family: 'Cinzel'; font-size: 1.5rem; letter-spacing: 0.2em; text-transform: uppercase; }
+    .logo span { color: var(--gold); }
+    .nav-links { display: flex; gap: 2rem; font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 500; }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-book { padding: 0.6rem 2rem; border: 1px solid var(--gold); color: var(--gold); font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 600; }
+    .nav-book:hover { background: var(--gold); color: var(--bg); }
+
+    .hero { height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; position: relative; overflow: hidden; }
+    .hero-bg { position: absolute; inset: 0; }
+    .hero-bg img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.25) contrast(1.1); }
+    .hero-content { position: relative; z-index: 2; }
+    .hero-ornament { width: 80px; height: 1px; background: var(--gold); margin: 0 auto 1.5rem; }
+    .hero-title { font-size: 5rem; line-height: 1.1; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1rem; }
+    .hero-title .gold { color: var(--gold); }
+    .hero-sub { font-size: 1.1rem; color: var(--muted); letter-spacing: 0.15em; max-width: 500px; margin: 0 auto 2.5rem; font-weight: 300; line-height: 1.8; }
+    .hero-btns { display: flex; gap: 1.5rem; justify-content: center; }
+    .btn-gold { padding: 0.9rem 2.5rem; background: var(--gold); color: var(--bg); font-family: 'Cinzel'; font-size: 0.85rem; letter-spacing: 0.15em; text-transform: uppercase; border: none; cursor: pointer; transition: 0.3s; }
+    .btn-gold:hover { background: white; }
+    .btn-ghost { padding: 0.9rem 2.5rem; background: transparent; color: var(--white); border: 1px solid rgba(255,255,255,0.2); font-family: 'Cinzel'; font-size: 0.85rem; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; transition: 0.3s; }
+    .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+
+    .section { padding: 6rem 5%; }
+    .section-header { text-align: center; margin-bottom: 4rem; }
+    .section-ornament { width: 50px; height: 1px; background: var(--gold); margin: 0 auto 1rem; }
+    .section-tag { font-size: 0.7rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.8rem; }
+    .section-title { font-size: 2.8rem; letter-spacing: 0.1em; text-transform: uppercase; }
+
+    /* Flash Gallery — Fullscreen slides */
+    .flash-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3px; }
+    .flash-item { position: relative; overflow: hidden; cursor: pointer; aspect-ratio: 1; }
+    .flash-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; filter: grayscale(80%); }
+    .flash-item:hover img { filter: grayscale(0%); transform: scale(1.08); }
+    .flash-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.7); display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; transition: 0.4s; }
+    .flash-item:hover .flash-overlay { opacity: 1; }
+    .flash-overlay h3 { font-size: 1.1rem; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.3rem; }
+    .flash-overlay span { font-size: 0.8rem; color: var(--gold); }
+
+    /* Session Videos */
+    .session-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; max-width: 900px; margin: 0 auto; }
+    .session-card { position: relative; overflow: hidden; cursor: pointer; border: 1px solid rgba(255,255,255,0.05); }
+    .session-card img { width: 100%; aspect-ratio: 16/9; object-fit: cover; transition: 0.5s; filter: brightness(0.6); }
+    .session-card:hover img { filter: brightness(0.3); }
+    .s-play { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 55px; height: 55px; border: 2px solid var(--gold); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; transition: 0.3s; }
+    .session-card:hover .s-play { background: var(--gold); color: var(--bg); }
+    .s-meta { padding: 1rem; background: var(--surface); }
+    .s-meta h4 { font-size: 0.95rem; letter-spacing: 0.05em; margin-bottom: 0.2rem; }
+    .s-meta span { font-size: 0.8rem; color: var(--muted); }
+
+    /* Booking */
+    .booking { background: var(--surface); text-align: center; border-top: 1px solid rgba(212,175,55,0.1); border-bottom: 1px solid rgba(212,175,55,0.1); }
+    .booking-steps { display: flex; justify-content: center; gap: 4rem; margin-top: 3rem; }
+    .step { max-width: 250px; }
+    .step-num { font-family: 'Cinzel'; font-size: 3rem; color: var(--gold-dim); margin-bottom: 1rem; }
+    .step h3 { font-size: 1rem; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.5rem; }
+    .step p { font-size: 0.9rem; color: var(--muted); line-height: 1.6; }
+
+    /* Aftercare */
+    .aftercare-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; max-width: 900px; margin: 0 auto; }
+    .care-card { padding: 2rem; background: var(--surface); border: 1px solid rgba(255,255,255,0.05); text-align: center; transition: 0.3s; }
+    .care-card:hover { border-color: var(--gold); }
+    .care-icon { font-size: 2rem; margin-bottom: 1rem; }
+    .care-card h3 { font-size: 0.95rem; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.5rem; }
+    .care-card p { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
+
+    .contact { text-align: center; }
+    .contact-email { font-family: 'Cinzel'; font-size: 2.5rem; color: var(--gold); letter-spacing: 0.1em; }
+    .contact-email:hover { color: var(--white); }
+    .contact-social { display: flex; justify-content: center; gap: 1rem; margin-top: 2rem; }
+    .contact-social a { width: 42px; height: 42px; border: 1px solid rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; font-size: 0.85rem; color: var(--muted); transition: 0.3s; }
+    .contact-social a:hover { border-color: var(--gold); color: var(--gold); }
+
+    .footer { padding: 2rem 5%; display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; border-top: 1px solid rgba(255,255,255,0.05); }
+
+    dialog { border: none; background: transparent; max-width: 90vw; max-height: 90vh; padding: 0; }
+    dialog::backdrop { background: rgba(0,0,0,0.95); }
+    #imgModal img { max-width: 85vw; max-height: 85vh; object-fit: contain; }
+    #videoModal .video-container { width: 80vw; max-width: 1000px; aspect-ratio: 16/9; }
+    #videoModal .video-container iframe { width: 100%; height: 100%; border: none; }
+    .modal-close { position: fixed; top: 2rem; right: 2rem; width: 45px; height: 45px; background: var(--gold); border: none; color: var(--bg); font-size: 1.3rem; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 1000; transition: 0.3s; }
+    .modal-close:hover { background: var(--white); }
+
+    .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+    .reveal.active { opacity: 1; transform: translateY(0); }
+    .back-to-top { position: fixed; bottom: 30px; right: 30px; width: 45px; height: 45px; background: var(--gold); color: var(--bg); border: none; font-size: 1.2rem; cursor: pointer; opacity: 0; visibility: hidden; transition: 0.3s; z-index: 99; }
+    .back-to-top.visible { opacity: 1; visibility: visible; }
+    .back-to-top:hover { transform: translateY(-5px); }
+
+    @media (max-width: 900px) {
+      .nav-links, .nav-book { display: none; }
+      .hero-title { font-size: 3rem; }
+      .flash-grid { grid-template-columns: repeat(2, 1fr); }
+      .session-grid { grid-template-columns: 1fr; }
+      .booking-steps { flex-direction: column; align-items: center; gap: 2rem; }
+      .aftercare-grid { grid-template-columns: 1fr; }
+      .section-title { font-size: 2rem; }
+      .contact-email { font-size: 1.5rem; }
+      .footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav" id="mainNav">
+    <div class="logo">INK <span>&</span> SKIN</div>
+    <div class="nav-links">
+      <a href="#gallery">Flash</a>
+      <a href="#sessions">Sessions</a>
+      <a href="#booking">Booking</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <a href="#booking" class="nav-book">Book Now</a>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-bg"><img src="../../../assets/img/artist-ink-and-skin/auto-1.webp" alt="Tattoo Studio"></div>
+    <div class="hero-content">
+      <div class="hero-ornament"></div>
+      <h1 class="hero-title display">THE ART<br>OF <span class="gold">PERMANENCE</span></h1>
+      <p class="hero-sub">Custom tattoo design. Hand-poked and machine work. Fine line, blackwork, and neo-traditional specialties.</p>
+      <div class="hero-btns">
+        <button class="btn-gold" onclick="document.getElementById('booking').scrollIntoView({behavior:'smooth'})">BOOK A SESSION</button>
+        <button class="btn-ghost" onclick="document.getElementById('gallery').scrollIntoView({behavior:'smooth'})">VIEW FLASH</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Flash Gallery -->
+  <section class="section" id="gallery">
+    <div class="section-header reveal">
+      <div class="section-ornament"></div>
+      <div class="section-tag">Flash Designs</div>
+      <h2 class="section-title display">THE COLLECTION</h2>
+    </div>
+    <div class="flash-grid reveal">
+      <div class="flash-item" onclick="openImg(this)">
+        <img src="../../../assets/img/artist-ink-and-skin/auto-2.webp" alt="Flash 1">
+        <div class="flash-overlay"><h3>Serpent</h3><span>Fine Line</span></div>
+      </div>
+      <div class="flash-item" onclick="openImg(this)">
+        <img src="../../../assets/img/artist-ink-and-skin/auto-3.webp" alt="Flash 2">
+        <div class="flash-overlay"><h3>Botanical</h3><span>Blackwork</span></div>
+      </div>
+      <div class="flash-item" onclick="openImg(this)">
+        <img src="../../../assets/img/artist-ink-and-skin/auto-4.webp" alt="Flash 3">
+        <div class="flash-overlay"><h3>Geometric</h3><span>Dotwork</span></div>
+      </div>
+      <div class="flash-item" onclick="openImg(this)">
+        <img src="../../../assets/img/artist-ink-and-skin/auto-5.webp" alt="Flash 4">
+        <div class="flash-overlay"><h3>Skull Crown</h3><span>Neo-Traditional</span></div>
+      </div>
+      <div class="flash-item" onclick="openImg(this)">
+        <img src="../../../assets/img/artist-ink-and-skin/auto-1.webp" alt="Flash 5">
+        <div class="flash-overlay"><h3>Dagger Rose</h3><span>Traditional</span></div>
+      </div>
+      <div class="flash-item" onclick="openImg(this)">
+        <img src="../../../assets/img/artist-ink-and-skin/auto-6.webp" alt="Flash 6">
+        <div class="flash-overlay"><h3>Mandala</h3><span>Ornamental</span></div>
+      </div>
+      <div class="flash-item" onclick="openImg(this)">
+        <img src="../../../assets/img/artist-ink-and-skin/auto-7.webp" alt="Flash 7">
+        <div class="flash-overlay"><h3>Koi</h3><span>Japanese</span></div>
+      </div>
+      <div class="flash-item" onclick="openImg(this)">
+        <img src="../../../assets/img/artist-ink-and-skin/auto-8.webp" alt="Flash 8">
+        <div class="flash-overlay"><h3>Sacred Heart</h3><span>Chicano</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Session Videos -->
+  <section class="section" id="sessions" style="background: var(--surface);">
+    <div class="section-header reveal">
+      <div class="section-ornament"></div>
+      <div class="section-tag">In the Chair</div>
+      <h2 class="section-title display">TATTOO SESSIONS</h2>
+    </div>
+    <div class="session-grid reveal">
+      <div class="session-card" onclick="openVideo('dQw4w9WgXcQ')">
+        <img src="../../../assets/img/artist-ink-and-skin/auto-4.webp" alt="Session 1">
+        <div class="s-play">▶</div>
+        <div class="s-meta"><h4>Full Sleeve Session — 8 Hours Real Time</h4><span>Blackwork · Timelapse</span></div>
+      </div>
+      <div class="session-card" onclick="openVideo('dQw4w9WgXcQ')">
+        <img src="../../../assets/img/artist-ink-and-skin/auto-3.webp" alt="Session 2">
+        <div class="s-play">▶</div>
+        <div class="s-meta"><h4>Hand-Poke Botanical — Close Up Process</h4><span>Fine Line · 22 min</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Booking -->
+  <section class="section booking" id="booking">
+    <div class="section-header reveal">
+      <div class="section-ornament"></div>
+      <div class="section-tag">How to Book</div>
+      <h2 class="section-title display">THE PROCESS</h2>
+    </div>
+    <div class="booking-steps reveal">
+      <div class="step"><div class="step-num">01</div><h3>Inquiry</h3><p>Fill out the booking form with your idea, placement, size, and reference images.</p></div>
+      <div class="step"><div class="step-num">02</div><h3>Consultation</h3><p>We discuss the concept, finalize the design, and schedule your session date.</p></div>
+      <div class="step"><div class="step-num">03</div><h3>Session</h3><p>Your custom piece comes to life in our private studio environment.</p></div>
+    </div>
+  </section>
+
+  <!-- Aftercare -->
+  <section class="section">
+    <div class="section-header reveal">
+      <div class="section-ornament"></div>
+      <div class="section-tag">Post-Session</div>
+      <h2 class="section-title display">AFTERCARE</h2>
+    </div>
+    <div class="aftercare-grid reveal">
+      <div class="care-card"><div class="care-icon">🧴</div><h3>Moisturize</h3><p>Apply a thin layer of unscented moisturizer 3× daily for the first two weeks.</p></div>
+      <div class="care-card"><div class="care-icon">🚿</div><h3>Clean Gently</h3><p>Wash with lukewarm water and mild soap. Pat dry — never rub the area.</p></div>
+      <div class="care-card"><div class="care-icon">☀️</div><h3>Avoid Sun</h3><p>Keep your new tattoo out of direct sunlight for at least 4 weeks. Use SPF 50+ after healing.</p></div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="section contact" id="contact">
+    <div class="section-header reveal">
+      <div class="section-ornament"></div>
+      <div class="section-tag">Get Inked</div>
+      <h2 class="section-title display">REACH OUT</h2>
+    </div>
+    <div class="reveal">
+      <a href="mailto:studio@inkandskin.art" class="contact-email display">studio@inkandskin.art</a>
+      <div class="contact-social">
+        <a href="#">IG</a><a href="#">YT</a><a href="#">TK</a><a href="#">Pi</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer"><span>&copy; 2026 Ink & Skin Studio</span><span>Brooklyn, New York</span></footer>
+
+  <dialog id="imgModal"><img id="modalImg" src="" alt=""><button class="modal-close" onclick="document.getElementById('imgModal').close()">✕</button></dialog>
+  <dialog id="videoModal"><div class="video-container"></div><button class="modal-close" onclick="closeVideo()">✕</button></dialog>
+  <button class="back-to-top" id="backToTop">&uarr;</button>
+
+  <script>
+    const nav = document.getElementById('mainNav');
+    window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 50));
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('active'); }); }, { threshold: 0.1 });
+    revealEls.forEach(el => observer.observe(el));
+    const btt = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => btt.classList.toggle('visible', window.scrollY > 600));
+    btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    function openImg(item) { document.getElementById('modalImg').src = item.querySelector('img').src; document.getElementById('imgModal').showModal(); }
+    document.getElementById('imgModal').addEventListener('click', function(e) { if (e.target === this) this.close(); });
+    function openVideo(id) { const m = document.getElementById('videoModal'); m.querySelector('.video-container').innerHTML = `<iframe src="https://www.youtube.com/embed/${id}?autoplay=1&rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>`; m.showModal(); }
+    function closeVideo() { const m = document.getElementById('videoModal'); m.querySelector('.video-container').innerHTML = ''; m.close(); }
+    document.getElementById('videoModal').addEventListener('click', function(e) { if (e.target === this) closeVideo(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeVideo(); document.getElementById('imgModal').close(); } });
+  </script>
+</body>
+</html>

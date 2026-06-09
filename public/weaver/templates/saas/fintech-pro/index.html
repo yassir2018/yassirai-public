@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FinTech Pro | Trading Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #121212;
+      --card: #1E1E1E;
+      --border: #333333;
+      --text: #FFFFFF;
+      --muted: #A0A0A0;
+      --green: #2EBD85;
+      --red: #F6465D;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family: 'Roboto', sans-serif; background: var(--bg); color: var(--text); padding: 15px; height: 100vh; display: flex; flex-direction: column; }
+    
+    .header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 15px; border-bottom: 1px solid var(--border); margin-bottom: 15px; }
+    .logo { font-weight: 700; font-size: 1.2rem; letter-spacing: 1px; }
+    .logo span { color: var(--green); }
+    .h-info { display: flex; gap: 20px; font-family: 'JetBrains Mono'; font-size: 0.9rem; }
+    .val-g { color: var(--green); }
+    .val-r { color: var(--red); }
+
+    .grid { display: grid; grid-template-columns: 300px 1fr 300px; gap: 15px; flex: 1; min-height: 0; }
+    .panel { background: var(--card); border: 1px solid var(--border); border-radius: 4px; display: flex; flex-direction: column; overflow: hidden; }
+    .p-head { padding: 10px 15px; border-bottom: 1px solid var(--border); font-size: 0.85rem; font-weight: 700; text-transform: uppercase; color: var(--muted); background: #1A1A1A; }
+    
+    /* Order Book List */
+    .list { flex: 1; overflow-y: auto; padding: 10px 0; font-family: 'JetBrains Mono'; font-size: 0.85rem; }
+    .l-item { display: flex; justify-content: space-between; padding: 4px 15px; cursor: pointer; }
+    .l-item:hover { background: rgba(255,255,255,0.05); }
+
+    /* Main Chart Area */
+    .chart-panel { padding: 15px; flex:1; display:flex; flex-direction:column; }
+    .c-top { display: flex; justify-content: space-between; margin-bottom: 20px; }
+    .pair-name { font-size: 1.5rem; font-weight: 700; }
+    .pair-price { font-family: 'JetBrains Mono'; font-size: 1.5rem; color: var(--green); }
+    
+    .mock-candles { flex: 1; border: 1px solid var(--border); position: relative; background: #161616; overflow: hidden; }
+    .candle { position: absolute; width: 8px; }
+    .c-green { background: var(--green); }
+    .c-red { background: var(--red); }
+
+    /* Action Panel */
+    .action-body { padding: 15px; }
+    .tabs { display: flex; margin-bottom: 15px; border-bottom: 1px solid var(--border); }
+    .tab { flex: 1; text-align: center; padding: 10px; font-weight: 700; cursor: pointer; color: var(--muted); }
+    .tab.active { color: var(--green); border-bottom: 2px solid var(--green); }
+    
+    .input-grp { display: flex; background: var(--bg); border: 1px solid var(--border); border-radius: 4px; margin-bottom: 15px; overflow: hidden; }
+    .i-label { padding: 10px; color: var(--muted); font-size: 0.85rem; background: #1A1A1A; border-right: 1px solid var(--border); }
+    .i-field { flex: 1; background: transparent; border: none; color: white; padding: 10px; font-family: 'JetBrains Mono'; text-align: right; outline: none; }
+    
+    .btn-buy { background: var(--green); color: white; width: 100%; border: none; padding: 12px; font-weight: 700; border-radius: 4px; cursor: pointer; text-transform: uppercase; font-size: 1rem; }
+
+    @media (max-width: 1000px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="logo">FINTECH<span>PRO</span></div>
+    <div class="h-info">
+      <div>BTC/USD <span class="val-g">68,450.00</span></div>
+      <div>ETH/USD <span class="val-r">3,450.25</span></div>
+      <div>Account Val: <strong>$125,400.00</strong></div>
+    </div>
+  </div>
+
+  <div class="grid">
+    <!-- Order Book -->
+    <div class="panel">
+      <div class="p-head">Order Book (BTC/USD)</div>
+      <div class="list">
+        <div class="l-item"><span class="val-r">68,465.50</span><span>0.150</span></div>
+        <div class="l-item"><span class="val-r">68,460.00</span><span>1.200</span></div>
+        <div class="l-item"><span class="val-r">68,455.00</span><span>0.500</span></div>
+        <div style="padding: 10px 15px; font-size: 1.2rem; font-weight: 700; color: var(--text); border-top: 1px solid #333; border-bottom: 1px solid #333; margin: 10px 0; text-align: center;">68,450.00 <span style="font-size:0.8rem; color:var(--green)">↑</span></div>
+        <div class="l-item"><span class="val-g">68,445.00</span><span>2.400</span></div>
+        <div class="l-item"><span class="val-g">68,440.00</span><span>0.850</span></div>
+        <div class="l-item"><span class="val-g">68,435.50</span><span>3.100</span></div>
+      </div>
+    </div>
+
+    <!-- Chart -->
+    <div class="panel">
+      <div class="chart-panel">
+        <div class="c-top">
+          <div class="pair-name">BTC / USD Perpetual</div>
+          <div class="pair-price">68,450.00</div>
+        </div>
+        <div class="mock-candles">
+          <!-- Visual representation of candles using CSS -->
+          <div class="candle c-green" style="left:10%; bottom:20%; height:40px;"></div>
+          <div class="candle c-green" style="left:20%; bottom:30%; height:50px;"></div>
+          <div class="candle c-red" style="left:30%; bottom:25%; height:30px;"></div>
+          <div class="candle c-green" style="left:40%; bottom:35%; height:60px;"></div>
+          <div class="candle c-green" style="left:50%; bottom:50%; height:80px;"></div>
+          <div class="candle c-red" style="left:60%; bottom:40%; height:45px;"></div>
+          <div class="candle c-green" style="left:70%; bottom:45%; height:70px;"></div>
+          <div class="candle c-green" style="left:80%; bottom:65%; height:50px;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Trade Action -->
+    <div class="panel">
+      <div class="p-head">Place Order</div>
+      <div class="action-body">
+        <div class="tabs">
+          <div class="tab active">Limit</div>
+          <div class="tab">Market</div>
+          <div class="tab">Stop</div>
+        </div>
+        
+        <div class="input-grp">
+          <div class="i-label">Price (USD)</div>
+          <input type="text" class="i-field" value="68440.00">
+        </div>
+        <div class="input-grp">
+          <div class="i-label">Size (BTC)</div>
+          <input type="text" class="i-field" value="0.5">
+        </div>
+        
+        <div style="display:flex; justify-content:space-between; color:var(--muted); font-size:0.8rem; margin-bottom:15px; font-family:'JetBrains Mono';">
+          <span>Cost:</span>
+          <span>$34,220.00</span>
+        </div>
+        
+        <button class="btn-buy">Buy / Long</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

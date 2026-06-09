@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Petits Génies | Early Learning Nursery</title>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #FFF7EF;
+      --orange: #E5734A;
+      --orange-light: #FAD4C4;
+      --green: #6E8B61;
+      --text: #4A3C38;
+      --ease: cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    html { scroll-behavior: smooth; }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family: 'Quicksand', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
+    a { text-decoration: none; color: inherit; }
+    
+    .nav { padding: 1.5rem 5%; display: flex; justify-content: space-between; align-items: center; }
+    .logo { font-size: 1.5rem; font-weight: 700; color: var(--green); display: flex; align-items: center; gap: 0.5rem; }
+    .nav-links { display: flex; gap: 2rem; }
+    .nav-links a { font-weight: 600; color: var(--text); padding: 0.5rem 1rem; border-radius: 20px; transition: 0.3s; }
+    .nav-links a:hover { background: var(--orange-light); color: var(--orange); }
+    .btn { background: var(--orange); color: white; padding: 0.8rem 2rem; border-radius: 30px; font-weight: 700; box-shadow: 0 4px 15px rgba(229, 115, 74, 0.3); transition: 0.3s; }
+    .btn:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(229, 115, 74, 0.4); }
+
+    .hero { display: flex; align-items: center; justify-content: space-between; padding: 5rem 5% 10rem; position: relative; }
+    .hero-content { max-width: 550px; z-index: 2; }
+    .hero-title { font-size: 3.5rem; color: var(--text); line-height: 1.1; margin-bottom: 1.5rem; font-weight: 700; }
+    .hero-desc { font-size: 1.1rem; line-height: 1.6; margin-bottom: 2.5rem; color: #6a5e5a; }
+    .btn-outline { background: transparent; color: var(--text); border: 2px solid var(--text); box-shadow: none; margin-left: 1rem; }
+    
+    .hero-img { width: 50%; height: 500px; position: relative; }
+    .hero-img img { width: 100%; height: 100%; object-fit: cover; border-radius: 50% 50% 50% 10px / 60% 60% 40% 10px; border: 8px solid white; box-shadow: 0 20px 40px rgba(0,0,0,0.08); }
+    
+    /* Playful shapes */
+    .shape { position: absolute; z-index: 1; }
+    .s1 { top: 10%; right: 40%; width: 50px; }
+    .s2 { bottom: 0; left: 0; width: 100%; height: 150px; background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg"><path fill="%23fff" d="M0,160L48,154.7C96,149,192,139,288,149.3C384,160,480,192,576,202.7C672,213,768,203,864,170.7C960,139,1056,85,1152,74.7C1248,64,1344,96,1392,112L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') bottom/cover no-repeat; }
+
+    .programs { padding: 5rem 5%; background: white; }
+    .sec-title { font-size: 2.5rem; text-align: center; margin-bottom: 3rem; color: var(--green); }
+    .prog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+    .prog-card { background: var(--bg); padding: 2rem; border-radius: 20px; text-align: center; transition: 0.3s; }
+    .prog-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.05); }
+    .prog-icon { font-size: 3rem; margin-bottom: 1rem; }
+    .prog-name { font-size: 1.3rem; font-weight: 700; color: var(--text); margin-bottom: 0.5rem; }
+    .prog-desc { color: #6a5e5a; font-size: 0.9rem; line-height: 1.5; }
+
+    .testimonial { padding: 5rem 5%; text-align: center; }
+    .t-text { font-size: 1.4rem; max-width: 600px; margin: 0 auto; color: var(--text); line-height: 1.6; }
+    .t-author { margin-top: 1rem; font-weight: 700; color: var(--orange); }
+
+    .footer { padding: 3rem 5%; display: flex; justify-content: space-between; align-items: center; background: white; color: #999; font-size: 0.85rem; }
+    .footer a:hover { color: var(--orange); }
+
+    @media (max-width: 900px) {
+      .hero { flex-direction: column; text-align: center; }
+      .hero-img { width: 100%; margin-top: 3rem; }
+      .nav-links { display: none; }
+      .prog-grid { grid-template-columns: 1fr; }
+      .footer { flex-direction: column; gap: 1rem; text-align: center; }
+    }
+
+    .day { padding: 5rem 5%; background: var(--orange-light); }
+    .day-head { text-align: center; max-width: 600px; margin: 0 auto 3rem; }
+    .day-pill { display: inline-block; background: white; color: var(--orange); font-weight: 700; padding: 0.45rem 1.2rem; border-radius: 20px; font-size: 0.85rem; margin-bottom: 1rem; box-shadow: 0 4px 12px rgba(229,115,74,0.18); }
+    .day-title { font-size: 2.3rem; color: var(--green); font-weight: 700; line-height: 1.15; }
+    .day-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; max-width: 1100px; margin: 0 auto; }
+    .day-card { background: white; border-radius: 24px; padding: 1.75rem 1.5rem; text-align: center; transition: 0.3s var(--ease); position: relative; }
+    .day-card:hover { transform: translateY(-4px) rotate(-1deg); box-shadow: 0 14px 28px rgba(0,0,0,0.06); }
+    .day-time { display: inline-block; background: var(--green); color: white; padding: 0.3rem 0.9rem; border-radius: 16px; font-size: 0.78rem; font-weight: 700; margin-bottom: 1rem; }
+    .day-icon { font-size: 2.4rem; margin-bottom: 0.6rem; }
+    .day-name { font-weight: 700; color: var(--text); font-size: 1.05rem; margin-bottom: 0.4rem; }
+    .day-desc { font-size: 0.85rem; color: #6a5e5a; line-height: 1.5; }
+
+    .why { padding: 5rem 5%; }
+    .why-head { text-align: center; margin-bottom: 3rem; }
+    .why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; max-width: 1100px; margin: 0 auto; }
+    .why-card { background: white; border-radius: 24px; padding: 2rem 1.7rem; transition: 0.3s var(--ease); display: flex; gap: 1rem; align-items: flex-start; box-shadow: 0 6px 18px rgba(110,139,97,0.07); }
+    .why-card:hover { transform: translateY(-4px); box-shadow: 0 14px 30px rgba(110,139,97,0.12); }
+    .why-num { background: var(--orange); color: white; width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0; }
+    .why-name { font-size: 1.1rem; font-weight: 700; color: var(--green); margin-bottom: 0.4rem; }
+    .why-desc { font-size: 0.9rem; color: #6a5e5a; line-height: 1.55; }
+
+    @media (max-width: 900px) {
+      .day-grid { grid-template-columns: 1fr 1fr; }
+      .why-grid { grid-template-columns: 1fr; }
+      .day, .why { padding: 4rem 5%; }
+    }
+    @media (max-width: 560px) {
+      .day-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="logo">🌳 Petits Génies</div>
+    <div class="nav-links">
+      <a href="#programs">Our Programs</a>
+      <a href="#day">Approach</a>
+      <a href="#why">Admissions</a>
+      <a href="#testimonial">Community</a>
+    </div>
+    <a href="#" class="btn">Enroll Now</a>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h1 class="hero-title">Cultivating curiosity, creativity & confidence.</h1>
+      <p class="hero-desc">Discover a nurturing environment where your child thrives through play-based learning at Petits Génies Academy Preschool & Nursery.</p>
+      <div>
+        <a href="#" class="btn">Explore Programs</a>
+        <a href="#" class="btn btn-outline">Schedule A Tour</a>
+      </div>
+    </div>
+    <div class="hero-img">
+      <img src="../../../assets/img/education-nursery-2/auto-1.webp" alt="Kids playing">
+    </div>
+    <div class="shape s2"></div>
+  </section>
+  <section class="programs" id="programs">
+    <h2 class="sec-title">Our Programs</h2>
+    <div class="prog-grid">
+      <div class="prog-card"><div class="prog-icon">🌈</div><div class="prog-name">Toddler Discovery</div><div class="prog-desc">Sensory play and motor skill development for ages 1-2.</div></div>
+      <div class="prog-card"><div class="prog-icon">🎨</div><div class="prog-name">Creative Arts</div><div class="prog-desc">Painting, music, and drama for budding little artists ages 2-4.</div></div>
+      <div class="prog-card"><div class="prog-icon">📚</div><div class="prog-name">Pre-School Ready</div><div class="prog-desc">Letters, numbers, and school readiness skills for ages 3-5.</div></div>
+    </div>
+  </section>
+
+  <section class="day" id="day">
+    <div class="day-head">
+      <span class="day-pill">A day at Petits Génies</span>
+      <h2 class="day-title">Curiosity, breakfast, naps, and a thousand tiny discoveries.</h2>
+    </div>
+    <div class="day-grid">
+      <div class="day-card"><div class="day-time">8 → 9</div><div class="day-icon">🌅</div><div class="day-name">Welcome circle</div><div class="day-desc">Songs, name calls, hugs and the day's weather report.</div></div>
+      <div class="day-card"><div class="day-icon">🥐</div><div class="day-time">9 → 10</div><div class="day-name">Snack &amp; story</div><div class="day-desc">Organic fruits, warm porridge and a picture book.</div></div>
+      <div class="day-card"><div class="day-time">10 → 12</div><div class="day-icon">🎨</div><div class="day-name">Free play</div><div class="day-desc">Painting, blocks, dressing-up, garden discovery.</div></div>
+      <div class="day-card"><div class="day-time">13 → 15</div><div class="day-icon">😴</div><div class="day-name">Quiet nap</div><div class="day-desc">Dimmed lights, soft music, blanket cocoon time.</div></div>
+    </div>
+  </section>
+
+  <section class="why" id="why">
+    <div class="why-head">
+      <span class="day-pill">Why parents choose us</span>
+      <h2 class="day-title">Small groups. Big hearts. Real green grass.</h2>
+    </div>
+    <div class="why-grid">
+      <div class="why-card"><div class="why-num">1</div><div><div class="why-name">1 educator per 6 kids</div><div class="why-desc">Below national ratios. Every child is seen, heard, and known by name.</div></div></div>
+      <div class="why-card"><div class="why-num">2</div><div><div class="why-name">Outdoor garden every day</div><div class="why-desc">Two daily sessions in our 400 m² garden — rain or shine, with proper boots.</div></div></div>
+      <div class="why-card"><div class="why-num">3</div><div><div class="why-name">Bilingual immersion</div><div class="why-desc">French and English routines woven into songs, snacks, and storytime.</div></div></div>
+      <div class="why-card"><div class="why-num">4</div><div><div class="why-name">Daily photo journal</div><div class="why-desc">A private app sends you 3-5 photos and a short note about your child's day.</div></div></div>
+      <div class="why-card"><div class="why-num">5</div><div><div class="why-name">Organic kitchen</div><div class="why-desc">In-house chef, seasonal menus, allergens labeled and discussed weekly.</div></div></div>
+      <div class="why-card"><div class="why-num">6</div><div><div class="why-name">Open-door policy</div><div class="why-desc">Drop in any time. Parents are part of the village, not just the audience.</div></div></div>
+    </div>
+  </section>
+
+  <section class="testimonial" id="testimonial">
+    <p class="t-text">“Petits Génies has been an absolute blessing for our family. The care, warmth, and educational quality are outstanding.”</p>
+    <div class="t-author">Claire D., Parent</div>
+  </section>
+
+  <footer class="footer">
+    <span style="font-size: 1.1rem; font-weight: 700; color: var(--green);">🌳 Petits Génies</span>
+    <div style="display: flex; gap: 2rem;"><a href="#">Facebook</a><a href="#">Instagram</a><a href="#">Contact</a></div>
+    <span>&copy; 2026 Petits Génies Nursery</span>
+  </footer>
+</body>
+</html>

@@ -33,9 +33,21 @@ function priceLabel(tmpl: Template): string | null {
   if (tmpl.price == null || tmpl.price <= 0) return null;
   return `${tmpl.price} ${tmpl.currency || "MAD"}`;
 }
-function tier(tmpl: Template): "Premium" | "Pro" | null {
-  if (tmpl.price == null || tmpl.price <= 0) return null;
-  return tmpl.price >= 500 ? "Premium" : "Pro";
+// Tier/edition label: prefer the explicit CMS badge, else derive from price.
+function tierLabel(tmpl: Template): string | null {
+  if (tmpl.badge && tmpl.badge.trim()) return tmpl.badge.trim();
+  if (tmpl.price != null && tmpl.price > 0) return tmpl.price >= 500 ? "Premium" : "Standard";
+  return null;
+}
+
+// Style for a badge pill shown over the thumbnail (must read well over images).
+function badgeClass(label: string): string {
+  const l = label.toLowerCase();
+  if (l.includes("premium")) return "text-white bg-[#09090b]/70 border border-white/15";
+  if (l.includes("spéciale") || l.includes("speciale") || l.includes("special") || l.includes("édition") || l.includes("edition"))
+    return "text-[#1c1400] bg-amber-300/90 border border-amber-500/30";
+  if (l.includes("standard")) return "text-[#09090b] bg-white/85 border border-black/5";
+  return "text-white bg-[#7c3aed]/85 border border-white/15";
 }
 
 const DEVICE_ICON: Record<Device, string> = {
@@ -142,7 +154,7 @@ export function Templates({ locale, templates, categories }: { locale: Locale; t
     );
 
   const Badges = ({ tmpl }: { tmpl: Template }) => {
-    const tr = tier(tmpl);
+    const tr = tierLabel(tmpl);
     return (
       <>
         {topIds.has(tmpl.id) && (
@@ -152,11 +164,7 @@ export function Templates({ locale, templates, categories }: { locale: Locale; t
           </span>
         )}
         {tr && (
-          <span
-            className={`absolute top-3 end-3 z-10 px-2.5 py-1 rounded-full text-[10px] font-semibold uppercase tracking-wide backdrop-blur-md ${
-              tr === "Premium" ? "text-white bg-[#09090b]/70 border border-white/15" : "text-[#09090b] bg-white/85 border border-black/5"
-            }`}
-          >
+          <span className={`absolute top-3 end-3 z-10 px-2.5 py-1 rounded-full text-[10px] font-semibold uppercase tracking-wide backdrop-blur-md ${badgeClass(tr)}`}>
             {tr}
           </span>
         )}

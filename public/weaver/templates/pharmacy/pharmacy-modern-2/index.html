@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PharmaCare | Online Pharmacy</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #FFFFFF;
+      --mint: #E8F5E9;
+      --green: #00A859;
+      --green-dark: #007A3E;
+      --text: #1A1A1A;
+      --text-muted: #666666;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
+    a { text-decoration: none; color: inherit; }
+    
+    /* Topbar */
+    .topbar { background: var(--mint); padding: 0.5rem 5%; display: flex; justify-content: space-between; font-size: 0.75rem; font-weight: 500; color: var(--green-dark); }
+    
+    /* Navbar */
+    .nav { padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; }
+    .logo { font-size: 1.5rem; font-weight: 800; color: var(--green); display: flex; align-items: center; gap: 0.5rem; }
+    .logo-icon { width: 28px; height: 28px; background: var(--green); color: white; border-radius: 6px; display: inline-flex; align-items: center; justify-content: center; font-size: 1rem; }
+    .nav-links { display: flex; gap: 2rem; font-size: 0.9rem; font-weight: 500; }
+    .nav-links a:hover { color: var(--green); }
+    .nav-tools { display: flex; gap: 1rem; align-items: center; }
+    .btn { background: var(--green); color: white; padding: 0.7rem 1.5rem; border-radius: 6px; font-weight: 600; font-size: 0.9rem; transition: 0.2s; }
+    .btn:hover { background: var(--green-dark); }
+
+    /* Hero */
+    .hero { background: linear-gradient(135deg, #f8fff9 0%, #e0f2e5 100%); padding: 4rem 5%; min-height: 80vh; display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 4rem; }
+    .hero-sup { font-size: 0.85rem; font-weight: 700; color: var(--green-dark); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem; display: block; }
+    .hero-title { font-size: 3.5rem; font-weight: 800; line-height: 1.1; margin-bottom: 1.5rem; letter-spacing: -0.02em; }
+    .hero-desc { font-size: 1.1rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 2rem; }
+    .hero-img { justify-self: center; width: 100%; max-width: 500px; }
+    .hero-img img { width: 100%; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,168,89,0.15); }
+    
+    .btn-outline { background: white; color: var(--green); border: 2px solid var(--green); margin-left: 1rem; }
+    .btn-outline:hover { background: var(--mint); }
+    
+    /* Trust badges */
+    .trust-strip { display: flex; gap: 3rem; margin-top: 4rem; padding: 2rem; background: white; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+    .t-item { display: flex; align-items: center; gap: 1rem; font-weight: 600; font-size: 0.9rem; }
+    .t-icon { width: 40px; height: 40px; background: var(--mint); color: var(--green); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+
+    .categories { padding: 4rem 5%; }
+    .sec-title { font-size: 1.8rem; font-weight: 800; text-align: center; margin-bottom: 2rem; }
+    .cat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+    .cat-card { background: var(--mint); border-radius: 12px; padding: 2rem; text-align: center; transition: 0.3s; cursor: pointer; }
+    .cat-card:hover { transform: translateY(-4px); box-shadow: 0 10px 25px rgba(0,168,89,0.1); }
+    .cat-icon { font-size: 2.5rem; margin-bottom: 0.8rem; }
+    .cat-name { font-weight: 700; font-size: 1rem; }
+    .cat-count { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.3rem; }
+
+    .why { padding: 4rem 5%; background: var(--mint); }
+    .why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 2rem; }
+    .why-card { background: white; padding: 2rem; border-radius: 12px; }
+    .why-num { font-size: 2rem; font-weight: 800; color: var(--green); margin-bottom: 0.5rem; }
+    .why-title { font-weight: 700; margin-bottom: 0.5rem; }
+    .why-text { font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; }
+
+    .footer { padding: 3rem 5%; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #eee; color: var(--text-muted); font-size: 0.85rem; }
+    .footer a:hover { color: var(--green); }
+
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; text-align: center; }
+      .trust-strip { flex-direction: column; gap: 1.5rem; }
+      .nav-links { display: none; }
+      .cat-grid { grid-template-columns: 1fr 1fr; }
+      .why-grid { grid-template-columns: 1fr; }
+      .footer { flex-direction: column; gap: 1rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <span>Free Express Delivery on orders over $50</span>
+    <span>Call 24/7: 1-800-PHARMA</span>
+  </div>
+  <nav class="nav">
+    <div class="logo"><span class="logo-icon">+</span> PharmaCare</div>
+    <div class="nav-links">
+      <a href="#">Shop</a>
+      <a href="#">Categories</a>
+      <a href="#">Prescriptions</a>
+      <a href="#">Offers</a>
+    </div>
+    <div class="nav-tools">
+      <a href="#">🔍</a>
+      <a href="#">🛒 (2)</a>
+      <a href="#" class="btn">Sign In</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-content">
+      <span class="hero-sup">Your Trusted Online Pharmacy</span>
+      <h1 class="hero-title">Reliable & Fast Medical Supplies to Your Doorstep.</h1>
+      <p class="hero-desc">Order medicines, health products, and wellness essentials online. Fast delivery, licensed pharmacists, and secure service.</p>
+      <div>
+        <a href="#" class="btn">Shop Medications</a>
+        <a href="#" class="btn btn-outline">Upload Prescription</a>
+      </div>
+      
+      <div class="trust-strip">
+        <div class="t-item"><div class="t-icon">✓</div><div>100% Genuine<br><span style="font-size:0.75rem;color:var(--text-muted);font-weight:400;">Products</span></div></div>
+        <div class="t-item"><div class="t-icon">⚡</div><div>Fast & Free<br><span style="font-size:0.75rem;color:var(--text-muted);font-weight:400;">Delivery</span></div></div>
+        <div class="t-item"><div class="t-icon">👨‍⚕️</div><div>Licensed<br><span style="font-size:0.75rem;color:var(--text-muted);font-weight:400;">Pharmacists</span></div></div>
+      </div>
+    </div>
+    <div class="hero-img">
+      <img src="../../../assets/img/pharmacy-pharmacy-modern-2/auto-1.webp" alt="Pharmacy">
+    </div>
+  </section>
+  <section class="categories">
+    <h2 class="sec-title">Shop by Category</h2>
+    <div class="cat-grid">
+      <div class="cat-card"><div class="cat-icon">💊</div><div class="cat-name">Medicines</div><div class="cat-count">2,400+ products</div></div>
+      <div class="cat-card"><div class="cat-icon">🧴</div><div class="cat-name">Skincare</div><div class="cat-count">800+ products</div></div>
+      <div class="cat-card"><div class="cat-icon">🧬</div><div class="cat-name">Vitamins</div><div class="cat-count">450+ products</div></div>
+      <div class="cat-card"><div class="cat-icon">🩺</div><div class="cat-name">First Aid</div><div class="cat-count">320+ products</div></div>
+    </div>
+  </section>
+
+  <section class="why">
+    <h2 class="sec-title">Why Choose PharmaCare</h2>
+    <div class="why-grid">
+      <div class="why-card"><div class="why-num">01</div><div class="why-title">Licensed Pharmacists</div><div class="why-text">All prescriptions verified by certified pharmacists before dispatch.</div></div>
+      <div class="why-card"><div class="why-num">02</div><div class="why-title">Same-Day Delivery</div><div class="why-text">Order before 2 PM for guaranteed same-day delivery in metro areas.</div></div>
+      <div class="why-card"><div class="why-num">03</div><div class="why-title">100% Genuine</div><div class="why-text">We source directly from authorized distributors. No counterfeits, ever.</div></div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="logo" style="font-size: 1.2rem;"><span class="logo-icon" style="width:22px;height:22px;font-size:0.8rem;">+</span> PharmaCare</div>
+    <div style="display: flex; gap: 2rem;"><a href="#">Help Center</a><a href="#">Prescriptions</a><a href="#">Contact</a></div>
+    <span>&copy; 2026 PharmaCare. All rights reserved.</span>
+  </footer>
+</body>
+</html>

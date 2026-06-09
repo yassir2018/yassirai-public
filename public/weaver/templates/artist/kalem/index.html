@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kalem | Calligraphy & Lettering Art</title>
+  <meta name="description" content="Calligraphy artist portfolio showcasing traditional and modern lettering, custom commissions, and writing workshops.">
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,400&family=Karla:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #FFFEF2;
+      --ink: #2B2B2B;
+      --red: #C1272D;
+      --muted: #8A8580;
+      --cream: #F5F0E6;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family: 'Karla', sans-serif; background: var(--bg); color: var(--ink); overflow-x: hidden; }
+    h1, h2, h3, .display { font-family: 'Crimson Pro', serif; }
+    a { text-decoration: none; color: inherit; transition: 0.3s; }
+
+    .nav { position: fixed; top: 0; width: 100%; padding: 1.5rem 5%; display: flex; justify-content: space-between; align-items: center; z-index: 100; transition: 0.4s; }
+    .nav.scrolled { background: rgba(255,254,242,0.95); backdrop-filter: blur(10px); box-shadow: 0 2px 20px rgba(0,0,0,0.04); }
+    .logo { font-family: 'Crimson Pro'; font-size: 2rem; font-style: italic; font-weight: 300; }
+    .logo span { color: var(--red); }
+    .nav-links { display: flex; gap: 2.5rem; font-size: 0.85rem; letter-spacing: 0.15em; text-transform: uppercase; font-weight: 500; }
+    .nav-links a:hover { color: var(--red); }
+
+    .hero { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 8rem 5% 4rem; position: relative; }
+    .hero-title { font-size: 5rem; font-weight: 300; font-style: italic; line-height: 1.2; margin-bottom: 1.5rem; }
+    .hero-title .red { color: var(--red); }
+    .hero-sub { font-size: 1.1rem; color: var(--muted); max-width: 500px; line-height: 1.8; margin-bottom: 3rem; }
+    .hero-line { width: 1px; height: 80px; background: var(--red); margin: 0 auto; animation: grow 2s ease-out; }
+    @keyframes grow { from { height: 0; } }
+
+    /* Horizontal Gallery */
+    .h-gallery { padding: 4rem 0; overflow: hidden; }
+    .h-gallery-header { text-align: center; margin-bottom: 3rem; padding: 0 5%; }
+    .h-scroll { display: flex; gap: 2rem; padding: 0 5%; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+    .h-scroll::-webkit-scrollbar { display: none; }
+    .h-card { min-width: 350px; scroll-snap-align: start; cursor: pointer; flex-shrink: 0; }
+    .h-card img { width: 100%; height: 450px; object-fit: cover; border: 8px solid var(--cream); transition: 0.4s; }
+    .h-card:hover img { border-color: var(--red); filter: contrast(1.1); }
+    .h-card-info { padding-top: 1rem; }
+    .h-card-info h3 { font-size: 1.3rem; font-weight: 300; font-style: italic; }
+    .h-card-info p { font-size: 0.85rem; color: var(--muted); }
+
+    .section { padding: 6rem 5%; }
+    .section-header { text-align: center; margin-bottom: 4rem; }
+    .section-tag { font-size: 0.75rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--red); margin-bottom: 0.8rem; font-weight: 600; }
+    .section-title { font-size: 3rem; font-weight: 300; font-style: italic; }
+
+    /* About */
+    .about { display: grid; grid-template-columns: 1fr 1.3fr; gap: 5rem; align-items: center; background: var(--cream); border-top: 1px solid #e5e0d5; border-bottom: 1px solid #e5e0d5; }
+    .about-img { width: 100%; height: 550px; object-fit: cover; }
+    .about-quote { font-family: 'Crimson Pro'; font-size: 2.2rem; font-style: italic; font-weight: 300; line-height: 1.5; margin-bottom: 2rem; }
+    .about-bio { font-size: 1rem; line-height: 1.9; color: var(--muted); margin-bottom: 1rem; }
+
+    /* Video Section */
+    .video-section { text-align: center; }
+    .video-featured { max-width: 900px; margin: 0 auto; position: relative; cursor: pointer; }
+    .video-featured img { width: 100%; aspect-ratio: 16/9; object-fit: cover; border: 8px solid var(--cream); transition: 0.4s; }
+    .video-featured:hover img { filter: brightness(0.5); }
+    .v-play { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 70px; height: 70px; border: 2px solid var(--red); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: var(--red); background: rgba(255,254,242,0.9); transition: 0.3s; }
+    .video-featured:hover .v-play { background: var(--red); color: white; }
+    .video-caption { margin-top: 1.5rem; font-family: 'Crimson Pro'; font-style: italic; font-size: 1.1rem; color: var(--muted); }
+    .video-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; max-width: 900px; margin: 2rem auto 0; }
+    .video-sm { position: relative; cursor: pointer; }
+    .video-sm img { width: 100%; aspect-ratio: 16/9; object-fit: cover; border: 4px solid var(--cream); transition: 0.4s; }
+    .video-sm:hover img { border-color: var(--red); }
+    .v-play-sm { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 40px; height: 40px; border: 1px solid var(--red); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; color: var(--red); background: rgba(255,254,242,0.8); transition: 0.3s; }
+    .video-sm:hover .v-play-sm { background: var(--red); color: white; }
+
+    /* Commissions */
+    .comm-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem; max-width: 900px; margin: 0 auto; }
+    .comm-card { text-align: center; padding: 2.5rem; border: 1px solid #e5e0d5; transition: 0.3s; }
+    .comm-card:hover { border-color: var(--red); transform: translateY(-5px); }
+    .comm-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+    .comm-card h3 { font-family: 'Crimson Pro'; font-size: 1.3rem; font-style: italic; margin-bottom: 0.5rem; }
+    .comm-card p { font-size: 0.9rem; color: var(--muted); line-height: 1.6; }
+
+    .contact { text-align: center; background: var(--ink); color: var(--bg); }
+    .contact .section-tag { color: var(--red); }
+    .contact .section-title { color: var(--bg); }
+    .contact-email { font-family: 'Crimson Pro'; font-size: 2.5rem; font-style: italic; color: var(--bg); border-bottom: 1px solid var(--red); padding-bottom: 3px; }
+    .contact-email:hover { color: var(--red); }
+    .contact-social { display: flex; justify-content: center; gap: 1.5rem; margin-top: 2rem; }
+    .contact-social a { width: 42px; height: 42px; border: 1px solid rgba(255,254,242,0.15); display: flex; align-items: center; justify-content: center; font-size: 0.85rem; color: rgba(255,254,242,0.6); transition: 0.3s; }
+    .contact-social a:hover { border-color: var(--red); color: var(--red); }
+
+    .footer { padding: 2rem 5%; display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--muted); border-top: 1px solid #e5e0d5; }
+
+    dialog { border: none; background: transparent; max-width: 90vw; max-height: 90vh; padding: 0; }
+    dialog::backdrop { background: rgba(43,43,43,0.95); }
+    #imgModal img { max-width: 85vw; max-height: 85vh; object-fit: contain; }
+    #videoModal .video-container { width: 80vw; max-width: 1000px; aspect-ratio: 16/9; }
+    #videoModal .video-container iframe { width: 100%; height: 100%; border: none; }
+    .modal-close { position: fixed; top: 2rem; right: 2rem; width: 45px; height: 45px; background: var(--red); border: none; border-radius: 50%; color: white; font-size: 1.3rem; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 1000; }
+
+    .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+    .reveal.active { opacity: 1; transform: translateY(0); }
+    .back-to-top { position: fixed; bottom: 30px; right: 30px; width: 45px; height: 45px; background: var(--red); color: white; border: none; border-radius: 50%; font-size: 1.2rem; cursor: pointer; opacity: 0; visibility: hidden; transition: 0.3s; z-index: 99; }
+    .back-to-top.visible { opacity: 1; visibility: visible; }
+    .back-to-top:hover { transform: translateY(-5px); }
+
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .hero-title { font-size: 3rem; }
+      .h-card { min-width: 280px; }
+      .h-card img { height: 350px; }
+      .about { grid-template-columns: 1fr; }
+      .about-img { height: 350px; }
+      .video-row, .comm-grid { grid-template-columns: 1fr; }
+      .section-title { font-size: 2.2rem; }
+      .contact-email { font-size: 1.5rem; }
+      .footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav" id="mainNav">
+    <div class="logo"><span>K</span>alem</div>
+    <div class="nav-links">
+      <a href="#gallery">Works</a>
+      <a href="#about">About</a>
+      <a href="#videos">Videos</a>
+      <a href="#commissions">Commissions</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <h1 class="hero-title display">The Art of<br><span class="red">Beautiful Writing.</span></h1>
+    <p class="hero-sub">Traditional calligraphy and modern lettering — each stroke a meditation, each letter a work of art.</p>
+    <div class="hero-line"></div>
+  </section>
+
+  <section class="h-gallery" id="gallery">
+    <div class="h-gallery-header reveal"><div class="section-tag">Selected Works</div><h2 class="section-title display">The Gallery</h2></div>
+    <div class="h-scroll">
+      <div class="h-card" onclick="openImg(this)"><img src="../../../assets/img/artist-kalem/auto-1.webp" alt="Calligraphy 1"><div class="h-card-info"><h3>"Bismillah"</h3><p>Arabic Script — Ink on Cotton</p></div></div>
+      <div class="h-card" onclick="openImg(this)"><img src="../../../assets/img/artist-kalem/auto-2.webp" alt="Calligraphy 2"><div class="h-card-info"><h3>"Eternal Flow"</h3><p>Copperplate — Walnut Ink</p></div></div>
+      <div class="h-card" onclick="openImg(this)"><img src="../../../assets/img/artist-kalem/auto-3.webp" alt="Calligraphy 3"><div class="h-card-info"><h3>"Harmony"</h3><p>Japanese Brush — Sumi Ink</p></div></div>
+      <div class="h-card" onclick="openImg(this)"><img src="../../../assets/img/artist-kalem/auto-4.webp" alt="Calligraphy 4"><div class="h-card-info"><h3>"Love Letters"</h3><p>Italic — Gold on Black</p></div></div>
+      <div class="h-card" onclick="openImg(this)"><img src="../../../assets/img/artist-kalem/auto-5.webp" alt="Calligraphy 5"><div class="h-card-info"><h3>"Meditations"</h3><p>Modern Brush — Acrylic Ink</p></div></div>
+    </div>
+  </section>
+
+  <section class="section about" id="about">
+    <img src="../../../assets/img/artist-kalem/auto-6.webp" alt="Artist" class="about-img">
+    <div class="reveal">
+      <div class="section-tag">About</div>
+      <p class="about-quote display">"In every stroke lies a breath. Calligraphy is not writing — it is listening to the ink."</p>
+      <p class="about-bio">Trained in classical Arabic, Japanese, and Western calligraphy traditions, I've spent 15 years perfecting the dialogue between hand, tool, and paper.</p>
+      <p class="about-bio">My work bridges ancient discipline with contemporary expression, creating pieces for collectors, brands, weddings, and meditation spaces worldwide.</p>
+    </div>
+  </section>
+
+  <section class="section video-section" id="videos">
+    <div class="section-header reveal"><div class="section-tag">Watch & Learn</div><h2 class="section-title display">The Process</h2></div>
+    <div class="video-featured reveal" onclick="openVideo('dQw4w9WgXcQ')">
+      <img src="../../../assets/img/artist-kalem/auto-1.webp" alt="ASMR Calligraphy">
+      <div class="v-play">▶</div>
+      <div class="video-caption">"Bismillah" — Full ASMR Calligraphy Session · 20 min</div>
+    </div>
+    <div class="video-row reveal">
+      <div class="video-sm" onclick="openVideo('dQw4w9WgXcQ')"><img src="../../../assets/img/artist-kalem/auto-2.webp" alt="Workshop"><div class="v-play-sm">▶</div></div>
+      <div class="video-sm" onclick="openVideo('dQw4w9WgXcQ')"><img src="../../../assets/img/artist-kalem/auto-3.webp" alt="Ink Mixing"><div class="v-play-sm">▶</div></div>
+      <div class="video-sm" onclick="openVideo('dQw4w9WgXcQ')"><img src="../../../assets/img/artist-kalem/auto-4.webp" alt="Gold Leaf"><div class="v-play-sm">▶</div></div>
+    </div>
+  </section>
+
+  <section class="section" id="commissions">
+    <div class="section-header reveal"><div class="section-tag">Services</div><h2 class="section-title display">Commissions</h2></div>
+    <div class="comm-grid reveal">
+      <div class="comm-card"><div class="comm-icon">💍</div><h3>Wedding Suites</h3><p>Custom invitations, place cards, and vow calligraphy in your chosen script.</p></div>
+      <div class="comm-card"><div class="comm-icon">🏢</div><h3>Brand Lettering</h3><p>Hand-lettered logos, signage, and packaging for luxury and artisanal brands.</p></div>
+      <div class="comm-card"><div class="comm-icon">🖼️</div><h3>Art Pieces</h3><p>Original calligraphic art for collectors, galleries, and interior spaces.</p></div>
+    </div>
+  </section>
+
+  <section class="section contact" id="contact">
+    <div class="section-header reveal"><div class="section-tag">Reach Out</div><h2 class="section-title display">Begin a Commission</h2></div>
+    <div class="reveal">
+      <a href="mailto:studio@kalem.art" class="contact-email display">studio@kalem.art</a>
+      <div class="contact-social"><a href="#">IG</a><a href="#">YT</a><a href="#">Be</a><a href="#">Pi</a></div>
+    </div>
+  </section>
+
+  <footer class="footer"><span>&copy; 2026 Kalem Calligraphy</span><span>Istanbul, Turkey</span></footer>
+
+  <dialog id="imgModal"><img id="modalImg" src="" alt=""><button class="modal-close" onclick="document.getElementById('imgModal').close()">✕</button></dialog>
+  <dialog id="videoModal"><div class="video-container"></div><button class="modal-close" onclick="closeVideo()">✕</button></dialog>
+  <button class="back-to-top" id="backToTop">&uarr;</button>
+
+  <script>
+    const nav = document.getElementById('mainNav');
+    window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 50));
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('active'); }); }, { threshold: 0.1 });
+    revealEls.forEach(el => observer.observe(el));
+    const btt = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => btt.classList.toggle('visible', window.scrollY > 600));
+    btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    function openImg(item) { document.getElementById('modalImg').src = item.querySelector('img').src; document.getElementById('imgModal').showModal(); }
+    document.getElementById('imgModal').addEventListener('click', function(e) { if (e.target === this) this.close(); });
+    function openVideo(id) { const m = document.getElementById('videoModal'); m.querySelector('.video-container').innerHTML = `<iframe src="https://www.youtube.com/embed/${id}?autoplay=1&rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>`; m.showModal(); }
+    function closeVideo() { const m = document.getElementById('videoModal'); m.querySelector('.video-container').innerHTML = ''; m.close(); }
+    document.getElementById('videoModal').addEventListener('click', function(e) { if (e.target === this) closeVideo(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeVideo(); document.getElementById('imgModal').close(); } });
+  </script>
+</body>
+</html>

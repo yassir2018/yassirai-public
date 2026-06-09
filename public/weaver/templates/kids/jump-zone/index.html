@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JumpZone | Trampoline Park</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fugaz+One&family=Roboto:wght@700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --purple: #4C1D95;
+      --lime: #84CC16;
+      --magenta: #D946EF;
+      --bg: #0F0518;
+      --text: #FFFFFF;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family: 'Roboto', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
+    h1, h2, h3, .dynamic { font-family: 'Fugaz One', cursive; text-transform: uppercase; }
+    a { text-decoration: none; color: inherit; }
+
+    .nav { padding: 1.5rem 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid rgba(255,255,255,0.1); background: var(--purple); }
+    .logo { font-size: 2.5rem; font-weight: 400; font-family: 'Fugaz One'; color: var(--lime); transform: skewX(-10deg); text-shadow: 2px 2px 0 var(--magenta); }
+    .nav-links { display: flex; gap: 3rem; font-weight: 900; letter-spacing: 0.1em; text-transform: uppercase; transform: skewX(-10deg); }
+    .nav-links a:hover { color: var(--lime); }
+    .btn { background: var(--lime); color: #000; padding: 1rem 2.5rem; font-weight: 900; font-family: 'Fugaz One'; font-size: 1.2rem; border: none; cursor: pointer; transform: skewX(-10deg); box-shadow: 5px 5px 0 var(--magenta); transition: 0.2s; }
+    .btn:hover { background: white; box-shadow: 2px 2px 0 var(--magenta); transform: skewX(-10deg) translate(3px, 3px); }
+
+    .hero { min-height: 85vh; display: flex; align-items: center; justify-content: space-between; padding: 0 5%; background: radial-gradient(circle at 100% 50%, rgba(217, 70, 239, 0.2), transparent 50%), radial-gradient(circle at 0% 50%, rgba(132, 204, 22, 0.2), transparent 50%); overflow: hidden; }
+    .hero-text { max-width: 600px; z-index: 2; }
+    .title { font-size: 6rem; line-height: 1; margin-bottom: 1.5rem; color: white; text-shadow: 4px 4px 0 var(--purple), 8px 8px 0 var(--magenta); transform: skewY(-5deg); }
+    .desc { font-size: 1.3rem; font-weight: 700; margin-bottom: 3rem; color: #E9D5FF; }
+    
+    .hero-img { width: 45%; position: relative; z-index: 2; }
+    .hero-img::before { content:''; position: absolute; inset:-20px; background: var(--lime); transform: skewX(-10deg); z-index:-1; }
+    .hero-img img { width: 100%; border: 5px solid var(--magenta); object-fit: cover; }
+
+    .marquee { background: var(--magenta); color: white; padding: 1rem 0; font-family: 'Fugaz One'; font-size: 2rem; white-space: nowrap; overflow: hidden; transform: skewY(-2deg); box-shadow: 0 0 30px rgba(217, 70, 239, 0.5); position: relative; z-index: 10; margin-top: -20px; }
+    .marquee span { display: inline-block; padding-left: 100%; animation: scroll 15s linear infinite; }
+    @keyframes scroll { 0% { transform: translate(0, 0); } 100% { transform: translate(-100%, 0); } }
+
+    .attractions { padding: 5rem 5%; }
+    .sec-title { font-size: 3.5rem; text-align: center; margin-bottom: 3rem; color: var(--lime); text-shadow: 3px 3px 0 var(--magenta); }
+    .att-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .att-card { background: var(--purple); border: 3px solid var(--magenta); padding: 2rem; text-align: center; transform: skewX(-3deg); transition: 0.3s; }
+    .att-card:hover { transform: skewX(-3deg) translateY(-5px); box-shadow: 5px 5px 0 var(--lime); }
+    .att-icon { font-size: 3rem; margin-bottom: 1rem; }
+    .att-name { font-size: 1.5rem; margin-bottom: 0.5rem; }
+    .att-desc { font-size: 0.9rem; color: #E9D5FF; font-weight: 700; }
+
+    .pricing { padding: 5rem 5%; text-align: center; background: var(--purple); }
+    .pr-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; max-width: 800px; margin: 2rem auto 0; }
+    .pr-card { background: rgba(0,0,0,0.3); border: 3px solid var(--lime); padding: 2rem; transform: skewX(-3deg); }
+    .pr-name { font-size: 1.3rem; margin-bottom: 0.5rem; color: var(--lime); }
+    .pr-price { font-size: 2.5rem; color: white; margin-bottom: 0.5rem; }
+    .pr-feat { font-size: 0.85rem; color: #E9D5FF; font-weight: 700; line-height: 2; }
+
+    .footer { padding: 2rem 5%; display: flex; justify-content: space-between; align-items: center; border-top: 2px solid rgba(255,255,255,0.1); color: #888; font-size: 0.85rem; }
+    .footer a:hover { color: var(--lime); }
+
+    @media (max-width: 900px) {
+      .hero { flex-direction: column; text-align: center; padding-top: 3rem; gap: 4rem; }
+      .nav-links { display: none; }
+      .title { font-size: 4rem; transform: skewY(0deg); text-shadow: 3px 3px 0 var(--purple); }
+      .hero-img { width: 90%; }
+      .att-grid, .pr-grid { grid-template-columns: 1fr; }
+      .footer { flex-direction: column; gap: 1rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="logo">JUMPZONE!</div>
+    <div class="nav-links">
+      <a href="#">Attractions</a>
+      <a href="#">Parties</a>
+      <a href="#">Pricing</a>
+      <a href="#">Waiver</a>
+    </div>
+    <button class="btn">BUY TICKETS</button>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-text">
+      <h1 class="title dynamic">DEFY<br>GRAVITY.</h1>
+      <p class="desc">The ultimate indoor active entertainment park! Wall-to-wall trampolines, dodgeball arenas, foam pits, and ninja courses.</p>
+      <button class="btn" style="padding: 1.5rem 4rem; font-size: 1.5rem;">BOOK A PARTY</button>
+    </div>
+    <div class="hero-img">
+      <img src="../../../assets/img/kids-jump-zone/auto-1.webp" alt="Trampoline Park">
+    </div>
+  </section>
+
+  <div class="marquee">
+    <span>BIRTHDAY PARTIES • DODGEBALL LEAGUES • NEON NIGHTS EVERY FRIDAY • TODDLER TIME WEEKDAYS • </span>
+  </div>
+  <section class="attractions">
+    <h2 class="sec-title dynamic">Epic Zones</h2>
+    <div class="att-grid">
+      <div class="att-card"><div class="att-icon">🤸</div><div class="att-name dynamic">Freestyle Arena</div><div class="att-desc">Wall-to-wall trampolines for epic flips!</div></div>
+      <div class="att-card"><div class="att-icon">🏀</div><div class="att-name dynamic">Slam Dunk Zone</div><div class="att-desc">Fly high and dunk like a pro!</div></div>
+      <div class="att-card"><div class="att-icon">🧱</div><div class="att-name dynamic">Foam Pit</div><div class="att-desc">Jump, dive, and land softly every time!</div></div>
+    </div>
+  </section>
+
+  <section class="pricing">
+    <h2 class="sec-title dynamic" style="color: white; text-shadow: 3px 3px 0 var(--lime);">Jump Passes</h2>
+    <div class="pr-grid">
+      <div class="pr-card"><div class="pr-name dynamic">1 Hour</div><div class="pr-price dynamic">$18</div><div class="pr-feat">Full Access<br>Free Grip Socks</div></div>
+      <div class="pr-card" style="border-color: var(--magenta); box-shadow: 5px 5px 0 var(--lime);"><div class="pr-name dynamic" style="color: var(--magenta);">2 Hours</div><div class="pr-price dynamic">$28</div><div class="pr-feat">Full Access<br>Grip Socks + Drink</div></div>
+      <div class="pr-card"><div class="pr-name dynamic">Party Pack</div><div class="pr-price dynamic">$199</div><div class="pr-feat">10 Kids · 2 Hours<br>Pizza + Cake Room</div></div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="logo" style="font-size: 1.5rem;">JUMPZONE!</div>
+    <div style="display: flex; gap: 2rem;"><a href="#">Instagram</a><a href="#">TikTok</a><a href="#">Contact</a></div>
+    <span>&copy; 2026 JumpZone. Bounce responsibly.</span>
+  </footer>
+</body>
+</html>

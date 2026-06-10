@@ -64,3 +64,13 @@
 ➡️ **Tous les critères « terminé » du sprint sont atteints dès P0.1.** P0.2→P0.5 deviennent du polish (images marketplace, réduction JS desktop, fondations) — optionnel.
 
 _NB : le LCP « 4,4 s » observé en local (next start standalone) était un artefact d'environnement ; la prod confirme 2,4 s._
+
+### P0.6 — Déport public/weaver → R2 CDN ✅ (déployé, commit 0c8186f)
+- **875 fichiers (~48 Mo)** uploadés sur R2 (bucket `personal-os-files`, préfixe `weaver/`) avec Content-Type corrects (text/html, image/webp, video/mp4…) + `Cache-Control: immutable`.
+- URLs des templates (preview + thumbnail) basculées en base : `yassirai.com/weaver/*` → `pub-9c404a6a….r2.dev/weaver/*` (11 visibles + 107 masqués). Les chemins relatifs internes des templates (`../../../assets/`) résolvent correctement sous le même préfixe.
+- R2 vérifié : HTML rendu, **iframe-able** (pas de X-Frame-Options), assets + vidéos OK.
+- **`public/weaver` supprimé du repo** → repo + contexte de build Docker allégés de ~48 Mo. `yassirai.com/weaver` renvoie 404 (plus rien ne le référence). Homepage + previews OK depuis R2.
+- Seeds/manifeste (personal-os-v2) alignés sur R2 pour les futurs re-seeds.
+
+## Bilan sprint P0
+Cibles **toutes atteintes** (mobile : 95/100, LCP 2,4 s, 0 vidéo, 0,8 Mo) + repo allégé de 48 Mo. Restant optionnel : P0.2 (next/image marketplace), P0.3 (LazyMotion/dynamic — TBT desktop), P0.4/P0.5.

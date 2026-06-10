@@ -47,5 +47,20 @@
 | TBT | 220 ms | 290 ms (réel) → cible via P0.3 |
 | CLS | 0 | 0 ✅ |
 
-**Compression vidéo (prête, swap R2 au déploiement avec GO)** : cars 8,1→2,5 Mo, + action/gladiator en 720p H.264 (`-crf 28 -preset slow -movflags +faststart -an`) + variantes WebM VP9. Stockées hors repo (`C:\tmp\hero-opt\`).
-- _Reste_ : TBT/JS (P0.3), images marketplace (P0.2).
+**Compression vidéo** : appliquée — R2 `videos/{action,cars,gladiator}.mp4` remplacés par les versions 720p H.264 (cars 7,4→2,5 Mo, action 4,6→2,0, gladiator 6,1→1,6). Originaux conservés en local (`public/videos/`).
+
+### ✅ RÉSULTAT PROD validé (déployé, commit 23fc91a, Lighthouse mobile simulé = même méthode que la baseline)
+
+| Métrique (mobile) | Baseline | Prod après P0.1 | Cible | OK |
+|---|---|---|---|---|
+| Performance | 73 | **95** | ≥ 90 | ✅ |
+| LCP | 5,1 s | **2,4 s** | ≤ 2,5 s | ✅ |
+| FCP | 1,5 s | 1,8 s | — | — |
+| TBT | 220 ms | **160 ms** | ≤ 200 ms | ✅ |
+| CLS | 0 | **0** | ≤ 0,05 | ✅ |
+| Poids total | 8 036 Kio | **795 Kio** | — | ✅ |
+| Requêtes vidéo mobile | 1 (~7 Mo) | **0** | 0 | ✅ |
+
+➡️ **Tous les critères « terminé » du sprint sont atteints dès P0.1.** P0.2→P0.5 deviennent du polish (images marketplace, réduction JS desktop, fondations) — optionnel.
+
+_NB : le LCP « 4,4 s » observé en local (next start standalone) était un artefact d'environnement ; la prod confirme 2,4 s._

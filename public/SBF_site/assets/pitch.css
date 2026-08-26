@@ -1,0 +1,457 @@
+/* ===================================================================
+   montda-pitch/assets/pitch.css
+   Socle commun aux trois propositions : reset, typographie de base,
+   bandeau de mise en garde, primitives RTL.
+
+   RTL : aucune propriété left/right physique dans ce fichier ni dans
+   les trois feuilles de direction. Uniquement inline-start / -end.
+   =================================================================== */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  font-family: var(--font-ar);
+  font-size: var(--fs-base);
+  line-height: var(--lh-body);
+  color: var(--ink);
+  background: var(--white);
+}
+
+h1, h2, h3, h4 {
+  margin: 0;
+  line-height: var(--lh-tight);
+  font-weight: 800;
+  color: var(--deep);
+  text-wrap: balance;
+}
+
+/* LA règle qui manquait : la taille suit le niveau. Sans elle, chaque
+   direction fixait ses tailles par classe et un h3 pouvait sortir plus
+   gros qu'un h2. Une direction qui veut une voix plus forte redéfinit
+   --h1 sur sa racine, pas la taille de chaque section. */
+h1 { font-size: var(--h1); letter-spacing: -0.03em;  line-height: 1.1; }
+h2 { font-size: var(--h2); letter-spacing: -0.025em; line-height: 1.15; }
+h3 { font-size: var(--h3); letter-spacing: 0;        line-height: 1.4; }
+p { margin: 0; }
+ul, ol { margin: 0; padding: 0; list-style: none; }
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; text-decoration: none; }
+
+/* Chiffres et mots latins en Montserrat, même à l'intérieur d'un texte
+   arabe : la famille arabe est déclarée en second dans la pile. */
+.num, .lat {
+  font-family: var(--font-la);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+}
+
+/* --- Conteneurs ---------------------------------------------------- */
+.wrap {
+  inline-size: min(100% - 2.5rem, var(--wrap));
+  margin-inline: auto;
+}
+.wrap-narrow {
+  inline-size: min(100% - 2.5rem, var(--wrap-narrow));
+  margin-inline: auto;
+}
+.measure { max-inline-size: var(--measure); }
+
+/* --- Boutons ------------------------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  font-family: var(--font-ar);
+  font-weight: 700;
+  font-size: var(--fs-sm);
+  padding-block: 0.85rem;
+  padding-inline: 1.6rem;
+  border-radius: var(--r);
+  border: 2px solid var(--deep);
+  background: var(--deep);
+  color: var(--white);
+  cursor: pointer;
+  transition: background-color 0.18s ease, color 0.18s ease;
+}
+.btn:hover { background: var(--deep-900); border-color: var(--deep-900); }
+
+.btn-ghost {
+  background: transparent;
+  color: var(--deep);
+}
+.btn-ghost:hover { background: var(--deep); color: var(--white); }
+
+.btn-donate {
+  /* CTA principal en charbon : le vert et le rouge sont des SIGNAUX, pas
+     des aplats (guidelines p.6). Blanc sur charbon = 15.8:1 (p.7). */
+  background: var(--charcoal);
+  border-color: var(--charcoal);
+  color: var(--white);
+}
+.btn-donate:hover { background: #000000; border-color: #000000; }
+
+/* --- Placeholders chiffrés ------------------------------------------
+   Aucun chiffre précis inventé. Tous les indicateurs restent 00 / 00 %
+   et portent un marquage rouge : rien ne doit partir en ligne par erreur.
+   ------------------------------------------------------------------ */
+.tmp {
+  border-block-end: 1px dotted var(--red);
+  padding-block-end: 1px;
+}
+
+/* --- Accessibilité -------------------------------------------------- */
+:focus-visible { outline: var(--ring); outline-offset: 3px; }
+
+.skip {
+  position: absolute;
+  inset-block-start: -100px;
+  inset-inline-start: var(--s-4);
+  z-index: 10000;
+  background: var(--white);
+  color: var(--deep);
+  padding: var(--s-3) var(--s-4);
+  border-radius: var(--r);
+  font-weight: 700;
+}
+.skip:focus { inset-block-start: 56px; }
+
+.vh {
+  position: absolute;
+  inline-size: 1px; block-size: 1px;
+  overflow: hidden; clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* --- Pied de page commun -------------------------------------------- */
+.foot {
+  background: var(--deep-900);
+  color: var(--sky-100);
+  padding-block: var(--s-16) var(--s-8);
+  margin-block-start: var(--s-16);
+}
+.foot a:hover { color: var(--white); text-decoration: underline; }
+.foot-grid {
+  display: grid;
+  grid-template-columns: 1.4fr repeat(3, 1fr);
+  gap: var(--s-8);
+  align-items: start;
+}
+.foot-grid h3 {
+  color: var(--white);
+  font-size: var(--fs-sm);
+  letter-spacing: 0.06em;
+  margin-block-end: var(--s-4);
+}
+.foot-grid li { margin-block-end: var(--s-2); font-size: var(--fs-sm); }
+.foot-logo { inline-size: 148px; block-size: auto; margin-block-end: var(--s-4); }
+.foot-note {
+  border-block-start: 1px solid rgba(255, 255, 255, 0.14);
+  margin-block-start: var(--s-12);
+  padding-block-start: var(--s-6);
+  font-size: var(--fs-xs);
+  color: #A9C3DF;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-4);
+  justify-content: space-between;
+}
+.social { display: flex; gap: var(--s-3); flex-wrap: wrap; }
+.social li { font-size: var(--fs-xs); }
+
+@media (max-width: 860px) {
+  .foot-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 560px) {
+  .foot-grid { grid-template-columns: 1fr; }
+}
+
+/* Les en-têtes sont collantes : sans dégagement, une ancre place le titre
+   de section DERRIÈRE la barre. */
+section[id], [id^="nav"] + section { scroll-margin-block-start: 96px; }
+
+/* ═══════════════ Diaporama de héros ═══════════════
+   Fondu enchaîné + zoom lent, cadence 6,5 s (référence : registre §15).
+   Sans JS la première diapositive reste visible : `.is-active` est déjà
+   posée dans le HTML. */
+.hero-slides { position: absolute; inset: 0; overflow: hidden; }
+.hero-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 900ms ease, visibility 0s linear 900ms;
+  /* Chaque diapositive rejoue la mise en page du héros : l'alignement
+     vertical vient de la direction via --hero-align. */
+  display: flex;
+  align-items: var(--hero-align, flex-end);
+  padding-block-end: var(--hero-pad, 0);
+}
+.hero-slide > img,
+.hero-slide > .hero-veil { position: absolute; inset: 0; }
+.hero-slide > .wrap { position: relative; z-index: 2; }
+.hero-slide.is-active {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 900ms ease, visibility 0s;
+}
+.hero-slide > img {
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+  transform: scale(1.06);
+  transition: transform 7s linear;
+}
+.hero-slide.is-active > img { transform: scale(1); }
+
+/* Contrôles : précédent / suivant, compteur, pause, points. */
+/* Contrôles inertes sans JavaScript : on ne montre pas des boutons
+   qui ne feraient rien. Le diaporama se réduit alors à une image fixe. */
+.hero-ctrl { display: none; }
+.js .hero-ctrl {
+  position: absolute;
+  inset-block-end: var(--s-4);
+  inset-inline-end: var(--s-6);
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+}
+.hero-btn {
+  inline-size: 38px;
+  block-size: 38px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.28);
+  color: var(--white);
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+.hero-btn:hover { background: rgba(0, 0, 0, 0.5); border-color: var(--white); }
+.hero-btn svg { inline-size: 17px; block-size: 17px; fill: none; stroke: currentColor; stroke-width: 2; }
+.hero-btn .ico-pause { display: block; }
+.hero-btn .ico-play { display: none; }
+.hero-btn.is-paused .ico-pause { display: none; }
+.hero-btn.is-paused .ico-play { display: block; }
+.hero-count {
+  /* « 2 / 3 » est une notation latine : forcée en LTR, sinon le RTL
+     l'affiche « 3 / 2 ». */
+  direction: ltr;
+  font-family: var(--font-la);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  color: var(--white);
+  letter-spacing: 0.08em;
+  min-inline-size: 3.2em;
+  text-align: center;
+}
+.hero-dots { display: flex; gap: 7px; }
+.hero-dot {
+  inline-size: 9px;
+  block-size: 9px;
+  border-radius: 50%;
+  border: 0;
+  padding: 0;
+  background: rgba(255, 255, 255, 0.42);
+  cursor: pointer;
+  transition: background-color 0.2s ease, inline-size 0.2s ease;
+}
+.hero-dot.is-on { background: var(--white); inline-size: 22px; border-radius: 100px; }
+
+@media (max-width: 620px) {
+  /* Les contrôles passent au centre : le contenu de la diapositive doit
+     leur laisser la place, sinon les boutons d'appel les chevauchent. */
+  .hero-ctrl { inset-inline-end: 50%; transform: translateX(50%); gap: var(--s-2); }
+  .hero-count { display: none; }
+  .hero-slide { padding-block-end: calc(var(--hero-pad, 0px) + 52px); }
+}
+
+/* ═══════════════ Carrousel horizontal ═══════════════
+   Défilement natif avec scroll-snap : au doigt il fonctionne même sans
+   JavaScript ; les flèches et les points ne font que l'assister. */
+.car { position: relative; }
+.car-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--s-6);
+  flex-wrap: wrap;
+}
+.car-track {
+  margin-block-start: var(--s-8);
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(250px, 25%);
+  gap: var(--s-6);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  padding-block-end: var(--s-2);
+}
+.car-track::-webkit-scrollbar { display: none; }
+.car-track > * { scroll-snap-align: start; }
+.car-btns { display: none; }
+.js .car-btns { display: flex; gap: var(--s-2); }
+.car-btn {
+  inline-size: 40px;
+  block-size: 40px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--hairline);
+  border-radius: 50%;
+  background: var(--white);
+  color: var(--deep);
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+.car-btn:hover:not(:disabled) { background: var(--deep); color: var(--white); border-color: var(--deep); }
+.car-btn:disabled { opacity: 0.35; cursor: default; }
+.car-btn svg { inline-size: 18px; block-size: 18px; fill: none; stroke: currentColor; stroke-width: 2; }
+.car-dots { display: none; }
+.js .car-dots {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  margin-block-start: var(--s-6);
+}
+.car-dot {
+  inline-size: 8px;
+  block-size: 8px;
+  border-radius: 50%;
+  border: 0;
+  padding: 0;
+  background: var(--hairline);
+  cursor: pointer;
+  transition: background-color 0.2s ease, inline-size 0.2s ease;
+}
+.car-dot.is-on { background: var(--deep); inline-size: 20px; border-radius: 100px; }
+
+@media (max-width: 1100px) { .car-track { grid-auto-columns: minmax(240px, 38%); } }
+@media (max-width: 760px)  { .car-track { grid-auto-columns: minmax(220px, 62%); } }
+@media (max-width: 520px)  { .car-track { grid-auto-columns: 84%; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-slide, .hero-slide img { transition: none; }
+  .car-track { scroll-behavior: auto; }
+}
+
+/* --- Carte de programme dans le carrousel --------------------------- */
+.progs { padding-block: var(--block-pad); background: var(--cloud); }
+.prog-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+  background: var(--white);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  padding-block-end: var(--s-6);
+}
+.prog-card img {
+  inline-size: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  display: block;
+  margin-block-end: var(--s-4);
+}
+.prog-card-fam,
+.prog-card h3,
+.prog-card-d { padding-inline: var(--s-6); }
+.prog-card-fam {
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  color: var(--deep-500);
+  letter-spacing: 0.03em;
+}
+.prog-card h3 { font-weight: 800; color: var(--deep-900); }
+.prog-card-d { font-size: var(--fs-sm); color: var(--ink-mute); line-height: 1.65; }
+
+/* ═══════════════ En-tête de bloc ═══════════════
+   Anatomie unique, reprise du modèle Weaver : pastille → titre → chapô,
+   puis un vide franc avant le contenu. Les quatre directions partagent
+   ces écarts au lieu d'en inventer chacune les siens. */
+.sec-head, .car-head, .mag-head { margin-block-end: var(--head-gap); }
+.eyebrow + *, .sec-num + * { margin-block-start: var(--eyebrow-gap); }
+.sec-lede, .sec-p {
+  margin-block-start: var(--title-gap);
+  font-size: var(--lede);
+  color: var(--ink-mute);
+  max-inline-size: 62ch;
+}
+
+/* Pastille d'accroche : 12px lettré sur fond teinté. À 15px elle valait
+   0,88× le corps de texte et se lisait comme un titre de plus. */
+.eyebrow, .sec-num {
+  display: inline-block;
+  font-size: var(--eyebrow);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  line-height: 1;
+  color: var(--deep);
+  background: var(--sky-100);
+  border-radius: 100px;
+  padding: 0.42em 0.9em;
+  margin: 0;
+}
+.eyebrow.on-dark, .sec-num.on-dark {
+  color: var(--white);
+  background: rgba(255, 255, 255, 0.16);
+}
+
+/* Numéro d'ordre des cartes : remplace le carré décoratif hérité de la
+   géométrie du logo MONTDA, qui ne voulait plus rien dire ici. */
+.ord {
+  font-family: var(--font-la);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--deep-500);
+}
+
+/* Rythme des bandes + filet quand deux fonds identiques se suivent. */
+.band { padding-block: var(--block-pad); }
+.band + .band { border-block-start: 1px solid var(--hairline); }
+
+/* Le « + » d'un indicateur est une annotation, pas un chiffre : réduit
+   et coloré, il laisse le nombre porter seul (modèle Weaver).
+   Sur fond clair il prend le bleu profond — le SKY n'y tient que 2,1:1. */
+.stat-suffix, .sfx {
+  font-size: 0.55em;
+  font-weight: 700;
+  color: var(--deep-500);
+  margin-inline-start: 0.08em;
+  vertical-align: baseline;
+}
+/* Teinte éclaircie : le SKY plein ne tient que 3,77:1 sur la bande
+   sombre, insuffisant pour un suffixe de 20px. */
+.stats .stat-suffix, .stats .sfx { color: #A9C3DF; }
+
+/* Exception assumée : dans le pied de page et dans les héros, le niveau
+   sert la structure du document, pas la hiérarchie visuelle.
+   — les intitulés de colonne sont des étiquettes (petites, lettrées) ;
+   — les titres de diapositive partagent tous la voix du titre principal,
+     puisqu'une seule diapositive est visible à la fois. */
+.foot-grid h3, .ft h3 {
+  font-size: var(--fs-sm);
+  letter-spacing: 0.06em;
+  line-height: 1.4;
+}
+.hero-t { font-size: var(--h1); }
+
+/* Deux bandes de même fond qui se suivent ne se distinguent plus : un
+   filet rétablit la limite là où la couleur ne le fait pas. */
+.band-sep { border-block-start: 1px solid var(--hairline); }
+.band-sep-dark { border-block-start: 1px solid rgba(255, 255, 255, 0.14); }

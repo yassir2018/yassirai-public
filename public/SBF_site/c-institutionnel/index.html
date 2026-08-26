@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<script>document.documentElement.classList.add("js");</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>اتجاه ج — مؤسسي | المنتدى السوري للأعمال</title>
+<meta name="description" content="مقترح اتجاه بصري مؤسسي لموقع المنتدى السوري للأعمال — عرض داخلي.">
+<link rel="icon" href="../assets/favicon.png">
+<link rel="stylesheet" href="../assets/tokens.css">
+<link rel="stylesheet" href="../assets/pitch.css">
+<link rel="stylesheet" href="style.css">
+<script src="../assets/ui.js" defer></script>
+</head>
+<body>
+
+
+<a class="skip" href="#main">تخطَّ إلى المحتوى</a>
+
+<!-- Barre utilitaire, code classique des sites institutionnels. -->
+<div class="util">
+  <div class="wrap util-in">
+    <p class="util-msg">معًا لاقتصاد سوري قوي ومستدام.</p>
+    <ul class="util-links">
+      <li><a href="#">الدراسات والتقارير</a></li>
+      <li><a href="#">مكتبة الوسائط</a></li>
+      <li><a href="#">اتصل بنا</a></li>
+    </ul>
+  </div>
+</div>
+
+<header class="hd">
+  <div class="wrap hd-in">
+    <a class="hd-logo" href="#" aria-label="المنتدى السوري للأعمال — الصفحة الرئيسية">
+      <!-- Variante SYMBOLE du système officiel (guidelines p.3). Le lockup
+           complet exige 140 px de large au minimum (p.4), largeur impossible
+           dans une barre collante : il est réservé au pied de page et au hub,
+           où il dépasse ce minimum. Le symbole n'est ni redessiné ni recoloré. -->
+      <img class="logo-keep" src="../assets/mark.png" alt="" width="420" height="544">
+      <span class="hd-name">المنتدى السوري للأعمال</span>
+    </a>
+    <nav class="hd-nav" aria-label="التنقل الرئيسي">
+      <ul>
+        <li><a href="#" aria-current="page">الرئيسية</a></li>
+        <li><a href="#about">عن المنتدى</a></li>
+        <li><a href="#programs">مجالات العمل</a></li>
+        <li><a href="#campaigns">الفرص الاستثمارية</a></li>
+        <li><a href="#news">الأخبار</a></li>
+      </ul>
+    </nav>
+    <div class="hd-act">
+      <!-- TODO: EN/FR — مبدّل اللغة معطّل (langues : registre §11) -->
+      <button class="lang" type="button" disabled aria-disabled="true" title="متاح لاحقًا">
+        <span class="lat">AR</span>
+      </button>
+      <a class="btn btn-donate" href="#partner">ابدأ شراكة</a>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============ البطل المؤسسي — نص + صورة ============
+       Message et positionnement : registre §5.1 et §5.2. -->
+  <section class="hero pathways-quiet">
+    <div class="wrap hero-in">
+      <div class="hero-txt">
+        <h1 class="hero-t">
+          منصة تجمع الأعمال<br>والتنمية في إطار مؤسسي.
+        </h1>
+        <p class="hero-p">
+          مؤسسة سورية مستقلة غير ربحية ذات نفع عام، تُعنى ببناء الشراكات
+          وحشد الطاقات وتنسيق الجهود بين الفاعلين في مجالات التنمية والعمل
+          الإنساني والتمكين الاقتصادي.
+        </p>
+        <div class="hero-cta">
+          <a class="btn" href="#programs">مجالات العمل</a>
+          <a class="btn btn-ghost" href="#about">عن المنتدى</a>
+        </div>
+      </div>
+      <!-- Le visuel du héros défile lui aussi : trois images, même
+           cadence de 6,5 s. Le texte, lui, ne bouge pas — c'est une
+           direction institutionnelle, le message doit rester lisible. -->
+      <figure class="hero-fig" data-hero data-hero-delay="6500"
+              aria-roledescription="عرض شرائح" aria-label="صور المنتدى">
+        <div class="hero-slides">
+          <div class="hero-slide is-active" data-slide
+               aria-hidden="false">
+            <img src="../assets/img/photos/volunteer-hoodie.jpg" alt="متطوع يرتدي سترة المنتدى"
+                 width="1400" height="1364">
+          </div>
+          <div class="hero-slide" data-slide
+               aria-hidden="true">
+            <img src="../assets/img/photos/ledger-signing.jpg" alt="توثيق وتوقيع في سجل المنتدى"
+                 loading="lazy" width="1400" height="1364">
+          </div>
+          <div class="hero-slide" data-slide
+               aria-hidden="true">
+            <img src="../assets/img/photos/kits-handover.jpg" alt="تسليم مواد ضمن مشروع مشترك"
+                 loading="lazy" width="1400" height="1364">
+          </div>
+        </div>
+        <div class="hero-ctrl">
+          <button class="hero-btn" type="button" data-hero-prev aria-label="الصورة السابقة">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+          </button>
+          <button class="hero-btn" type="button" data-hero-next aria-label="الصورة التالية">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>
+          </button>
+          <button class="hero-btn" type="button" data-hero-toggle aria-pressed="false" aria-label="إيقاف العرض التلقائي">
+            <svg class="ico-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5v14M15 5v14"/></svg>
+            <svg class="ico-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l12 8-12 8z"/></svg>
+          </button>
+          <div class="hero-dots" data-hero-dots></div>
+        </div>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ============ بندة المؤشرات ============
+       Chiffres du profil p.14, avec leur définition d'indicateur
+       (« تفسير المؤشرات » de la même page). Période : depuis 2012. -->
+  <section class="stats" aria-label="مؤشرات عامة">
+    <div class="wrap stats-grid">
+      <div class="stat">
+        <p class="stat-n num">545<span class="sfx">+</span></p>
+        <p class="stat-l">مشروعًا منفَّذًا أو جاريًا</p>
+      </div>
+      <div class="stat">
+        <p class="stat-n num">312<span class="sfx">+</span></p>
+        <p class="stat-l">مليون دولار — القيمة المعتمدة</p>
+      </div>
+      <div class="stat">
+        <p class="stat-n num">56.8<span class="sfx">+</span></p>
+        <p class="stat-l">مليون خدمة مقدَّمة</p>
+      </div>
+      <div class="stat">
+        <p class="stat-n num">14<span class="sfx">+</span></p>
+        <p class="stat-l">عامًا من العمل المؤسسي</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ عن المنتدى ============
+       Vision, mission et valeurs : registre §5.2, repris tels quels. -->
+  <section class="about" id="about">
+    <div class="wrap about-grid">
+      <div>
+        <h2 class="sec-t">من نحن</h2>
+        <p class="sec-lede">
+          يمثل المنتدى منصة تجمع بين الخبرة الاقتصادية والتنموية، ويعمل على
+          ربط القطاع الخاص ببرامج التنمية وإعادة الإعمار والمسؤولية
+          المجتمعية.
+        </p>
+      </div>
+      <dl class="about-defs">
+        <div>
+          <dt>الرؤية</dt>
+          <dd>
+            اقتصاد سوري مزدهر، يقوده قطاع خاص مسؤول، ومؤسسات فاعلة، وشراكات
+            استراتيجية تسهم في تحقيق التنمية المستدامة وبناء مستقبل سورية.
+          </dd>
+        </div>
+        <div>
+          <dt>الرسالة</dt>
+          <dd>
+            توظيف خبرات وإمكانات رجال وسيدات الأعمال السوريين، وبناء شراكات
+            اقتصادية وتنموية فاعلة، وربط الموارد بالفرص، وتمكين المؤسسات
+            والأفراد، من خلال تطوير المبادرات والبرامج النوعية التي تدعم
+            التنمية الاقتصادية وريادة الأعمال والاستثمار والتشغيل وبناء
+            القدرات.
+          </dd>
+        </div>
+        <div>
+          <dt>القيم</dt>
+          <dd>النزاهة والشفافية · المهنية · الشراكة والتكامل · الابتكار · المسؤولية المجتمعية · الاستدامة.</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- ============ مجالات العمل — شبكة بطاقات ============
+       Les quatre domaines et leurs programmes : registre §5.5 et §5.6. -->
+  <section class="prog" id="programs">
+    <div class="wrap">
+      <header class="sec-head">
+        <h2 class="sec-t">مجالات العمل</h2>
+        <p class="sec-lede">تتركّز أعمال المنتدى على أربعة محاور رئيسية.</p>
+      </header>
+      <div class="cards">
+        <article class="card">
+          <span class="ord num" aria-hidden="true">01</span>
+          <h3>الأعمال والاقتصاد</h3>
+          <p>تطوير الشركات ورجال وسيدات الأعمال، وتعزيز الشراكات التجارية والاستثمارية، ودعم بيئة الاستثمار.</p>
+          <a class="card-link" href="#">تفاصيل المحور<span aria-hidden="true"> ←</span></a>
+        </article>
+        <article class="card">
+          <span class="ord num" aria-hidden="true">02</span>
+          <h3>التنمية والتمكين</h3>
+          <p>التدريب المهني، والتشغيل، وريادة الأعمال، والتمكين الاقتصادي، والتنمية المحلية.</p>
+          <a class="card-link" href="#">تفاصيل المحور<span aria-hidden="true"> ←</span></a>
+        </article>
+        <article class="card">
+          <span class="ord num" aria-hidden="true">03</span>
+          <h3>المعرفة والسياسات</h3>
+          <p>الدراسات الاقتصادية، وأوراق السياسات، وتحليل الأسواق، والحوكمة المؤسسية.</p>
+          <a class="card-link" href="#">تفاصيل المحور<span aria-hidden="true"> ←</span></a>
+        </article>
+        <article class="card">
+          <span class="ord num" aria-hidden="true">04</span>
+          <h3>الإعلام والمناصرة الاقتصادية</h3>
+          <p>الحملات الإعلامية، وقصص النجاح، والتوعية الاقتصادية، والعلاقات الإعلامية.</p>
+          <a class="card-link" href="#">تفاصيل المحور<span aria-hidden="true"> ←</span></a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ البرامج الاستراتيجية — carrousel ============
+       Les dix programmes du profil p.11, dans leurs trois familles.
+       Le rail défile au doigt sans JavaScript ; flèches et points ne
+       font que l'assister. -->
+  <section class="car progs band-sep" id="programs-list"
+           aria-roledescription="عرض دوّار" aria-label="البرامج الاستراتيجية"
+           data-carousel>
+    <div class="wrap">
+      <header class="car-head">
+        <div>
+          <h2 class="sec-t">البرامج الاستراتيجية</h2>
+          <p class="sec-lede">محفظة برامج مرنة تستجيب لاحتياجات المرحلة.</p>
+        </div>
+        <div class="car-btns">
+          <button class="car-btn" type="button" data-carousel-prev aria-label="السابق">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+          </button>
+          <button class="car-btn" type="button" data-carousel-next aria-label="التالي">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>
+          </button>
+        </div>
+      </header>
+      <div class="car-track" data-carousel-track tabindex="0"
+           role="region" aria-label="قائمة البرامج">
+        <article class="prog-card">
+          <img src="../assets/img/photos/training-room.jpg" alt="قاعة تدريب وتأهيل مهني"
+               loading="lazy" width="1400" height="1364">
+          <p class="prog-card-fam">برامج التنمية والتمكين</p>
+          <h3>برنامج التمكين والتشغيل المهني</h3>
+          <p class="prog-card-d">إعداد الكفاءات ورفع جاهزية الشباب لسوق العمل، من خلال التدريب المهني والتأهيل، وربط المستفيدين بفرص التشغيل.</p>
+        </article>
+        <article class="prog-card">
+          <img src="../assets/img/photos/classroom.jpg" alt="فصل دراسي ضمن برامج التعليم"
+               loading="lazy" width="1400" height="1364">
+          <p class="prog-card-fam">برامج التنمية والتمكين</p>
+          <h3>برنامج التعليم والتدريب</h3>
+          <p class="prog-card-d">تطوير المهارات وبناء القدرات، وتعزيز فرص التعليم والتدريب بما يتوافق مع احتياجات سوق العمل.</p>
+        </article>
+        <article class="prog-card">
+          <img src="../assets/img/photos/jacket-shop.jpg" alt="متطوع أمام محل صغير"
+               loading="lazy" width="1400" height="1364">
+          <p class="prog-card-fam">برامج التنمية والتمكين</p>
+          <h3>برنامج ريادة الأعمال</h3>
+          <p class="prog-card-d">دعم المشاريع الناشئة، وتشجيع الابتكار، وتمكين رواد الأعمال من تأسيس مشاريع مستدامة.</p>
+        </article>
+        <article class="prog-card">
+          <img src="../assets/img/photos/ledger-signing.jpg" alt="توثيق وتوقيع في سجل المنتدى"
+               loading="lazy" width="1400" height="1364">
+          <p class="prog-card-fam">برامج التنمية والتمكين</p>
+          <h3>برنامج بناء القدرات المؤسسية</h3>
+          <p class="prog-card-d">تطوير أداء المؤسسات، وتعزيز الحوكمة، ورفع كفاءة الأنظمة الإدارية والفنية.</p>
+        </article>
+        <article class="prog-card">
+          <img src="../assets/img/photos/meeting-mic.jpg" alt="طاولة اجتماع مؤسسي"
+               loading="lazy" width="1400" height="1364">
+          <p class="prog-card-fam">برامج الأعمال والشراكات</p>
+          <h3>تنمية الأعمال والاستثمار</h3>
+          <p class="prog-card-d">تعزيز بيئة الاستثمار، وربط المستثمرين بالفرص الاقتصادية، ودعم نمو القطاع الخاص.</p>
+        </article>
+        <article class="prog-card">
+          <img src="../assets/img/photos/office-media.jpg" alt="مكتب دراسات ومتابعة"
+               loading="lazy" width="1400" height="1364">
+          <p class="prog-card-fam">برامج الأعمال والشراكات</p>
+          <h3>الدراسات والسياسات الاقتصادية</h3>
+          <p class="prog-card-d">إعداد الدراسات وأوراق السياسات والتحليلات الاقتصادية التي تدعم اتخاذ القرار.</p>
+        </article>
+        <article class="prog-card">
+          <img src="../assets/img/photos/conference-2013.jpg" alt="منصة مؤتمر المنتدى"
+               loading="lazy" width="1400" height="1364">
+          <p class="prog-card-fam">برامج الأعمال والشراكات</p>
+          <h3>المؤتمرات والملتقيات</h3>
+          <p class="prog-card-d">تنظيم الفعاليات الاقتصادية والمنتديات واللقاءات التي تعزز الحوار وبناء الشراكات.</p>
+        </article>
+        <article class="prog-card">
+          <img src="../assets/img/photos/bulldozer-site.jpg" alt="موقع إعادة تأهيل مرفق عام"
+               loading="lazy" width="1400" height="1364">
+          <p class="prog-card-fam">برامج التعافي وإعادة الإعمار</p>
+          <h3>إعادة تأهيل البنية التحتية</h3>
+          <p class="prog-card-d">تنفيذ مشاريع تسهم في إعادة تأهيل المرافق والخدمات الأساسية.</p>
+        </article>
+        <article class="prog-card">
+          <img src="../assets/img/photos/clinic-beds.jpg" alt="مرفق صحي مجهَّز"
+               loading="lazy" width="1400" height="1364">
+          <p class="prog-card-fam">برامج التعافي وإعادة الإعمار</p>
+          <h3>إعادة تأهيل المرافق العامة</h3>
+          <p class="prog-card-d">دعم المؤسسات التعليمية والصحية والخدمية بما يسهم في تحسين جودة الخدمات.</p>
+        </article>
+        <article class="prog-card">
+          <img src="../assets/img/photos/trucks-logistics.jpg" alt="شاحنات محمّلة استعدادًا للتوزيع"
+               loading="lazy" width="1400" height="1364">
+          <p class="prog-card-fam">برامج التعافي وإعادة الإعمار</p>
+          <h3>برنامج التعافي الاقتصادي</h3>
+          <p class="prog-card-d">تنشيط الاقتصاد المحلي، وتحفيز الإنتاج، ودعم المجتمعات في مرحلة التعافي.</p>
+        </article>
+      </div>
+      <div class="car-dots" data-carousel-dots></div>
+    </div>
+  </section>
+
+  <!-- ============ المسارات الاستراتيجية ============
+       Remplace le bloc « campagnes » de la maquette d'origine : ni collecte
+       ni barre de progression financière — SBF n'est pas une organisation
+       de dons. Les trois parcours viennent du registre §5.5. -->
+  <section class="camp" id="campaigns">
+    <div class="wrap">
+      <header class="sec-head">
+        <h2 class="sec-t">المسارات الاستراتيجية</h2>
+        <p class="sec-lede">ثلاثة مسارات تعبر مجالات العمل الأربعة.</p>
+      </header>
+      <div class="camp-grid">
+        <article class="camp-card">
+          <p class="camp-meta"><span class="num">01</span></p>
+          <h3>الأعمال والاستثمار</h3>
+          <p>ربط رجال وسيدات الأعمال بالفرص والشركاء، وإعداد ملفات الفرص الاستثمارية.</p>
+          <a class="btn btn-ghost camp-btn" href="#partner">تفاصيل المسار</a>
+        </article>
+        <article class="camp-card">
+          <p class="camp-meta"><span class="num">02</span></p>
+          <h3>التنمية والتمكين</h3>
+          <p>التشغيل المهني، التعليم والتدريب، ريادة الأعمال، وبناء القدرات المؤسسية.</p>
+          <a class="btn btn-ghost camp-btn" href="#partner">تفاصيل المسار</a>
+        </article>
+        <article class="camp-card">
+          <p class="camp-meta"><span class="num">03</span></p>
+          <h3>التعافي وإعادة الإعمار</h3>
+          <p>إعادة تأهيل البنية التحتية والمرافق العامة، ودعم التعافي الاقتصادي محليًا.</p>
+          <a class="btn btn-ghost camp-btn" href="#partner">تفاصيل المسار</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ الشركاء ============
+       Catégories et effectifs du profil p.15. Les LOGOS ne sont pas
+       affichés : leurs droits d'usage restent à confirmer (registre §5.11). -->
+  <section class="part">
+    <div class="wrap">
+      <header class="sec-head">
+        <h2 class="sec-t">شركاؤنا</h2>
+        <p class="sec-lede">مسارات واضحة حسب الفئات.</p>
+      </header>
+      <ul class="part-cats">
+        <li><span class="part-n num">7</span> <span>منظمات دولية</span></li>
+        <li><span class="part-n num">5</span> <span>جهات مانحة</span></li>
+        <li><span class="part-n num">6</span> <span>مؤسسات سورية</span></li>
+        <li><span class="part-n num">6</span> <span>جامعات ومراكز بحث</span></li>
+        <li><span class="part-n num">5</span> <span>شبكات أعمال</span></li>
+      </ul>
+      <p class="part-note">
+        <span class="tmp">الشعارات غير معروضة</span> — تُضاف بعد اعتماد
+        القائمة الحالية والحصول على إذن الاستعمال.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ الأخبار ============
+       Aucun titre d'actualité SBF fourni : emplacements marqués. -->
+  <section class="news" id="news">
+    <div class="wrap">
+      <header class="sec-head">
+        <h2 class="sec-t">آخر الأخبار</h2>
+      </header>
+      <div class="news-grid">
+        <article class="news-card">
+          <span class="news-tag">شراكات</span>
+          <time class="news-d num tmp" datetime="0000-00-00">00 / 00 / 0000</time>
+          <h3><a href="#"><span class="tmp">عنوان الخبر</span></a></h3>
+        </article>
+        <article class="news-card">
+          <span class="news-tag">دراسات وسياسات</span>
+          <time class="news-d num tmp" datetime="0000-00-00">00 / 00 / 0000</time>
+          <h3><a href="#"><span class="tmp">عنوان الخبر</span></a></h3>
+        </article>
+        <article class="news-card">
+          <span class="news-tag">ملتقيات</span>
+          <time class="news-d num tmp" datetime="0000-00-00">00 / 00 / 0000</time>
+          <h3><a href="#"><span class="tmp">عنوان الخبر</span></a></h3>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ النشرة + الشراكة ============
+       SBF n'est pas une organisation de collecte de dons : le bloc de
+       don de la maquette d'origine devient une entrée en partenariat
+       (parcours stratégiques, registre §5.5 ; contact §4). -->
+  <section class="cta" id="partner">
+    <div class="wrap cta-grid">
+      <div class="cta-box">
+        <h2>النشرة البريدية</h2>
+        <p>موجز دوري: الفرص، الدراسات، الملتقيات، وما استجدّ في الشراكات.</p>
+        <form class="nl" onsubmit="return false">
+          <label class="vh" for="mail">البريد الإلكتروني</label>
+          <input id="mail" type="email" name="email" placeholder="البريد الإلكتروني" required>
+          <button class="btn" type="submit">اشترك</button>
+        </form>
+      </div>
+      <div class="cta-box cta-don">
+        <h2>شراكة</h2>
+        <p>اختر مسارك: الأعمال والاستثمار، التنمية والتمكين، أو التعافي وإعادة الإعمار.</p>
+        <a class="btn btn-donate" href="mailto:contact@almuntada.org">ابدأ شراكة</a>
+        <p class="fine"><span class="lat">contact@almuntada.org</span></p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <img class="foot-logo logo-keep" src="../assets/logo-white.png"
+             alt="المنتدى السوري للأعمال — Syrian Business Forum"
+             width="600" height="832">
+        <p class="foot-desc">
+          مؤسسة سورية مستقلة غير ربحية ذات نفع عام، تجمع رجال وسيدات الأعمال
+          والخبراء والمؤسسات والشركاء.
+        </p>
+      </div>
+      <div>
+        <h3>المنتدى</h3>
+        <ul>
+          <li><a href="#about">من نحن</a></li>
+          <li><a href="#">الحوكمة</a></li>
+          <li><a href="#">الدراسات والتقارير</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>العمل</h3>
+        <ul>
+          <li><a href="#programs">مجالات العمل</a></li>
+          <li><a href="#campaigns">الفرص الاستثمارية</a></li>
+          <li><a href="#news">الأخبار</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>تابعنا</h3>
+        <!-- Uniquement les comptes publiés sur almuntada.org (registre §4).
+             LinkedIn / YouTube / TikTok ne sont pas confirmés : retirés.
+             La propriété de ces comptes reste à confirmer avant mise en
+             ligne publique (§4, dernière ligne). -->
+        <ul class="social">
+          <li><a class="lat" href="https://www.facebook.com/SyrianForum">Facebook</a></li>
+          <li><a class="lat" href="https://www.instagram.com/syrianforum">Instagram</a></li>
+          <li><a class="lat" href="https://twitter.com/syrianforum">X</a></li>
+          <li><a class="lat" href="mailto:contact@almuntada.org">contact@almuntada.org</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-note">
+      <span>© <span class="num">2026</span> المنتدى السوري للأعمال · <span class="lat">almuntada.org</span></span>
+      <span>اتجاه ج · مؤسسي — مقترح داخلي</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

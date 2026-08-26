@@ -1,0 +1,257 @@
+/* ===================================================================
+   اتجاه ب — بصري  /  b-visuel
+   Direction image-forward : hero plein écran, bandes pleine largeur,
+   mise en page magazine alternée, peu de texte par section.
+   =================================================================== */
+
+/* Direction visuelle : le héros couvre l'écran, le titre monte avec lui. */
+:root { --h1: clamp(2rem, 1.3rem + 3.9vw, 4rem); }
+
+/* --- En-tête posé sur le hero --------------------------------------- */
+.hd {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline: 0;
+  z-index: 900;
+}
+.hd-in {
+  display: flex;
+  align-items: center;
+  gap: var(--s-8);
+  min-block-size: 82px;
+}
+.hd-logo {
+  /* Sur photo sombre : îlot blanc autour du symbole NOIR, guidelines p.13. */
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  background: var(--white);
+  border-radius: var(--r);
+  padding: 0.35rem 0.7rem;
+}
+.hd-logo img { block-size: 44px; inline-size: auto; }
+.hd-name {
+  font-weight: 800;
+  font-size: var(--fs-sm);
+  color: var(--deep-900);
+  white-space: nowrap;
+}
+@media (max-width: 620px) {
+  .hd-logo img { block-size: 36px; }
+  .hd-name { display: none; }
+}
+.hd-nav { margin-inline-start: auto; }
+.hd-nav ul { display: flex; gap: var(--s-6); }
+.hd-nav a {
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--white);
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.55);
+}
+.hd-nav a:hover { text-decoration: underline; }
+.hd-act { display: flex; align-items: center; gap: var(--s-4); }
+.lang {
+  font-family: var(--font-la);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  background: rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-radius: var(--r-sm);
+  color: var(--white);
+  padding: 0.4rem 0.7rem;
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* --- Hero plein écran ------------------------------------------------ */
+.hero {
+  position: relative;
+  min-block-size: max(440px, min(58vh, 560px));
+  display: flex;
+  align-items: flex-end;
+  --hero-align: flex-end;
+  --hero-pad: var(--s-12);
+  overflow: hidden;
+  background: var(--deep-900);
+}
+.hero-img {
+  position: absolute;
+  inset: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+.hero-veil {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(7, 27, 69, 0.94) 0%,
+    rgba(7, 27, 69, 0.78) 45%,
+    rgba(7, 27, 69, 0.42) 100%
+  );
+}
+.hero-in { position: relative; color: var(--white); }
+.hero-t {
+  font-weight: 900;
+  color: var(--white);
+  letter-spacing: -0.02em;
+}
+.hero-p {
+  margin-block-start: var(--s-6);
+  font-size: var(--fs-lg);
+  color: #DCE9F6;
+  max-inline-size: 46ch;
+}
+.hero-cta { display: flex; flex-wrap: wrap; gap: var(--s-4); margin-block-start: var(--s-8); }
+.btn-on-dark { color: var(--white); border-color: rgba(255, 255, 255, 0.7); }
+.btn-on-dark:hover { background: var(--white); color: var(--deep); border-color: var(--white); }
+
+/* --- Bande de déclaration pleine largeur ----------------------------- */
+.stmt { position: relative; }
+.stmt-img {
+  inline-size: 100%;
+  block-size: clamp(360px, 62vh, 680px);
+  object-fit: cover;
+  object-position: center 38%;
+  display: block;
+}
+.stmt-cap {
+  position: absolute;
+  inset-block-end: 0;
+  inset-inline-start: 0;
+  inline-size: min(100%, 620px);
+  background: var(--deep);
+  color: var(--white);
+  padding: var(--s-12);
+}
+.stmt-cap h2 { color: var(--white); }
+.stmt-cap p { margin-block-start: var(--s-3); color: #DCE9F6; font-size: var(--fs-sm); }
+
+/* --- En-têtes de section --------------------------------------------- */
+.mag-head { max-inline-size: 52ch; }
+
+/* --- Magazine : image large + texte court, alterné ------------------- */
+.mag { padding-block: var(--block-pad); }
+.mag-item {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
+  gap: var(--s-16);
+  align-items: center;
+  margin-block-end: var(--s-24);
+}
+.mag-item:last-child { margin-block-end: 0; }
+/* Alternance : en RTL, l'ordre visuel s'inverse par order, jamais par
+   float/left/right. */
+.mag-flip .mag-fig { order: 2; }
+.mag-flip .mag-body { order: 1; }
+
+.mag-fig {
+  margin: 0;
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  background: var(--cloud);
+}
+.mag-fig img {
+  inline-size: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+.mag-item:hover .mag-fig img { transform: scale(1.03); }
+
+.mag-num {
+  font-family: var(--font-la);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  color: var(--red);
+  letter-spacing: 0.14em;
+  margin-block-end: var(--s-3);
+}
+.mag-body h3 { font-weight: 800; }
+.mag-body > p:not(.mag-num):not(.mag-kpi) {
+  margin-block-start: var(--s-4);
+  color: var(--ink-mute);
+}
+.mag-kpi {
+  display: flex;
+  align-items: baseline;
+  gap: var(--s-3);
+  margin-block-start: var(--s-6);
+  padding-block-start: var(--s-6);
+  border-block-start: 1px solid var(--hairline);
+}
+.mag-kpi .num {
+  font-size: var(--fs-2xl);
+  font-weight: 700;
+  color: var(--deep);
+  line-height: 1;
+}
+.mag-kpi span:last-child { font-size: var(--fs-xs); color: var(--ink-mute); max-inline-size: 22ch; }
+.mag-link {
+  display: inline-block;
+  margin-block-start: var(--s-6);
+  font-weight: 700;
+  color: var(--deep);
+}
+.mag-link:hover { text-decoration: underline; }
+
+/* --- Impact sur fond profond ------------------------------------------ */
+.imp {
+  padding-block: var(--block-pad);
+  background: var(--deep-900);
+  color: var(--white);
+}
+.imp-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--s-12);
+}
+.imp-n { font-size: var(--fs-3xl); font-weight: 700; color: var(--white); line-height: 1; }
+.imp-x { margin-block-start: var(--s-4); color: #A9C3DF; font-size: var(--fs-sm); }
+.imp-note { margin-block-start: var(--s-12); font-size: var(--fs-sm); color: #A9C3DF; }
+.imp .tmp { border-block-end-color: #F08A96; }
+
+/* --- Actualités en cartes visuelles ----------------------------------- */
+.news { padding-block: var(--block-pad); }
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--s-8);
+}
+.news-fig {
+  margin: 0 0 var(--s-4);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  background: var(--cloud);
+}
+.news-fig img { inline-size: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
+.news-d { display: block; font-size: var(--fs-xs); color: var(--ink-mute); }
+.news-card h3 { margin-block-start: var(--s-2); font-weight: 700; }
+.news-card:hover h3 { text-decoration: underline; }
+
+/* --- Don ---------------------------------------------------------------- */
+.don { padding-block: var(--block-pad); background: var(--cloud); text-align: center; }
+.don-in { display: grid; justify-items: center; gap: var(--s-6); }
+.don p { color: var(--ink-mute); }
+.don-fine { font-size: var(--fs-xs); }
+
+/* --- Adaptations --------------------------------------------------------- */
+@media (max-width: 1040px) {
+  .mag-item { grid-template-columns: 1fr; gap: var(--s-8); }
+  .mag-flip .mag-fig, .mag-flip .mag-body { order: initial; }
+  .news-grid { grid-template-columns: 1fr 1fr; }
+  .imp-grid { grid-template-columns: 1fr; gap: var(--s-8); }
+}
+@media (max-width: 860px) {
+  .hd-nav { display: none; }
+  .hero { min-block-size: max(575px, 72vh); }   /* plancher en px :
+       sur un écran court, 72vh ne suffit plus au contenu */
+  .stmt-cap { position: static; inline-size: 100%; padding: var(--s-8); }
+  .news-grid { grid-template-columns: 1fr; }
+}
+
+/* Bande d'indicateurs sombre : le suffixe y reprend le bleu ciel. */
+.imp .sfx { color: #A9C3DF; }

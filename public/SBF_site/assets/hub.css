@@ -1,0 +1,93 @@
+/* ===================================================================
+   SBF_site/assets/hub.css — page de choix des directions
+   =================================================================== */
+
+.hub-head {
+  padding-block: var(--s-16) var(--s-12);
+  border-block-end: 1px solid var(--hairline);
+}
+.hub-logo { inline-size: 156px; block-size: auto; }
+
+.hub-list {
+  padding-block: var(--s-16);
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--s-6);
+}
+
+.opt {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  background: var(--white);
+  transition: box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+}
+.opt:hover {
+  box-shadow: 0 16px 38px rgba(12, 45, 114, 0.14);
+  transform: translateY(-4px);
+  border-color: var(--sky-100);
+}
+
+/* Vignette : capture réelle du haut de chaque direction, prise à
+   1440 × 1800 puis réduite. À refaire après toute modification d'une
+   direction — voir docs/thumbnails.md. */
+.opt-thumb {
+  inline-size: 100%;
+  block-size: 210px;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+  background: var(--cloud);
+  border-block-end: 1px solid var(--hairline);
+}
+
+.opt-body { padding: var(--s-8); display: flex; flex-direction: column; flex: 1; }
+.opt-k {
+  font-family: var(--font-la);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: var(--red);
+}
+.opt h2 { margin-block-start: var(--s-3); font-size: var(--fs-xl); }
+.opt-d { margin-block-start: var(--s-4); color: var(--ink-mute); font-size: var(--fs-sm); }
+.opt-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+  margin-block-start: var(--s-6);
+}
+.opt-tags li {
+  font-size: var(--fs-xs);
+  color: var(--ink-mute);
+  border: 1px solid var(--hairline);
+  border-radius: 100px;
+  padding: 0.15rem 0.7rem;
+}
+.opt-go {
+  margin-block-start: auto;
+  padding-block-start: var(--s-8);
+  font-weight: 700;
+  color: var(--deep);
+}
+.opt:hover .opt-go { text-decoration: underline; }
+
+/* --- Notes de lecture --------------------------------------------------- */
+
+/* Pastille sur la direction la plus aboutie. */
+.opt-flag {
+  display: inline-block;
+  margin-inline-start: var(--s-3);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  color: var(--white);
+  background: var(--green);
+  border-radius: 100px;
+  padding: 0.1rem 0.6rem;
+  vertical-align: middle;
+}
+
+@media (max-width: 1200px) { .hub-list { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 700px)  { .hub-list { grid-template-columns: 1fr; } }

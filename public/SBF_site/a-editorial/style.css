@@ -1,0 +1,337 @@
+/* ===================================================================
+   Aتجاه أ — تحريري  /  a-editorial
+   Direction contenu-first : la typographie porte le poids, beaucoup de
+   blanc, aucune grille de cartes, une seule image (le logo). Le motif
+   motif « المسارات / Pathways » n'apparaît qu'en fond de hero.
+   =================================================================== */
+
+/* Direction éditoriale : la typographie porte le poids. Une seule
+   ligne relève l'échelle du titre principal — pas une redéfinition
+   section par section, qui est ce qui inversait la hiérarchie. */
+/* Pente douce en bas d'échelle : « شراكات مستدامة » est un seul mot
+   insécable, il doit tenir dans 280px de contenu dès 320px d'écran. */
+:root { --h1: clamp(1.85rem, 1rem + 3.9vw, 4.25rem); }
+
+/* --- Trame de fond très légère derrière le hero -------------------- */
+.hero.pathways { background: var(--white); }
+
+/* --- En-tête -------------------------------------------------------- */
+.hd {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: 900;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(8px);
+  border-block-end: 1px solid var(--hairline);
+}
+.hd-in {
+  display: flex;
+  align-items: center;
+  gap: var(--s-8);
+  min-block-size: 74px;
+}
+.hd-logo { display: flex; align-items: center; gap: var(--s-3); }
+.hd-logo img {
+  /* Symbole officiel SBF, jamais redessiné ni recoloré (registre §12).
+     46 px bureau / 38 px mobile. */
+  block-size: 46px;
+  inline-size: auto;
+}
+.hd-name {
+  font-weight: 800;
+  font-size: var(--fs-sm);
+  color: var(--deep-900);
+  white-space: nowrap;
+}
+@media (max-width: 620px) {
+  .hd-logo img { block-size: 38px; }
+  .hd-name { display: none; }
+}
+.hd-nav { margin-inline-start: auto; }
+.hd-nav ul { display: flex; gap: var(--s-6); }
+.hd-nav a {
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--ink-mute);
+  padding-block: var(--s-2);
+  border-block-end: 2px solid transparent;
+}
+.hd-nav a:hover { color: var(--deep); }
+.hd-nav a[aria-current="page"] {
+  color: var(--deep);
+  border-block-end-color: var(--deep);
+}
+.hd-act { display: flex; align-items: center; gap: var(--s-4); }
+.lang {
+  font-family: var(--font-la);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  background: none;
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-sm);
+  color: var(--ink-mute);
+  padding: 0.4rem 0.7rem;
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* --- Hero ------------------------------------------------------------ */
+.hero { padding-block: var(--s-16) var(--s-12); }
+.hero-t {
+  font-weight: 900;
+  letter-spacing: -0.015em;
+  max-inline-size: 20ch;
+}
+.hero-t em {
+  font-style: normal;
+  position: relative;
+  white-space: nowrap;
+}
+.hero-t em::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: 0.08em;
+  block-size: 0.14em;
+  background: var(--green);
+  opacity: 0.35;
+  z-index: -1;
+}
+.hero-p {
+  margin-block-start: var(--s-8);
+  font-size: var(--fs-lg);
+  color: var(--ink-mute);
+  font-weight: 400;
+}
+.hero-cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-4);
+  margin-block-start: var(--s-12);
+}
+
+/* --- Rythme des sections --------------------------------------------- */
+.sec-t {
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+/* --- Bloc éditorial --------------------------------------------------- */
+.ed { padding-block: var(--block-pad); border-block-start: 1px solid var(--hairline); }
+/* Bloc éditorial : pastille, titre, texte — un seul axe de lecture.
+   L'ancienne grille 90px + 1fr posait le numéro À CÔTÉ du titre, ce qui
+   mesurait un écart négatif de 26px et détachait le chiffre du bloc. */
+.ed-in { max-inline-size: 74ch; }
+.ed .sec-t { max-inline-size: 22ch; }
+.ed-cols {
+  margin-block-start: var(--head-gap);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--s-8);
+  color: var(--ink-mute);
+  max-inline-size: 78ch;
+}
+
+/* --- Mداميك des programmes — rangées horizontales --------------------- */
+.mad { padding-block: var(--block-pad); background: var(--cloud); }
+.mad-list { border-block-start: 2px solid var(--deep); }
+.mad-row {
+  display: grid;
+  grid-template-columns: 3.5rem minmax(0, 1fr) auto;
+  gap: var(--s-8);
+  align-items: center;
+  padding-block: var(--s-6);
+  border-block-end: 1px solid var(--hairline);
+  transition: background-color 0.2s ease;
+}
+.mad-row:hover { background: rgba(255, 255, 255, 0.6); }
+
+.mad-body h3 { font-weight: 800; }
+.mad-body p {
+  margin-block-start: var(--s-3);
+  color: var(--ink-mute);
+  font-size: var(--fs-sm);
+  max-inline-size: 46ch;
+}
+.mad-kpi {
+  border-inline-start: 2px solid var(--sky-100);
+  padding-inline-start: var(--s-6);
+}
+.mad-kpi-n {
+  display: block;
+  font-size: var(--fs-2xl);
+  font-weight: 700;
+  color: var(--deep);
+  line-height: 1;
+}
+.mad-kpi-l {
+  display: block;
+  margin-block-start: var(--s-2);
+  font-size: var(--fs-xs);
+  color: var(--ink-mute);
+  max-inline-size: 24ch;
+}
+.mad-link {
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  color: var(--deep);
+  white-space: nowrap;
+}
+.mad-link:hover { text-decoration: underline; }
+
+/* --- Impact ----------------------------------------------------------- */
+.imp { padding-block: var(--block-pad); }
+.imp-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--s-12);
+}
+.imp-item { border-block-start: 3px solid var(--deep); padding-block-start: var(--s-6); }
+.imp-n {
+  font-size: var(--fs-3xl);
+  font-weight: 700;
+  color: var(--deep);
+  line-height: 1;
+}
+.imp-x {
+  margin-block-start: var(--s-4);
+  color: var(--ink-mute);
+  font-size: var(--fs-sm);
+}
+.imp-note {
+  margin-block-start: var(--s-12);
+  font-size: var(--fs-sm);
+  color: var(--ink-mute);
+}
+
+/* --- Récit ------------------------------------------------------------- */
+.story {
+  padding-block: var(--block-pad);
+  background: var(--deep);
+  color: var(--white);
+  text-align: center;
+}
+.story-q {
+  margin: 0;
+  font-size: var(--fs-2xl);
+  font-weight: 300;
+  line-height: 1.5;
+  color: var(--white);
+}
+.story-by {
+  margin-block-start: var(--s-8);
+  font-size: var(--fs-sm);
+  color: var(--sky-100);
+}
+.story .tmp { border-block-end-color: #F08A96; }
+
+/* --- Actualités : une liste, pas des cartes ---------------------------- */
+.news { padding-block: var(--block-pad); }
+.news-list { border-block-start: 1px solid var(--hairline); }
+.news-list li {
+  display: grid;
+  grid-template-columns: 130px 1fr auto;
+  gap: var(--s-6);
+  align-items: baseline;
+  padding-block: var(--s-6);
+  border-block-end: 1px solid var(--hairline);
+}
+.news-d { font-size: var(--fs-sm); color: var(--ink-mute); }
+.news-t { font-size: var(--fs-lg); font-weight: 600; color: var(--deep); }
+.news-t:hover { text-decoration: underline; }
+.news-tag {
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  color: var(--ink-mute);
+  border: 1px solid var(--hairline);
+  border-radius: 100px;
+  padding: 0.2rem 0.8rem;
+  white-space: nowrap;
+}
+.more {
+  display: inline-block;
+  margin-block-start: var(--s-8);
+  font-weight: 700;
+  color: var(--deep);
+}
+.more:hover { text-decoration: underline; }
+
+/* --- Don ---------------------------------------------------------------- */
+.don { padding-block: var(--block-pad); background: var(--cloud); }
+.don-in {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: var(--s-16);
+  align-items: center;
+}
+.don-t { margin-block-end: var(--s-6); }
+.don-in > div > p { color: var(--ink-mute); }
+.don-box {
+  background: var(--white);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-lg);
+  padding: var(--s-8);
+}
+.don-opts li {
+  display: flex;
+  align-items: baseline;
+  gap: var(--s-4);
+  padding-block: var(--s-4);
+  border-block-end: 1px solid var(--hairline);
+  font-size: var(--fs-sm);
+}
+.don-opts li span:first-child {
+  font-size: var(--fs-lg);
+  font-weight: 700;
+  color: var(--deep);
+  min-inline-size: 3.4rem;
+}
+.don-btn { inline-size: 100%; justify-content: center; margin-block-start: var(--s-6); }
+.don-fine {
+  margin-block-start: var(--s-4);
+  font-size: var(--fs-xs);
+  color: var(--ink-mute);
+  text-align: center;
+}
+
+/* --- Adaptations ---------------------------------------------------------- */
+@media (max-width: 1040px) {
+  .mad-row { grid-template-columns: 3.5rem minmax(0, 1fr) auto; row-gap: var(--s-6); }
+  .mad-kpi { grid-column: 2; border-inline-start: none; padding-inline-start: 0; }
+  .mad-link { grid-column: 2; }
+  .imp-grid { grid-template-columns: 1fr; gap: var(--s-8); }
+  .don-in { grid-template-columns: 1fr; gap: var(--s-8); }
+}
+@media (max-width: 860px) {
+  .hd-nav { display: none; }
+  .ed-in { grid-template-columns: 1fr; }
+  .ed-cols { grid-template-columns: 1fr; }
+  .news-list li { grid-template-columns: 1fr; gap: var(--s-2); }
+  .hero { padding-block: var(--s-16) var(--s-12); }
+}
+
+/* --- Priorités stratégiques (profil p.18) --------------------------- */
+.prio {
+  margin-block-start: var(--s-8);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--s-4) var(--s-12);
+  counter-reset: none;
+}
+.prio li {
+  display: flex;
+  gap: var(--s-4);
+  align-items: baseline;
+  padding-block: var(--s-3);
+  border-block-start: 1px solid var(--hairline);
+  font-size: var(--fs-lg);
+  line-height: 1.5;
+}
+.prio-n {
+  font-family: var(--font-la);
+  font-weight: 700;
+  color: var(--deep-500);
+  flex: none;
+}
+@media (max-width: 760px) { .prio { grid-template-columns: 1fr; } }

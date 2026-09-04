@@ -25,6 +25,10 @@ const nextConfig: NextConfig = {
       // capture le segment.
       afterFiles: [
         { source: "/SBF_site", destination: "/SBF_site/index.html" },
+        {
+          source: "/SBF_site/:dir/:locale(en|fr)",
+          destination: "/SBF_site/:dir/:locale/index.html",
+        },
         { source: "/SBF_site/:dir", destination: "/SBF_site/:dir/index.html" },
       ],
       fallback: [],

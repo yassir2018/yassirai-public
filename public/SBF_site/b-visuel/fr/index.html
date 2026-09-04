@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+<base href="/SBF_site/b-visuel/fr/">
+<script>document.documentElement.classList.add("js");</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Direction B — Visuelle | Forum syrien des affaires</title>
+<meta name="description" content="Proposition de direction visuelle centrée sur l’image pour le site du Forum syrien des affaires — revue interne.">
+<!-- SBF_SEO_START -->
+<link rel="canonical" href="https://yassirai.com/SBF_site/b-visuel/fr">
+<link rel="alternate" hreflang="ar" href="https://yassirai.com/SBF_site/b-visuel">
+<link rel="alternate" hreflang="en" href="https://yassirai.com/SBF_site/b-visuel/en">
+<link rel="alternate" hreflang="fr" href="https://yassirai.com/SBF_site/b-visuel/fr">
+<link rel="alternate" hreflang="x-default" href="https://yassirai.com/SBF_site/b-visuel">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Syrian Business Forum">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:locale:alternate" content="ar_SY">
+<meta property="og:locale:alternate" content="en_US">
+<meta property="og:title" content="Direction B — Visuelle | Forum syrien des affaires">
+<meta property="og:description" content="Proposition de direction visuelle centrée sur l’image pour le site du Forum syrien des affaires — revue interne.">
+<meta property="og:url" content="https://yassirai.com/SBF_site/b-visuel/fr">
+<!-- SBF_SEO_END -->
+<link rel="icon" href="/SBF_site/assets/favicon.png">
+<link rel="stylesheet" href="/SBF_site/assets/tokens.css">
+<link rel="stylesheet" href="/SBF_site/assets/pitch.css">
+<link rel="stylesheet" href="/SBF_site/b-visuel/style.css">
+<script src="/SBF_site/assets/ui.js" defer></script>
+</head>
+<body>
+
+
+<a class="skip" href="#main">Aller au contenu</a>
+
+<!-- En-tête transparent posé sur le hero, puis opaque au défilement.
+     Pas de JS : l'effet est obtenu par un en-tête en position absolue
+     au-dessus du hero plein écran. -->
+<header class="hd">
+  <div class="wrap hd-in">
+    <a class="hd-logo" href="#" aria-label="Forum syrien des affaires — Accueil">
+      <!-- Variante SYMBOLE du système officiel (guidelines p.3). Le lockup
+           complet exige 140 px de large au minimum (p.4), largeur impossible
+           dans une barre collante : il est réservé au pied de page et au hub,
+           où il dépasse ce minimum. Le symbole n'est ni redessiné ni recoloré. -->
+      <img class="logo-keep" src="/SBF_site/assets/mark.png" alt="" width="420" height="544">
+      <span class="hd-name">Forum syrien des affaires</span>
+    </a>
+    <nav class="hd-nav" aria-label="Navigation principale">
+      <ul>
+        <li><a href="#" aria-current="page">Accueil</a></li>
+        <li><a href="#work">Notre action</a></li>
+        <li><a href="#programs">Domaines d’intervention</a></li>
+        <li><a href="#news">Actualités</a></li>
+        <li><a href="#">Nous contacter</a></li>
+      </ul>
+    </nav>
+    <div class="hd-act">
+      <nav class="lang-switch" data-lang-switch aria-label="Choisir la langue"><a href="/SBF_site/b-visuel" hreflang="ar"><span lang="ar">AR</span><span class="vh"> — Arabe</span></a><a href="/SBF_site/b-visuel/en" hreflang="en"><span lang="en">EN</span><span class="vh"> — Anglais</span></a><a href="/SBF_site/b-visuel/fr" hreflang="fr" aria-current="page"><span lang="fr">FR</span><span class="vh"> — Français</span></a></nav>
+      <a class="btn btn-donate" href="#partner">Partenariat</a>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============ البطل — صورة ملء الشاشة ============
+       Message : registre §5.1. Aucun visuel repris d'un autre projet (registre §7.2). -->
+  <!-- ============ البطل — diaporama ============
+       Trois diapositives, fondu enchaîné et zoom lent, cadence 6,5 s
+       (référence : registre §15). La première porte déjà `is-active` :
+       sans JavaScript elle reste affichée, seule. -->
+  <section class="hero" data-hero data-hero-delay="6500"
+           aria-roledescription="Diaporama" aria-label="Diapositives de la page d’accueil">
+    <div class="hero-slides">
+      <div class="hero-slide is-active" data-slide
+           role="group" aria-roledescription="Diapositive" aria-label="1 sur 3"
+           aria-hidden="false">
+        <img src="/SBF_site/assets/img/hero/hand-flag.jpg" alt="Une main peinte aux couleurs du drapeau syrien"
+             fetchpriority="high" width="1400" height="1364">
+        <div class="hero-veil" aria-hidden="true"></div>
+        <div class="wrap hero-in">
+          <h1 class="hero-t">Un impact qui traverse<br>les générations.</h1>
+          <p class="hero-p">
+            Une organisation syrienne indépendante à but non lucratif et d’intérêt général, réunissant femmes et hommes d’affaires, experts, institutions et partenaires.
+          </p>
+          <div class="hero-cta">
+            <a class="btn" href="#work">Pourquoi le Forum</a>
+            <a class="btn btn-ghost btn-on-dark" href="#programs">Domaines d’intervention</a>
+          </div>
+        </div>
+      </div>
+      <div class="hero-slide" data-slide
+           role="group" aria-roledescription="Diapositive" aria-label="2 sur 3"
+           aria-hidden="true">
+        <img src="/SBF_site/assets/img/hero/unloading.jpg" alt="Des bénévoles déchargent ensemble une cargaison"
+             loading="lazy" width="1400" height="1364">
+        <div class="hero-veil" aria-hidden="true"></div>
+        <div class="wrap hero-in">
+          <h2 class="hero-t">Une présence sur le terrain<br>et de vastes partenariats.</h2>
+          <p class="hero-p">
+            Nous agissons grâce à un réseau de partenaires locaux et internationaux et à de solides relations communautaires pour intervenir là où les besoins sont les plus importants.
+          </p>
+          <div class="hero-cta">
+            <a class="btn" href="#programs">Parcours stratégiques</a>
+            <a class="btn btn-ghost btn-on-dark" href="#partner">Initier un partenariat</a>
+          </div>
+        </div>
+      </div>
+      <div class="hero-slide" data-slide
+           role="group" aria-roledescription="Diapositive" aria-label="3 sur 3"
+           aria-hidden="true">
+        <img src="/SBF_site/assets/img/hero/volunteers-carry.jpg" alt="Des bénévoles transportent une cargaison d’aide"
+             loading="lazy" width="1400" height="1364">
+        <div class="hero-veil" aria-hidden="true"></div>
+        <div class="wrap hero-in">
+          <h2 class="hero-t">Une nouvelle étape<br>fondée sur un solide héritage d’expérience.</h2>
+          <p class="hero-p">
+            Après plus de quatorze ans d’action institutionnelle, le Forum relance ses activités avec une vision renouvelée, fondée sur l’expérience, les relations et la confiance.
+          </p>
+          <div class="hero-cta">
+            <a class="btn" href="#work">Le parcours du Forum</a>
+            <a class="btn btn-ghost btn-on-dark" href="#programs">Domaines d’intervention</a>
+          </div>
+        </div>
+      </div>
+    </div>
+      <!-- Contrôles du diaporama : précédent / suivant, compteur, pause.
+           Le compteur est un aria-live poli — il annonce le changement
+           sans interrompre la lecture en cours. -->
+      <div class="hero-ctrl">
+        <button class="hero-btn" type="button" data-hero-prev aria-label="Diapositive précédente">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+        </button>
+        <span class="hero-count" dir="ltr" data-hero-status role="status" aria-live="polite"></span>
+        <button class="hero-btn" type="button" data-hero-next aria-label="Diapositive suivante">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>
+        </button>
+        <button class="hero-btn" type="button" data-hero-toggle aria-pressed="false" aria-label="Mettre la lecture automatique en pause">
+          <svg class="ico-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5v14M15 5v14"/></svg>
+          <svg class="ico-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l12 8-12 8z"/></svg>
+        </button>
+        <div class="hero-dots" data-hero-dots></div>
+      </div>
+  </section>
+
+  <!-- ============ بيان بصري ملء العرض ============ -->
+  <section class="stmt" id="work">
+    <img class="stmt-img" src="/SBF_site/assets/img/photos/unloading.jpg"
+         alt="Des bénévoles déchargent ensemble une cargaison"
+         width="1400" height="1364">
+    <div class="stmt-cap">
+      <h2>Un impact mesuré par les résultats et traduit en changement durable.</h2>
+      <p>
+        L’impact réel ne se mesure pas seulement au nombre de projets réalisés, mais à leur capacité à produire un changement positif et durable dans la vie des personnes et à renforcer les institutions.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ مجالات العمل — تخطيط مجلّة ============
+       Les quatre domaines : registre §5.5. Indicateurs à 00 : les chiffres
+       du profil (§5.9) ne sont pas approuvés. -->
+  <section class="mag band-sep" id="programs">
+    <div class="wrap">
+      <header class="mag-head">
+        <h2 class="sec-t">Quatre axes</h2>
+        <p class="sec-lede">reliés par trois parcours stratégiques : affaires et investissement, développement et autonomisation, relèvement et reconstruction.</p>
+      </header>
+
+      <article class="mag-item">
+        <figure class="mag-fig">
+          <img src="/SBF_site/assets/img/photos/meeting-mic.jpg"
+               alt="Table de réunion institutionnelle" loading="lazy"
+               width="1400" height="1364">
+        </figure>
+        <div class="mag-body">
+          <p class="mag-num lat">01</p>
+          <h3>Affaires et économie</h3>
+          <p>
+            Développer les entreprises et les acteurs économiques, renforcer les partenariats commerciaux et d’investissement, soutenir les PME et améliorer l’environnement de l’investissement.
+          </p>
+          <a class="mag-link" href="#">Détails<span aria-hidden="true"> →</span></a>
+        </div>
+      </article>
+
+      <article class="mag-item mag-flip">
+        <figure class="mag-fig">
+          <img src="/SBF_site/assets/img/photos/training-room.jpg"
+               alt="Salle de formation et atelier de renforcement des capacités" loading="lazy"
+               width="1400" height="1364">
+        </figure>
+        <div class="mag-body">
+          <p class="mag-num lat">02</p>
+          <h3>Développement et autonomisation</h3>
+          <p>
+            Formation professionnelle, emploi, entrepreneuriat, autonomisation économique, développement local et responsabilité sociétale des entreprises.
+          </p>
+          <a class="mag-link" href="#">Détails<span aria-hidden="true"> →</span></a>
+        </div>
+      </article>
+
+      <article class="mag-item">
+        <figure class="mag-fig">
+          <img src="/SBF_site/assets/img/photos/conference-2013.jpg"
+               alt="Scène d’une conférence du Forum" loading="lazy"
+               width="1400" height="1364">
+        </figure>
+        <div class="mag-body">
+          <p class="mag-num lat">03</p>
+          <h3>Connaissance et politiques publiques</h3>
+          <p>
+            Études économiques, notes de politique publique, analyse des marchés, gouvernance institutionnelle et indicateurs de développement et sectoriels.
+          </p>
+          <a class="mag-link" href="#">Détails<span aria-hidden="true"> →</span></a>
+        </div>
+      </article>
+
+      <article class="mag-item mag-flip">
+        <figure class="mag-fig">
+          <img src="/SBF_site/assets/img/photos/office-media.jpg"
+               alt="Bureau de travail et de suivi" loading="lazy"
+               width="1400" height="1364">
+        </figure>
+        <div class="mag-body">
+          <p class="mag-num lat">04</p>
+          <h3>Médias et plaidoyer économique</h3>
+          <p>
+            Campagnes médiatiques, récits de réussite, sensibilisation économique, contenus institutionnels et relations médias.
+          </p>
+          <a class="mag-link" href="#">Détails<span aria-hidden="true"> →</span></a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============ البرامج الاستراتيجية — carrousel ============
+       Les dix programmes du profil p.11, dans leurs trois familles.
+       Le rail défile au doigt sans JavaScript ; flèches et points ne
+       font que l'assister. -->
+  <section class="car progs" id="programs-list"
+           aria-roledescription="Carrousel" aria-label="Programmes stratégiques"
+           data-carousel>
+    <div class="wrap">
+      <header class="car-head">
+        <div>
+          <h2 class="sec-t">Programmes stratégiques</h2>
+          <p class="sec-lede">Un portefeuille de programmes flexible, adapté aux besoins de cette phase.</p>
+        </div>
+        <div class="car-btns">
+          <button class="car-btn" type="button" data-carousel-prev aria-label="Précédent">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+          </button>
+          <button class="car-btn" type="button" data-carousel-next aria-label="Suivant">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>
+          </button>
+        </div>
+      </header>
+      <div class="car-track" data-carousel-track tabindex="0"
+           role="region" aria-label="Liste des programmes">
+        <article class="prog-card">
+          <img src="/SBF_site/assets/img/photos/training-room.jpg" alt="Salle de formation professionnelle"
+               loading="lazy" width="1400" height="1364">
+          <p class="prog-card-fam">Programmes de développement et d’autonomisation</p>
+          <h3>Programme d’autonomisation et d’insertion professionnelle</h3>
+          <p class="prog-card-d">Développer les compétences et préparer les jeunes au marché du travail grâce à la formation professionnelle, à la qualification et à la mise en relation avec des opportunités d’emploi.</p>
+        </article>
+        <article class="prog-card">
+          <img src="/SBF_site/assets/img/photos/classroom.jpg" alt="Une classe dans le cadre des programmes éducatifs"
+               loading="lazy" width="1400" height="1364">
+          <p class="prog-card-fam">Programmes de développement et d’autonomisation</p>
+          <h3>Programme d’éducation et de formation</h3>
+          <p class="prog-card-d">Développer les compétences et les capacités et élargir les possibilités d’éducation et de formation en adéquation avec les besoins du marché du travail.</p>
+        </article>
+        <article class="prog-card">
+          <img src="/SBF_site/assets/img/photos/jacket-shop.jpg" alt="Un bénévole devant un petit commerce"
+               loading="lazy" width="1400" height="1364">
+          <p class="prog-card-fam">Programmes de développement et d’autonomisation</p>
+          <h3>Programme d’entrepreneuriat</h3>
+          <p class="prog-card-d">Soutenir les jeunes entreprises, encourager l’innovation et permettre aux entrepreneurs de créer des activités durables.</p>
+        </article>
+        <article class="prog-card">
+          <img src="/SBF_site/assets/img/photos/ledger-signing.jpg" alt="Documentation et signature dans le registre du Forum"
+               loading="lazy" width="1400" height="1364">
+          <p class="prog-card-fam">Programmes de développement et d’autonomisation</p>
+          <h3>Programme de renforcement des capacités institutionnelles</h3>
+          <p class="prog-card-d">Améliorer la performance des institutions, renforcer la gouvernance et accroître l’efficacité des systèmes administratifs et techniques.</p>
+        </article>
+        <article class="prog-card">
+          <img src="/SBF_site/assets/img/photos/meeting-mic.jpg" alt="Table de réunion institutionnelle"
+               loading="lazy" width="1400" height="1364">
+          <p class="prog-card-fam">Programmes d’affaires et de partenariats</p>
+          <h3>Développement des affaires et de l’investissement</h3>
+          <p class="prog-card-d">Renforcer l’environnement de l’investissement, relier les investisseurs aux opportunités économiques et soutenir la croissance du secteur privé.</p>
+        </article>
+        <article class="prog-card">
+          <img src="/SBF_site/assets/img/photos/office-media.jpg" alt="Bureau d’études et de suivi"
+               loading="lazy" width="1400" height="1364">
+          <p class="prog-card-fam">Programmes d’affaires et de partenariats</p>
+          <h3>Études et politiques économiques</h3>
+          <p class="prog-card-d">Produire des études, des notes de politique publique et des analyses économiques pour éclairer la décision.</p>
+        </article>
+        <article class="prog-card">
+          <img src="/SBF_site/assets/img/photos/conference-2013.jpg" alt="Scène d’une conférence du Forum"
+               loading="lazy" width="1400" height="1364">
+          <p class="prog-card-fam">Programmes d’affaires et de partenariats</p>
+          <h3>Conférences et rencontres</h3>
+          <p class="prog-card-d">Organiser des événements économiques, des forums et des rencontres qui favorisent le dialogue et la création de partenariats.</p>
+        </article>
+        <article class="prog-card">
+          <img src="/SBF_site/assets/img/photos/bulldozer-site.jpg" alt="Chantier de réhabilitation d’un équipement public"
+               loading="lazy" width="1400" height="1364">
+          <p class="prog-card-fam">Programmes de relèvement et de reconstruction</p>
+          <h3>Réhabilitation des infrastructures</h3>
+          <p class="prog-card-d">Mettre en œuvre des projets contribuant à la réhabilitation des équipements et services essentiels.</p>
+        </article>
+        <article class="prog-card">
+          <img src="/SBF_site/assets/img/photos/clinic-beds.jpg" alt="Un établissement de santé équipé"
+               loading="lazy" width="1400" height="1364">
+          <p class="prog-card-fam">Programmes de relèvement et de reconstruction</p>
+          <h3>Réhabilitation des équipements publics</h3>
+          <p class="prog-card-d">Soutenir les établissements éducatifs, sanitaires et de services afin d’améliorer la qualité des prestations.</p>
+        </article>
+        <article class="prog-card">
+          <img src="/SBF_site/assets/img/photos/trucks-logistics.jpg" alt="Camions chargés prêts pour la distribution"
+               loading="lazy" width="1400" height="1364">
+          <p class="prog-card-fam">Programmes de relèvement et de reconstruction</p>
+          <h3>Programme de relèvement économique</h3>
+          <p class="prog-card-d">Revitaliser l’économie locale, stimuler la production et soutenir les communautés pendant le relèvement.</p>
+        </article>
+      </div>
+      <div class="car-dots" data-carousel-dots></div>
+    </div>
+  </section>
+
+  <!-- ============ الأثر — شريط أرقام sur fond sombre ============
+       Chiffres du profil p.14, publiés avec la définition d'indicateur
+       que le profil en donne lui-même. -->
+  <section class="imp">
+    <div class="wrap">
+      <div class="imp-grid">
+        <div>
+          <p class="imp-n num">545<span class="sfx">+</span></p>
+          <p class="imp-x">projets achevés ou en cours dans le cadre des programmes du Forum</p>
+        </div>
+        <div>
+          <p class="imp-n num">312<span class="sfx">+</span></p>
+          <p class="imp-x">millions de dollars — valeur financière approuvée de ces projets</p>
+        </div>
+        <div>
+          <p class="imp-n num">56.8<span class="sfx">+</span></p>
+          <p class="imp-x">millions de services fournis dans différents secteurs</p>
+        </div>
+      </div>
+      <p class="imp-note">
+        Profil institutionnel <span class="num">2026</span> — indicateurs cumulés depuis <span class="num">2012</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ الأخبار ============
+       Aucun titre d'actualité SBF fourni : emplacements marqués. -->
+  <section class="news" id="news">
+    <div class="wrap">
+      <header class="mag-head">
+        <h2 class="sec-t">Dernières informations</h2>
+      </header>
+      <div class="news-grid">
+        <a class="news-card" href="#">
+          <figure class="news-fig">
+            <img src="/SBF_site/assets/img/photos/kits-handover.jpg"
+                 alt="Remise de matériel dans le cadre d’un projet conjoint" loading="lazy"
+                 width="1400" height="1364">
+          </figure>
+          <time class="news-d num tmp" datetime="0000-00-00">00 / 00 / 0000</time>
+          <h3><span class="tmp">Titre de l’actualité</span> — Partenariats</h3>
+        </a>
+        <a class="news-card" href="#">
+          <figure class="news-fig">
+            <img src="/SBF_site/assets/img/photos/bulldozer-site.jpg"
+                 alt="Chantier de réhabilitation avec une bannière du projet du Forum" loading="lazy"
+                 width="1400" height="1364">
+          </figure>
+          <time class="news-d num tmp" datetime="0000-00-00">00 / 00 / 0000</time>
+          <h3><span class="tmp">Titre de l’actualité</span> — Relèvement et reconstruction</h3>
+        </a>
+        <a class="news-card" href="#">
+          <figure class="news-fig">
+            <img src="/SBF_site/assets/img/photos/jacket-shop.jpg"
+                 alt="Un bénévole devant un petit commerce" loading="lazy"
+                 width="1400" height="1364">
+          </figure>
+          <time class="news-d num tmp" datetime="0000-00-00">00 / 00 / 0000</time>
+          <h3><span class="tmp">Titre de l’actualité</span> — Entrepreneuriat</h3>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ الشراكة ============
+       SBF n'est pas une organisation de collecte de dons : le bloc de
+       don de la maquette d'origine devient une entrée en partenariat
+       (parcours stratégiques, registre §5.5 ; contact §4). -->
+  <section class="don" id="partner">
+    <div class="wrap don-in">
+      <h2 class="don-t">Ensemble, nous construisons la prochaine étape.</h2>
+      <p class="measure">
+        Trois parcours stratégiques : affaires et investissement, développement et autonomisation, relèvement et reconstruction. Tout partenariat commence par une vision commune et se poursuit grâce à la confiance, à la complémentarité et à l’action institutionnelle.
+      </p>
+      <a class="btn btn-donate" href="mailto:contact@almuntada.org">Initier un partenariat</a>
+      <p class="don-fine">
+        <span class="lat">contact@almuntada.org</span> — le canal actuellement approuvé.
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <img class="foot-logo logo-keep" src="/SBF_site/assets/logo-white.png"
+             alt="Forum syrien des affaires"
+             width="600" height="832">
+        <p class="foot-desc">
+          Une organisation syrienne indépendante à but non lucratif et d’intérêt général, réunissant femmes et hommes d’affaires, experts, institutions et partenaires.
+        </p>
+      </div>
+      <div>
+        <h3>Le Forum</h3>
+        <ul>
+          <li><a href="#">Qui sommes-nous</a></li>
+          <li><a href="#">Gouvernance</a></li>
+          <li><a href="#">Rapports</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Notre action</h3>
+        <ul>
+          <li><a href="#programs">Domaines d’intervention</a></li>
+          <li><a href="#">Opportunités d’investissement</a></li>
+          <li><a href="#news">Actualités</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Suivez-nous</h3>
+        <!-- Uniquement les comptes publiés sur almuntada.org (registre §4).
+             LinkedIn / YouTube / TikTok ne sont pas confirmés : retirés.
+             La propriété de ces comptes reste à confirmer avant mise en
+             ligne publique (§4, dernière ligne). -->
+        <ul class="social">
+          <li><a class="lat" href="https://www.facebook.com/SyrianForum">Facebook</a></li>
+          <li><a class="lat" href="https://www.instagram.com/syrianforum">Instagram</a></li>
+          <li><a class="lat" href="https://twitter.com/syrianforum">X</a></li>
+          <li><a class="lat" href="mailto:contact@almuntada.org">contact@almuntada.org</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-note">
+      <span>© <span class="num">2026</span> Forum syrien des affaires · <span class="lat">almuntada.org</span></span>
+      <span>Direction B · Visuelle — Proposition interne</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

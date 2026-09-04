@@ -50,19 +50,14 @@
 }
 .hd-nav a:hover { text-decoration: underline; }
 .hd-act { display: flex; align-items: center; gap: var(--s-4); }
-.lang {
-  font-family: var(--font-la);
-  font-size: var(--fs-xs);
-  font-weight: 700;
-  letter-spacing: 0.08em;
+.lang-switch {
   background: rgba(255, 255, 255, 0.18);
   border: 1px solid rgba(255, 255, 255, 0.45);
   border-radius: var(--r-sm);
   color: var(--white);
-  padding: 0.4rem 0.7rem;
-  opacity: 0.6;
-  cursor: not-allowed;
 }
+.lang-switch a + a { border-inline-start: 1px solid rgba(255, 255, 255, 0.35); }
+.lang-switch a[aria-current="page"] { background: var(--white); color: var(--deep-900); }
 
 /* --- Hero plein écran ------------------------------------------------ */
 .hero {

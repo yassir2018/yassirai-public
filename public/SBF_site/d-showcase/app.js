@@ -24,6 +24,25 @@
 
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var smooth  = reduced ? 'auto' : 'smooth';
+  var locale  = document.documentElement.lang === 'fr' ? 'fr' :
+                document.documentElement.lang === 'en' ? 'en' : 'ar';
+  var copy = {
+    ar: {
+      results: function (shown, total) { return shown + ' من ' + total + ' مشروعًا'; },
+      invalidEmail: 'أدخل بريدًا إلكترونيًا صحيحًا.',
+      demoOnly: 'واجهة عرض فقط — لم يُرسل الاشتراك ولم يُحفظ البريد.'
+    },
+    en: {
+      results: function (shown, total) { return shown + ' of ' + total + ' programs'; },
+      invalidEmail: 'Enter a valid email address.',
+      demoOnly: 'Preview only — the subscription was not sent and the address was not stored.'
+    },
+    fr: {
+      results: function (shown, total) { return shown + ' programme(s) sur ' + total; },
+      invalidEmail: 'Saisissez une adresse e-mail valide.',
+      demoOnly: 'Aperçu uniquement — l’inscription n’a pas été envoyée et l’adresse n’a pas été enregistrée.'
+    }
+  }[locale];
 
   document.addEventListener('DOMContentLoaded', function () {
 
@@ -162,9 +181,7 @@
 
         if (projEmpty) projEmpty.hidden = shown !== 0;
         if (searchHint) {
-          searchHint.textContent = q
-            ? shown + ' من ' + cards.length + ' مشروعًا'
-            : '';
+          searchHint.textContent = q ? copy.results(shown, cards.length) : '';
         }
         syncRailBtns(projRail);
       });
@@ -234,11 +251,11 @@
         var valid = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value);
 
         if (!valid) {
-          nlMsg.textContent = 'أدخل بريدًا إلكترونيًا صحيحًا.';
+          nlMsg.textContent = copy.invalidEmail;
           input.focus();
           return;
         }
-        nlMsg.textContent = 'واجهة عرض فقط — لم يُرسل الاشتراك ولم يُحفظ البريد.';
+        nlMsg.textContent = copy.demoOnly;
         nlForm.reset();
       });
     }

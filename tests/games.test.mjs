@@ -31,11 +31,12 @@ test('runtime links stay inside the game even when Next removes trailing slashes
   assert.match(config, /source: "\/SBF_site"/);
 });
 
-test('cover, fonts and all twelve game illustrations are packaged', () => {
+test('cover, fonts and all thirteen game illustrations are packaged', () => {
   for (const match of html.matchAll(/(?:src|href)="(assets\/[^"?]+)/g)) assert.ok(existsSync(resolve(folder, match[1])), match[1]);
   for (const filename of ['cairo-arabic-700.woff2','cairo-latin-700.woff2','Cairo-OFL.txt']) assert.ok(existsSync(resolve(folder, 'assets', filename)));
   const assets = readdirSync(resolve(folder, 'star-factory/assets'));
-  assert.equal(assets.filter(name => name.endsWith('.png')).length, 12);
+  assert.equal(assets.filter(name => name.endsWith('.png')).length, 13);
+  assert.ok(assets.includes('ground-island.png'));
   assert.equal(assets.filter(name => name.endsWith('.md')).length, 0);
   assert.ok(!assets.some(name => /secret|credential|\.env|\.map$/.test(name)));
 });

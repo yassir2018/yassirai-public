@@ -10,7 +10,8 @@ const source = join(game, 'dist/client');
 const target = join(root, 'public/Games/star-factory');
 const extensions = new Set(['.html', '.css', '.js', '.png', '.jpg', '.webp', '.svg', '.woff', '.woff2', '.json', '.mp3', '.ogg', '.wav', '.ico']);
 if (!existsSync(join(source, 'index.html'))) throw new Error('Build Star Factory before preparing Games.');
-if (existsSync(join(target, 'index.html'))) throw new Error('Game already packaged; use a fresh staging directory for an update.');
+// Explicit updates retain older hashed assets for already-open clients.
+if (existsSync(join(target, 'index.html')) && !process.argv.includes('--update')) throw new Error('Game already packaged; pass the game source directory and --update to refresh runtime files.');
 let files = 0, bytes = 0;
 function copyTree(from, to) {
   mkdirSync(to, { recursive: true });

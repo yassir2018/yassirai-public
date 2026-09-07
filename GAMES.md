@@ -10,7 +10,13 @@ SBF, API, dependencies and other projects are unchanged.
 Arabic is the fresh-visitor default. Arabic, Darija and English share only the
 `axi-bip-language` device preference with the game. No accounts, tracking or
 child-name persistence are added. Narration is explicitly deferred. There is
-one educational game, with the existing three age paths, not additional levels.
+one educational game, with Easy / Medium / Hard choices mapping to the existing
+three challenge sets, not additional levels. Darija uses Latin digits with RTL.
+
+Approved mobile update: responsive framing, stable feedback height, fullscreen
+guidance and Home Screen exit, decorative island underside, centered numbers,
+and in-place magic selection/submission. Movement remains optional. The game
+source build is reused; --update preserves old hashed assets for open clients.
 
 The game is the validated static build of the local Star Factory project.
 `scripts/prepare-games.mjs` packages that output into a fresh game directory,

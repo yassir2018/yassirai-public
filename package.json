@@ -4,7 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prebuild": "npm run check:sbf-i18n",
     "build": "next build",
+    "build:sbf-locales": "node scripts/sbf-i18n/build-locales.mjs",
+    "check:sbf-i18n": "npm run build:sbf-locales && node scripts/sbf-i18n/validate-locales.mjs",
     "start": "next start",
     "lint": "eslint"
   },

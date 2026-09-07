@@ -151,18 +151,15 @@ svg { fill: none; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round
 .ico-btn:hover { border-color: var(--deep); color: var(--deep); }
 .ico-btn[aria-expanded="true"] { background: var(--deep); border-color: var(--deep); color: var(--white); }
 
-.lang {
-  display: inline-flex; align-items: center; gap: 4px;
-  font-family: var(--font-la);
-  font-size: var(--fs-xs); font-weight: 700; letter-spacing: 0.08em;
+.lang-switch {
   background: none;
   border: 1px solid var(--hairline);
   border-radius: var(--r-sm);
   color: var(--ink-mute);
-  padding: 0.45rem 0.65rem;
-  opacity: 0.55; cursor: not-allowed;
 }
-.lang svg { inline-size: 13px; block-size: 13px; }
+.lang-switch a + a { border-inline-start: 1px solid var(--hairline); }
+.lang-switch a[aria-current="page"] { background: var(--deep); color: var(--white); }
+.lang-switch-mobile { display: none; }
 
 .nav-partner { font-size: var(--fs-sm); font-weight: 600; color: var(--deep); white-space: nowrap; }
 .nav-partner:hover { text-decoration: underline; }
@@ -658,9 +655,11 @@ svg { fill: none; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round
   .nav-brand-txt { display: none; }
 }
 @media (max-width: 430px) {
-  /* Le sélecteur de langue est désactivé à ce stade : il cède sa place
-     au CTA et au burger plutôt que de pousser la barre hors écran. */
-  .lang { display: none; }
+  .nav-act > .lang-switch { display: none; }
+  .nav-mobile .lang-switch-mobile {
+    display: inline-flex;
+    margin: var(--s-4);
+  }
   .nav-act { gap: var(--s-2); }
   .nav-act .btn-donate { padding-inline: var(--s-3); font-size: var(--fs-xs); }
 

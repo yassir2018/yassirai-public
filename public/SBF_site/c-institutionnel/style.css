@@ -66,19 +66,14 @@
 .hd-nav a:hover { border-block-end-color: var(--sky-100); }
 .hd-nav a[aria-current="page"] { border-block-end-color: var(--red); }
 .hd-act { display: flex; align-items: center; gap: var(--s-4); }
-.lang {
-  font-family: var(--font-la);
-  font-size: var(--fs-xs);
-  font-weight: 700;
-  letter-spacing: 0.08em;
+.lang-switch {
   background: none;
   border: 1px solid var(--hairline);
   border-radius: var(--r-sm);
   color: var(--ink-mute);
-  padding: 0.4rem 0.7rem;
-  opacity: 0.55;
-  cursor: not-allowed;
 }
+.lang-switch a + a { border-inline-start: 1px solid var(--hairline); }
+.lang-switch a[aria-current="page"] { background: var(--deep); color: var(--white); }
 
 /* --- Hero : texte + visuel --------------------------------------------- */
 .hero { background: var(--cloud); padding-block: var(--s-12); }

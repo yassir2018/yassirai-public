@@ -18,6 +18,28 @@
 
   var reduced = window.matchMedia &&
                 window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var locale = document.documentElement.lang === 'fr' ? 'fr' :
+               document.documentElement.lang === 'en' ? 'en' : 'ar';
+  var copy = {
+    ar: {
+      slide: 'الشريحة',
+      item: 'العنصر',
+      pause: 'إيقاف العرض التلقائي',
+      play: 'تشغيل العرض التلقائي'
+    },
+    en: {
+      slide: 'Slide',
+      item: 'Item',
+      pause: 'Pause autoplay',
+      play: 'Start autoplay'
+    },
+    fr: {
+      slide: 'Diapositive',
+      item: 'Élément',
+      pause: 'Mettre la lecture automatique en pause',
+      play: 'Démarrer la lecture automatique'
+    }
+  }[locale];
 
   /* ══════════════ Diaporama de héros ══════════════ */
   function initHero(root) {
@@ -40,7 +62,7 @@
         var b = document.createElement('button');
         b.type = 'button';
         b.className = 'hero-dot';
-        b.setAttribute('aria-label', 'الشريحة ' + (i + 1));
+        b.setAttribute('aria-label', copy.slide + ' ' + (i + 1));
         b.addEventListener('click', function () { stop(); show(i); });
         dotsBox.appendChild(b);
         dots.push(b);
@@ -73,7 +95,7 @@
       timer = setInterval(function () { show(index + 1); }, delay);
       if (toggle) {
         toggle.setAttribute('aria-pressed', 'false');
-        toggle.setAttribute('aria-label', 'إيقاف العرض التلقائي');
+        toggle.setAttribute('aria-label', copy.pause);
         toggle.classList.remove('is-paused');
       }
     }
@@ -83,7 +105,7 @@
       clearInterval(timer);
       if (toggle) {
         toggle.setAttribute('aria-pressed', 'true');
-        toggle.setAttribute('aria-label', 'تشغيل العرض التلقائي');
+        toggle.setAttribute('aria-label', copy.play);
         toggle.classList.add('is-paused');
       }
     }
@@ -92,13 +114,16 @@
     var next = root.querySelector('[data-hero-next]');
     if (prev) prev.addEventListener('click', function () { stop(); show(index - 1); });
     if (next) next.addEventListener('click', function () { stop(); show(index + 1); });
-    if (toggle) toggle.addEventListener('click', function () { playing ? stop() : play(); });
+    if (toggle) toggle.addEventListener('click', function () {
+      if (playing) stop();
+      else play();
+    });
 
     /* Flèches du clavier quand le focus est dans le héros. */
     root.addEventListener('keydown', function (e) {
       if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
-      /* En RTL, « suivant » est à gauche. */
-      var forward = e.key === 'ArrowLeft';
+      var rtl = getComputedStyle(root).direction === 'rtl';
+      var forward = rtl ? e.key === 'ArrowLeft' : e.key === 'ArrowRight';
       stop();
       show(index + (forward ? 1 : -1));
     });
@@ -107,7 +132,8 @@
     root.addEventListener('mouseenter', stop);
     root.addEventListener('focusin', stop);
     document.addEventListener('visibilitychange', function () {
-      document.hidden ? stop() : play();
+      if (document.hidden) stop();
+      else play();
     });
 
     if (reduced && toggle) toggle.hidden = true;
@@ -152,7 +178,7 @@
           var b = document.createElement('button');
           b.type = 'button';
           b.className = 'car-dot';
-          b.setAttribute('aria-label', 'العنصر ' + (n + 1));
+          b.setAttribute('aria-label', copy.item + ' ' + (n + 1));
           b.addEventListener('click', function () {
             items[n].scrollIntoView({
               behavior: reduced ? 'auto' : 'smooth',

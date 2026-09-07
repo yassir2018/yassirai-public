@@ -27,6 +27,10 @@ const nextConfig: NextConfig = {
         { source: "/Games", destination: "/Games/index.html" },
         { source: "/Games/star-factory", destination: "/Games/star-factory/index.html" },
         { source: "/SBF_site", destination: "/SBF_site/index.html" },
+        {
+          source: "/SBF_site/:dir/:locale(en|fr)",
+          destination: "/SBF_site/:dir/:locale/index.html",
+        },
         { source: "/SBF_site/:dir", destination: "/SBF_site/:dir/index.html" },
       ],
       fallback: [],

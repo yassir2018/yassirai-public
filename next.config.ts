@@ -24,6 +24,8 @@ const nextConfig: NextConfig = {
       // index.html doit etre reecrite avant que la route dynamique [lang] ne
       // capture le segment.
       afterFiles: [
+        { source: "/Games", destination: "/Games/index.html" },
+        { source: "/Games/star-factory", destination: "/Games/star-factory/index.html" },
         { source: "/SBF_site", destination: "/SBF_site/index.html" },
         { source: "/SBF_site/:dir", destination: "/SBF_site/:dir/index.html" },
       ],

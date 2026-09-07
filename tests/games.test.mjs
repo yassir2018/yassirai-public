@@ -40,6 +40,15 @@ test('cover, fonts and all twelve game illustrations are packaged', () => {
   assert.ok(!assets.some(name => /secret|credential|\.env|\.map$/.test(name)));
 });
 
+test('the published game entry includes bounded automatic image retries', () => {
+  const gameHtml = readFileSync(resolve(folder, 'star-factory/index.html'), 'utf8');
+  const entry = gameHtml.match(/src="\.\/(assets\/[^"?]+\.js)"/)[1];
+  const code = readFileSync(resolve(folder, 'star-factory', entry), 'utf8');
+  assert.match(code, /_imageRetry/);
+  assert.match(code, /Image load timed out/);
+  assert.match(code, /naturalWidth/);
+});
+
 function browser(saved, blocked = false) {
   const nodes = new Map();
   for (const [attr, field] of [['copy','textContent'],['label','aria-label'],['alt','alt']]) {

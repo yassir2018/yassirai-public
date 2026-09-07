@@ -19,6 +19,14 @@ and adds an explicit base URL so clean Next.js routes cannot break assets.
 The cover is an existing screenshot with the name field empty; no personalized
 QA data or video reference is published.
 
+First-visit resilience: both welcome and gameplay image loading automatically
+retry transient failures up to three times, with bounded request timeouts. Only
+failed images use a fresh query string; normal image URLs remain cacheable.
+The existing manual error/retry UI remains for persistent failures. This is a
+mitigation for the reported first-visit failure, not a confirmed diagnosis of
+the original browser event. The earlier hashed bundle is retained for clients
+that already received the previous HTML during deployment.
+
 Validation: `node --test tests/games.test.mjs`, then the normal `npm run build`.
 Runtime route checks should include the catalogue, game, JS, CSS, Cairo, artwork,
 and the unchanged `/fr` and `/SBF_site` entry points.

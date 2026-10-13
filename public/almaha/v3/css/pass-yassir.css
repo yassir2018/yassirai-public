@@ -510,3 +510,32 @@
 .works { padding-bottom: calc(var(--section-y) * .6 + .67 * var(--seam-h)) !important; }
 .about { padding-top: max(24px, calc(var(--section-y) - .5 * var(--seam-h))) !important; }
 .about { padding-bottom: calc(var(--section-y) * .8) !important; }
+
+/* ================================================================ pass 8: tablets / small laptops (1024, 768) */
+/* 5 items on 3 columns: the last row is centred (no hole on one side) */
+@media (min-width: 761px) and (max-width: 1100px) {
+  .sectors__list { grid-template-columns: repeat(6, minmax(0, 1fr)) !important; }
+  .sector { grid-column: span 2; }
+  .sector:nth-child(4) { grid-column: 2 / span 2; }
+}
+@media (min-width: 461px) and (max-width: 760px) {
+  .sectors__list { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; }
+  .sector { grid-column: span 2; }
+  .sector:nth-child(5) { grid-column: 2 / span 2; }
+}
+@media (min-width: 461px) and (max-width: 1199px) {
+  .values { grid-template-columns: repeat(6, minmax(0, 1fr)) !important; }
+  .value { grid-column: span 2; }
+  .value:nth-child(4) { grid-column: 2 / span 2; }
+}
+/* approach tabs: one line per label on small laptops */
+@media (max-width: 1180px) {
+  .step__title { font-size: 19px !important; gap: 10px !important; padding-inline-start: 46px !important; white-space: nowrap; }
+  .step__title .step__ico { --ico-s: 22px; padding: 8px; }
+}
+/* contact: email and address stacked while the card is narrow */
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .channels--top dl { grid-template-columns: 1fr !important; }
+  .contact__cta-inner { grid-column: 1 / span 6 !important; }
+  .channels--top { grid-column: 7 / span 6 !important; }
+}

@@ -391,3 +391,18 @@
 .works { padding-bottom: var(--s-7); }
 /* vision mark: fully inside the sky, clear of the band's curved bottom edge */
 .vision__mark { top: 7%; translate: none; height: calc(86% - clamp(44px, 9vw, 150px)); z-index: 2; }
+
+/* ---------------------------------------------------------------- mobile pass (13/10) */
+@media (max-width: 760px) {
+  /* sectors: a clean list with hairlines between rows (no vertical rules) */
+  .sector, .sector:first-child { border-inline-start: 0; border-top: 1px solid var(--line); padding: 14px 4px; }
+  .sector:first-child { border-top: 0; }
+  /* vision: the oryx smaller, clear of the title */
+  .vision__mark { height: 38%; top: 10%; left: var(--gutter); opacity: .95; }
+  .vision__title-wrap { padding-top: clamp(150px, 42vw, 190px) !important; }
+}
+@media (max-width: 600px) {
+  /* hero: compact buttons on the right, the flag stays visible on the left */
+  .hero__actions { width: min(100%, 13.5rem); align-self: flex-start; }
+  .hero__actions .btn { min-inline-size: 0; width: 100%; min-height: 50px; font-size: 15px; padding-inline: 20px 16px; }
+}

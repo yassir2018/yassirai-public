@@ -361,3 +361,6 @@
 .site-header.is-scrolled .brand__ar { font-size: 16px; }
 .site-header.is-scrolled .brand__mark { height: 52px; }
 @media (max-width: 760px) { .brand__ar { font-size: 16px; } .brand__mark { height: 44px; } }
+
+/* services art card: the landscape photo only (the v2 phone crop has an empty band), framed on the man */
+.svc-art img { object-position: 30% 62%; }

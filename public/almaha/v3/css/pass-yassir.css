@@ -367,3 +367,19 @@
 
 /* Yassir: no brush wipe on the hero photo at load (the photo is simply there) */
 .hero__wipe { display: none !important; }
+
+/* menu: the full desktop menu stays visible down to 1024 px (laptops); the burger only below */
+@media (min-width: 1024px) and (max-width: 1180px) {
+  .site-nav, .site-header .lang { display: block; }
+  .site-header .lang { display: flex; }
+  .menu-toggle { display: none; }
+  :root { --nav-gap: 18px; }
+  .site-nav { flex: 1; margin-inline-start: var(--s-5); }
+  .site-nav ul { width: 100%; }
+  .site-nav ul > li:first-child { margin-inline-start: auto; }
+  .site-nav__cta { margin-inline-start: auto; }
+  .brand__lat, .brand__tag { display: none; }
+}
+
+/* vision band: no empty sky above the title (Yassir) */
+.vision__title-wrap { padding-top: clamp(48px, 4.5vw, 84px) !important; padding-bottom: clamp(48px, 4.5vw, 80px) !important; }

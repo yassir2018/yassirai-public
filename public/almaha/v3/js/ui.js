@@ -22,7 +22,7 @@ export function initHeader() {
 
 /* ------------------------------------------------------------ scroll-spy: a section is current when it crosses the viewport centre */
 export function initScrollSpy() {
-  const map = { home: 'home', pillars: 'home', about: 'about', services: 'services', sectors: 'sectors', approach: 'approach', works: 'works', vision: 'vision', contact: 'contact' };
+  const map = { home: 'home', pillars: 'home', about: 'about', services: 'services', sectors: 'services', approach: 'approach', clients: 'works', works: 'works', vision: 'vision', contact: 'contact' };
   const sections = Object.keys(map).map((id) => document.getElementById(id)).filter(Boolean);
   const links = $$('[data-spy]');
   const nav = $('.site-nav');
@@ -103,7 +103,7 @@ export function initMenu() {
     if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
     else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
   });
-  matchMedia('(min-width: 1181px)').addEventListener('change', (m) => { if (m.matches) close(); });
+  matchMedia('(min-width: 1024px)').addEventListener('change', (m) => { if (m.matches) close(); });
 }
 
 /* ------------------------------------------------------------ approach as tabs (style layer «روح v2», <html data-style="v2">):

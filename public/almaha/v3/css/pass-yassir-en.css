@@ -1,0 +1,408 @@
+/* AL MAHA v3 — Yassir's review pass (13/10).
+   1 tighter rhythm (no unjustified voids)   2 light tinted bands/cards to break the visual emptiness
+   3 bigger titles   4 every block reacts (hover / focus)   5 icons at a readable size, in a tinted badge. */
+
+:root {
+  --section-y: clamp(56px, 2.2rem + 3.6vw, 112px);      /* 56 / 84 / 100 / 112 (was 80 / 119 / 144 / 168) */
+  --space-head: clamp(28px, 1.3rem + 1.6vw, 52px);
+  --s-9: clamp(36px, 1.6rem + 2.2vw, 68px);
+  --seam-h: clamp(72px, 8vw, 140px);
+  --fs-h2: clamp(32px, 1.35rem + 2.75vw, 70px);         /* 32 / 50 / 62 / 70 */
+  --fs-h4: clamp(18px, 1.02rem + .42vw, 23px);
+  --tint-1: #F3ECE4;      /* warm sand tint (v2's ladder) */
+  --tint-2: #ECE4DA;
+  --card-w: #FFFCF8;
+  --badge: rgba(142, 16, 40, .075);
+  --lift: 0 22px 44px -26px rgba(98, 0, 0, .38);
+}
+
+/* ---------------------------------------------------------------- shared: icon badge + card behaviour */
+.pillar__ico, .svc__ico, .sector__ico, .value__ico, .step__ico, .channel__ico {
+  box-sizing: content-box; border-radius: 50%; background: var(--badge);
+  transition: background-color .35s var(--ease), transform .5s var(--ease-expo);
+}
+.on-dark .step__ico { background: rgba(217, 175, 147, .12); }
+
+/* ---------------------------------------------------------------- pillars: four cards on the hero's edge */
+.pillars { padding-top: var(--s-7); }
+.pillars__list { row-gap: var(--grid-gap); }
+.pillar + .pillar::before { display: none; }
+.pillar {
+  gap: var(--s-2); padding: 28px 26px 30px; background: var(--card-w); border: 1px solid var(--card-line);
+  transition: transform .5s var(--ease-expo), box-shadow .5s var(--ease), border-color .35s var(--ease);
+}
+.pillar::after { content: ""; position: absolute; inset: auto 0 -1px; height: 2px; background: var(--bordeaux); transform: scaleX(0); transform-origin: 100% 50%; transition: transform .6s var(--ease-expo); }
+.pillar__ico { --ico-s: 30px; padding: 14px; margin: 0 0 var(--s-3); }
+.pillar__title { font-size: clamp(19px, 1.05rem + .5vw, 25px); }
+.pillar__text { font-size: var(--fs-body); }
+.pillar:hover { transform: translateY(-6px); box-shadow: var(--lift); border-color: rgba(142, 16, 40, .28); }
+.pillar:hover::after { transform: scaleX(1); }
+.pillar:hover .pillar__ico { background: var(--bordeaux); --ico-c: #fff; --ico-dot: #fff; transform: rotate(-8deg); }
+
+/* ---------------------------------------------------------------- about: facts as tinted cards */
+.facts { margin-top: var(--s-7); row-gap: var(--grid-gap); }
+.fact { padding: 22px 24px 24px; background: var(--tint-1); transition: background-color .35s var(--ease), transform .5s var(--ease-expo); }
+.fact::before { height: 2px; background: var(--bordeaux); opacity: 1; }
+.fact dd { font-size: clamp(18px, 1.02rem + .5vw, 24px); }
+.fact:hover { background: var(--card-w); transform: translateY(-4px); }
+
+/* ---------------------------------------------------------------- services: readable icons, the row lights up */
+.svc__ico { --ico-s: 26px; padding: 12px; }
+.svc.is-active .svc__ico, .svc:hover .svc__ico { background: var(--bordeaux); --ico-c: #fff; --ico-dot: #fff; }
+.svc__link::before { background: var(--tint-1); }
+
+/* ---------------------------------------------------------------- sectors: a tinted band of five cards (was a tall centred list) */
+.sectors { background: linear-gradient(180deg, var(--ivory) 0, var(--tint-1) clamp(80px, 8vw, 140px), var(--tint-2) 100%); }
+.sectors__list { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: var(--grid-gap); justify-items: stretch; max-width: var(--maxw); margin-inline: auto; padding-inline: var(--gutter); }
+.sector + .sector { margin-top: 0; }
+.sector {
+  position: relative; align-content: start; gap: var(--s-2); padding: 30px 18px 28px; background: var(--card-w); border: 1px solid var(--card-line);
+  transition: transform .5s var(--ease-expo), box-shadow .5s var(--ease), border-color .35s var(--ease);
+}
+.sector__ico { --ico-s: 30px; padding: 15px; margin-bottom: var(--s-2); }
+.sector__ar { font-size: clamp(18px, .98rem + .45vw, 23px); line-height: 1.45; }
+.sector:hover { transform: translateY(-6px); box-shadow: var(--lift); border-color: rgba(142, 16, 40, .28); }
+.sector:hover .sector__ico { background: var(--bordeaux); --ico-c: #fff; --ico-dot: #fff; }
+
+/* ---------------------------------------------------------------- approach (night): readable step icons */
+.step__ico { --ico-s: 28px; padding: 10px; }
+.step.is-active .step__ico { background: var(--copper); --ico-c: var(--night); --ico-dot: var(--night); }
+
+/* ---------------------------------------------------------------- clients: cards with a tint, colour on hover */
+.clients__list::before, .clients__list::after, .client + .client::before { display: none; }
+.clients__list { gap: var(--grid-gap); }
+.client { background: var(--tint-1); transition: background-color .35s var(--ease), transform .5s var(--ease-expo), box-shadow .5s var(--ease); }
+.client:hover, .client:focus-within { background: var(--card-w); transform: translateY(-6px); box-shadow: var(--lift); }
+
+/* ---------------------------------------------------------------- vision: values as cards */
+.vision__values { margin-top: var(--s-7); row-gap: var(--grid-gap); }
+.value { padding: 22px 20px 24px; background: var(--tint-1); transition: background-color .35s var(--ease), transform .5s var(--ease-expo); }
+.value::before { height: 2px; background: var(--bordeaux); opacity: 1; }
+.value__ico { --ico-s: 26px; padding: 12px; margin: 0 0 var(--s-3); }
+.value__ar { font-size: clamp(18px, 1.02rem + .5vw, 24px); }
+.value:hover { background: var(--card-w); transform: translateY(-4px); }
+.value:hover .value__ico { background: var(--bordeaux); --ico-c: #fff; --ico-dot: #fff; }
+
+/* ---------------------------------------------------------------- contact: one quiet ribbon, channels on a tinted card */
+.contact__ribbons { opacity: .55; width: min(22vw, 320px); }
+.channels { padding: var(--form-pad); background: var(--tint-1); align-self: start; }
+.channel__ico { --ico-s: 20px; padding: 8px; }
+.channel { transition: padding .35s var(--ease); }
+.channel:hover { padding-inline-start: 6px; }
+
+/* ---------------------------------------------------------------- responsive */
+@media (max-width: 1100px) {
+  .sectors__list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 760px) {
+  .sectors__list { grid-template-columns: 1fr 1fr; }
+  .pillar, .sector { padding: 22px 18px; }
+}
+@media (max-width: 460px) {
+  .sectors__list { grid-template-columns: 1fr; }
+  .sector { grid-template-columns: auto 1fr; justify-items: start; text-align: right; column-gap: var(--s-4); align-items: center; }
+  .sector__ico { grid-row: span 2; margin: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pillar, .sector, .fact, .value, .client { transition: none; }
+  .pillar:hover, .sector:hover, .fact:hover, .value:hover, .client:hover { transform: none; }
+}
+
+/* sector cards are narrow: the Latin label wraps instead of overflowing */
+.sector__en { white-space: normal; letter-spacing: .12em; line-height: 1.5; text-wrap: balance; overflow-wrap: anywhere; }
+
+/* ---------------------------------------------------------------- works: clean covers (Yassir: the floating plates over
+   the ghost numerals looked deformed). Three equal cards, one 16:10 cover; real visuals fill it edge to edge; IMAR's
+   mark sits centred on its own tint; no numerals behind images. */
+.works__list { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--grid-gap); align-items: stretch; }
+.work__cover { height: auto; aspect-ratio: 16 / 10; }
+.work__ghost { display: none; }
+.work--sbf .work__rings, .work--muntada .work__rings { display: none; }
+.work__plate { inset: 0; width: 100%; height: 100%; aspect-ratio: auto; top: 0; box-shadow: none; background: none; }
+.work__plate img { transition: scale 1.2s var(--ease-expo); }
+.work:hover .work__plate img, .work:focus-within .work__plate img { scale: 1.045; }
+.work__mark img { height: 40%; }
+.work:hover { translate: 0 -6px; box-shadow: 0 0 0 1px rgba(142, 16, 40, .25), var(--lift); }
+@media (max-width: 1023px) { .works__list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 760px)  { .works__list { grid-template-columns: 1fr; } }
+
+/* ---------------------------------------------------------------- header: v2's lockup (with «A Brighter Tomorrow»), a taller
+   bar at the top that settles into a compact frosted bar; EN only (the «soon» note lives in the mobile menu) */
+:root { --header-h: 104px; }
+.brand { aspect-ratio: 1401 / 452; height: 80px; }
+.site-header.is-scrolled .site-header__bar { height: 80px; }
+.site-header.is-scrolled .brand { height: 60px; }
+.site-header .lang:not(.lang--menu) .lang__soon { display: none; }
+@media (max-width: 760px) {
+  :root { --header-h: 72px; }
+  .brand { aspect-ratio: 2945 / 753; height: 44px; }
+  .site-header.is-scrolled .site-header__bar { height: 64px; }
+  .site-header.is-scrolled .brand { height: 40px; }
+}
+
+/* ---------------------------------------------------------------- vision: the sky band was a tall empty picture; now a
+   cinematic strip that only frames the title */
+.vision__band { height: clamp(300px, 46vh, 460px); }
+
+/* ---------------------------------------------------------------- contact: the decorative ribbon read as a stain; removed */
+.contact__ribbons { display: none; }
+
+/* ---------------------------------------------------------------- approach (tabs, both styles): compact chapter */
+.approach__pin { padding-block: var(--section-y) calc(var(--section-y) + .6 * var(--seam-h)); }
+@media (min-width: 761px) {
+  .brand { height: 88px; }                                   /* ~273 px wide, close to v2's 295 */
+  .site-header.is-scrolled .brand { height: 66px; }
+}
+
+/* ---------------------------------------------------------------- pass 2 (Yassir, 13/10) */
+/* card blocks: icon, title and text centred */
+.pillar, .value { justify-items: center; text-align: center; }
+.pillar__ico, .value__ico { margin-inline: auto; }
+.value__en { text-align: center; }
+.value { display: grid; }
+
+/* vision: the title lives inside the band, in the flow (it was clipped at the band's bottom on wide screens) */
+.vision__band { height: auto; min-height: 0; }
+.vision__title-wrap { position: relative; inset: auto; padding-top: clamp(150px, 16vw, 260px); padding-bottom: clamp(56px, 6vw, 96px); }
+.vision__body { margin-top: var(--s-7); }
+
+/* contact: label -> title -> lead stay together */
+.contact__cta { padding-block: var(--section-y) var(--s-7); }
+
+/* ---------------------------------------------------------------- pass 3: v2's hero distribution, scroll cue, white footer
+   logo, the oryx watermark filling the approach's empty left side */
+.hero__kicker { margin-bottom: var(--s-4); font: 560 13px/1.4 var(--f-lat); letter-spacing: .32em; color: rgba(34, 34, 34, .72); direction: ltr; text-align: right; animation: hero-in 1s var(--ease) 1.1s both; }
+.hero__kicker span { color: var(--bordeaux); }
+.hero__actions { gap: var(--s-5); }
+.hero__actions .btn { min-height: 64px; padding-inline: 34px 12px; font-size: 18px; min-inline-size: 15.5rem; }
+.hero__actions .btn--ghost { padding-inline: 34px; background: rgba(248, 242, 236, .35); box-shadow: inset 0 0 0 1.5px rgba(34, 34, 34, .55); }
+.hero__side { position: absolute; left: var(--gutter); bottom: 22%; z-index: 3; display: grid; gap: var(--s-4); color: #fff; text-shadow: 0 1px 14px rgba(20, 12, 8, .55); animation: hero-in 1.2s var(--ease) 1.6s both; }
+.hero__side-rule { width: 48px; height: 2px; background: #fff; }
+.hero__side-ar { font: 500 20px/1.6 var(--f-ar); text-align: left; }
+.hero__side-lat { font: 560 13px/2.1 var(--f-lat); letter-spacing: .3em; direction: ltr; text-align: left; }
+.hero__scroll { position: absolute; left: 50%; bottom: clamp(44px, 7vh, 80px); z-index: 3; translate: -50% 0; display: flex; align-items: center; gap: 12px; color: #fff; font: 600 15px/1 var(--f-ar); text-decoration: none; text-shadow: 0 1px 10px rgba(20, 12, 8, .6); animation: hero-in 1.2s var(--ease) 2s both; }
+.hero__mouse { width: 24px; height: 38px; border: 1.5px solid currentColor; border-radius: 14px; display: grid; justify-items: center; padding-top: 7px; box-shadow: 0 0 12px rgba(20, 12, 8, .35); }
+.hero__mouse span { width: 3px; height: 8px; border-radius: 2px; background: currentColor; animation: hero-wheel 1.8s var(--ease) infinite; }
+@keyframes hero-wheel { 0% { opacity: 0; transform: translateY(-3px); } 30% { opacity: 1; } 80% { opacity: 0; transform: translateY(9px); } 100% { opacity: 0; } }
+@keyframes hero-in { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+@media (max-width: 1023px) { .hero__side { display: none; } }
+@media (max-width: 760px) { .hero__scroll { display: none; } .hero__kicker { font-size: 11px; letter-spacing: .2em; } }
+@media (prefers-reduced-motion: reduce) { .hero__kicker, .hero__side, .hero__scroll { animation: none; } .hero__mouse span { animation: none; } }
+
+.footer__brand img { filter: brightness(0) invert(1); }
+
+.approach { overflow: hidden; }
+.approach__wm { left: max(-4vw, -60px); top: 50%; height: min(96%, 900px); transform: translateY(-50%) rotate(-4deg); }
+.approach__wm svg { opacity: .075; }
+.approach__wm .approach__wm-head { opacity: .05; }
+
+/* pass 3b: side note sits clear of the flag (wide screens only, ink on the bright sky); kicker hidden in concept A where
+   the oryx takes that pocket; the approach watermark as v2's pale oryx */
+.hero__side { left: 2.4vw; bottom: auto; top: 46%; color: var(--ink); text-shadow: 0 0 18px rgba(248, 242, 236, .85); }
+.hero__side-rule { background: var(--bordeaux); }
+@media (max-width: 1599px) { .hero__side { display: none; } }
+[data-hero="a"] .hero__kicker { visibility: hidden; }
+.approach__wm svg { filter: brightness(0) invert(1); opacity: .06; }
+.approach__wm .approach__wm-head { opacity: .04; }
+
+/* header CTA «لنتحدث»: always a solid red pill (Yassir), in the hero too */
+.site-nav__cta .btn,
+.site-header.cta-ghost .site-nav__cta .btn { --btn-bg: #B1091B; --btn-fg: #fff; --btn-fill: var(--deep); background: #B1091B; color: #fff; box-shadow: none; }
+.site-header.cta-ghost .site-nav__cta .btn__arrow, .site-nav__cta .btn__arrow { background: rgba(255, 255, 255, .16); }
+/* side note: on the dark rocks, clear of the pole (white, as in v2) */
+.hero__side { top: auto; bottom: 6%; left: 2.4vw; color: #fff; text-shadow: 0 1px 12px rgba(20, 12, 8, .7); gap: var(--s-3); }
+.hero__side-rule { background: #fff; }
+.hero__side-ar { font-size: 18px; }
+.hero__side-lat { font-size: 12px; letter-spacing: .24em; line-height: 1.9; }
+.hero__side { direction: ltr; justify-items: start; bottom: 7%; z-index: 4; }
+.hero__side-ar { direction: rtl; text-align: left; }
+.hero__scroll { z-index: 4; }
+.hero__scroll { bottom: 15%; }
+
+/* ---------------------------------------------------------------- pass 4: the page read "zoomed in" next to v2 -> one
+   calmer scale (v2 at 1280: h1 59, h2 47, body 16, nav 14). Values: 1280 / 1440 / 1920. */
+:root {
+  --fs-h1: clamp(30px, 2rem + 2.2vw, 66px);          /* 60 / 64 / 66 */
+  --fs-h2: clamp(28px, 1.2rem + 2.4vw, 56px);        /* 50 / 54 / 56 */
+  --fs-statement: clamp(20px, 1rem + .9vw, 30px);
+  --fs-h3: clamp(19px, .95rem + .5vw, 24px);
+  --fs-lead: clamp(16px, .9rem + .3vw, 19px);
+  --fs-h4: clamp(17px, .9rem + .35vw, 21px);
+  --fs-body: clamp(15px, .85rem + .25vw, 17px);
+  --header-h: 96px;
+}
+@media (min-width: 761px) {
+  :root { --fs-btn: 15px; }
+  .brand { height: 76px; }
+  .site-header.is-scrolled .brand { height: 58px; }
+  .site-header.is-scrolled .site-header__bar { height: 74px; }
+}
+.pillar__title, .fact dd, .value__ar { font-size: clamp(17px, .92rem + .38vw, 22px); }
+.sector__ar { font-size: clamp(17px, .9rem + .35vw, 21px); }
+.hero__actions .btn { min-height: 56px; font-size: 16px; padding-inline: 28px 10px; min-inline-size: 13.5rem; }
+.hero__actions .btn--ghost { padding-inline: 28px; }
+.hero__kicker { font-size: 12px; letter-spacing: .28em; margin-bottom: var(--s-5); }
+.hero__inner { padding-top: calc(var(--header-h) + 7vh); }
+
+/* Yassir: the kicker line is removed for good */
+.hero__kicker { display: none !important; }
+
+/* header at the top of the hero: v2's soft paper gradient behind the bar, so the menu never sits on busy clouds */
+.site-header::before { content: ""; position: absolute; inset: 0 0 -28px; z-index: -1; pointer-events: none;
+  background: linear-gradient(180deg, rgba(249, 246, 240, .92) 0, rgba(249, 246, 240, .72) 58%, rgba(249, 246, 240, 0) 100%);
+  transition: opacity .4s var(--ease); }
+.site-header.is-scrolled::before { opacity: 0; }
+
+/* menu: centred between the logo and the CTA (v2), not pushed against the CTA */
+@media (min-width: 1181px) {
+  .site-nav { flex: 1; margin-inline-start: var(--s-7); }
+  .site-nav ul { width: 100%; }
+  .site-nav ul > li:first-child { margin-inline-start: auto; }
+  .site-nav__cta { margin-inline-start: auto; }
+}
+
+/* header lockup rebuilt as v2's: the symbol apart from a roomy three-line wordmark (no red rules) */
+.brand { aspect-ratio: auto !important; height: auto !important; display: flex; align-items: center; }
+.brand__logo--dark { display: none; }
+.brand__lockup { display: flex; align-items: center; gap: 22px; }
+.brand__mark { width: auto; height: 74px; flex: none; transition: height .4s var(--ease); }
+.brand__text { display: grid; justify-items: center; gap: 4px; color: var(--ink-0); }
+.brand__ar { font: 700 23px/1.25 var(--f-ar); white-space: nowrap; }
+.brand__lat { font: 560 12px/1.3 var(--f-lat); letter-spacing: .16em; white-space: nowrap; }
+.brand__tag { font: 350 12px/1.3 var(--f-lat); letter-spacing: .2em; white-space: nowrap; }
+.site-header.is-scrolled .brand__mark { height: 56px; }
+.site-header.is-scrolled .brand__ar { font-size: 20px; }
+@media (max-width: 1280px) { .brand__ar { font-size: 20px; } .brand__lat, .brand__tag { font-size: 11px; } .brand__mark { height: 64px; } }
+@media (max-width: 760px) {
+  .brand__lockup { gap: 12px; }
+  .brand__mark { height: 46px; }
+  .brand__ar { font-size: 17px; }
+  .brand__lat, .brand__tag { display: none; }
+  .site-header.is-scrolled .brand__mark { height: 40px; }
+}
+.brand, .brand:hover { text-decoration: none; color: inherit; }
+
+/* ---------------------------------------------------------------- hero block distribution = v2's rhythm:
+   airy title (lh 1.45), sub at line-height 2 with room around it, two wide 66 px pills, plain arrows (no chip) */
+.hero h1 { line-height: 1.45; margin-bottom: clamp(18px, 2.2vh, 30px); }
+.hero__sub { font-size: clamp(16px, .9rem + .25vw, 19px); line-height: 2; max-width: 31em; color: #3a332f; }
+.hero__actions { margin-top: clamp(32px, 4.6vh, 56px); gap: clamp(16px, 1.6vw, 24px); }
+.hero__actions .btn { min-height: 66px; min-inline-size: clamp(14rem, 17vw, 17rem); padding-inline: 34px 28px; font-size: 17px; font-weight: 600; justify-content: space-between; }
+.hero__actions .btn:not(.btn--ghost) { --btn-bg: #B1091B; background: #B1091B; }
+.hero__actions .btn--ghost { box-shadow: inset 0 0 0 1.5px rgba(34, 34, 34, .8); background: rgba(248, 242, 236, .25); justify-content: space-between; padding-inline: 34px 28px; }
+.hero__actions .btn__arrow { background: none !important; width: auto; height: auto; }
+.hero__actions .btn__arrow svg { width: 20px; height: 20px; }
+
+/* every solid button = v2's red (#B20B20), header CTA included */
+.btn:not(.btn--ghost), .site-nav__cta .btn, .site-header.cta-ghost .site-nav__cta .btn, .hero__actions .btn:not(.btn--ghost) {
+  --btn-bg: #B20B20; --btn-fill: #8E0A1A; background: #B20B20 !important; color: #fff;
+}
+
+/* ---------------------------------------------------------------- pass 5 (comparison with v2): less "card soup", a photo
+   mid-page, the chapter rail */
+/* facts + values: an editorial row on hairlines, no boxes */
+.fact, .value { background: none !important; padding: 18px 0 0; }
+.fact:hover, .value:hover { transform: none; }
+.fact::before, .value::before { height: 1px; background: var(--ink); opacity: .2; }
+.value { justify-items: center; }
+/* sectors: one ruled row instead of five boxes */
+.sector { background: none; border: 0; border-inline-start: 1px solid var(--line); padding: 10px 14px 6px; box-shadow: none !important; }
+.sector:first-child { border-inline-start: 0; }
+.sector:hover { transform: none; }
+.sector__ico { --ico-s: 24px; padding: 11px; }
+.sectors { padding-block: var(--section-y) calc(var(--section-y) + .6 * var(--seam-h)); }
+/* services art card (v2) */
+.svc-art { position: relative; margin-top: var(--s-7); overflow: hidden; aspect-ratio: 4 / 3; }
+.svc-art img { width: 100%; height: 100%; object-fit: cover; object-position: 22% 50%; transition: scale 1.4s var(--ease-expo); }
+.svc-art:hover img { scale: 1.04; }
+.svc-art::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(20, 12, 8, .62) 0, rgba(20, 12, 8, 0) 58%); }
+.svc-art figcaption { position: absolute; z-index: 1; inset: auto 24px 22px; color: #fff; font: 600 clamp(20px, 1rem + .7vw, 28px)/1.35 var(--f-ar); }
+.svc-art figcaption .lat { display: block; margin-bottom: 8px; font: 560 11px/1 var(--f-lat); letter-spacing: .24em; color: rgba(255, 255, 255, .8); }
+@media (max-width: 1023px) { .svc-art { aspect-ratio: 16 / 10; } }
+/* chapter rail 01-07 (v2) */
+.rail { position: fixed; z-index: 40; right: 18px; top: 50%; translate: 0 -50%; display: grid; gap: 14px; }
+.rail a { display: flex; align-items: center; gap: 8px; color: #9a8f88; text-decoration: none; font: 560 10px/1 var(--f-lat); letter-spacing: .08em; direction: ltr; }
+.rail a::before { content: ""; width: 14px; height: 1px; background: currentColor; transition: width .4s var(--ease-expo), background-color .3s; }
+.rail a[aria-current="true"] { color: #B20B20; }
+.rail a[aria-current="true"]::before { width: 26px; }
+.rail a:hover { color: var(--ink); }
+@media (max-width: 1279px) { .rail { display: none; } }
+/* clients: a slim logo strip (the works below already tell the projects) */
+.clients { padding-block: max(24px, calc(var(--section-y) - .75 * var(--seam-h))) var(--s-7); }
+.clients__head { margin-bottom: var(--s-6); }
+.client { background: none !important; box-shadow: none !important; padding: 12px 16px; gap: var(--s-3); }
+.client:hover, .client:focus-within { transform: none; }
+.client__logo { height: clamp(64px, 5.6vw, 84px); }
+/* services rows a little tighter */
+.svc__link { padding-block: 20px; }
+
+/* scene controls on the LEFT (Yassir), under the side note (desktop / landscape) */
+@media not ((max-width: 1023px) and (orientation: portrait)) and (min-width: 601px) {
+  .hero-scenes { right: auto; left: calc(max(0px, (100% - var(--maxw) - 2 * var(--gutter)) / 2) + var(--gutter)); bottom: 11%; }
+  .hero__side { bottom: 24%; }
+}
+@media (min-width: 1024px), (min-width: 601px) and (orientation: landscape) {
+  .hero .hero-scenes { right: auto; left: calc(max(0px, (100% - var(--maxw) - 2 * var(--gutter)) / 2) + var(--gutter)); bottom: 11%; }
+  .hero .hero__side { bottom: 25%; }
+}
+
+/* scene controls hidden for now (Yassir) — autoplay keeps running */
+.hero .hero-scenes { display: none !important; }
+
+/* chapter rail hidden for now (Yassir) */
+.rail { display: none !important; }
+
+/* header lockup text at v2's size (AR 16-18 / Latin ~9-10) */
+.brand__ar { font-size: 18px; }
+.brand__lat { font-size: 9.5px; letter-spacing: .17em; }
+.brand__tag { font-size: 9px; letter-spacing: .22em; }
+.brand__mark { height: 64px; }
+.brand__text { gap: 3px; }
+.site-header.is-scrolled .brand__ar { font-size: 16px; }
+.site-header.is-scrolled .brand__mark { height: 52px; }
+@media (max-width: 760px) { .brand__ar { font-size: 16px; } .brand__mark { height: 44px; } }
+
+/* services art card: the landscape photo only (the v2 phone crop has an empty band), framed on the man */
+.svc-art img { object-position: 30% 62%; }
+
+/* Yassir: no brush wipe on the hero photo at load (the photo is simply there) */
+.hero__wipe { display: none !important; }
+
+/* menu: the full desktop menu stays visible down to 1024 px (laptops); the burger only below */
+@media (min-width: 1024px) and (max-width: 1180px) {
+  .site-nav, .site-header .lang { display: block; }
+  .site-header .lang { display: flex; }
+  .menu-toggle { display: none; }
+  :root { --nav-gap: 18px; }
+  .site-nav { flex: 1; margin-inline-start: var(--s-5); }
+  .site-nav ul { width: 100%; }
+  .site-nav ul > li:first-child { margin-inline-start: auto; }
+  .site-nav__cta { margin-inline-start: auto; }
+  .brand__lat, .brand__tag { display: none; }
+}
+
+/* vision band: no empty sky above the title (Yassir) */
+.vision__title-wrap { padding-top: clamp(48px, 4.5vw, 84px) !important; padding-bottom: clamp(48px, 4.5vw, 80px) !important; }
+
+/* vision: the oryx symbol fills the band's empty left side; less gap above (works -> vision) */
+.vision__band { position: relative; }
+.vision__mark { position: absolute; z-index: 2; left: max(var(--gutter), calc((100% - var(--maxw)) / 2)); top: 50%; translate: 0 -50%; height: 78%; width: auto; pointer-events: none; filter: drop-shadow(0 18px 30px rgba(98, 0, 0, .18)); }
+@media (max-width: 760px) { .vision__mark { height: 46%; top: 40%; opacity: .9; } }
+.works { padding-bottom: var(--s-7); }
+/* vision mark: fully inside the sky, clear of the band's curved bottom edge */
+.vision__mark { top: 7%; translate: none; height: calc(86% - clamp(44px, 9vw, 150px)); z-index: 2; }
+
+/* ---------------------------------------------------------------- mobile pass (13/10) */
+@media (max-width: 760px) {
+  /* sectors: a clean list with hairlines between rows (no vertical rules) */
+  .sector, .sector:first-child { border-inline-start: 0; border-top: 1px solid var(--line); padding: 14px 4px; }
+  .sector:first-child { border-top: 0; }
+  /* vision: the oryx smaller, clear of the title */
+  .vision__mark { height: 38%; top: 10%; left: var(--gutter); opacity: .95; }
+  .vision__title-wrap { padding-top: clamp(150px, 42vw, 190px) !important; }
+}
+@media (max-width: 600px) {
+  /* hero: compact buttons on the right, the flag stays visible on the left */
+  .hero__actions { width: min(100%, 13.5rem); align-self: flex-start; }
+  .hero__actions .btn { min-inline-size: 0; width: 100%; min-height: 50px; font-size: 15px; padding-inline: 20px 16px; }
+}

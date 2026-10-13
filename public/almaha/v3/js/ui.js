@@ -191,7 +191,7 @@ export function initLangSwitch() {
    grey at rest, a colour pulse passes from one logo to the next; hovering or focusing the strip pauses it */
 export function initClientSpotlight() {
   const list = $('.clients__list');
-  if (!list) return;
+  if (!list || document.documentElement.lang !== 'ar') return;   // the English page is frozen for now
   const items = $$('.client', list);
   if (items.length < 2 || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   let i = -1, timer = 0, held = false, seen = false;

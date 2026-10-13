@@ -539,3 +539,10 @@
   .contact__cta-inner { grid-column: 1 / span 6 !important; }
   .channels--top { grid-column: 7 / span 6 !important; }
 }
+
+/* ================================================================ pass 9: finishing details (make-interfaces-feel-better) */
+.about__media img, .svc-art img, .work__plate img { outline: 1px solid rgba(0, 0, 0, .08); outline-offset: -1px; }
+.lead, .contact__lead, .services__note, .works__intro, .vision__lead, .work__desc, .svc__desc, .pillar__text { text-wrap: pretty; }
+.display, .work__title, .sector__ar, .pillar__title, .channels h3, .form h3 { text-wrap: balance; }
+.footer__nav a { display: inline-block; padding-block: 6px; }
+.btn:active, .hero-scenes__btn:active { transform: scale(.97); }

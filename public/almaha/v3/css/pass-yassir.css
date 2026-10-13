@@ -550,3 +550,8 @@
 /* about back to the top (Yassir 14/10): hero, pillars, about, services… ; vision now follows the night chapter */
 .about { padding-top: var(--section-y) !important; padding-bottom: calc(var(--section-y) * .4) !important; }
 .vision { padding-top: max(16px, calc(var(--section-y) * .5 - .4 * var(--seam-h))); }
+
+/* about before the pillars (Yassir 14/10): about opens right under the hero, the pillars follow as a band */
+.about { padding-top: calc(var(--section-y) * .8) !important; padding-bottom: var(--s-7) !important; }
+.pillars { padding-top: var(--s-6) !important; padding-bottom: calc(var(--section-y) * .3); }
+.pillars::before { display: none; }

@@ -22,7 +22,7 @@ export function initHeader() {
 
 /* ------------------------------------------------------------ scroll-spy: a section is current when it crosses the viewport centre */
 export function initScrollSpy() {
-  const map = { home: 'home', pillars: 'home', about: 'about', services: 'services', sectors: 'services', approach: 'approach', clients: 'works', works: 'works', vision: 'vision', contact: 'contact' };
+  const map = { home: 'home', pillars: 'about', about: 'about', services: 'services', sectors: 'services', approach: 'approach', clients: 'works', works: 'works', vision: 'vision', contact: 'contact' };
   const sections = Object.keys(map).map((id) => document.getElementById(id)).filter(Boolean);
   const links = $$('[data-spy]');
   const nav = $('.site-nav');

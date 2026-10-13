@@ -364,3 +364,6 @@
 
 /* services art card: the landscape photo only (the v2 phone crop has an empty band), framed on the man */
 .svc-art img { object-position: 30% 62%; }
+
+/* Yassir: no brush wipe on the hero photo at load (the photo is simply there) */
+.hero__wipe { display: none !important; }

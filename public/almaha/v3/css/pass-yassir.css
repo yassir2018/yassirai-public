@@ -406,3 +406,58 @@
   .hero__actions { width: min(100%, 13.5rem); align-self: flex-start; }
   .hero__actions .btn { min-inline-size: 0; width: 100%; min-height: 50px; font-size: 15px; padding-inline: 20px 16px; }
 }
+
+/* ================================================================ pass 6 (Yassir's choices 13/10, all ⭐) */
+/* 1 about: the reception photo fills the left column, the statement under it */
+.about__statement { align-self: start; }
+.about__media { margin: 0 0 var(--s-6); overflow: hidden; aspect-ratio: 4 / 3; box-shadow: 0 30px 60px -36px rgba(60, 20, 10, .45); }
+.about__media img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 45%; transition: scale 1.4s var(--ease-expo); }
+.about__media:hover img { scale: 1.04; }
+
+/* 2 sectors: a sand band, five tall white cards, numbered, bigger icons */
+.sectors { background: linear-gradient(180deg, var(--ivory) 0, #EFE5DB 120px, #EBE0D5 100%) !important; }
+.sectors__list { counter-reset: sec; gap: 16px; }
+.sector, .sector:first-child { counter-increment: sec; position: relative; background: #FFFCF8; border: 1px solid rgba(34, 34, 34, .08); border-inline-start: 1px solid rgba(34, 34, 34, .08); padding: 40px 18px 32px; min-height: 240px; justify-items: center; align-content: start; transition: transform .5s var(--ease-expo), box-shadow .5s var(--ease), border-color .35s var(--ease); }
+.sector::before { content: counter(sec, decimal-leading-zero); position: absolute; top: 14px; inset-inline-end: 16px; font: 560 11px/1 var(--f-lat); letter-spacing: .12em; color: #B9AEA6; }
+.sector__ico { --ico-s: 30px; padding: 18px; margin-bottom: var(--s-4); }
+.sector__ar { font-size: clamp(17px, .95rem + .4vw, 22px); }
+.sector:hover { transform: translateY(-8px); box-shadow: var(--lift); border-color: rgba(142, 16, 40, .28); }
+@media (max-width: 760px) {
+  .sector, .sector:first-child { border: 1px solid rgba(34, 34, 34, .08); min-height: 0; padding: 18px 16px; }
+  .sector::before { top: 10px; }
+}
+
+/* 3 approach: points + deliverable under the active step */
+.step__body > div { display: grid; gap: 14px; }
+.step__points { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px 28px; margin: 6px 0 0; padding: 0; list-style: none; }
+.step__points li { position: relative; padding-inline-start: 18px; font: 400 16px/1.7 var(--f-ar); color: #D8CCC2; }
+.step__points li::before { content: ""; position: absolute; inset-inline-start: 0; top: .78em; width: 8px; height: 2px; background: var(--copper); }
+.step__deliv { display: inline-flex; align-items: center; gap: 12px; margin-top: 4px; font: 600 16px/1.5 var(--f-ar); color: var(--on-dark); }
+.step__deliv span { font: 560 11px/1 var(--f-lat); letter-spacing: .14em; padding: 7px 10px; border: 1px solid rgba(217, 175, 147, .5); color: var(--copper); }
+.step__body p:first-child { font-size: clamp(19px, 1rem + .5vw, 24px) !important; }
+@media (max-width: 860px) { .step__points { grid-template-columns: 1fr; } }
+
+/* 4 clients: SBF spotlight — grey at rest, the lit logo in colour */
+.client__logo img { filter: grayscale(1) brightness(.5) contrast(1.1); opacity: .9; transition: filter .7s var(--ease), opacity .7s var(--ease), transform .9s var(--ease-expo); }
+.client.is-lit .client__logo img, .client:hover .client__logo img, .client:focus-within .client__logo img { filter: none; opacity: 1; transform: scale(1.06); }
+.client.is-lit .client__name { color: var(--bordeaux); }
+.client__name { transition: color .5s var(--ease); }
+
+/* 5 contact: direct channels beside the title, the form across the full width under them */
+.contact__cta .wrap.grid { align-items: start; }
+.channels--top { grid-column: 9 / span 4; margin-top: 8px; }
+.contact__cta-inner { grid-column: 1 / span 7; }
+.contact__grid .form { grid-column: 1 / -1; }
+@media (max-width: 1023px) { .channels--top, .contact__cta-inner { grid-column: 1 / -1; } .channels--top { margin-top: var(--s-6); } }
+
+/* 6 footer: v2's tagline */
+.footer__tagline { margin: 0; font: 500 clamp(18px, 1rem + .4vw, 22px)/1.6 var(--f-ar); color: var(--on-dark); }
+.footer__tagline span { color: #C3AE98; }
+
+/* 7 header CTA arrow: plain like the hero buttons */
+.site-nav__cta .btn__arrow, .site-header.cta-ghost .site-nav__cta .btn__arrow { background: none !important; width: auto; height: auto; }
+
+@media (max-width: 760px) {
+  .step__body { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .step__body::before { font-size: 64px !important; }
+}

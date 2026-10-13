@@ -186,3 +186,25 @@ export function initLangSwitch() {
     a.addEventListener('click', sync);
   });
 }
+
+/* ------------------------------------------------------------ clients: the SBF spotlight (sbf-v3 PartnerLogoCloud) — logos
+   grey at rest, a colour pulse passes from one logo to the next; hovering or focusing the strip pauses it */
+export function initClientSpotlight() {
+  const list = $('.clients__list');
+  if (!list) return;
+  const items = $$('.client', list);
+  if (items.length < 2 || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  let i = -1, timer = 0, held = false, seen = false;
+  const step = () => {
+    items.forEach((el) => el.classList.remove('is-lit'));
+    if (held || !seen || document.hidden) return;
+    i = (i + 1) % items.length;
+    items[i].classList.add('is-lit');
+  };
+  const run = () => { clearInterval(timer); timer = setInterval(step, 1700); step(); };
+  new IntersectionObserver(([e]) => { seen = e.isIntersecting; if (seen) run(); else { clearInterval(timer); step(); } }, { threshold: 0.3 }).observe(list);
+  list.addEventListener('mouseenter', () => { held = true; step(); });
+  list.addEventListener('mouseleave', () => { held = false; run(); });
+  list.addEventListener('focusin', () => { held = true; step(); });
+  list.addEventListener('focusout', () => { held = false; run(); });
+}

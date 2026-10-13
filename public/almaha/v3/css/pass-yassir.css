@@ -348,3 +348,6 @@
 
 /* scene controls hidden for now (Yassir) — autoplay keeps running */
 .hero .hero-scenes { display: none !important; }
+
+/* chapter rail hidden for now (Yassir) */
+.rail { display: none !important; }

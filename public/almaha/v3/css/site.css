@@ -199,6 +199,12 @@ p { text-wrap: pretty; }
 .lang { flex: none; display: flex; align-items: baseline; gap: var(--s-2); margin: 0; font: 560 var(--fs-num)/1 var(--f-lat); letter-spacing: var(--tr-num); }
 .lang__soon { font: 500 var(--fs-small)/1 var(--f-ar); letter-spacing: 0; color: var(--muted); }
 .site-header[data-theme="dark"] .lang__soon { color: var(--on-dark-muted); }
+/* language switch (index.html <-> en.html): a real link, quiet until hovered */
+a.lang--switch { color: inherit; text-decoration: none; padding: 10px 4px; margin: -10px -4px; text-underline-offset: 6px; text-decoration-thickness: 1.5px; text-decoration-color: var(--red); transition: color .3s var(--ease); }
+a.lang--switch:hover, a.lang--switch:focus-visible { color: var(--bordeaux); text-decoration-line: underline; }
+.site-header[data-theme="dark"] a.lang--switch:hover { color: #fff; }
+a.lang--switch:lang(ar) { font: 600 var(--fs-btn)/1 "Cairo", "Segoe UI", Tahoma, sans-serif; letter-spacing: 0; }
+.menu__foot a.lang--switch { margin: 0; padding: 12px 0; font-size: var(--fs-btn); }
 
 .menu-toggle { display: none; width: 46px; height: 46px; place-items: center; margin-inline-start: auto; color: inherit; }
 .menu-toggle span { display: block; width: 24px; height: 2px; background: currentColor; position: relative; transition: background-color .3s; }

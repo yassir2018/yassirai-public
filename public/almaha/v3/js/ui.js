@@ -115,7 +115,8 @@ export function initApproachTabs() {
   const steps = $$('.step', list);
   const tabs = steps.map((li) => $('.step__title', li));
   list.setAttribute('role', 'tablist');
-  list.setAttribute('aria-label', 'مراحل منهجيتنا');
+  const rtl = document.documentElement.dir !== 'ltr';
+  list.setAttribute('aria-label', rtl ? 'مراحل منهجيتنا' : 'Stages of our approach');
   const select = (i, focus = false) => {
     steps.forEach((li, k) => {
       const on = k === i;
@@ -138,8 +139,9 @@ export function initApproachTabs() {
     t.addEventListener('click', () => select(i));
     t.addEventListener('keydown', (e) => {
       const n = tabs.length;
-      // RTL: ArrowLeft moves forward in reading order
-      const map = { ArrowLeft: (i + 1) % n, ArrowRight: (i - 1 + n) % n, Home: 0, End: n - 1 };
+      // arrows follow the reading order: RTL ArrowLeft moves forward, LTR ArrowRight does
+      const fwd = (i + 1) % n, back = (i - 1 + n) % n;
+      const map = rtl ? { ArrowLeft: fwd, ArrowRight: back, Home: 0, End: n - 1 } : { ArrowRight: fwd, ArrowLeft: back, Home: 0, End: n - 1 };
       if (!(e.key in map)) return;
       e.preventDefault();
       select(map[e.key], true);
@@ -163,4 +165,24 @@ export function initServices(onPick) {
     a.addEventListener('click', (e) => { e.preventDefault(); activate(li); onPick?.(a.dataset.service); });
   });
   index.addEventListener('pointerleave', () => { if (fine.matches) activate(null); });
+}
+
+/* ------------------------------------------------------------ language switch (index.html <-> en.html): same section on the other page.
+   Both pages share every id, so the current hash (or the section in view) carries over. */
+export function initLangSwitch() {
+  $$('a[data-lang-switch]').forEach((a) => {
+    const base = a.getAttribute('href').split('#')[0];
+    const sync = () => {
+      let hash = location.hash;
+      if (!hash || hash === '#home' || hash === '#main') {
+        const mid = innerHeight * 0.4;
+        const sec = $$('main > section[id]').find((x) => { const r = x.getBoundingClientRect(); return r.top <= mid && r.bottom > mid; });
+        hash = sec && sec.id !== 'home' ? `#${sec.id}` : '';
+      }
+      a.setAttribute('href', base + hash);
+    };
+    a.addEventListener('pointerdown', sync);
+    a.addEventListener('focus', sync);
+    a.addEventListener('click', sync);
+  });
 }

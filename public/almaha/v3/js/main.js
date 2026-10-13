@@ -1,5 +1,5 @@
 // AL MAHA v3 — entry point.
-import { initHeader, initScrollSpy, initMenu, initServices, initApproachTabs } from './ui.js';
+import { initHeader, initScrollSpy, initMenu, initServices, initApproachTabs, initLangSwitch } from './ui.js';
 import { initForm } from './form.js';
 import { initMotion } from './motion.js';
 
@@ -9,4 +9,5 @@ initScrollSpy();
 initMenu();
 initServices((topic) => form.pick(topic));
 initApproachTabs();
+initLangSwitch();
 initMotion();

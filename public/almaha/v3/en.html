@@ -1,0 +1,753 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<base href="/almaha/v3/en.html">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AL MAHA Consulting &amp; Services — A Brighter Tomorrow</title>
+<meta name="description" content="AL MAHA Consulting &amp; Services is a Tunisian consultancy delivering integrated solutions that help organisations meet challenges, seize opportunities and grow sustainably.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#F8F2EC">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_GB">
+<meta property="og:locale:alternate" content="ar_TN">
+<meta property="og:site_name" content="AL MAHA Consulting &amp; Services">
+<meta property="og:title" content="AL MAHA Consulting &amp; Services — A Brighter Tomorrow">
+<meta property="og:description" content="Your partner in consulting and services that help organisations transform, grow and create lasting impact.">
+<meta property="og:image" content="img/og-flag-1200x630.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="alternate" hreflang="ar" href="index.html">
+<link rel="alternate" hreflang="en" href="en.html">
+<link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+
+<link rel="preload" as="image" fetchpriority="high"
+      href="img/hero-flag-2048.webp"
+      imagesrcset="img/hero-flag-1440.webp 1440w, img/hero-flag-2048.webp 2048w, img/hero-flag-2880.webp 2880w"
+      imagesizes="(min-aspect-ratio: 17/10) and (max-aspect-ratio: 21/10) 230vh, (min-aspect-ratio: 155/100) and (max-aspect-ratio: 17/10) 208vh, (max-aspect-ratio: 2/1) 200vh, 100vw"
+      media="(min-width: 1024px), (min-width: 601px) and (orientation: landscape)">
+<link rel="preload" as="image" fetchpriority="high"
+      href="img/hero-flag-portrait-1440.webp"
+      media="(max-width: 1023px) and (orientation: portrait), (max-width: 600px)">
+<link rel="preload" as="font" type="font/woff2" href="fonts/montserrat-600.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="fonts/montserrat-400.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="fonts/montserrat-500.woff2" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.min.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+} }
+</script>
+<link rel="modulepreload" href="js/main.js">
+<link rel="modulepreload" href="js/config.js">
+<link rel="modulepreload" href="js/ui.js">
+<link rel="modulepreload" href="js/form.js">
+<link rel="modulepreload" href="js/motion.js">
+<link rel="modulepreload" href="js/hero-scenes.js">
+<script>
+  // the 3D oryx and living-photo paths, fetched early but at low priority, only on clients that will use them
+  // (same test as motion.js, minus WebGL)
+  (function () {
+    var n = navigator, c = n.connection, d = document;
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches || (n.deviceMemory || 8) < 4 || (n.hardwareConcurrency || 8) < 4
+        || (c && (c.saveData || (c.effectiveType && c.effectiveType !== '4g')))) return;
+    var port = matchMedia('(max-width: 1023px) and (orientation: portrait), (max-width: 600px)').matches;
+    [['modulepreload', '../lab/oryx-3d/oryx3d.js'], ['modulepreload', 'https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.min.js'],
+     ['modulepreload', 'https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/loaders/SVGLoader.js'], ['preload', '../shared/brand/symbol.svg'],
+     ['modulepreload', 'js/vendor/cinemagraph.js'], ['preload', port ? 'img/cine/motion-portrait.png' : 'img/cine/motion.png'],
+     ['preload', port ? 'img/cine/flag-portrait.png' : 'img/cine/flag.png']]
+      .forEach(function (h) { var l = d.createElement('link'); l.rel = h[0]; l.href = h[1]; l.fetchPriority = 'low';
+        if (h[0] === 'preload') { if (/\.png$/.test(h[1])) l.as = 'image'; else { l.as = 'fetch'; l.crossOrigin = 'anonymous'; } } d.head.appendChild(l); });
+  })();
+</script>
+
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/site.css">
+<link rel="stylesheet" href="css/pass-yassir.css">
+<link rel="stylesheet" href="css/style-v2.css">
+<link rel="stylesheet" href="css/hero-scenes.css">
+<link rel="stylesheet" href="css/lang-en.css">
+
+<script>
+  document.documentElement.classList.add('js', 'intro-pending');
+  // hero composition concept (js/config.js HERO_CONCEPT; ?hero=a|b|c picks another): set before the first paint
+  (function () { var m = /[?&]hero=([abc])(?:&|$)/i.exec(location.search); document.documentElement.dataset.hero = m ? m[1].toLowerCase() : 'c'; })();
+  // style layer (?style=v2: warm v2 surfaces, copper on the night chapter, tighter rhythm, approach as tabs): set before the first paint
+  (function () { var m = /[?&]style=(v2|v3)(?:&|$)/i.exec(location.search); document.documentElement.dataset.style = m ? m[1].toLowerCase() : 'v3'; })();
+  setTimeout(function () { document.documentElement.classList.remove('intro-pending'); }, 2200);
+  window.__platePainted = function (img) {
+    img.onerror = null;
+    var src = img.parentNode.querySelector('source');
+    if (src) src.srcset = '../shared/img/v2/horizon-hq-mobile.webp';
+    img.srcset = '../shared/img/v2/horizon-hq2048.webp 2048w, ../shared/img/v2/horizon-hq3072.webp 3072w';
+    img.src = '../shared/img/v2/horizon-hq2048.webp';
+    document.documentElement.dataset.plate = 'painted';
+  };
+</script>
+<script defer src="js/vendor/gsap.min.js"></script>
+<script defer src="js/vendor/ScrollTrigger.min.js"></script>
+<script type="module" src="js/main.js"></script>
+
+<script type="application/ld+json" data-todo="confirm">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "AL MAHA Consulting & Services",
+  "alternateName": "المها للاستشارات والخدمات",
+  "slogan": "A Brighter Tomorrow",
+  "email": "contact@almaha-consulting.com",
+  "address": { "@type": "PostalAddress", "addressLocality": "Tunis", "addressCountry": "TN" }
+}
+</script>
+</head>
+<body>
+<svg id="brand-sprite" aria-hidden="true" focusable="false" style="position:absolute;width:0;height:0;overflow:hidden"><defs><linearGradient id="g-oryx-1" gradientUnits="userSpaceOnUse" x1="631.69" y1="225.99" x2="866.43" y2="330.51"><stop offset="0.050" stop-color="#8D0B09"/><stop offset="0.150" stop-color="#850403"/><stop offset="0.250" stop-color="#890101"/><stop offset="0.350" stop-color="#830100"/><stop offset="0.450" stop-color="#830100"/><stop offset="0.550" stop-color="#6B0100"/><stop offset="0.650" stop-color="#620101"/><stop offset="0.750" stop-color="#F61720"/><stop offset="0.850" stop-color="#BB0101"/><stop offset="0.950" stop-color="#9C0102"/></linearGradient><linearGradient id="g-oryx-2" gradientUnits="userSpaceOnUse" x1="674.66" y1="269.23" x2="607.59" y2="519.53"><stop offset="0.050" stop-color="#910101"/><stop offset="0.150" stop-color="#790100"/><stop offset="0.250" stop-color="#6F0000"/><stop offset="0.350" stop-color="#670000"/><stop offset="0.450" stop-color="#670000"/><stop offset="0.550" stop-color="#580000"/><stop offset="0.650" stop-color="#2B0000"/><stop offset="0.750" stop-color="#150000"/><stop offset="0.850" stop-color="#110100"/><stop offset="0.950" stop-color="#0B0505"/></linearGradient><linearGradient id="g-oryx-3" gradientUnits="userSpaceOnUse" x1="354.39" y1="498.87" x2="716.16" y2="637.74"><stop offset="0.050" stop-color="#F90807"/><stop offset="0.150" stop-color="#F00303"/><stop offset="0.250" stop-color="#F3141B"/><stop offset="0.350" stop-color="#9F2326"/><stop offset="0.450" stop-color="#7C0506"/><stop offset="0.550" stop-color="#690302"/><stop offset="0.650" stop-color="#6B0000"/><stop offset="0.750" stop-color="#6F0101"/><stop offset="0.850" stop-color="#5A0100"/><stop offset="0.950" stop-color="#690100"/></linearGradient><linearGradient id="g-oryx-4" gradientUnits="userSpaceOnUse" x1="840.87" y1="591.44" x2="773.79" y2="645.76"><stop offset="0.050" stop-color="#0D0D0D"/><stop offset="0.150" stop-color="#131413"/><stop offset="0.250" stop-color="#111111"/><stop offset="0.350" stop-color="#10100F"/><stop offset="0.450" stop-color="#101010"/><stop offset="0.550" stop-color="#101010"/><stop offset="0.650" stop-color="#121212"/><stop offset="0.750" stop-color="#0F0F0F"/><stop offset="0.850" stop-color="#131312"/><stop offset="0.950" stop-color="#0D0E0D"/></linearGradient><linearGradient id="g-oryx-5" gradientUnits="userSpaceOnUse" x1="697.22" y1="665.64" x2="761.46" y2="764.56"><stop offset="0.050" stop-color="#EA0807"/><stop offset="0.150" stop-color="#E90604"/><stop offset="0.250" stop-color="#CD0201"/><stop offset="0.350" stop-color="#D30201"/><stop offset="0.450" stop-color="#D10101"/><stop offset="0.550" stop-color="#D80201"/><stop offset="0.650" stop-color="#E10307"/><stop offset="0.750" stop-color="#E90812"/><stop offset="0.850" stop-color="#D40206"/><stop offset="0.950" stop-color="#C50405"/></linearGradient><linearGradient id="wm-oryx-1" gradientUnits="userSpaceOnUse" x1="631.69" y1="225.99" x2="866.43" y2="330.51"><stop offset="0.050" stop-color="#8D0B09"/><stop offset="0.150" stop-color="#850403"/><stop offset="0.250" stop-color="#890101"/><stop offset="0.350" stop-color="#830100"/><stop offset="0.450" stop-color="#830100"/><stop offset="0.550" stop-color="#6B0100"/><stop offset="0.650" stop-color="#620101"/><stop offset="0.750" stop-color="#F61720"/><stop offset="0.850" stop-color="#BB0101"/><stop offset="0.950" stop-color="#9C0102"/></linearGradient><linearGradient id="wm-oryx-2" gradientUnits="userSpaceOnUse" x1="674.66" y1="269.23" x2="607.59" y2="519.53"><stop offset="0.050" stop-color="#910101"/><stop offset="0.150" stop-color="#790100"/><stop offset="0.250" stop-color="#6F0000"/><stop offset="0.350" stop-color="#670000"/><stop offset="0.450" stop-color="#670000"/><stop offset="0.550" stop-color="#580000"/><stop offset="0.650" stop-color="#9E4B47"/><stop offset="0.750" stop-color="#D7B3AC"/><stop offset="0.850" stop-color="#EFE3DC"/><stop offset="0.950" stop-color="#F8F2EC"/></linearGradient><linearGradient id="wm-oryx-3" gradientUnits="userSpaceOnUse" x1="354.39" y1="498.87" x2="716.16" y2="637.74"><stop offset="0.050" stop-color="#F90807"/><stop offset="0.150" stop-color="#F00303"/><stop offset="0.250" stop-color="#F3141B"/><stop offset="0.350" stop-color="#9F2326"/><stop offset="0.450" stop-color="#7C0506"/><stop offset="0.550" stop-color="#690302"/><stop offset="0.650" stop-color="#6B0000"/><stop offset="0.750" stop-color="#6F0101"/><stop offset="0.850" stop-color="#5A0100"/><stop offset="0.950" stop-color="#690100"/></linearGradient><linearGradient id="wm-oryx-4" gradientUnits="userSpaceOnUse" x1="840.87" y1="591.44" x2="773.79" y2="645.76"><stop offset="0.050" stop-color="#F8F2EC"/><stop offset="0.150" stop-color="#F2EBE4"/><stop offset="0.250" stop-color="#F5EEE8"/><stop offset="0.350" stop-color="#F3ECE6"/><stop offset="0.450" stop-color="#F4EDE7"/><stop offset="0.550" stop-color="#F4EDE7"/><stop offset="0.650" stop-color="#F1EAE3"/><stop offset="0.750" stop-color="#F6EFE9"/><stop offset="0.850" stop-color="#F2EBE4"/><stop offset="0.950" stop-color="#F8F2EC"/></linearGradient><linearGradient id="wm-oryx-5" gradientUnits="userSpaceOnUse" x1="697.22" y1="665.64" x2="761.46" y2="764.56"><stop offset="0.050" stop-color="#EA0807"/><stop offset="0.150" stop-color="#E90604"/><stop offset="0.250" stop-color="#CD0201"/><stop offset="0.350" stop-color="#D30201"/><stop offset="0.450" stop-color="#D10101"/><stop offset="0.550" stop-color="#D80201"/><stop offset="0.650" stop-color="#E10307"/><stop offset="0.750" stop-color="#E90812"/><stop offset="0.850" stop-color="#D40206"/><stop offset="0.950" stop-color="#C50405"/></linearGradient><path id="oryx-2" d="M734.72,448.02l-4.59-3.64l-4.26-3.25l-8.24-5.74c-7.51-5.23-15.45-9.39-23.81-13.11l-9.39-4.18 l-10.01-3.89c-1.64-0.64-2.81-1.41-3.76-2.88l-4.69-7.26l-3.44-5.58l-1.54-2.43l-3.67-5.86l-5.65-8.36 l-9.85-14.12l-3.58-4.97l-3.63-4.83l-7.96-10.03l-4.29-5.21l-3.77-4.23l-3.77-4.24l-6.33-6.68l-8.21-8.23 l-7.45-7.08l-4.49-4.01l-3-2.48l-3.76-3.22l-5.59-4.48c-8.19-6.55-16.39-12.63-25.32-18.11l-12.77-7.84 c-8.1-4.97-16.15-9.46-24.69-13.7l-15.7-7.79l-5.13-2.42l-5.18-2.3l-5.66-2.37l-11.33-4.65l-8.36-3.19 l-29.99-10.35l-10.32-3.3l-3.41-1.06c-1.23-0.38-2.31-0.61-3.56-0.95l-3.53-0.95l-4.39-1.14l-4.01-0.99 l-4.07-0.91c-1.72-0.39-3.26-0.68-5-1.02l-5.49-1.06c-1.77-0.34-3.34-0.81-5.18-1.29 c2.84-1.01,5.41,0.11,8.16,0.37l3.64,0.34c1.95,0.18,3.64,0.71,5.53,1.04l5.97,1.05l4.5,0.99l4.01,0.97 c1.38,0.34,2.63,0.57,4.03,0.96l3.91,1.07l3.16,0.89l8.24,2.64l3.06,0.94l2.99,1l3.85,1.17l8.97,3.1 l4.65,1.78l3.61,1.34c1.4,0.52,2.38,0.22,3.23-0.93c0.3-0.4,0.57-0.71,0.58-1.12 c0.01-0.49-0.25-1.08-0.92-1.33l-4.35-1.62l-16.28-5.12l-9.23-2.8l-4.01-1.03 c-1.26-0.33-2.75-0.34-3.83-1.35c0.34-0.49,0.82-1,0.94-1.34c0.12-0.34,0.04-1.25-0.5-1.4l-5.82-1.69 l-4.44-0.52c-2.76-0.32-6.89-1.85-9.35-1.78c-1.79,0.05-3.33-0.8-5.09-0.94l-3.54-0.28 c-2.25-0.87-4.29-0.7-6.55-1.06l-6.49-1.03c-2.9-0.46-5.61-0.64-8.53-0.96l-9.01-1 c-3.22-0.36-6.21-0.99-9.51-0.86l-5.27-0.87l-4.7-0.19c-1.84-0.07-8.08-1.45-8-1.31 c-0.17-0.29-0.02-0.7,0.46-0.7l8.04,0.11c5.25,0.07,10.26,0.12,15.48,0.82l6.43,0.24l5.39,0.54l6.51,0.49 l6.2,0.93c0.65,0.1,1.57-0.04,1.98-0.37c0.32-0.27,0.48-0.99,0.64-1.83l7.95,0.43 c2.67,0.14,5.13,0.62,7.72,0.97l7.9,1.04l6.98,1.03l6.01,0.98l5.5,0.98l5.64,0.97l4.99,0.99l5.77,1.07 c1.52,0.28,3.07,0.67,4.58,0.97l5.01,1l4.02,0.97l4.52,1l3.98,1.01l3.87,1.03l3.97,1.05l3.27,0.85 l3.87,1.06l3.87,1.08l3.15,0.89l3.86,1.11l3.14,0.9l3.85,1.11l9.82,3.11l14.12,4.91l10.91,4.1 c9.94,3.74,19.44,7.83,29.01,12.46l8.79,4.25l15.58,7.93l10.43,6.03l11.85,7.18l28.04,19.41l10.8,8.24 l3.3,2.69l2.98,2.54l8.03,6.98l3.44,3.05l2.93,2.57l5.45,5.1l12.48,12.47l8.1,8.43l2.3,2.69l3.04,3.44 l4.53,4.99l3.75,4.25l3.24,3.78l11.82,14.62l3.23,4.33l14.38,19.57l3.1,4.45l6.42,9.1l11.49,17.48l7.61,12.43 l11.01,18.45l12.26,22.26l5.51,10.55l16.13,35.24l3.6,8.94l4.92,12.57l0.96,2.52l6.18,17.37l1.5,4.5 c0.34,1.02,0.88,1.9,0.4,3.02c-1.46-0.71-1.81-2.13-2.66-3.26l-3.45-4.57l-3.23-4.3l-10.94-14.98 c-1.07-1.47-1.97-2.54-3.51-3.58c-1.39-0.93-1.63-4.19-3.94-3.18c-0.54,0.24-1.05,0.1-1.53,0.11 c-0.77,0.02-1.46,1.37-2.58,0.17l-2.64-2.84l-3.96-5.57l-2.08-2.4c-1.61-1.85-3.09-3.5-5.02-5l-5.09-3.96 c-3.92-12.16-8.59-23.82-15.22-34.74l-6.43-10.59l-12.52-16.92l-1.86-2.16l-5.29-5.71l-4.99-5l-3.68-3.33 L734.72,448.02z"/><path id="oryx-1" d="M812.28,429.08l-1.01,3.22l-0.93,3.07l-1.01,4.08c-0.27,1.1-1.01,2.18-0.81,3.55 c0.27,1.86-2.05,8.99-0.55,17.49l0.62,3.51c0.08,0.48-0.12,0.95-0.33,1.08c-0.2,0.12-0.72-0.04-0.92-0.46 l-8.18-17.27l-7.12-13.9l-7.68-13.78l-5.24-8.28l-8.2-12.3l-3.17-4.32l-2.77-3.72l-3.04-3.98l-3.43-4.54 c-0.65-0.86-0.33-1.67,0.02-2.5l2.85-6.65c3.64-8.51,6.02-17.25,8.27-26.25l1.11-4.42l0.91-4.09l1.08-4.92 l0.92-4.6l1.03-5.49l1-5.51l0.99-6l0.99-7.07l0.92-8.05l0.88-11.49l0.03-17.49l-0.87-12.54l-0.94-7.57 l-1-6.52l-0.97-4.99l-1.05-5l-0.92-4.1l-1.04-3.98l-1.05-3.41l-1.14-3.95c-3.9-13.56-9.58-26.22-16.31-38.61 l-8.37-14.19l-7.86-11.15l-5.46-7.05l-3.25-3.77l-14.22-14.23l-5.28-4.75l-4.03-3.45l-13.1-9.89l-6.13-3.55 c0.21-0.7,0.89-0.94,1.42-0.73l13.03,4.97l7.18,3.33l14.73,7.77l17.7,11.76l3.97,3.08l2.77,2.22l2.99,2.5 l3.47,3.08l13.74,13.67l2.29,2.74l3.01,3.49l2.21,2.77l2.52,3l1.76,2.24l3,3.51l2.06,2.46l12.07,17.36 l2.45,4.09l6.15,10.89c4.38,7.77,7.84,15.7,10.87,24.09l5.57,15.4l2.88,9.61l0.94,3.51l0.9,3.58l1.11,4.9 l0.98,4.5l1,4.99l0.95,6.53l1.05,7.42l1.04,9.5l0.18,7.97l0.26,20l-0.29,11.51l-0.94,8.48l-0.14,3.4 l-1.07,7.5l-1.03,6.52l-0.84,5.13l-0.86,2.9c-0.45,1.52-0.42,2.81-0.76,4.27l-1.03,4.47l-0.98,4.01l-1,4.01 l-1.03,3.48l-1.02,3.49l-1.03,3.49l-0.95,3.04l-0.97,3l-1.04,2.99l-1.14,3.37l-2.25,6.33l-1.17,3.37 L812.28,429.08z"/><path id="oryx-4" d="M830.1,676.88l-8.18,6.57c-3.16,2.54-6.86,3.88-10.77,5.25c-0.77,0.27-1.47,1.09-2.65,0.25 c2.81-4.8,5.22-9.43,6.71-14.68l1.09-3.84l0.96-4l0.94-5.63c0.55-3.31,0.62-6.79,0.03-10.07l-0.91-5.13 l-1.21-4.23c-1.45-5.08-3.63-9.88-7.04-13.92l-2.51-2.97l-4.51-4.01l-4.25-3.71l-5.25-5.3l-2.75-3.22 l-3.57-4.47l-2.7-3.79l-4.37-7.11l-7.67-15.38l-8.41-23.01l-2.19-7.3l-2.27-8.25l-0.87-3.59l-1.09-4.91 l-1.01-4.5l-0.94-4.99l-1.07-6l-0.78-4.8l-0.19-2.05c-0.04-0.41,0.08-0.63,0.31-0.82 c0.41-0.35,1.16,0.34,1.51,1.3l6.05,16.91l8.21,17.76l8.93,15.12l10.48,14.01l2.79,3.23l11.99,11.98l2.75,2.26 l3.25,2.75l9.71,7.79l5.05,4.46l2.87,2.67l5.26,5.7l3.24,3.8c5.66,6.63,8.36,8.2,16.71,6.41l4.55-0.98 l4.03-1.04c0.98-0.25,2.22-0.13,3.16-0.89c0.55-0.44,1.07-0.29,1.39-0.12c0.5,0.26,0.73,1,0.54,1.64 l-0.92,3.03l-3.19,7.33l-7.83,13.66l-6.63,10.36l-4.16,5.84l-4.1,5.39l-2.29,2.74l-2.37,2.58 C832.71,674.28,831.65,675.63,830.1,676.88z"/><path id="oryx-5" d="M702.44,801.18l-3.87,3.39l-2.51,1.99l-3,2.48l-4.19,3.34l-4.51,3.5l-15.18,9.77 c-0.51,0.33-1,0.6-1.74,0.15l3.73-3.65l4.47-4.02l2.9-2.61l5.68-5.78l4.3-4.71l2.07-2.45l3.79-4.73 l10.04-13.9l8.18-13.89l8.96-18.52l5.06-14.48l4.87-21.07l1.4-11.04l0.68-13.97l0.04-4.52l-1.48-22.57 l-2.11-14.9c-0.19-1.34-0.82-2.61-0.55-4.13c0.81-0.26,1.64,0.48,1.97,1.17c0.86,1.83,2.13,3.13,3.35,4.66 l1.77,2.22l2.27,2.72l6.95,8.06l5.03,5.02l3.91,3.57c4.2,3.83,8.71,7.06,13.82,9.63 c0.95,0.48,1.37,1.49,1.29,2.56l-0.45,5.98l-1.07,6.43l-0.88,4.06l-2.04,7.45l-3.04,8.98l-3.28,7.7 l-10.13,19.82l-10.76,16.75l-6.44,8.56l-3.4,4.11l-2.52,2.99l-2.52,2.98l-4.83,5.18l-8.49,8.49L702.44,801.18z"/><path id="oryx-3" d="M535.69,444.72c-1.15-1.04-2.34,0.54-3.17,0.62c-3.01,0.29-5.77-0.97-8.44-1.94l-12.79-4.67l-8.49-3 l-12.89-5.61l-18.2-9.32l-10.54-6.96l-5-3.51l-5.24-4.25l-4.23-3.78l-7.49-7.5l-4.3-4.72l-3.54-4.43 l-3.21-3.8l-2.21-2.79l-8.76-13.23l-6.56-11.33c-0.09-0.45,0.44-0.76,0.8-0.44l4.83,5.16l3.24,3.78l6.44,6.55 l2.43,2.07l2.69,2.31l6.16,5.83l4.44,3.59l3.48,2.53l13.43,9.03c7.48,5.03,15.49,8.64,23.7,12.35l7.24,3.27 l14.87,6.09l18.8,7.2l6.92,2.57l10.9,3.65l7.53,2.95c1.97,0.77,3.77,2.28,6,2.42 c2.08,0.14,3.84,0.45,5.76,1.28l2.77,1.2c0.8,0.35,1.58-0.13,1.75-0.83c0.16-0.68-0.31-1.28-1.3-1.65 l-2.9-1.09l-11.42-5.44l-2.17-1.87l-8.82-3.72c-0.79-0.33-2.21-0.79-2.02-1.66l0.29-1.3 c0.1-0.43-0.6-0.81-1.25-1.03l-6.7-2.29l-2.94-1.05l-3.12-1.16c0.97-0.57,2-0.12,3.16,0.12l2.07,0.42 l4.02,1.06l3.5,0.99l3.42,1.07l3.1,0.9l3.92,1.06c1.48,0.4,2.72,0.47,4.2,0.9l4.95,1.43l9.64,3.35 l4.4,1.56c1.78,0.63,3.17,0.04,3.56-0.99c0.18-0.46,0.06-1.24-0.56-1.49l-14.14-5.83l-10.83-3.69l-6.67-2.31 l-2.63-0.88l-3.77-1.15l-6.48-2.07l-6.12-1.87l-3.16-0.89l-3.4-1.04l-3.58-0.97l-4.26-1.18l-4.85-1.53 c1.35-0.76,2.45,0,3.56,0.19l6,1.03l4.11,0.87l4.44,1.05l4.05,0.99l3.56,0.93 c0.85,0.22,1.6-0.01,1.74-0.89c0.19-1.21,2.24-0.86,2.28-2.18c0.01-0.46-0.54-1.11-1.19-1.27l-3.95-1.01 l-3.47-1.01l-3.89-1.04l-3.13-0.94l-3.87-1.05l-3.98-1.03l-3.56-0.96l-4.07-0.99l-4.63-1.47 c-0.58,0.3-1.02-0.16-0.69-0.72c2.02-0.28,3.84,0.4,5.85,0.67l3.45,0.47l4.67,0.96l5.01,1.01l4.88,1.07 l4.11,0.95l3.6,0.96l4.51,1.02l3.99,0.99l4.01,0.98l3.88,1.03l3.88,1.05l3.6,0.96l4.01,1.02l3.51,0.97 l3.51,0.99l3.95,1.05l3.05,0.88c1.45,0.42,2.5,1.04,3.32,2.27c2.54,1.26,4.75,0.49,7.6,1.35l2.98,0.9 l3.89,1.2l6.4,2.17l11,3.98l11.29,4.67c8.96,3.71,17.45,7.79,25.88,12.59l15.82,10.18l7.7,5.81 l2.74,2.26l2.72,2.28l5.16,4.8l5.02,5.01l4.04,4.47c6.65,7.36,12.02,15.34,17.18,23.8l7.83,14.75 c8.28,15.6,14.46,39.67,14.96,57.49l-0.15,3.23l0.27,15.01l-2.07,22.78l-4.15,21.41 c-3.35,13.2-7.77,25.73-13.21,38.19l-2.15,4.92l-6.24,12.7l-6.36,11.19c-4.92,8.65-10.6,16.5-16.42,24.55 l-3.15,4.36l-7,9l-4.01,4.99l-2.07,2.45l-2.95,3.54l-3.78,4.24l-3.34,3.68l-9.94,10.06l-6.04,5.92 l-4.44,4.05l-2.69,2.34l-9.65,8.87l-5.66,5.3l-2.98,2.55l-3.2,2.79l-3.69,3.31l-3.77,3.23l-3.26,2.73 l-5.81,4.71l-0.96,0.73c-0.47-0.02-0.56-0.59-0.06-0.72l6.67-6.4l8.91-8.57l1.21-0.84l19.58-19.81l7.27-7.78 l4.76-5.22l4.07-4.46l3.25-3.75l2.52-2.98l6.07-7.43l5.12-6.41l7.38-9.58l2.74-3.77l7.68-11.34l7.26-11.2 c0.79-1.22,0.98-2.23-0.23-3.19c0.28-0.37,0.34-1.08,0.09-1.16c-0.34-0.11-0.97,0.11-1.21,0.49l-2.56,3.95 l-8.43,12.58l-4.3,5.7l-5.95,7.52l-4.44,5.61l-2.5,2.98l-2.92,2.6l-0.71,0.81 c-0.28,0.32-0.65,0.3-0.68-0.07l4.9-6.74l6.54-9.48l8.94-14.01l7.16-12.39l4.06-7.95l5.9-12.08l5.12-12.76 c-1.06-0.38-1.24,0.27-1.51,0.88l-1.23,2.77l-4.87,11.11c-2.52,5.75-5.42,10.92-8.89,16.12l-10.6,15.89 l-2.54,3.46l-3.27,4.25l-7.82,9.66l-3.65,4.4l-4.27,4.72l-9.03,9.45l-2.35,2.66l-8.25,8.24l-1.93,1.59 l-12.37,12.1l-2.41,2.1l-7.33,7.17l-0.61,0.38l-4.86,4.65l-9.13,7.85l-0.58,0.45l-0.5,0.49l-0.5,0.49 l-0.49,0.52l-8.89,7.62l-0.62,0.36l-0.51,0.48l-0.53,0.48l-0.59,0.42l-0.59,0.4l-0.53,0.46l-0.51,0.5 l-0.56,0.46l-0.6,0.4l-0.57,0.41l-0.52,0.48l-0.6,0.47l-36.34,28.02l-0.59,0.47l-0.58,0.41l-1.56,0.96 c-0.19,0.12-0.45,0.19-0.59,0.37c-0.32,0.39-0.88,0.11-0.84-0.06c0.1-0.35,0.61-0.7,0.81-0.87l4.01-3.56 l2.48-2.01l2.73-2.27l4.29-3.72l4.73-3.76l2.49-2.03l2.75-2.23l3.5-3.01l2.73-2.28l2.5-1.99l3.75-3.25 l3.54-2.97l2.71-2.29l2.51-1.98l2.74-2.27l2.39-2.08l2.16-1.84l2.7-2.31l2.53-2.47l2.73-2.26l6.58-6.43 l1.67-1.33l8.12-7.88l0.61-0.39l0.56-0.44l0.51-0.49l7.99-8.02l0.4-0.61l10.76-11.7l0.41-0.61l0.47-0.53 c0.16-0.18,0.34-0.31,0.43-0.51c0.07-0.17-0.02-0.4-0.27-0.48c-0.43-0.14-0.71-0.01-0.93,0.21l-0.51,0.52 l-0.5,0.5l-0.49,0.51l-0.49,0.51l-0.49,0.51l-0.5,0.5l-0.5,0.5l-0.5,0.5l-0.49,0.51l-0.49,0.5l-0.49,0.5 l-0.45,0.55l-0.42,0.59l-0.47,0.57l-21.97,21.94l-0.64,0.38l-0.57,0.45l-0.51,0.5l-0.5,0.5l-0.51,0.49 l-0.51,0.49l-0.51,0.49l-0.51,0.49l-0.53,0.46l-0.59,0.41l-0.58,0.43l-0.52,0.48l-0.5,0.5l-0.5,0.5l-0.5,0.5 l-0.5,0.5l-0.5,0.5l-0.51,0.49l-0.51,0.49l-0.51,0.49l-0.5,0.5l-0.51,0.48l-0.57,0.42l-0.6,0.4l-0.55,0.44 l-2.02,1.52l-0.5,0.49l-0.53,0.45l-0.79,0.45c-0.56,0.76-1.26-0.05-0.57-0.58l6.26-5.94l3.88-3.64 c0.2-0.18,0.22-0.54,0.01-0.76c-0.21-0.22-0.56-0.23-0.78-0.04l-3.73,3.32l-0.49,0.5l-4.68,3.85l-4.73,3.75 l-0.57,0.43l-0.54,0.46l-0.51,0.49l-0.51,0.49l-0.57,0.45l-13.65,11.31l-0.64,0.39l-0.58,0.41l-0.54,0.46 l-0.51,0.49l-0.58,0.47l-22.57,17.33l-0.6,0.44l-0.6,0.4l-0.59,0.41l-0.55,0.45l-0.56,0.43l-0.6,0.39 l-6.88,4.64l-0.62,0.38l-0.6,0.4L517,834l-0.6,0.4l-0.6,0.4l-0.62,0.39l-0.64,0.44 c-0.04,0.41-0.46,0.4-0.53,0.1c0.87-1.03,1.66-1.49,2.56-2.17l9.65-7.31l4-3.01l3.73-2.77l5-3.99 l3.74-3.29l2.98-2.5l3.49-3.02l6.39-5.11l3.79-3.61c-0.89-0.92-1.43-0.21-2.02,0.27l-1.98,1.62l-11.95,8.06 l-13.22,8.26l-5.07,2.95l-1.88,0.8c-0.51,0.8-1.72-0.03-0.77-0.68l1.22-1.06l10.2-6.79l18.84-14.14 l15.99-12.51l2.23-1.77l3.99-3.53l4.02-3.48l5.23-4.26l4.16-3.34l3.97-3.53l7.15-6.9 c0.16-0.15-0.2-0.65-0.4-0.7c-0.34-0.09-0.51,0.03-0.92,0.41l-3.34,3.16l-2.44,2.06l-4.23,3.27l-4.68,3.82 l-3.73,3.28l-3.99,3.5l-5.02,4.01l-3.23,2.74l-7.75,6.28l-3.62,2.85c-1.77,1.39-3.26,2.88-5.61,3.49 c0.55-1.05,1.33-1.73,2.18-2.41l7.5-6l0.5-0.5l0.56-0.43l0.59-0.41l0.56-0.45l6.99-6.52l1.78-2.71 c0.17-0.26,0.57-0.51,0.65-0.69c0.18-0.4-0.3-0.7-0.56-0.63c-0.41,0.12-2.04,1.67-4.08,3.32l-3.59,2.91 l-2.48,2.03l-2.74,2.28l-3.21,2.27l-4.28,3.24l-11.61,7.88l-4.69,2.94c-0.4,0.64-1.38,0.37-0.96-0.47 l2.87-2.24l14.91-11.1l8.93-7.08l4.06-3.43l8.06-6.44l3.79-3.22l2.76-2.22l2.7-2.33l3.37-2.59l2.77-2.23 l9.25-7.33l13.06-12.87l1.8-2.16l3.74-4c0.25-0.27-0.53-0.86-0.86-0.54l-0.68,0.67l-3.62,3.94l-5.49,5.47 l-5.45,5.04l-3.23,2.76l-3.76,3.22l-3.7,3.33l-3.78,3.21l-5.65,4.36l-2.2,1.81l-13.62,9.86 c-0.45,0.33-0.89,0.81-1.47,0.76c-0.27-0.02-0.57-0.47-0.49-0.58l0.46-0.6c0.67-0.89,1.22-1.43,1.97-2.1 l5.28-4.74l2.99-2.51l3.69-3.3l4.19-3.81l3.48-3.02l4.3-3.68l3.46-3.07c4.11-3.64,8.15-7.02,11.87-11.17 c0.37-0.16,0.32-0.89-0.36-0.92l-3.76,3.36l-5.14,4.83l-2.45,2.06l-4.78,4.2l-6.85,5.39 c-0.35,0.68-1.13,0.21-0.75-0.18l7.61-7.17l4.01-3.52l2.7-2.28l5.59-5.41l1.93-1.57l4.62-4.47 c-0.03-0.37-0.42-0.71-0.73-0.7l-3.39,3.16l-2.1,1.91l-4.04,3.46l-8.77,7.75l-4.09,3.88l-2.49,2 l-2.98,2.56l-7.3,5.7l-11.93,9.54l-3.55,2.53l-0.76,0.44c-0.14,0.08-0.5,0.33-0.62-0.07 c-0.09-0.32,0.23-0.69,0.43-0.88l4.09-3.92l2.67-2.34l2.94-2.57l6.45-6.04l5.5-5.02l6-5.48l5-4.53 l7.46-6.99l3.34-3.18l2.92-3.09l10.4-10.58l1.82-2.2l6.35-6.62l4.03-4.49l2.27-2.73l6.9-8.61l2.69-3.33 l8.26-11.69c0.27-0.39-0.34-0.93-0.68-0.84c-0.32,0.09-0.48,0.51-0.75,0.85l-3.09,3.94l-2.27,2.75l-4.25,5.24 l-4.58,5.93l-3.64,3.85l-2.79,3.23l-9.75,9.73c-0.96,0.95-1.84,1.84-3.28,2.53c-0.48-0.43-0.03-0.98,0.33-1.44 l4.03-5.02l3.77-4.19c2.63-2.93,4.65-6.02,6.5-9.53l3.46-5.03l3.42-4.56l1.54-1.98l5.9-8.6l7.33-11.14 l0.31-0.69l3.67-6.5c0.27-0.47-0.66-0.86-0.85-0.55l-0.5,0.84l-2.61,4.42l-13.27,18.68l-6.03,8 l-3.78,4.72l-7.33,8.05c-0.48-0.38-0.18-0.69,0.03-0.82l3.94-5.11l5.73-7.77l7.55-9.95l6.72-10.79l0.4-0.59 l0.48-0.5c0.18-0.18,0.38-0.36,0.53-0.67c0.35-0.71-0.44-1.26-0.97-0.87l-1.42,2.19l-2,3.01l-2.27,3.21 l-5.67,7.83l-4.45,5.55l-4.01,4.98l-2.56,2.96l-2.48,3.03l-2.04,2.45l-5.79,6.21l-7.48,7.52l-6.13,5.87 l-4.19,3.79l-5.6,4.7c-0.16-0.6,0.1-0.86,0.26-1.05l0.42-0.54l0.38-0.6l7.7-7.82l0.51-0.49l8-8 l0.49-0.51l0.5-0.51l13.19-14.76l0.42-0.6l0.42-0.58l0.48-0.53l0.51-0.51c0.17-0.17,0.38-0.3,0.4-0.55 l0.06-0.79c-0.13-0.12-0.5-0.25-0.81-0.04l-0.62,0.42l-0.48,0.51l-0.42,0.58l-0.43,0.58l-0.47,0.53l-0.49,0.51 l-0.48,0.52l-0.44,0.56l-0.41,0.6l-0.44,0.56l-0.48,0.52l-0.49,0.51l-0.49,0.51l-0.5,0.5l-0.47,0.53 l-0.42,0.58l-0.42,0.58l-0.47,0.53l-0.5,0.5l-0.5,0.5l-0.49,0.51l-0.49,0.51l-0.5,0.51l-0.49,0.51 l-0.44,0.56l-0.41,0.59l-0.44,0.56l-0.48,0.51l-0.5,0.5l-0.51,0.5l-0.51,0.49l-0.51,0.49l-0.5,0.5 l-0.5,0.5l-0.54,0.44l-2.41,2.12l-0.58,0.5c-0.44,0.54-1.11-0.07-0.57-0.53l1.99-2.66l5.02-5.44l3-3.5 l3.68-4.35l2.93-3.59l0.45-0.54l0.4-0.6l0.42-0.56l1.15-1.51c0.35-0.47-0.27-0.98-0.63-0.56l-2.83,3.25 l-3.01,3.5l-4.32,4.67l-5.56,5.94l-1.32,1.67l-5.64,5.85l-2.62,2.9l-4.07,3.92l-4.19,3.83l-1.4,1.09 l-2.42,2.09l-4.3,3.71c-0.38,0.33-0.72,0.46-1.11,0.15c0.66-1.36,1.43-2.07,2.25-3.02l2.33-2.68l8.11-8.38 l4.25-4.76l3.24-3.76l2.24-2.73l3.49-4.03l6.37-7.67c0.63-0.76,0.01-1.24-0.41-1.75 c-0.72-0.87,0.27-1.5,0.62-1.97l4.76-6.3l7.11-9.85l3.43-5.59l2.68-4.81c0.13-0.23-0.17-0.57-0.33-0.65 c-0.7-0.31-1.9,0.84-2.97,2.33l-2.31,3.23l-2.01,2.99l-2.9,4.07l-3.72,4.77l-2.08,2.45l-1.96,2.5 l-2.33,3.22l-3.89,5.07l-2.8,3.23l-2.23,2.75l-3,3.49l-3.75,4.27L580.3,712.3l-4.06,4.47l-10.07,10.38 l-2.11,2.4l-6.01,5.99l-2.66,2.35l-4.17,3.84l-5.41,5.05l-3.72,3.29l-4.76,4.24l-3,2.48l-2.98,2.55 l-9.71,7.77l-7.94,6.08l-11.71,8.77l-3.43,2.58l-5.06,3.42l-6.72,4.3l-3,1.99l-2.4,1.61l-10.19,6.8 l-10.94,6.58l-11.64,6.86l-16.74,8.72l-9.13,4.45l-12.42,5.49c-3.09,1.37-6.12,2.34-9.19,3.79l-9.53,4.51 l-5.79,2.69l-3.79,1.7l-6.86,3.16l-16.41,6.65l-1.46,0.26c-0.26,0.05-0.92,0.08-0.56-0.61l0.68-0.53 l0.62-0.38l0.66-0.36l0.67-0.32l0.69-0.28l0.67-0.32l0.67-0.34l0.71-0.31l0.72-0.3l0.69-0.33l0.66-0.33 l0.66-0.34l0.67-0.33l0.68-0.29l0.67-0.32l0.66-0.35l0.67-0.32l0.67-0.32l0.66-0.34l0.67-0.33l0.66-0.34 l0.66-0.36l0.66-0.34l0.68-0.35l22.7-11.69l0.66-0.38l0.66-0.36l0.64-0.38l0.62-0.38l0.61-0.37l0.63-0.38 l0.65-0.36l0.69-0.33c0.71-0.33,1.71-0.61,2.27-1.43c0.24-0.36-0.41-0.78-0.66-0.81 c-0.35-0.03-0.14-0.71,0.37-0.69l6.49-3.12l2.76-1.65l5.33-3.17l2.7-1.8l5.61-3.38l10.21-6.34l0.61-0.4 c0.39-0.26,0.87-0.46,0.99-0.72c0.26-0.55-0.24-1.07-0.64-0.81l-1.1,0.73l-8.3,4.78l-14.74,8.23l-0.59,0.45 l-0.66,0.33l-0.64,0.35l-0.6,0.38l-0.62,0.37l-0.66,0.35l-0.67,0.33l-0.67,0.32l-0.66,0.34l-0.66,0.35 l-0.66,0.35l-0.66,0.34l-0.67,0.34l-0.67,0.34l-0.66,0.34l-0.7,0.31l-18.97,9.49L382.5,839l-0.67,0.29 l-3.15,1.42l-0.65,0.34l-0.68,0.29l-0.69,0.3l-0.71,0.3l-0.75,0.26l-0.72,0.28l-0.75,0.29 c-0.32,0.6-1.06,0-0.49-0.38c1.52-1.41,3.24-2.26,4.94-3.21l8.03-4.47l16.43-9.6l4.95-3.04l12.76-7.73 l10.37-6.66l8.22-5.25l9.59-6.42l9.88-6.64l11.85-8.17l13.07-9.41l15.78-11.7l8.8-6.71l5.35-4.15l16.11-12.87 l2.7-2.34l2.5-1.99l3.76-3.24l4.02-3.49l2.98-2.5l4.77-4.24l3.92-3.59l5.19-4.8l3.68-3.31l3.96-3.57 l18.22-18.23l3.77-4.26l2.8-3.19l4-4.5l3.21-3.79l3.56-4.45l3.08-3.94l3.53-4.48l2.74-3.74l2.06-2.98 l2-2.99l1.99-3l2-3l2.39-3.65c6.2-9.45,10.71-19.69,15.35-30.04l0.7-1.79l1.08-2.94l2.93-8.54 l1.1-3.85l0.86-3.65l1.08-5.38l1.05-7.93l0.13-13.98l-0.8-6l-0.92-6.59l-0.97-4.5l-1.04-4l-0.93-3.12 c-3.23-10.79-11.25-25.03-18.69-33.37l-3.07-3.44l-7.24-7.25l-4.23-3.78l-11.1-8.36l-7.51-5.03l-7.3-4.69 l-7.21-3.79c-2.2-1.15-4.06-2.54-6.29-3.73l-0.65-0.35l-0.61-0.39l-0.58-0.43l-8.36-4.64 c-0.2-0.11-0.54-0.14-0.75-0.21l-0.77-0.24l-0.74-0.27l-0.7-0.3l-0.61-0.38l-0.58-0.4l-2.47-2.1 c-0.42-0.17-0.35-0.68,0.12-0.72l3.32,0.97l4.76,3.03c2.8,0.92,5.38,1.68,7.97,3.12l6.76,3.76 c0.77,0.43,2.19,0.27,2.32-0.86c0.15-1.27-1.65-1.9-2.54-2.36l-3.71-1.94l-0.66-0.32l-1.34-0.6l-0.69-0.32 l-6.04-3.44l-0.09-0.92c-0.11-1.12-0.57-1.56-1.47-1.81c-0.81-0.22-1.52,0.3-1.95,1.3 c-2.93-0.08-4.25-2.04-6.53-2.65c-2.19-0.59-5.12-3.87-7.55-4.42l-8.49-1.93l-0.72-0.29 c-0.56-0.23-1.19-0.27-1.67-0.06c-0.89,0.39-0.88,1.69-0.29,1.98l2.19,1.07c0.1,0.05,0.19,0.13,0.25,0.2 c1.95,0.3,3.88,1.05,5.86,1.93c2.11,0.94,4.28,1.54,5.92,2.87c-0.81,1.15-1.72,1.31-2.78,0.95 c-1.92-0.64-4.01-1.07-5.64-2.36c-1.32-1.05-2.19-2.57-3.73-3.02C535.83,444.77,535.75,444.71,535.69,444.72z M575.51,440.5l-5.18-2.24c-0.78-0.34-1.65,0.07-1.81,0.55c-0.22,0.65,0.1,1.52,0.85,1.83l5.28,2.2 c0.82,0.34,1.53-0.07,1.73-0.66C576.61,441.54,576.27,440.83,575.51,440.5z"/><linearGradient id="brush-grad" x1="1" y1="0" x2="0" y2="0"><stop offset="0" stop-color="#EB070D"/><stop offset=".7" stop-color="#B1091B"/><stop offset="1" stop-color="#8E1028"/></linearGradient><g id="brush-stroke" fill="url(#brush-grad)"><path d="M299.4 4.6C238 2.2 150 1.6 62 5.2 41 6 21 7.2 1.2 8.9c-1.4.1-1.5 1.3 0 1.4 22 .9 45 1.4 69 1.6 77 .5 154-.9 229-3.4 1.9-.1 2-3.8.2-3.9Z"/><path d="M294 10.6c-60 2-121 2.9-182 2.6-17-.1-33-.3-48-.7 15 1 31 1.6 48 1.9 61 .9 122-.5 182-2.9Z" opacity=".55"/><path d="M288 2.9C250 1.5 205 .9 160 1.3c46-1.4 92-1 130 .6Z" opacity=".4"/></g><linearGradient id="edge-grad" gradientUnits="userSpaceOnUse" x1="838" y1="582" x2="345" y2="202"><stop offset="0" stop-color="#8E1028"/><stop offset=".5" stop-color="#6E0414"/><stop offset="1" stop-color="#620000" stop-opacity=".85"/></linearGradient><linearGradient id="seam-in-grad" x1="1" y1="0" x2="0" y2="0"><stop offset="0" stop-color="#EB070D"/><stop offset=".6" stop-color="#B1091B"/><stop offset="1" stop-color="#620000" stop-opacity=".6"/></linearGradient><linearGradient id="seam-out-grad" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#EB070D"/><stop offset=".55" stop-color="#B1091B"/><stop offset="1" stop-color="#620000"/></linearGradient><linearGradient id="cta-grad" gradientUnits="userSpaceOnUse" x1="360" y1="860" x2="716" y2="360"><stop offset="0" stop-color="#EB070D"/><stop offset=".55" stop-color="#B1091B"/><stop offset="1" stop-color="#8E1028"/></linearGradient></defs></svg>
+<!-- one thin-line icon set (24 grid, stroke 1.25, round caps; one brand-red focal dot each): bordeaux on light, copper on the night chapter -->
+<svg id="icon-sprite" aria-hidden="true" focusable="false" style="position:absolute;width:0;height:0;overflow:hidden"><defs><symbol id="i-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3v1.6M21 12h-1.6M12 21v-1.6M3 12h1.6"/><path d="M15.6 8.4 13.4 13.4 8.4 15.6 10.6 10.6Z"/><circle cx="12" cy="12" r="1.25" style="fill:var(--ico-dot,currentColor);stroke:none"/></symbol><symbol id="i-growth" viewBox="0 0 24 24"><path d="M4 20.5h16M12 20.5v-9"/><path d="M12 13.5c0-4 2.6-6.6 7-6.6 0 4-2.6 6.6-7 6.6Z"/><path d="M12 16c-.1-3-2.1-5-5.5-5 0 3 2 5 5.5 5Z"/><circle cx="6" cy="5" r="1.25" style="fill:var(--ico-dot,currentColor);stroke:none"/></symbol><symbol id="i-empower" viewBox="0 0 24 24"><circle cx="9" cy="7.5" r="2.75"/><path d="M3.5 20v-.8a5.5 5.5 0 0 1 9.2-4.1"/><path d="M17.5 20.5V10M14.5 13l3-3 3 3"/><circle cx="17.5" cy="6.2" r="1.25" style="fill:var(--ico-dot,currentColor);stroke:none"/></symbol><symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M4.2 7.5h15.6M4.2 16.5h15.6"/><path d="M12 3c-2.5 2.5-3.8 5.5-3.8 9s1.3 6.5 3.8 9c2.5-2.5 3.8-5.5 3.8-9S14.5 5.5 12 3Z"/><circle cx="15.8" cy="12" r="1.25" style="fill:var(--ico-dot,currentColor);stroke:none"/></symbol><symbol id="i-route" viewBox="0 0 24 24"><circle cx="5.5" cy="18.5" r="2"/><path d="M7.5 18.5H14a3.5 3.5 0 0 0 0-7h-4a3.5 3.5 0 0 1 0-7h6.6"/><circle cx="18.6" cy="4.5" r="1.25" style="fill:var(--ico-dot,currentColor);stroke:none"/></symbol><symbol id="i-transform" viewBox="0 0 24 24"><path d="M4.5 11a7.5 7.5 0 0 1 13.2-4.6"/><path d="M18.5 3.2v3.6h-3.6"/><path d="M19.5 13a7.5 7.5 0 0 1-13.2 4.6"/><path d="M5.5 20.8v-3.6h3.6"/><rect x="9.25" y="9.25" width="5.5" height="5.5" rx=".6"/><circle cx="12" cy="12" r="1.25" style="fill:var(--ico-dot,currentColor);stroke:none"/></symbol><symbol id="i-cap" viewBox="0 0 24 24"><path d="M2.5 9 12 4.5 21.5 9 12 13.5Z"/><path d="M6.5 11.2v4.6c0 1.5 2.5 2.9 5.5 2.9s5.5-1.4 5.5-2.9v-4.6"/><path d="M21.5 9v5.2"/><circle cx="21.5" cy="16" r="1.25" style="fill:var(--ico-dot,currentColor);stroke:none"/></symbol><symbol id="i-chart" viewBox="0 0 24 24"><path d="M3.5 3.5v17h17"/><path d="m7 16.5 3.5-4.5 3 2.5 4-5.2"/><path d="M17.5 9.3c-.1-2.8 1.5-4.6 4.2-4.8.1 2.8-1.5 4.6-4.2 4.8Z"/><circle cx="7" cy="16.5" r="1.25" style="fill:var(--ico-dot,currentColor);stroke:none"/></symbol><symbol id="i-clipboard" viewBox="0 0 24 24"><path d="M9 4.5H6.5A1.5 1.5 0 0 0 5 6v13.5A1.5 1.5 0 0 0 6.5 21h11a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H15"/><rect x="9" y="3" width="6" height="3" rx=".8"/><path d="M11 11h4.5M11 15.5h4.5M8.3 15.5h0"/><circle cx="8.3" cy="11" r="1.25" style="fill:var(--ico-dot,currentColor);stroke:none"/></symbol><symbol id="i-bridge" viewBox="0 0 24 24"><path d="M2.5 14.5h19M4.5 14.5a7.5 7.5 0 0 1 15 0M4.5 14.5v5M19.5 14.5v5M8 14.5V8.3M16 14.5V8.3"/><circle cx="12" cy="7" r="1.25" style="fill:var(--ico-dot,currentColor);stroke:none"/></symbol><symbol id="i-landmark" viewBox="0 0 24 24"><path d="M3 9.5 12 4l9 5.5Z"/><path d="M3.5 20.5h17M4.5 17.5h15M6.5 11.5v6M10 11.5v6M14 11.5v6M17.5 11.5v6"/><circle cx="12" cy="7.6" r="1.25" style="fill:var(--ico-dot,currentColor);stroke:none"/></symbol><symbol id="i-community" viewBox="0 0 24 24"><circle cx="12" cy="4.5" r="2"/><circle cx="5.5" cy="15.75" r="2"/><circle cx="18.5" cy="15.75" r="2"/><path d="M14.57 4.95A7.5 7.5 0 0 1 19.39 13.3M16.82 17.75a7.5 7.5 0 0 1-9.64 0M4.61 13.3A7.5 7.5 0 0 1 9.43 4.95"/><circle cx="12" cy="12" r="1.25" style="fill:var(--ico-dot,currentColor);stroke:none"/></symbol><symbol id="i-briefcase" viewBox="0 0 24 24"><rect x="3.5" y="7.5" width="17" height="12.5" rx="1.5"/><path d="M9 7.5V6a1.5 1.5 0 0 1 1.5-1.5h3A1.5 1.5 0 0 1 15 6v1.5M3.5 12.5h6.8M13.7 12.5h6.8"/><circle cx="12" cy="12.5" r="1.25" style="fill:var(--ico-dot,currentColor);stroke:none"/></symbol><symbol id="i-book" viewBox="0 0 24 24"><path d="M12 7.5V20M12 7.5C10 6 7 5.5 3.5 6v12.5c3.5-.5 6.5 0 8.5 1.5M12 7.5c2-1.5 5-2 8.5-1.5v12.5c-3.5-.5-6.5 0-8.5 1.5"/><circle cx="12" cy="3.8" r="1.25" style="fill:var(--ico-dot,currentColor);stroke:none"/></symbol><symbol id="i-heartpulse" viewBox="0 0 24 24"><path d="M12 19.5C7 16.4 3.5 13.2 3.5 9.3A4.4 4.4 0 0 1 12 7.2a4.4 4.4 0 0 1 8.5 2.1c0 3.9-3.5 7.1-8.5 10.2Z"/><path d="M6.8 12.5h2l1.5-2.5 2.4 5 1.6-2.5h1.4"/><circle cx="17.4" cy="12.5" r="1.25" style="fill:var(--ico-dot,currentColor);stroke:none"/></symbol><symbol id="i-person" viewBox="0 0 24 24"><circle cx="12" cy="7.5" r="3.25"/><path d="M5 20.5v-.6a7 7 0 0 1 14 0v.6"/><circle cx="12" cy="16.4" r="1.25" style="fill:var(--ico-dot,currentColor);stroke:none"/></symbol><symbol id="i-eye" viewBox="0 0 24 24"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z"/><circle cx="12" cy="12" r="3.2"/><circle cx="12" cy="12" r="1.25" style="fill:var(--ico-dot,currentColor);stroke:none"/></symbol><symbol id="i-puzzle" viewBox="0 0 24 24"><path d="M5 8.5h4.2a2.3 2.3 0 1 1 4.6 0H17v3.2a2.3 2.3 0 1 1 0 4.6V20H5Z"/><circle cx="11" cy="14.3" r="1.25" style="fill:var(--ico-dot,currentColor);stroke:none"/></symbol><symbol id="i-link" viewBox="0 0 24 24"><circle cx="9" cy="12" r="5"/><circle cx="15" cy="12" r="5"/><circle cx="12" cy="12" r="1.25" style="fill:var(--ico-dot,currentColor);stroke:none"/></symbol><symbol id="i-ripple" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.5"/><path d="M12 5a7 7 0 0 1 7 7M12 19a7 7 0 0 1-7-7M12 1.8a10.2 10.2 0 0 1 10.2 10.2M12 22.2A10.2 10.2 0 0 1 1.8 12"/><circle cx="12" cy="12" r="1.25" style="fill:var(--ico-dot,currentColor);stroke:none"/></symbol><symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.3 15.3 5.2 5.2"/><circle cx="10.5" cy="10.5" r="1.25" style="fill:var(--ico-dot,currentColor);stroke:none"/></symbol><symbol id="i-nib" viewBox="0 0 24 24"><path d="M12 3.5 18 10l-2 8.5H8L6 10Z"/><path d="M12 3.5v7.5M8.5 21h7"/><circle cx="12" cy="12.4" r="1.25" style="fill:var(--ico-dot,currentColor);stroke:none"/></symbol><symbol id="i-steps" viewBox="0 0 24 24"><path d="M3.5 20.5H8V16h4.5v-4.5H17V7h3.5"/><circle cx="20.5" cy="3.9" r="1.25" style="fill:var(--ico-dot,currentColor);stroke:none"/></symbol><symbol id="i-gauge" viewBox="0 0 24 24"><path d="M4 17a8 8 0 1 1 16 0M12 17l3.8-4.6M6.6 11.6l1 .6M12 9v1.2M17.4 11.6l-1 .6M3.5 20.5h17"/><circle cx="12" cy="17" r="1.25" style="fill:var(--ico-dot,currentColor);stroke:none"/></symbol><symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5.5" width="18" height="13" rx="1.5"/><path d="m3.6 6.6 8.4 6.4 8.4-6.4"/><circle cx="12" cy="13" r="1.25" style="fill:var(--ico-dot,currentColor);stroke:none"/></symbol><symbol id="i-message" viewBox="0 0 24 24"><path d="M4.5 5h15A1.5 1.5 0 0 1 21 6.5v9a1.5 1.5 0 0 1-1.5 1.5H11l-4.5 3.5V17h-2A1.5 1.5 0 0 1 3 15.5v-9A1.5 1.5 0 0 1 4.5 5Z"/><path d="M8.5 11h0M15.5 11h0"/><circle cx="12" cy="11" r="1.25" style="fill:var(--ico-dot,currentColor);stroke:none"/></symbol><symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-6.5-5.7-6.5-11a6.5 6.5 0 0 1 13 0c0 5.3-6.5 11-6.5 11Z"/><circle cx="12" cy="10" r="1.25" style="fill:var(--ico-dot,currentColor);stroke:none"/></symbol><symbol id="i-in" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="2.5"/><path d="M8 10.5v6M12 16.5v-6M12 13a2.5 2.5 0 0 1 5 0v3.5"/><circle cx="8" cy="7.6" r="1.25" style="fill:var(--ico-dot,currentColor);stroke:none"/></symbol></defs></svg>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header" id="siteHeader" data-theme="light">
+  <div class="site-header__bar">
+    <a class="brand" href="#home" aria-label="AL MAHA Consulting &amp; Services, home">
+      <span class="brand__lockup" aria-hidden="true">
+        <img class="brand__mark" src="img/symbol.svg" width="545" height="770" alt="">
+        <span class="brand__text">
+          <span class="brand__ar" lang="ar">المها للاستشارات والخدمات</span>
+          <span class="brand__lat" lang="en">AL MAHA CONSULTING &amp; SERVICES</span>
+          <span class="brand__tag" lang="en">A Brighter Tomorrow</span>
+        </span>
+      </span>
+      <picture class="brand__logo brand__logo--dark">
+        <source media="(max-width: 760px)" data-srcset="img/logo-header-ar-on-dark.svg">
+        <img data-src="img/logo-header-on-dark.svg" width="2945" height="753" alt="">
+      </picture>
+    </a>
+
+    <nav class="site-nav" aria-label="Main menu">
+      <ul>
+        <li><a href="#home" data-spy="home">Home</a></li>
+        <li><a href="#about" data-spy="about">About</a></li>
+        <li><a href="#services" data-spy="services">Services</a></li>
+        <li><a href="#approach" data-spy="approach">Approach</a></li>
+        <li><a href="#works" data-spy="works">Work</a></li>
+        <li><a href="#vision" data-spy="vision">Vision</a></li>
+        <li class="site-nav__cta">
+          <a class="btn btn--sm" href="#contact" data-spy="contact">Let’s talk<span class="btn__arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+        </li>
+      </ul>
+      <span class="site-nav__indicator" aria-hidden="true"></span>
+    </nav>
+
+    <a class="lang lang--switch" href="index.html" hreflang="ar" lang="ar" data-lang-switch aria-label="النسخة العربية">العربية</a>
+
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu" aria-label="Open menu"><span></span></button>
+  </div>
+</header>
+
+<div class="menu" id="menu" role="dialog" aria-modal="true" aria-label="Menu" hidden>
+  <div class="menu__top">
+    <a class="menu__brand" href="#home" aria-label="AL MAHA Consulting &amp; Services, home" data-close><img src="img/logo-header.svg" width="2945" height="753" alt=""></a>
+    <button class="menu__close" type="button" aria-label="Close menu" data-close>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5 5 19" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+  <nav class="menu__nav" aria-label="Main menu">
+    <ul>
+      <li><a href="#home" data-close data-spy="home">Home</a></li>
+      <li><a href="#about" data-close data-spy="about">About</a></li>
+      <li><a href="#services" data-close data-spy="services">Services</a></li>
+      <li><a href="#approach" data-close data-spy="approach">Approach</a></li>
+      <li><a href="#works" data-close data-spy="works">Work</a></li>
+      <li><a href="#vision" data-close data-spy="vision">Vision</a></li>
+    </ul>
+  </nav>
+  <div class="menu__foot">
+    <a class="btn" href="#contact" data-close>Let’s talk<span class="btn__arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+    <a class="lang lang--menu lang--switch" href="index.html" hreflang="ar" lang="ar" data-lang-switch>العربية</a>
+    <p class="signature" lang="en">A Brighter Tomorrow</p>
+  </div>
+</div>
+
+<nav class="rail" aria-label="Page sections">
+  <a href="#home" data-spy="home"><span>01</span></a>
+  <a href="#about" data-spy="about"><span>02</span></a>
+  <a href="#services" data-spy="services"><span>03</span></a>
+  <a href="#approach" data-spy="approach"><span>04</span></a>
+  <a href="#works" data-spy="works"><span>05</span></a>
+  <a href="#vision" data-spy="vision"><span>06</span></a>
+  <a href="#contact" data-spy="contact"><span>07</span></a>
+</nav>
+<main id="main">
+
+  <section class="hero" id="home" data-scene="1" aria-labelledby="heroTitle">
+    <div class="hero__media" aria-hidden="true">
+      <div class="hero__frame">
+        <div class="hero__layer" id="heroPhoto">
+          <picture>
+            <source media="(max-width: 1023px) and (orientation: portrait), (max-width: 600px)" srcset="img/hero-flag-portrait-1440.webp" width="1440" height="1920">
+            <img class="hero__plate" id="heroPlate" src="img/hero-flag-2048.webp"
+                 srcset="img/hero-flag-1440.webp 1440w, img/hero-flag-2048.webp 2048w, img/hero-flag-2880.webp 2880w"
+                 sizes="(min-aspect-ratio: 17/10) and (max-aspect-ratio: 21/10) 230vh, (min-aspect-ratio: 155/100) and (max-aspect-ratio: 17/10) 208vh, (max-aspect-ratio: 2/1) 200vh, 100vw"
+                 width="2880" height="1440" alt="" fetchpriority="high" decoding="async" onerror="__platePainted(this)">
+          </picture>
+        </div>
+      </div>
+    </div>
+
+    <div class="oryx-stage" id="oryxStage" aria-hidden="true"></div>
+
+    <div class="hero__veil" aria-hidden="true">
+      <div class="hero__frame hero__frame--fg">
+        <div class="hero__layer">
+          <picture>
+            <source media="(max-width: 1023px) and (orientation: portrait), (max-width: 600px)" srcset="img/hero-flag-fg-portrait-1440.webp" width="1440" height="1920">
+            <img class="hero__fg" id="heroFg" src="img/hero-flag-fg-2048.webp"
+                 srcset="img/hero-flag-fg-1440.webp 1440w, img/hero-flag-fg-2048.webp 2048w, img/hero-flag-fg-2880.webp 2880w"
+                 sizes="(min-aspect-ratio: 17/10) and (max-aspect-ratio: 21/10) 230vh, (min-aspect-ratio: 155/100) and (max-aspect-ratio: 17/10) 208vh, (max-aspect-ratio: 2/1) 200vh, 100vw"
+                 width="2880" height="1440" alt="" fetchpriority="low" decoding="async">
+          </picture>
+        </div>
+      </div>
+      <!-- hero scenes 2-3 (js/hero-scenes.js): v2's oryx photographs, loaded after the intro, over the living flag photo -->
+      <div class="hero__frame hero-stack">
+        <div class="hero-scene" data-scene="2" hidden>
+          <div class="hero-scene__in">
+            <picture>
+              <source media="(max-width: 1023px) and (orientation: portrait), (max-width: 600px)" data-srcset="img/hero/full-portrait.webp" width="700" height="1508">
+              <img class="hero-scene__img" data-srcset="img/hero/full-1440.webp 1440w, img/hero/full-2048.webp 2048w, img/hero/full-3072.webp 3072w"
+                   sizes="(min-aspect-ratio: 2/1) 100vw, 204vh" width="3072" height="1508" alt="" decoding="async">
+            </picture>
+            <div class="hero-scene__sweep"></div>
+            <div class="hero-scene__mist"></div>
+          </div>
+        </div>
+        <div class="hero-scene" data-scene="3" hidden>
+          <div class="hero-scene__in">
+            <picture>
+              <source media="(max-width: 1023px) and (orientation: portrait), (max-width: 600px)" data-srcset="img/hero/head-portrait.webp" width="740" height="1598">
+              <img class="hero-scene__img" data-srcset="img/hero/head-1440.webp 1440w, img/hero/head-2048.webp 2048w, img/hero/head-3072.webp 3072w"
+                   sizes="(min-aspect-ratio: 192/100) 100vw, 192vh" width="3072" height="1598" alt="" decoding="async">
+            </picture>
+            <div class="hero-scene__sweep"></div>
+            <div class="hero-scene__mist"></div>
+          </div>
+        </div>
+      </div>
+      <div class="hero__light"></div>
+      <div class="hero__air"></div>
+      <!-- concept B: the oryx stands in the photo (above the ivory air, behind the pole, the rocks and the brush edge) -->
+      <div class="hero__frame hero__frame--oryx"><div class="hero__layer hero__layer--oryx" id="oryxLayer"></div></div>
+      <div class="hero__wipe"></div>
+      <svg class="hero__edge" viewBox="0 0 1440 150" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="edge-spill" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#F8F2EC"/><stop offset=".40" stop-color="#F8F2EC"/><stop offset=".77" stop-color="#F8E8DA"/><stop offset="1" stop-color="#F8EDE3"/></linearGradient>
+          <linearGradient id="edge-ink" gradientUnits="userSpaceOnUse" x1="1440" y1="0" x2="0" y2="0"><stop offset="0" stop-color="#EB070D"/><stop offset=".30" stop-color="#B1091B"/><stop offset=".52" stop-color="#8E1028" stop-opacity=".9"/><stop offset=".68" stop-color="#8E1028" stop-opacity="0"/><stop offset="1" stop-color="#8E1028" stop-opacity="0"/></linearGradient>
+          <mask id="edge-m" maskUnits="userSpaceOnUse" x="-200" y="-150" width="1840" height="450"><use href="#oryx-2" fill="#fff" transform="translate(735 96) skewY(-4) scale(2.62 .27) rotate(-37.6) translate(-591.5 -392)"/></mask>
+        </defs>
+        <path class="edge-fill" fill="url(#edge-spill)" d="M0 150V139L40 136L80 132L120 127L160 123L200 118L240 114L280 110L320 107L360 104L400 100L440 96L480 93L520 90L560 88L600 85L640 82L680 80L720 78L760 76L800 74L840 73L880 72L920 70L960 68L1000 64L1040 60L1080 57L1120 54L1160 52L1200 50L1240 48L1280 47L1320 46L1360 46L1400 44L1440 41V150Z"/>
+        <rect x="-200" y="-150" width="1840" height="450" fill="url(#edge-ink)" mask="url(#edge-m)"/>
+      </svg>
+    </div>
+
+    <div class="hero__inner">
+      <div class="hero__copy">
+        <h1 class="display" id="heroTitle" data-intro="title" data-words>
+          <span class="line">Together, towards</span>
+          <span class="line line--accent">a brighter tomorrow</span>
+        </h1>
+        <p class="hero__sub" data-intro="sub">Your partner in consulting and services that help organisations transform, grow and create lasting impact in a changing world.</p>
+        <div class="hero__actions" data-intro="actions">
+          <a class="btn" href="#works">See our work<span class="btn__arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+          <a class="btn btn--ghost" href="#services">Explore our services<span class="btn__arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 5v14m-6-6 6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+        </div>
+      </div>
+    </div>
+    <div class="hero__side" aria-hidden="true">
+        <span class="hero__side-rule"></span>
+        <p class="hero__side-ar">Deeper insight.<br>Wider horizons.</p>
+        <p class="hero__side-lat" lang="en">INSIGHT<br>PEOPLE<br>POSSIBILITY</p>
+      </div>
+      <a class="hero__scroll" href="#pillars"><span class="hero__mouse" aria-hidden="true"><span></span></span>Scroll to discover the horizon</a>
+    <div class="hero-scenes" id="heroScenes" role="group" aria-roledescription="slideshow" aria-label="Hero scenes" hidden>
+      <p class="hero-scenes__count" aria-hidden="true"><span class="hero-scenes__now">01</span><span>&nbsp;/&nbsp;03</span></p>
+      <div class="hero-scenes__dots">
+        <button class="hero-scenes__dot" type="button" data-to="0" aria-label="Scene 1 of 3" aria-current="true"><span class="hero-scenes__fill"></span></button>
+        <button class="hero-scenes__dot" type="button" data-to="1" aria-label="Scene 2 of 3" aria-current="false"><span class="hero-scenes__fill"></span></button>
+        <button class="hero-scenes__dot" type="button" data-to="2" aria-label="Scene 3 of 3" aria-current="false"><span class="hero-scenes__fill"></span></button>
+      </div>
+      <div class="hero-scenes__btns">
+        <button class="hero-scenes__btn" type="button" data-scenes="prev" aria-label="Previous scene"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>
+        <button class="hero-scenes__btn" type="button" data-scenes="toggle" aria-label="Pause autoplay" aria-pressed="false"><svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6v12M15 6v12"/></svg><svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10-6.5Z" fill="currentColor"/></svg></button>
+        <button class="hero-scenes__btn" type="button" data-scenes="next" aria-label="Next scene"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
+      </div>
+      <p class="hero-scenes__cap" aria-live="off"></p>
+    </div>
+  </section>
+
+  <section class="pillars" id="pillars" aria-labelledby="pillarsTitle">
+    <h2 class="sr-only" id="pillarsTitle">Our pillars</h2>
+    <ul class="wrap row4 pillars__list">
+      <li class="pillar">
+        <svg class="ico pillar__ico" aria-hidden="true" focusable="false"><use href="#i-compass"/></svg>
+        <h3 class="pillar__title">Strategic consulting</h3>
+        <p class="pillar__text">Insight that creates opportunity</p>
+      </li>
+      <li class="pillar">
+        <svg class="ico pillar__ico" aria-hidden="true" focusable="false"><use href="#i-growth"/></svg>
+        <h3 class="pillar__title">Sustainable growth</h3>
+        <p class="pillar__text">From plan to results</p>
+      </li>
+      <li class="pillar">
+        <svg class="ico pillar__ico" aria-hidden="true" focusable="false"><use href="#i-empower"/></svg>
+        <h3 class="pillar__title">Empowered organisations</h3>
+        <p class="pillar__text">Capabilities that make the difference</p>
+      </li>
+      <li class="pillar">
+        <svg class="ico pillar__ico" aria-hidden="true" focusable="false"><use href="#i-globe"/></svg>
+        <h3 class="pillar__title">Global expertise</h3>
+        <p class="pillar__text">With a local and regional lens</p>
+      </li>
+    </ul>
+  </section>
+
+  <section class="about" id="about" aria-labelledby="aboutTitle">
+    <div class="wrap grid about__grid">
+      <div class="about__main">
+        <p class="label" aria-hidden="true" data-reveal>About us</p>
+        <h2 class="display" id="aboutTitle" data-words><span class="sr-only">About us: </span><span class="line">A partner on your</span> <span class="line line--accent">journey to excellence</span></h2>
+        <p class="lead" data-reveal>AL MAHA Consulting &amp; Services is a Tunisian consultancy delivering integrated solutions that help organisations meet challenges, seize opportunities and grow sustainably, through deep expertise, fresh insight and long-term&nbsp;partnership.</p>
+      </div>
+      <div class="about__statement">
+        <p class="statement" data-words><span class="line">From today’s insight</span> <span class="line">to tomorrow’s achievements</span></p>
+        <p class="statement__sub" data-reveal>Building lasting impact, together</p>
+      </div>
+      <dl class="facts row4" data-stagger>
+        <div class="fact"><dt>Based in</dt><dd>Tunis, Tunisia</dd></div>
+        <div class="fact"><dt>Who we serve</dt><dd>Public institutions, development organisations and companies</dd></div>
+        <div class="fact"><dt>What we offer</dt><dd>Integrated consulting solutions and services</dd></div>
+        <div class="fact"><dt>How we work</dt><dd>Long-term partnerships</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="services" id="services" aria-labelledby="servicesTitle">
+    <div class="wrap grid services__grid">
+      <header class="services__head">
+        <p class="label" aria-hidden="true" data-reveal>Services</p>
+        <h2 class="display" id="servicesTitle" data-words><span class="sr-only">Services: </span><span class="line">Integrated solutions</span> <span class="line line--accent">for lasting success</span></h2>
+        <p class="services__note" data-reveal>Choose the service that matters to you, and we will start the conversation from there.</p>
+        <figure class="svc-art" data-reveal>
+          <img src="../shared/img/v2/horizon-hq2048.webp"  width="2048" height="1020" alt="A man on a mountain summit looking out over the city at sunrise" loading="lazy" decoding="async">
+          <figcaption><span class="lat" lang="en">THE NEXT POSSIBILITY</span>The future begins<br>with a different view.</figcaption>
+        </figure>
+      </header>
+
+      <ul class="svc-index" data-svc>
+        <li class="svc">
+          <a class="svc__link" href="#contact" data-service="Strategy consulting" aria-describedby="svc1-d">
+            <svg class="ico svc__ico" aria-hidden="true" focusable="false"><use href="#i-route"/></svg>
+            <span class="svc__head"><span class="svc__name">Strategy consulting<svg class="svc__brush" viewBox="0 0 300 14" preserveAspectRatio="none" aria-hidden="true"><use href="#brush-stroke"/></svg></span></span>
+            <span class="svc__desc" id="svc1-d" aria-hidden="true">Vision, priorities and a roadmap, shaped together with you.</span>
+            <span class="svc__go" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span class="sr-only"> — get in touch about this service</span>
+          </a>
+        </li>
+        <li class="svc">
+          <a class="svc__link" href="#contact" data-service="Organisational transformation &amp; operational excellence" aria-describedby="svc2-d">
+            <svg class="ico svc__ico" aria-hidden="true" focusable="false"><use href="#i-transform"/></svg>
+            <span class="svc__head"><span class="svc__name">Organisational transformation &amp; operational excellence<svg class="svc__brush" viewBox="0 0 300 14" preserveAspectRatio="none" aria-hidden="true"><use href="#brush-stroke"/></svg></span></span>
+            <span class="svc__desc" id="svc2-d" aria-hidden="true">Structures, processes and governance that make delivery faster and clearer.</span>
+            <span class="svc__go" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span class="sr-only"> — get in touch about this service</span>
+          </a>
+        </li>
+        <li class="svc">
+          <a class="svc__link" href="#contact" data-service="Capability building &amp; training" aria-describedby="svc3-d">
+            <svg class="ico svc__ico" aria-hidden="true" focusable="false"><use href="#i-cap"/></svg>
+            <span class="svc__head"><span class="svc__name">Capability building &amp; training<svg class="svc__brush" viewBox="0 0 300 14" preserveAspectRatio="none" aria-hidden="true"><use href="#brush-stroke"/></svg></span></span>
+            <span class="svc__desc" id="svc3-d" aria-hidden="true">Training and leadership programmes that build capable teams.</span>
+            <span class="svc__go" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span class="sr-only"> — get in touch about this service</span>
+          </a>
+        </li>
+        <li class="svc">
+          <a class="svc__link" href="#contact" data-service="Sustainability &amp; impact measurement" aria-describedby="svc4-d">
+            <svg class="ico svc__ico" aria-hidden="true" focusable="false"><use href="#i-chart"/></svg>
+            <span class="svc__head"><span class="svc__name">Sustainability &amp; impact measurement<svg class="svc__brush" viewBox="0 0 300 14" preserveAspectRatio="none" aria-hidden="true"><use href="#brush-stroke"/></svg></span></span>
+            <span class="svc__desc" id="svc4-d" aria-hidden="true">Indicators and reporting that reveal real impact.</span>
+            <span class="svc__go" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span class="sr-only"> — get in touch about this service</span>
+          </a>
+        </li>
+        <li class="svc">
+          <a class="svc__link" href="#contact" data-service="Project management &amp; support services" aria-describedby="svc5-d">
+            <svg class="ico svc__ico" aria-hidden="true" focusable="false"><use href="#i-clipboard"/></svg>
+            <span class="svc__head"><span class="svc__name">Project management &amp; support services<svg class="svc__brush" viewBox="0 0 300 14" preserveAspectRatio="none" aria-hidden="true"><use href="#brush-stroke"/></svg></span></span>
+            <span class="svc__desc" id="svc5-d" aria-hidden="true">From planning to delivery, with rigour and follow-through.</span>
+            <span class="svc__go" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span class="sr-only"> — get in touch about this service</span>
+          </a>
+        </li>
+        <li class="svc">
+          <a class="svc__link" href="#contact" data-service="International partnerships &amp; expertise" aria-describedby="svc6-d">
+            <svg class="ico svc__ico" aria-hidden="true" focusable="false"><use href="#i-bridge"/></svg>
+            <span class="svc__head"><span class="svc__name">International partnerships &amp; expertise<svg class="svc__brush" viewBox="0 0 300 14" preserveAspectRatio="none" aria-hidden="true"><use href="#brush-stroke"/></svg></span></span>
+            <span class="svc__desc" id="svc6-d" aria-hidden="true">Connecting you with the right expertise and partners.</span>
+            <span class="svc__go" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span class="sr-only"> — get in touch about this service</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="sectors" id="sectors" aria-labelledby="sectorsTitle">
+    <div class="wrap">
+      <h2 class="label label--center" id="sectorsTitle" data-reveal>Sectors</h2>
+      <ul class="sectors__list" data-todo="confirm">
+        <li class="sector"><svg class="ico sector__ico" aria-hidden="true" focusable="false"><use href="#i-landmark"/></svg><span class="sector__ar">Public sector &amp; government institutions</span></li>
+        <li class="sector"><svg class="ico sector__ico" aria-hidden="true" focusable="false"><use href="#i-community"/></svg><span class="sector__ar">Development &amp; non-profit organisations</span></li>
+        <li class="sector"><svg class="ico sector__ico" aria-hidden="true" focusable="false"><use href="#i-briefcase"/></svg><span class="sector__ar">Private sector &amp; start-ups</span></li>
+        <li class="sector"><svg class="ico sector__ico" aria-hidden="true" focusable="false"><use href="#i-book"/></svg><span class="sector__ar">Education &amp; training</span></li>
+        <li class="sector"><svg class="ico sector__ico" aria-hidden="true" focusable="false"><use href="#i-heartpulse"/></svg><span class="sector__ar">Social &amp; health services</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="seam seam--in" aria-hidden="true">
+    <svg class="seam__shape" viewBox="0 0 1440 240" preserveAspectRatio="none"><path d="M0 240V92L40 90L80 88L120 86L160 84L200 82L240 80L280 78L320 77L360 76L400 75L440 74L480 74L520 74L560 74L600 75L640 76L680 77L720 79L760 81L800 84L840 88L880 92L920 96L960 101L1000 107L1040 113L1080 120L1120 128L1160 137L1200 146L1240 156L1280 167L1320 179L1360 191L1400 204L1440 219V240Z"/></svg>
+    <div class="seam__wipe"><div class="seam__wipe-in">
+      <svg viewBox="0 0 1440 240" preserveAspectRatio="none"><use href="#oryx-3" fill="url(#seam-in-grad)" transform="translate(760 120) skewY(5) scale(-2.8 .26) rotate(-90) translate(-540.5 -605.7)"/></svg>
+    </div></div>
+  </div>
+
+  <section class="approach on-dark" id="approach" aria-labelledby="approachLabel approachTitle">
+    <div class="approach__pin">
+      <div class="approach__wm" aria-hidden="true">
+        <svg viewBox="330 95 545 770" data-wm="0"><use href="#oryx-3" fill="url(#wm-oryx-3)"/></svg>
+        <svg viewBox="330 95 545 770" data-wm="1"><use href="#oryx-2" fill="url(#wm-oryx-2)"/></svg>
+        <svg viewBox="330 95 545 770" data-wm="2"><use href="#oryx-1" fill="url(#wm-oryx-1)"/></svg>
+        <svg viewBox="330 95 545 770" data-wm="3"><use href="#oryx-5" fill="url(#wm-oryx-5)"/></svg>
+        <svg viewBox="330 95 545 770" data-wm="4" class="approach__wm-head"><use href="#oryx-4" fill="url(#wm-oryx-4)"/></svg>
+      </div>
+      <div class="wrap grid approach__grid">
+        <header class="approach__head">
+          <p class="label" id="approachLabel" data-reveal>Our approach</p>
+          <h2 class="display" id="approachTitle" data-words><span class="line">From understanding</span> <span class="line line--accent">to impact</span></h2>
+        </header>
+        <div class="steps-wrap">
+          <span class="steps__track" aria-hidden="true"><span class="steps__fill"></span></span>
+          <ol class="steps">
+            <li class="step is-active">
+              <span class="step__no" lang="en" aria-hidden="true">01</span>
+              <h3 class="step__title"><svg class="ico step__ico" aria-hidden="true" focusable="false"><use href="#i-search"/></svg>Understand</h3>
+              <div class="step__body" data-n="01"><div><p>We listen, then analyse your reality and priorities.</p></div></div>
+            </li>
+            <li class="step">
+              <span class="step__no" lang="en" aria-hidden="true">02</span>
+              <h3 class="step__title"><svg class="ico step__ico" aria-hidden="true" focusable="false"><use href="#i-nib"/></svg>Design</h3>
+              <div class="step__body" data-n="02"><div><p>Solutions tailored to your organisation.</p></div></div>
+            </li>
+            <li class="step">
+              <span class="step__no" lang="en" aria-hidden="true">03</span>
+              <h3 class="step__title"><svg class="ico step__ico" aria-hidden="true" focusable="false"><use href="#i-steps"/></svg>Deliver</h3>
+              <div class="step__body" data-n="03"><div><p>Disciplined delivery, alongside your teams.</p></div></div>
+            </li>
+            <li class="step">
+              <span class="step__no" lang="en" aria-hidden="true">04</span>
+              <h3 class="step__title"><svg class="ico step__ico" aria-hidden="true" focusable="false"><use href="#i-gauge"/></svg>Measure impact</h3>
+              <div class="step__body" data-n="04"><div><p>Clear indicators and continuous improvement.</p></div></div>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="seam seam--out" aria-hidden="true">
+    <svg class="seam__shape" viewBox="0 0 1440 240" preserveAspectRatio="none"><path d="M0 240V121L40 130L80 138L120 146L160 152L200 157L240 162L280 166L320 169L360 171L400 172L440 173L480 173L520 173L560 171L600 169L640 167L680 164L720 161L760 157L800 152L840 147L880 142L920 136L960 130L1000 123L1040 116L1080 109L1120 102L1160 94L1200 86L1240 78L1280 70L1320 61L1360 52L1400 44L1440 35V240Z"/></svg>
+    <div class="seam__wipe"><div class="seam__wipe-in">
+      <svg viewBox="0 0 1440 240" preserveAspectRatio="none"><use href="#oryx-3" fill="url(#seam-out-grad)" transform="translate(740 120) skewY(-4.5) scale(2.8 -.26) rotate(-90) translate(-540.5 -605.7)"/></svg>
+    </div></div>
+  </div>
+
+  <section class="clients" id="clients" aria-labelledby="clientsLabel clientsTitle">
+    <div class="wrap">
+      <div class="clients__head">
+        <p class="label" id="clientsLabel" data-reveal>Our clients</p>
+        <h2 class="display" id="clientsTitle" data-words><span class="line">Partners who <span class="line--accent">trust us</span></span></h2>
+      </div>
+      <ul class="clients__list">
+        <li class="client">
+          <div class="client__logo"><img class="is-dark" src="../shared/img/v2/clients/sbf-black-vector.svg" alt="" width="200" height="120" loading="lazy" decoding="async"></div>
+          <p class="client__name">Syrian Business Forum</p>
+        </li>
+        <li class="client">
+          <div class="client__logo client__logo--dense"><img src="../shared/img/v2/clients/muntada-color.png" alt="" width="256" height="352" loading="lazy" decoding="async"></div>
+          <p class="client__name">Muntada Initiative for Development Work</p>
+        </li>
+        <li class="client">
+          <div class="client__logo client__logo--lockup"><img src="../shared/img/v2/clients/imar-header.png" alt="" width="500" height="500" loading="lazy" decoding="async"><span class="client__word" lang="en" aria-hidden="true">IMAR <span>Tenders</span></span></div>
+          <p class="client__name">IMAR Tenders</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="works" id="works" aria-labelledby="worksLabel worksTitle">
+    <div class="wrap">
+      <header class="works__head">
+        <div>
+          <p class="label" id="worksLabel" data-reveal>Selected work</p>
+          <h2 class="display" id="worksTitle" data-words><span class="line">Partnerships that show</span> <span class="line line--accent">in the details</span></h2>
+        </div>
+        <p class="works__intro" data-reveal>A glimpse of the work we develop alongside our partner organisations.</p>
+      </header>
+      <ol class="works__list">
+        <li class="work work--sbf">
+          <div class="work__cover" aria-hidden="true">
+            <span class="work__rings"></span>
+            <span class="work__ghost" lang="en">01</span>
+            <picture class="work__plate">
+              <img src="img/works/sbf-960.webp" srcset="img/works/sbf-640.webp 640w, img/works/sbf-960.webp 960w, img/works/sbf-1280.webp 1280w"
+                   sizes="(max-width: 760px) 86vw, (max-width: 1023px) 44vw, 34vw" width="1280" height="720" alt="" loading="lazy" decoding="async">
+            </picture>
+          </div>
+          <div class="work__info">
+            <p class="work__no lat" lang="en" aria-hidden="true">01 / SBF</p>
+            <h3 class="work__title">Corporate design &amp; company profile</h3>
+            <p class="work__client">Syrian Business Forum</p>
+            <p class="work__desc">An applied identity and corporate visual content, developed as part of the Forum’s new company profile.</p>
+          </div>
+        </li>
+        <li class="work work--muntada">
+          <div class="work__cover" aria-hidden="true">
+            <span class="work__rings"></span>
+            <span class="work__ghost" lang="en">02</span>
+            <picture class="work__plate">
+              <img src="img/works/muntada-960.webp" srcset="img/works/muntada-640.webp 640w, img/works/muntada-960.webp 960w, img/works/muntada-1280.webp 1280w"
+                   sizes="(max-width: 760px) 86vw, (max-width: 1023px) 44vw, 28vw" width="1280" height="721" alt="" loading="lazy" decoding="async">
+            </picture>
+          </div>
+          <div class="work__info">
+            <p class="work__no lat" lang="en" aria-hidden="true">02 / MUNTADA</p>
+            <h3 class="work__title">Visual identity &amp; corporate applications</h3>
+            <p class="work__client">Muntada Initiative for Development Work</p>
+            <p class="work__desc">Introductory materials and visual applications for an initiative dedicated to development work.</p>
+            <a class="work__link" href="https://www.instagram.com/muntadadev/" target="_blank" rel="noopener">Official account<span class="sr-only"> of Muntada on Instagram (opens in a new tab)</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 7 7 17M8 7h9v9" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          </div>
+        </li>
+        <li class="work work--imar">
+          <div class="work__cover" aria-hidden="true">
+            <span class="work__rings"></span>
+            <span class="work__ghost" lang="en">03</span>
+            <span class="work__mark">
+              <img src="img/works/imar-480.webp" srcset="img/works/imar-240.webp 240w, img/works/imar-480.webp 480w" sizes="140px" width="480" height="469" alt="" loading="lazy" decoding="async">
+              <span class="work__word" lang="en">IMAR <span>Tenders</span></span>
+            </span>
+          </div>
+          <div class="work__info">
+            <p class="work__no lat" lang="en" aria-hidden="true">03 / IMAR</p>
+            <h3 class="work__title">A digital platform for tenders &amp; projects</h3>
+            <p class="work__client">IMAR Tenders</p>
+            <p class="work__desc">A digital experience that organises projects and tenders, and connects organisations with accredited suppliers.</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="vision" id="vision" aria-labelledby="visionTitle">
+    <div class="vision__band">
+      <div class="vision__clip"><div class="vision__counter">
+        <picture class="vision__media">
+          <source media="(max-aspect-ratio: 4/5)" srcset="img/vision-sky-portrait-791.webp" width="791" height="961">
+          <img class="vision__img" src="img/vision-sky-1440.webp"
+               srcset="img/vision-sky-960.webp 960w, img/vision-sky-1440.webp 1440w, img/vision-sky-1852.webp 1852w"
+               sizes="(max-aspect-ratio: 1/1) 160vh, 100vw"
+               width="1852" height="961" alt="Dawn sky over a mountain range, the light widening toward the horizon" loading="lazy" decoding="async">
+        </picture>
+      </div></div>
+      <svg class="vision__edge" viewBox="0 0 1440 150" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="vedge-spill" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#F8F2EC"/><stop offset=".24" stop-color="#F8F2EC"/><stop offset=".76" stop-color="#FAEDDA"/><stop offset="1" stop-color="#F9EFE2"/></linearGradient></defs><path fill="url(#vedge-spill)" d="M1440 150V139L1400 136L1360 132L1320 127L1280 123L1240 118L1200 114L1160 110L1120 107L1080 104L1040 100L1000 96L960 93L920 90L880 88L840 85L800 82L760 80L720 78L680 76L640 74L600 73L560 72L520 70L480 68L440 64L400 60L360 57L320 54L280 52L240 50L200 48L160 47L120 46L80 46L40 44L0 41V150Z"/></svg>
+      <img class="vision__mark" src="../shared/brand/symbol.svg" width="545" height="770" alt="" aria-hidden="true" loading="lazy">
+      <div class="wrap vision__title-wrap">
+        <p class="label" aria-hidden="true" data-reveal>Our vision</p>
+        <h2 class="display vision__title" id="visionTitle" data-words><span class="sr-only">Our vision: </span><span class="line">From Tunisia,</span> <span class="line line--accent">to wider horizons</span></h2>
+      </div>
+    </div>
+    <div class="wrap grid vision__body">
+      <p class="lead vision__lead" data-reveal>We believe every organisation holds more potential than it sees today. Our role is to turn that potential into tangible, lasting impact.</p>
+      <div class="vision__values">
+        <h3 class="sr-only">Our values</h3>
+        <ul class="values row5" data-stagger>
+          <li class="value"><svg class="ico value__ico" aria-hidden="true" focusable="false"><use href="#i-person"/></svg><span class="value__ar">People first</span></li>
+          <li class="value"><svg class="ico value__ico" aria-hidden="true" focusable="false"><use href="#i-eye"/></svg><span class="value__ar">Deep insight</span></li>
+          <li class="value"><svg class="ico value__ico" aria-hidden="true" focusable="false"><use href="#i-puzzle"/></svg><span class="value__ar">Practical solutions</span></li>
+          <li class="value"><svg class="ico value__ico" aria-hidden="true" focusable="false"><use href="#i-link"/></svg><span class="value__ar">Partnership</span></li>
+          <li class="value"><svg class="ico value__ico" aria-hidden="true" focusable="false"><use href="#i-ripple"/></svg><span class="value__ar">Impact</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact" id="contact" aria-labelledby="contactLabel contactTitle">
+    <div class="contact__cta">
+      <div class="contact__ribbons" aria-hidden="true">
+        <div class="contact__drift"><div class="contact__wipe"><div class="contact__wipe-in">
+          <svg viewBox="0 0 520 470" preserveAspectRatio="xMinYMid meet">
+            <g transform="translate(250 250) rotate(-8) scale(1.3 1.05) translate(-535 -611)"><use href="#oryx-3" fill="#B1091B" opacity=".16"/></g>
+            <g transform="translate(215 262) rotate(4) scale(1.12 .98) translate(-535 -611)"><use href="#oryx-3" fill="url(#cta-grad)" opacity=".95"/></g>
+          </svg>
+        </div></div></div>
+      </div>
+      <div class="wrap grid">
+        <div class="contact__cta-inner">
+          <p class="label" id="contactLabel" data-reveal>Contact</p>
+          <h2 class="display" id="contactTitle" data-words><span class="line">Let’s start</span> <span class="line line--accent">the conversation</span></h2>
+          <p class="contact__lead" data-reveal>Talk to us today and begin your journey toward transformation and growth.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="wrap grid contact__grid">
+      <div class="channels" data-reveal>
+        <h3>Direct contact</h3>
+        <dl>
+          <div class="channel" data-todo="confirm">
+            <dt><svg class="ico channel__ico" aria-hidden="true" focusable="false"><use href="#i-mail"/></svg>Email</dt>
+            <dd><a class="link lat" href="mailto:contact@almaha-consulting.com" lang="en">contact@almaha-consulting.com</a></dd>
+          </div>
+          <div class="channel" data-todo="confirm" hidden>
+            <dt><svg class="ico channel__ico" aria-hidden="true" focusable="false"><use href="#i-message"/></svg>Phone / WhatsApp</dt>
+            <dd><a class="link lat" href="tel:" lang="en" dir="ltr"></a></dd>
+          </div>
+          <div class="channel" data-todo="confirm">
+            <dt><svg class="ico channel__ico" aria-hidden="true" focusable="false"><use href="#i-pin"/></svg>Address</dt>
+            <dd>Tunis, Tunisia</dd>
+          </div>
+          <div class="channel" data-todo="confirm" hidden>
+            <dt><svg class="ico channel__ico" aria-hidden="true" focusable="false"><use href="#i-in"/></svg>LinkedIn</dt>
+            <dd><a class="link" href="#">AL MAHA Consulting &amp; Services</a></dd>
+          </div>
+        </dl>
+      </div>
+
+      <form class="form" id="contact-form" novalidate aria-labelledby="formTitle" data-reveal>
+        <h3 id="formTitle">Tell us about your organisation’s project</h3>
+        <div class="form__row">
+          <div class="field">
+            <label for="f-name">Full name</label>
+            <div class="field__control">
+              <input id="f-name" name="name" type="text" autocomplete="name" required maxlength="120" aria-describedby="e-name">
+              <span class="field__line" aria-hidden="true"></span>
+            </div>
+            <span class="field__err" id="e-name"></span>
+          </div>
+          <div class="field">
+            <label for="f-org">Organisation</label>
+            <div class="field__control">
+              <input id="f-org" name="organisation" type="text" autocomplete="organization" required maxlength="160" aria-describedby="e-org">
+              <span class="field__line" aria-hidden="true"></span>
+            </div>
+            <span class="field__err" id="e-org"></span>
+          </div>
+        </div>
+        <div class="form__row">
+          <div class="field">
+            <label for="f-email">Work email</label>
+            <div class="field__control">
+              <input id="f-email" name="email" type="email" autocomplete="email" required maxlength="254" dir="ltr" inputmode="email" aria-describedby="e-email">
+              <span class="field__line" aria-hidden="true"></span>
+            </div>
+            <span class="field__err" id="e-email"></span>
+          </div>
+          <div class="field">
+            <label for="f-phone">Phone <span class="opt">(optional)</span></label>
+            <div class="field__control">
+              <input id="f-phone" name="phone" type="tel" autocomplete="tel" maxlength="32" dir="ltr" inputmode="tel" aria-describedby="e-phone">
+              <span class="field__line" aria-hidden="true"></span>
+            </div>
+            <span class="field__err" id="e-phone"></span>
+          </div>
+        </div>
+        <div class="field">
+          <label for="f-topic">Subject</label>
+          <div class="field__control">
+            <select id="f-topic" name="topic" required aria-describedby="e-topic">
+              <option value="">Choose a subject</option>
+              <option>Strategy consulting</option>
+              <option>Organisational transformation &amp; operational excellence</option>
+              <option>Capability building &amp; training</option>
+              <option>Sustainability &amp; impact measurement</option>
+              <option>Project management &amp; support services</option>
+              <option>International partnerships &amp; expertise</option>
+              <option>Something else</option>
+            </select>
+            <span class="field__line" aria-hidden="true"></span>
+          </div>
+          <span class="field__err" id="e-topic"></span>
+        </div>
+        <div class="field">
+          <label for="f-msg">Your message</label>
+          <div class="field__control">
+            <textarea id="f-msg" name="message" required minlength="20" maxlength="250" rows="4" aria-describedby="e-msg f-msg-count"></textarea>
+            <span class="field__line" aria-hidden="true"></span>
+          </div>
+          <span class="field__meta"><span class="field__err" id="e-msg"></span><span class="field__count" id="f-msg-count" aria-live="polite"></span></span>
+        </div>
+        <p class="form__consent">Sending opens your email app with a ready-made message addressed to our team. Nothing you enter is stored on this page.</p>
+        <div class="form__actions">
+          <button class="btn" type="submit">Send request<span class="btn__arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
+        </div>
+        <div class="form__status" role="status" aria-live="polite"></div>
+      </form>
+    </div>
+  </section>
+
+  <div class="seam seam--foot" aria-hidden="true">
+    <svg class="seam__shape" viewBox="0 0 1440 240" preserveAspectRatio="none"><path d="M0 240V92L40 90L80 88L120 86L160 84L200 82L240 80L280 78L320 77L360 76L400 75L440 74L480 74L520 74L560 74L600 75L640 76L680 77L720 79L760 81L800 84L840 88L880 92L920 96L960 101L1000 107L1040 113L1080 120L1120 128L1160 137L1200 146L1240 156L1280 167L1320 179L1360 191L1400 204L1440 219V240Z"/></svg>
+  </div>
+</main>
+
+<footer class="site-footer on-dark">
+  <div class="wrap">
+    <div class="footer__top">
+      <a class="footer__brand" href="#home" aria-label="AL MAHA Consulting &amp; Services, home"><img src="img/logo-footer-on-dark.svg" width="2117" height="753" alt="" loading="lazy" decoding="async"></a>
+      <nav class="footer__nav" aria-label="Page links">
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#sectors">Sectors</a></li>
+          <li><a href="#approach">Approach</a></li>
+          <li><a href="#works">Work</a></li>
+          <li><a href="#vision">Vision</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="footer__reach">
+        <a class="lat" href="mailto:contact@almaha-consulting.com" lang="en" data-todo="confirm">contact@almaha-consulting.com</a>
+        <span data-todo="confirm">Tunis, Tunisia</span>
+        <div class="social" data-todo="confirm" hidden>
+          <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.94 5a2 2 0 1 1-4-.002 2 2 0 0 1 4 .002zM7 8.48H3V21h4V8.48zm6.32 0H9.34V21h3.94v-6.57c0-3.66 4.77-4 4.77 0V21H22v-7.93c0-6.17-7.06-5.94-8.72-2.91l.04-1.68z"/></svg></a>
+          <a href="#" aria-label="X"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.75 3h3.07l-6.7 7.66L22 21h-6.17l-4.83-6.32L5.47 21H2.4l7.17-8.2L2 3h6.33l4.37 5.78L17.75 3zm-1.08 16.17h1.7L7.4 4.74H5.58l11.09 14.43z"/></svg></a>
+          <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.6V8.4l6.2 3.6-6.2 3.6z"/></svg></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p>© 2026 AL MAHA Consulting &amp; Services. All rights reserved.</p>
+      <div class="footer__legal" data-todo="confirm" hidden>
+        <a href="#">Privacy policy</a>
+        <a href="#">Terms &amp; conditions</a>
+      </div>
+      <a class="to-top" href="#home">Back to top<span aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 19V5m-6 6 6-6 6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

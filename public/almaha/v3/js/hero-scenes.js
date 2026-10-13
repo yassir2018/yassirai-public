@@ -11,7 +11,10 @@ const DWELL = 8000;
 const WIPE = 1700;
 const EASE_WIPE = 'cubic-bezier(.65, 0, .35, 1)';
 const EXPO = 'cubic-bezier(.16, 1, .3, 1)';
-const CAPTIONS = ['رايةٌ تتقدّم نحو الأفق', 'من القمّة نرى أبعد', 'رؤيةٌ تصنع الغد'];
+const RTL = document.documentElement.dir !== 'ltr';
+const CAPTIONS = RTL ? ['رايةٌ تتقدّم نحو الأفق', 'من القمّة نرى أبعد', 'رؤيةٌ تصنع الغد']
+  : ['A flag carried toward the horizon', 'From the summit, we see further', 'A vision that shapes tomorrow'];
+const L_PLAY = RTL ? ['إيقاف التبديل التلقائي', 'تشغيل التبديل التلقائي'] : ['Pause autoplay', 'Resume autoplay'];
 
 export function initHeroScenes({ cine }) {
   const hero = document.getElementById('home');
@@ -178,7 +181,7 @@ export function initHeroScenes({ cine }) {
     S.user = play;
     ui.classList.toggle('is-paused', !play);
     btnPlay.setAttribute('aria-pressed', play ? 'false' : 'true');
-    btnPlay.setAttribute('aria-label', play ? 'إيقاف التبديل التلقائي' : 'تشغيل التبديل التلقائي');
+    btnPlay.setAttribute('aria-label', play ? L_PLAY[0] : L_PLAY[1]);
     S.last = performance.now();
     tick();
   }
@@ -194,7 +197,7 @@ export function initHeroScenes({ cine }) {
   ui.addEventListener('keydown', (e) => {
     if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
     e.preventDefault();
-    if (e.key === 'ArrowLeft') go(S.i + 1, 1, 'user'); else go(S.i - 1, -1, 'user');   // RTL: left = forward
+    if ((e.key === 'ArrowLeft') === RTL) go(S.i + 1, 1, 'user'); else go(S.i - 1, -1, 'user');   // reading order: RTL left = forward, LTR right = forward
   });
 
   // pause while the pointer rests on the copy or the controls, or focus is inside the hero

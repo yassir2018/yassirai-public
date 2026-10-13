@@ -9,6 +9,7 @@ import { HERO_PLATE, PLATES, ORYX_MODULE, ORYX_SRC, ORYX_STATIC, ORYX_OCCLUDE, O
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const root = document.documentElement;
+const DIR = root.dir === 'ltr' ? -1 : 1;   // +1 = RTL (enter from the right), -1 = LTR (enter from the left)
 const clamp01 = (v) => Math.min(1, Math.max(0, v));
 const wait = (ms) => new Promise((r) => setTimeout(r, ms));
 const DEV = /[?&]debug(&|=|$)/.test(location.search) && ['127.0.0.1', 'localhost'].includes(location.hostname);
@@ -922,8 +923,8 @@ function pillars(gsap) {
   $$('.pillar').forEach((p, i) => {
     const at = i * 0.12;
     tl.fromTo(p, { '--draw': 0 }, { '--draw': 1, duration: 1.2, ease: 'power3.inOut' }, at)
-      .fromTo($('.pillar__ico', p), { clipPath: 'inset(0% 0% 0% 100%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 0.9, ease: 'power2.out', clearProps: 'clipPath' }, at + 0.1)
-      .from($$('.pillar__title, .pillar__text', p), { opacity: 0, x: 18, duration: 1.1, stagger: 0.08, ease: 'expo.out', clearProps: 'transform,opacity' }, at + 0.2);
+      .fromTo($('.pillar__ico', p), { clipPath: DIR > 0 ? 'inset(0% 0% 0% 100%)' : 'inset(0% 100% 0% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 0.9, ease: 'power2.out', clearProps: 'clipPath' }, at + 0.1)
+      .from($$('.pillar__title, .pillar__text', p), { opacity: 0, x: 18 * DIR, duration: 1.1, stagger: 0.08, ease: 'expo.out', clearProps: 'transform,opacity' }, at + 0.2);
   });
 }
 
@@ -938,7 +939,7 @@ function about(gsap) {
 /* ================================================================ services: rows arrive from the right */
 function services(gsap) {
   gsap.from($$('.svc'), {
-    opacity: 0, x: 44, duration: 1.15, stagger: 0.08, ease: 'expo.out', clearProps: 'transform,opacity',
+    opacity: 0, x: 44 * DIR, duration: 1.15, stagger: 0.08, ease: 'expo.out', clearProps: 'transform,opacity',
     scrollTrigger: { trigger: '.svc-index', start: 'top 86%', once: true },
   });
 }
@@ -948,7 +949,7 @@ function sectors(gsap) {
   const items = $$('.sector');
   gsap.timeline({ scrollTrigger: { trigger: '.sectors__list', start: 'top 84%', once: true } })
     .from(items.map((i) => $('.sector__ar', i)), { yPercent: 55, opacity: 0, duration: 1.25, stagger: 0.12, ease: 'expo.out', clearProps: 'transform,opacity' }, 0)
-    .from(items.map((i) => $('.sector__en', i)), { opacity: 0, duration: 1, stagger: 0.12, ease: 'power2.out' }, 0.3)
+    .from(items.map((i) => $('.sector__en', i) || $('.sector__ico', i)), { opacity: 0, duration: 1, stagger: 0.12, ease: 'power2.out' }, 0.3)   // en.html: no Latin echo, the icon fades instead
     .fromTo(items.slice(1), { '--sep': 0 }, { '--sep': 1, duration: 0.9, stagger: 0.12, ease: 'power3.out' }, 0.05);
 }
 
@@ -1017,7 +1018,7 @@ function approach(gsap, ST) {
   });
 
   mm.add(`not all and ${MQ.pin}`, () => {
-    gsap.from(steps, { opacity: 0, x: 30, duration: 1.1, stagger: 0.1, ease: 'expo.out', clearProps: 'transform,opacity', scrollTrigger: { trigger: '.steps', start: 'top 85%', once: true } });
+    gsap.from(steps, { opacity: 0, x: 30 * DIR, duration: 1.1, stagger: 0.1, ease: 'expo.out', clearProps: 'transform,opacity', scrollTrigger: { trigger: '.steps', start: 'top 85%', once: true } });
   });
 }
 
@@ -1084,7 +1085,7 @@ function menu(gsap) {
   const el = $('#menu');
   el.addEventListener('menu:open', () => {
     gsap.fromTo(el, { clipPath: 'inset(0% 0% 100% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 0.75, ease: 'expo.out', clearProps: 'clipPath' });
-    gsap.from($$('.menu__nav li, .menu__foot > *', el), { opacity: 0, x: 34, duration: 0.9, stagger: 0.045, delay: 0.12, ease: 'expo.out', clearProps: 'transform,opacity' });
+    gsap.from($$('.menu__nav li, .menu__foot > *', el), { opacity: 0, x: 34 * DIR, duration: 0.9, stagger: 0.045, delay: 0.12, ease: 'expo.out', clearProps: 'transform,opacity' });
   });
   el.addEventListener('menu:close', (e) => {
     e.preventDefault();

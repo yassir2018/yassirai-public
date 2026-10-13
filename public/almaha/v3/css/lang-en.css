@@ -1,0 +1,117 @@
+/* AL MAHA v3 — English layer (en.html only, loaded last).
+   1. Latin typography: Montserrat replaces Cairo everywhere (--f-ar), headings 600 with a slight negative tracking,
+      Latin line heights (Cairo needed 1.3-2 for tanwin and hamza; Latin reads best at 1.08-1.65).
+   2. LTR mirroring of the directional details that physical CSS pins to the right (logical properties already flip).
+   3. What stays as in Arabic, on purpose: the hero photograph and everything registered to it (flag, sun, oryx overture,
+      cinemagraph, brush edge, intro light and wipe), so the copy column stays on the RIGHT, clear of the flag; the logo
+      lockup (an official asset, and the overture lands on its symbol); the section rail (right side is also the LTR norm). */
+
+@font-face { font-family: "Montserrat"; src: url("../fonts/montserrat-400.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Montserrat"; src: url("../fonts/montserrat-500.woff2") format("woff2"); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: "Montserrat"; src: url("../fonts/montserrat-600.woff2") format("woff2"); font-weight: 600 700; font-style: normal; font-display: swap; }
+
+:root {
+  --f-ar: "Montserrat", "Segoe UI", Arial, sans-serif;     /* every "Arabic" role now sets in Montserrat */
+  --f-ar-real: "Cairo", "Segoe UI", Tahoma, sans-serif;     /* the Arabic that stays: the logo lockup, the language switch */
+  --lh-display: 1.1;
+  --lh-lead: 1.6; --lh-body: 1.65; --lh-small: 1.55;
+  --tr-display: -.022em;
+  font-synthesis-weight: none;
+}
+body { font-feature-settings: "kern", "liga"; }
+html [lang="ar"] { font-family: var(--f-ar-real); letter-spacing: 0; text-transform: none; }
+
+/* ---------------------------------------------------------------- headings: Montserrat 600, tight, two-tone kept */
+.display, .hero h1, .vision__title, .statement, .menu__nav a, .svc__name, .work__title, .step__title, .pillar__title, .form h3, .channels h3 {
+  letter-spacing: var(--tr-display); font-kerning: normal;
+}
+.display { font-weight: 600; line-height: var(--lh-display); }
+.hero h1 { font-weight: 600; line-height: 1.06; letter-spacing: -.028em; font-size: clamp(34px, 1.5rem + 2.5vw, 66px); margin-bottom: clamp(20px, 2.6vh, 32px); }
+.vision__title { line-height: 1.04; letter-spacing: -.028em; }
+.statement { font-weight: 500; line-height: 1.3; }
+.lead { line-height: var(--lh-lead); }
+.hero__sub { line-height: 1.62; font-size: clamp(17px, .95rem + .2vw, 19px); max-width: 30em; }
+
+/* eyebrows: the Arabic page pairs an Arabic word with a Latin caps echo; in English one caps eyebrow carries both */
+.label { font: 600 13px/1.4 var(--f-lat); letter-spacing: .2em; text-transform: uppercase; }
+.label--center { text-align: center; }
+
+/* the small Latin-caps echoes keep their own style; body copy sizes 16-18 */
+body { font-size: var(--fs-body); line-height: var(--lh-body); }
+.btn, .site-nav a, .field input, .field select, .field textarea { letter-spacing: -.005em; }
+.site-nav a { font-weight: 500; }
+.btn { font-weight: 600; }
+
+/* ---------------------------------------------------------------- hero: copy stays right of the flag, text reads left-aligned */
+@media (min-width: 1024px), (min-width: 601px) and (orientation: landscape) {
+  .hero__copy { --span: 7; margin-inline-start: auto; }   /* English runs ~15 % longer than the Arabic: one column more, still clear of the flag */
+}
+@media (min-width: 1024px) and (max-width: 1279px) { .hero__copy { --span: 8; } }
+.hero__side { direction: ltr; }
+.hero__side-ar { direction: ltr; text-align: left; font: 500 18px/1.5 var(--f-ar); letter-spacing: -.01em; }
+.hero__scroll { font: 500 14px/1 var(--f-ar); letter-spacing: .01em; }
+
+/* ---------------------------------------------------------------- generic mirrors (physical right -> left) */
+.skip-link { right: auto; left: 12px; }
+.btn::before, .fact::before, .svc__link::before, .clients__list::before, .clients__list::after, .value::before,
+.field__line, .pillar::after { transform-origin: 0 50%; }
+.btn:hover .btn__arrow, .btn:focus-visible .btn__arrow { transform: translateX(5px); }
+.menu-toggle span::before, .menu-toggle span::after { right: auto; left: 0; }
+.menu__brand img { object-position: left center; }
+
+/* services: the brush under the active name sweeps left to right, the arrow nudges forward (right) */
+.svc__brush { right: auto; left: 0; transform: scaleX(-1); }
+.svc.is-active .svc__go { transform: translateX(6px); }
+
+/* approach: the progress track on the reading start (left), numerals left-aligned */
+.steps__track { right: auto; left: 0; }
+.step__no { text-align: left; }
+[data-style="v2"] .step__no, [data-style="v3"] .step__no { text-align: left; }
+
+/* clients and works */
+.client + .client::before { right: auto; left: 0; }
+.work__rings { right: auto; left: -13%; }
+.work__ghost { left: auto; right: -4%; }
+.work__link svg { transform: none; }
+
+/* sectors / clients on small screens */
+@media (max-width: 1023px) {
+  .client, .client__name .lat, .sector { text-align: left; }
+}
+
+/* contact: the oryx ribbons sit on the far side from the copy (right in LTR) */
+.contact__ribbons { left: auto; right: 0; transform: scaleX(-1); }
+
+/* form: every control reads LTR; the select chevron moves to the end */
+.field [dir="ltr"], .field [dir="ltr"]::placeholder { text-align: left; }
+.field select { background-position: calc(100% - 4px) 55%; padding-left: 2px; padding-right: 24px; }
+
+/* hero scenes (only when enabled): progress fills left to right */
+.hero-scenes { direction: ltr; }
+.hero-scenes__fill { transform-origin: 0 50%; }
+
+/* ---------------------------------------------------------------- the logo lockup stays exactly as the official logo
+   (Arabic name + symbol on its right); the overture's handoff lands on that symbol (motion.js headerSymbolBox) */
+.brand__lockup, .brand__logo { direction: rtl; }
+.brand__ar { font-family: var(--f-ar-real); letter-spacing: 0; }
+
+/* the seam wipes start one width to the right (motion.js wipe): an RTL page cannot scroll that way, an LTR page could */
+.seam { overflow-x: clip; }
+
+/* approach tabs: the corner arrow points up-right (forward in LTR) */
+.step__title::after {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 17 17 7M7 7h10v10'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 17 17 7M7 7h10v10'/%3E%3C/svg%3E");
+}
+.step__title:hover::after { transform: translate(3px, -3px); }
+
+/* vision: the oryx symbol (never mirrored: it is the brand mark) moves to the band's empty side, opposite the title */
+.vision__mark { left: auto; right: max(var(--gutter), calc((100% - var(--maxw)) / 2)); }
+@media (max-width: 760px) { .vision__mark { left: auto; right: var(--gutter); } }
+
+/* phones: the buttons keep the Arabic page's side (right), so the flag's pole runs down beside them, never through them;
+   the copy above stays left-aligned for reading */
+@media (max-width: 1023px) and (orientation: portrait), (max-width: 600px) {
+  .hero__actions { align-self: flex-end; }
+}
+@media (max-width: 760px) { .value { justify-items: start; text-align: left; } }

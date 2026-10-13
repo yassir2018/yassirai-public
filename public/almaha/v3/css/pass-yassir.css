@@ -351,3 +351,13 @@
 
 /* chapter rail hidden for now (Yassir) */
 .rail { display: none !important; }
+
+/* header lockup text at v2's size (AR 16-18 / Latin ~9-10) */
+.brand__ar { font-size: 18px; }
+.brand__lat { font-size: 9.5px; letter-spacing: .17em; }
+.brand__tag { font-size: 9px; letter-spacing: .22em; }
+.brand__mark { height: 64px; }
+.brand__text { gap: 3px; }
+.site-header.is-scrolled .brand__ar { font-size: 16px; }
+.site-header.is-scrolled .brand__mark { height: 52px; }
+@media (max-width: 760px) { .brand__ar { font-size: 16px; } .brand__mark { height: 44px; } }

@@ -74,7 +74,7 @@
   (function () { var m = /[?&]hero=([abc])(?:&|$)/i.exec(location.search); document.documentElement.dataset.hero = m ? m[1].toLowerCase() : 'c'; })();
   // style layer (?style=v2: warm v2 surfaces, copper on the night chapter, tighter rhythm, approach as tabs): set before the first paint
   (function () { var m = /[?&]style=(v2|v3)(?:&|$)/i.exec(location.search); document.documentElement.dataset.style = m ? m[1].toLowerCase() : 'v3'; })();
-  setTimeout(function () { document.documentElement.classList.remove('intro-pending'); }, 4500);
+  setTimeout(function () { document.documentElement.classList.remove('intro-pending'); }, 2200);
   window.__platePainted = function (img) {
     img.onerror = null;
     var src = img.parentNode.querySelector('source');
@@ -180,7 +180,7 @@
 </nav>
 <main id="main">
 
-  <section class="hero" id="home" aria-labelledby="heroTitle">
+  <section class="hero" id="home" data-scene="1" aria-labelledby="heroTitle">
     <div class="hero__media" aria-hidden="true">
       <div class="hero__frame">
         <div class="hero__layer" id="heroPhoto">
@@ -570,6 +570,7 @@
         </picture>
       </div></div>
       <svg class="vision__edge" viewBox="0 0 1440 150" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="vedge-spill" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#F8F2EC"/><stop offset=".24" stop-color="#F8F2EC"/><stop offset=".76" stop-color="#FAEDDA"/><stop offset="1" stop-color="#F9EFE2"/></linearGradient></defs><path fill="url(#vedge-spill)" d="M1440 150V139L1400 136L1360 132L1320 127L1280 123L1240 118L1200 114L1160 110L1120 107L1080 104L1040 100L1000 96L960 93L920 90L880 88L840 85L800 82L760 80L720 78L680 76L640 74L600 73L560 72L520 70L480 68L440 64L400 60L360 57L320 54L280 52L240 50L200 48L160 47L120 46L80 46L40 44L0 41V150Z"/></svg>
+      <img class="vision__mark" src="../shared/brand/symbol.svg" width="545" height="770" alt="" aria-hidden="true" loading="lazy">
       <div class="wrap vision__title-wrap">
         <p class="label" aria-hidden="true" data-reveal>رؤيتنا <span class="lat" lang="en">OUR VISION</span></p>
         <h2 class="display vision__title" id="visionTitle" data-words><span class="sr-only">رؤيتنا: </span><span class="line">من تونس</span> <span class="line line--accent">إلى آفاقٍ أوسع</span></h2>

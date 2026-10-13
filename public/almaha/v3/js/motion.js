@@ -804,8 +804,8 @@ async function intro(oryx, cine) {
     const at = (T + 0.5 + i * 0.1) * 1000;
     copy.push(play(b, [{ opacity: 0, transform: 'translateY(18px)' }, { opacity: 1, transform: 'none' }], { duration: 1000, delay: at, easing: POWER3 }), appear(b, at));
   });
+  // the header never waits (the page must never look stuck); C holds only the copy, briefly, for the overture
   const holdHead = HERO === 'c' && oryx.wantsOverture, holdCopy = HERO === 'b' || holdHead;
-  if (holdHead) head.forEach((a) => a.pause());
   if (holdCopy) copy.forEach((a) => a.pause());
   root.classList.remove('intro-pending');                    // the backwards fill above already holds every "from" state
   Promise.all(words.map((a) => a.finished)).then(() => unclip(h1), () => unclip(h1));
@@ -826,11 +826,15 @@ async function intro(oryx, cine) {
   } else if (!holdHead) {
     // C on a repeat visit (or where it cannot play): no symbol, the words at once
   } else {
+    let skipped = false;
     const release = () => { playHead(); playCopy(); };
-    const safety = setTimeout(() => { release(); oryx.skipOverture(); }, 6500);
+    // the overture only plays if the 3D is ready fast; otherwise the copy comes in at once and the overture is skipped
+    const safety = setTimeout(() => { skipped = true; release(); oryx.skipOverture(); }, 1600);
     Promise.all([oryx.ready, oryx.fgReady]).then(([mode]) => {
+      if (skipped) return;
       if (mode !== '3d') { clearTimeout(safety); release(); oryx.skipOverture(); return; }
-      oryx.overture({ header: playHead, words: playCopy }).then(() => clearTimeout(safety));
+      clearTimeout(safety);
+      oryx.overture({ header: () => {}, words: playCopy }).then(() => release(), () => release());
     });
   }
   // the living photo is set up off the critical path (after the LCP), takes over while still and eases its motion in

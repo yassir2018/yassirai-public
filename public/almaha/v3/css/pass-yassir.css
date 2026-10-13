@@ -389,3 +389,5 @@
 .vision__mark { position: absolute; z-index: 2; left: max(var(--gutter), calc((100% - var(--maxw)) / 2)); top: 50%; translate: 0 -50%; height: 78%; width: auto; pointer-events: none; filter: drop-shadow(0 18px 30px rgba(98, 0, 0, .18)); }
 @media (max-width: 760px) { .vision__mark { height: 46%; top: 40%; opacity: .9; } }
 .works { padding-bottom: var(--s-7); }
+/* vision mark: fully inside the sky, clear of the band's curved bottom edge */
+.vision__mark { top: 7%; translate: none; height: calc(86% - clamp(44px, 9vw, 150px)); z-index: 2; }

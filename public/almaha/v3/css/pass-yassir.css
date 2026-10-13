@@ -345,3 +345,6 @@
   .hero .hero-scenes { right: auto; left: calc(max(0px, (100% - var(--maxw) - 2 * var(--gutter)) / 2) + var(--gutter)); bottom: 11%; }
   .hero .hero__side { bottom: 25%; }
 }
+
+/* scene controls hidden for now (Yassir) — autoplay keeps running */
+.hero .hero-scenes { display: none !important; }

@@ -546,3 +546,7 @@
 .display, .work__title, .sector__ar, .pillar__title, .channels h3, .form h3 { text-wrap: balance; }
 .footer__nav a { display: inline-block; padding-block: 6px; }
 .btn:active, .hero-scenes__btn:active { transform: scale(.97); }
+
+/* about back to the top (Yassir 14/10): hero, pillars, about, services… ; vision now follows the night chapter */
+.about { padding-top: var(--section-y) !important; padding-bottom: calc(var(--section-y) * .4) !important; }
+.vision { padding-top: max(16px, calc(var(--section-y) * .5 - .4 * var(--seam-h))); }

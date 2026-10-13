@@ -28,6 +28,8 @@ const nextConfig: NextConfig = {
         { source: "/Games/star-factory", destination: "/Games/star-factory/index.html" },
         { source: "/SBF_site", destination: "/SBF_site/index.html" },
         { source: "/SBF_site/:dir", destination: "/SBF_site/:dir/index.html" },
+        { source: "/almaha", destination: "/almaha/index.html" },
+        { source: "/almaha/:dir", destination: "/almaha/:dir/index.html" },
       ],
       fallback: [],
     };

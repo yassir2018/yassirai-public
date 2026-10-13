@@ -1,0 +1,100 @@
+/* AL MAHA v3 — the hero's three scenes (js/hero-scenes.js). Scene 1 = the living flag photo underneath; scenes 2-3 are
+   overlays in the veil (above the photo and its cut-out, under the ivory air, the brush edge and the copy). */
+
+.hero-stack { isolation: isolate; pointer-events: none; }
+.hero-scene { position: absolute; inset: 0; z-index: 0; opacity: 0; visibility: hidden; overflow: hidden; background: #d8c7bd; }
+.hero-scene.is-on { opacity: 1; visibility: visible; }
+.hero-scene__in { position: absolute; inset: 0; transform-origin: 30% 55%; }
+.hero-scene__img {
+  position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; display: block;
+  object-fit: cover; object-position: var(--sx, 20%) 50%; transform-origin: 26% 52%; will-change: transform;
+}
+.hero-scene[data-scene="2"] { --sx: 16%; }
+.hero-scene[data-scene="3"] { --sx: 24%; }
+/* one warm light pass (soft-light, travels right to left with the sun) */
+.hero-scene__sweep {
+  position: absolute; inset: -6% -45%; opacity: 0; mix-blend-mode: soft-light; pointer-events: none;
+  background: linear-gradient(104deg, rgba(255, 214, 170, 0) 30%, rgba(255, 214, 170, .75) 47%, rgba(255, 236, 214, .9) 50%, rgba(255, 214, 170, 0) 66%);
+}
+/* low mist drifting along the valley */
+.hero-scene__mist {
+  position: absolute; inset: 30% -15% -6%; opacity: 0; pointer-events: none;
+  background:
+    radial-gradient(34% 26% at 22% 72%, rgba(255, 249, 242, .55), rgba(255, 249, 242, 0) 72%),
+    radial-gradient(30% 22% at 58% 64%, rgba(255, 246, 236, .42), rgba(255, 246, 236, 0) 72%),
+    radial-gradient(46% 24% at 84% 80%, rgba(255, 250, 244, .5), rgba(255, 250, 244, 0) 72%),
+    radial-gradient(60% 20% at 40% 98%, rgba(255, 255, 255, .45), rgba(255, 255, 255, 0) 70%);
+}
+
+/* scenes 2-3 already show an oryx: the 3D symbol (A / B) steps back */
+.hero:not([data-scene="1"]) .oryx-stage,
+.hero:not([data-scene="1"]) .hero__frame--oryx { opacity: 0; transition: opacity .6s var(--ease); }
+.hero .oryx-stage, .hero .hero__frame--oryx { transition: opacity .6s var(--ease); }
+
+/* ---------------------------------------------------------------- controls: number, three filling lines, prev / pause / next */
+.hero-scenes {
+  position: absolute; z-index: 4; bottom: 15%;
+  right: calc(max(0px, (100% - var(--maxw) - 2 * var(--gutter)) / 2) + var(--gutter));
+  display: flex; align-items: center; gap: 12px; padding: 6px 16px 6px 6px; border-radius: 999px;
+  color: var(--ink); direction: rtl;
+  background: rgba(248, 242, 236, .62); box-shadow: 0 10px 30px -18px rgba(60, 20, 10, .45), inset 0 0 0 1px rgba(255, 255, 255, .5);
+  -webkit-backdrop-filter: blur(10px) saturate(1.2); backdrop-filter: blur(10px) saturate(1.2);
+  animation: hero-in 1.2s var(--ease) 2.2s both;
+}
+.hero-scenes[hidden] { display: none; }
+.hero-scenes__count { font: 600 13px/1 var(--f-lat); letter-spacing: .14em; direction: ltr; min-width: 4.4em; text-align: right; font-variant-numeric: tabular-nums; }
+.hero-scenes__count span:last-child { opacity: .5; }
+.hero-scenes__now { color: var(--bordeaux); }
+.hero-scenes__dots { display: flex; gap: 6px; }
+.hero-scenes__dot {
+  position: relative; width: 46px; height: 32px; padding: 0; border: 0; background: none; cursor: pointer; color: inherit;
+}
+.hero-scenes__dot::before, .hero-scenes__fill {
+  content: ""; position: absolute; inset-inline: 0; top: 50%; height: 2px; margin-top: -1px; border-radius: 2px;
+}
+.hero-scenes__dot::before { background: rgba(34, 34, 34, .2); transition: background-color .3s var(--ease); }
+.hero-scenes__fill { background: var(--bordeaux); transform: scaleX(0); transform-origin: 100% 50%; }   /* fills right to left */
+.hero-scenes__dot:hover::before { background: rgba(34, 34, 34, .42); }
+.hero-scenes__btns { display: flex; gap: 4px; margin-inline-start: 4px; }
+.hero-scenes__btn {
+  display: grid; place-items: center; width: 40px; height: 40px; padding: 0; border-radius: 50%; cursor: pointer;
+  border: 1px solid rgba(34, 34, 34, .2); background: rgba(255, 255, 255, .5); color: var(--ink);
+  transition: background-color .3s var(--ease), color .3s var(--ease), border-color .3s var(--ease), transform .4s var(--ease-expo);
+}
+.hero-scenes__btn svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.hero-scenes__btn:hover { background: var(--bordeaux); border-color: var(--bordeaux); color: #fff; }
+.hero-scenes__btn:active { transform: scale(.94); }
+.hero-scenes__btn:focus-visible, .hero-scenes__dot:focus-visible { outline: 2px solid var(--bordeaux); outline-offset: 3px; }
+.hero-scenes__btn .i-play { display: none; }
+.hero-scenes.is-paused .hero-scenes__btn .i-pause { display: none; }
+.hero-scenes.is-paused .hero-scenes__btn .i-play { display: block; }
+.hero-scenes__count { order: 0; }
+/* the scene's line is announced to screen readers (user changes only); on screen the photograph speaks for itself */
+.hero-scenes__cap { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; margin: 0; }
+
+/* portrait / phones: a compact bar above the brush edge, the buttons lifted to make room */
+@media (max-width: 1023px) and (orientation: portrait), (max-width: 600px) {
+  .hero-scenes { bottom: 50px; right: var(--gutter); left: var(--gutter); gap: 10px; padding: 0; color: #fff; background: none; box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none; }
+  .hero-scenes__count { color: #fff; min-width: 0; font-size: 12px; text-shadow: 0 1px 8px rgba(20, 12, 8, .6); }
+  .hero-scenes__now { color: #fff; }
+  .hero-scenes__dots { flex: 1; gap: 5px; }
+  .hero-scenes__dot { flex: 1; width: auto; height: 40px; }
+  .hero-scenes__dot::before { background: rgba(255, 255, 255, .38); }
+  .hero-scenes__fill { background: #fff; }
+  .hero-scenes__btn { width: 40px; height: 40px; border-color: rgba(255, 255, 255, .45); background: rgba(20, 12, 10, .28); color: #fff; }
+  .hero-scenes__btns { margin: 0; }
+  .hero__inner { padding-bottom: calc(50px + 40px + 22px); }
+  /* the oryx photographs fill the column the copy reads over: a soft ivory air down to the sub-line (it wipes in with
+     its scene), the oryx stays vivid below it */
+  .hero-scene__in::after {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: linear-gradient(180deg, rgba(248, 242, 236, .5) 0, rgba(248, 242, 236, .62) 34%, rgba(248, 242, 236, .5) 50%, rgba(248, 242, 236, 0) 62%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-scenes { animation: none; }
+  .hero-scenes__btn { transition: none; }
+}
+
+/* nothing of the controls while the intro / the overture holds the stage */
+.intro-pending .hero-scenes, .c-overture .hero-scenes { visibility: hidden; }

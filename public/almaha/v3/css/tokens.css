@@ -1,0 +1,99 @@
+/* AL MAHA v3 — design tokens + fonts. Brand palette is exact; tints are derived only where named.
+   One system for the whole page (spacing / type / surface audit of 13/10): components use these tokens only, never an
+   ad-hoc clamp(). Fluid values interpolate 390 -> 1440 px and cap at 1920 (comments: 390 / 1024 / 1440 / 1920). */
+
+@font-face { font-family: "Cairo"; src: url("../fonts/cairo-400.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Cairo"; src: url("../fonts/cairo-500.woff2") format("woff2"); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: "Cairo"; src: url("../fonts/cairo-600.woff2") format("woff2"); font-weight: 600; font-style: normal; font-display: swap; }
+@font-face { font-family: "Cairo"; src: url("../fonts/cairo-700.woff2") format("woff2"); font-weight: 700; font-style: normal; font-display: swap; }
+@font-face { font-family: "Montserrat"; src: url("../fonts/montserrat-560.woff2") format("woff2"); font-weight: 560; font-style: normal; font-display: swap; }
+@font-face { font-family: "Montserrat"; src: url("../fonts/montserrat-350.woff2") format("woff2"); font-weight: 350; font-style: normal; font-display: swap; }
+
+:root {
+  /* ------------------------------------------------------------ brand (exact) */
+  --red: #EB070D;          /* screen red: logo, rules, ticks, focus, progress, brush; display accent on DARK only (>= 24 px) */
+  --deep: #620000;         /* pressed / hover fill */
+  --bordeaux: #8E1028;     /* display accent + buttons on LIGHT (8.4:1 on ivory, white on it 9.3:1) */
+  --ink: #222222;          /* charcoal: TEXT on light */
+  --ink-0: #0A0A0A;
+  --ivory: #F8F2EC;
+  --sand: #D9C9C3;
+
+  /* ------------------------------------------------------------ surfaces: one continuous light (colour-flow plan)
+     day = ivory, dusk = paper-2 ramping to --dusk, night = a warm black taken from the brand mockup (#1B1A17); photos
+     between. Hard light/light steps are never used: every change is a ramp, a brush edge or a ribbon seam. */
+  --paper-2: #EFE6E0;      /* ivory 70 / sand 30, the alternate light surface (only inside ramps) */
+  --dusk: #E8DCD4;         /* last light before a night chapter (L* 88.5): ink 11.8:1, muted 6.2:1, bordeaux 6.9:1 */
+  --night: #1E1A18;        /* dark SURFACES (approach, footer, dark header, seams into the dark): ivory on it 15.5:1 */
+  /* light sampled from the photos, used ONLY as spills (rgb(var(--x) / a)); red is never a tint */
+  --sun: 247 197 157;      /* hero apricot, alpha <= .20 */
+  --dawn: 229 166 151;     /* hero rose, alpha <= .16 */
+  --horizon: 254 226 182;  /* vision gold, alpha <= .34 */
+  --ember: 142 16 40;      /* bordeaux as light on --night, alpha <= .17 */
+
+  /* roles: one red per context */
+  --accent-light: var(--bordeaux);
+  --accent-dark: var(--red);
+
+  /* derived text + lines (contrast checked) */
+  --muted: #554C47;        /* 7.5:1 on ivory, 6.8:1 on paper-2, 6.2:1 on dusk */
+  --line: rgba(34, 34, 34, .14);
+  --line-strong: #8C827C;  /* form boundaries, 3.4:1 on ivory */
+  --on-dark: #F8F2EC;
+  --on-dark-muted: #BDB2AB;/* 8.3:1 on night */
+  --line-dark: rgba(248, 242, 236, .16);
+  /* copper (from v2's night chapter): the icon colour on night, and the accents of the ?style=v2 layer */
+  --copper: #D9AF93;       /* 8.2:1 on night */
+  --copper-2: #D6AA8C;     /* numerals, 7.8:1 */
+  /* works cards (client-tinted covers sit on --cover-base) */
+  --card: #FBF7F3;
+  --card-line: rgba(34, 34, 34, .12);
+  --cover-base: #E9E1DA;
+
+  /* ------------------------------------------------------------ type: 11 roles (Cairo) + 3 Latin styles (Montserrat) */
+  --f-ar: "Cairo", "Segoe UI", Tahoma, sans-serif;
+  --f-lat: "Montserrat", "Segoe UI", Arial, sans-serif;
+  --fs-h1:        clamp(30px, min(9.2vw, 1.5071rem + 3.048vw), 78px);  /* 36 / 55 / 68 / 78 (30 at 320) — hero; Vision band title */
+  --fs-h2:        clamp(30px, 1.3643rem + 2.095vw, 60px);              /* 30 / 43 / 52 / 60 — every chapter title */
+  --fs-list:      clamp(22px, 0.9571rem + 1.714vw, 46px);              /* 22 / 33 / 40 / 46 — sector names */
+  --fs-statement: clamp(22px, 1.1429rem + 0.952vw, 36px);              /* 22 / 28 / 32 / 36 — about statement, step titles */
+  --fs-h3:        clamp(20px, 1.1107rem + 0.571vw, 28px);              /* 20 / 23.6 / 26 / 28 — service names, column titles, vision lead */
+  --fs-lead:      clamp(18px, 1.0554rem + 0.286vw, 22px);              /* 18 / 19.8 / 21 / 22 — leads, hero sub, step body */
+  --fs-h4:        clamp(17px, 0.9929rem + 0.286vw, 21px);              /* 17 / 18.8 / 20 / 21 — pillar, fact, value, client, channel */
+  --fs-body:      clamp(16px, 0.9536rem + 0.190vw, 18px);              /* 16 / 17.2 / 18 / 18 */
+  --fs-small: 15px;        /* eyebrow, dt, form labels, consent, pillar text, footer bottom */
+  --fs-btn: 16px;          /* buttons, nav, inputs (16: no iOS zoom) */
+  --fs-btn-sm: 15px;
+  --fs-micro: 11px;        /* Latin label: Montserrat 560, uppercase, .2em */
+  --fs-num: 13px;          /* Latin numerals: Montserrat 560, tabular, .12em */
+  --fs-tag: 12px;          /* Latin tagline: Montserrat 350, .32em (signature only) */
+  --lh-display: 1.3;       /* floor for Cairo headings: tanwin and hamza need the room */
+  --lh-list: 1.35; --lh-statement: 1.45; --lh-h3: 1.4; --lh-h4: 1.5;
+  --lh-lead: 1.7;  --lh-body: 1.75; --lh-small: 1.65; --lh-micro: 1.4;
+  --tr-micro: .2em; --tr-num: .12em; --tr-tag: .32em;
+
+  /* ------------------------------------------------------------ space: 8-pt base, fluid at the top end */
+  --s-1: 4px; --s-2: 8px; --s-3: 12px; --s-4: 16px; --s-5: 24px; --s-6: 32px;
+  --s-7: clamp(32px, 1.6286rem + 1.524vw, 48px);           /* 32 / 42 / 48 / 48 */
+  --s-9: clamp(56px, 2.5714rem + 3.810vw, 104px);          /* 56 / 80 / 96 / 104 — sub-blocks inside a chapter */
+  --space-tight: clamp(16px, 0.8143rem + 0.762vw, 24px);   /* 16 / 21 / 24 / 24 — eyebrow -> heading, heading -> text */
+  --space-cta: clamp(32px, 1.8143rem + 0.762vw, 40px);     /* 32 / 37 / 40 / 40 — lead -> buttons */
+  --space-head: clamp(40px, 1.9429rem + 2.286vw, 72px);    /* 40 / 54 / 64 / 72 — heading block -> content */
+  --section-y: clamp(80px, 3.5143rem + 6.095vw, 168px);    /* 80 / 119 / 144 / 168 — the chapter boundary (ONE per boundary) */
+  --section-y-s: clamp(48px, 2.2571rem + 3.048vw, 96px);   /* 48 / 67 / 80 / 95 — bands */
+  --form-pad: clamp(24px, 0.943rem + 2.286vw, 48px);       /* 24 / 38 / 48 / 48 */
+
+  /* ------------------------------------------------------------ layout: one container, one 12-column grid */
+  --gutter: clamp(20px, -0.1429rem + 5.714vw, 96px);       /* 20 / 56 / 80 / 96 */
+  --grid-gap: clamp(16px, 0.6286rem + 1.524vw, 40px);      /* 16 / 26 / 32 / 39 */
+  --maxw: 1440px;                                          /* content width (1920: 240 px margins) */
+  --header-h: 84px;
+  --seam-h: clamp(120px, 15vw, 240px);                     /* chapter seam height (used by the paddings next to it) */
+  --seam-foot-h: clamp(48px, 6vw, 100px);                  /* the flatter night seam before the footer */
+  --nav-gap: clamp(16px, 1.95vw, 28px);                    /* header links: 28 at 1440 */
+
+  /* motion */
+  --ease: cubic-bezier(.2, .7, .25, 1);       /* v2 brand ease, kept */
+  --ease-expo: cubic-bezier(.16, 1, .3, 1);
+  --ease-inout: cubic-bezier(.65, 0, .35, 1);
+}

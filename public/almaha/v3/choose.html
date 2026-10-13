@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>المها · اختيار الواجهة والأسلوب</title>
+<link rel="icon" href="img/favicon.svg">
+<link rel="stylesheet" href="css/tokens.css">
+<style>
+  :root {
+    --ink: #1B1A17; --paper: #F8F2EC; --sand: #D9C9C3; --line: #E4D9D1; --muted: #5E5751;
+    --bordeaux: #8E1028; --red: #EB070D;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body { background: var(--paper); color: var(--ink); font-family: "Cairo", sans-serif; line-height: 1.75; }
+  .wrap { max-width: 1240px; margin-inline: auto; padding: 0 24px; }
+  header { padding: 40px 0 28px; display: flex; align-items: center; gap: 20px; border-bottom: 1px solid var(--line); }
+  header img { height: 52px; width: auto; }
+  .intro { padding: 48px 0 16px; }
+  .label { font-family: "Montserrat", sans-serif; font-weight: 560; font-size: 11px; letter-spacing: .28em; text-transform: uppercase; color: var(--bordeaux); }
+  h1 { font-size: clamp(30px, 4vw, 48px); line-height: 1.3; margin: 10px 0 12px; font-weight: 600; }
+  h1 span { color: var(--bordeaux); }
+  .intro p { max-width: 62ch; color: var(--muted); margin: 0; font-size: 17px; }
+  .options { display: grid; gap: 40px; padding: 40px 0 72px; }
+  .opt { display: grid; grid-template-columns: minmax(0, 1fr) 210px; gap: 24px; align-items: start; padding: 28px; background: #FFFCF8; border: 1px solid var(--line); }
+  .opt.is-picked { border-color: var(--bordeaux); box-shadow: 0 0 0 1px var(--bordeaux) inset; }
+  .shots { display: grid; grid-template-columns: minmax(0, 1fr) 132px; gap: 16px; align-items: end; }
+  .shots img { width: 100%; height: auto; display: block; border: 1px solid var(--line); background: var(--sand); }
+  .meta { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px 24px; align-items: end; }
+  .meta h2 { margin: 0; font-size: 26px; font-weight: 600; line-height: 1.4; }
+  .meta h2 small { font-family: "Montserrat", sans-serif; font-weight: 560; font-size: 11px; letter-spacing: .24em; color: var(--muted); margin-inline-start: 10px; }
+  .meta p { grid-column: 1; margin: 0; color: var(--muted); max-width: 70ch; }
+  .actions { grid-column: 2; grid-row: 1 / span 2; display: flex; gap: 12px; flex-wrap: wrap; justify-content: flex-end; }
+  .btn { font: inherit; font-size: 15px; font-weight: 600; padding: 10px 22px; border-radius: 999px; border: 1px solid var(--bordeaux); cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; min-height: 46px; }
+  .btn--ghost { background: transparent; color: var(--bordeaux); }
+  .btn--solid { background: var(--bordeaux); color: #fff; }
+  .btn:focus-visible { outline: 2px solid var(--red); outline-offset: 3px; }
+  .rec { display: inline-block; font-size: 12px; font-weight: 600; color: #fff; background: var(--bordeaux); padding: 2px 10px; border-radius: 999px; margin-inline-start: 8px; vertical-align: middle; }
+  .opt > .shots { grid-column: 1 / -1; }
+  .note { padding: 0 0 40px; color: var(--muted); font-size: 15px; }
+  .step { display: inline-flex; align-items: center; gap: 10px; }
+  .step b { font: 560 13px/1 "Montserrat", sans-serif; letter-spacing: .12em; color: #fff; background: var(--bordeaux); padding: 6px 9px; border-radius: 3px; }
+  .part { border-top: 1px solid var(--line); }
+  .shots--style { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 132px; }
+  .combo { position: sticky; bottom: 0; z-index: 5; background: rgba(248, 242, 236, .96); border-top: 1px solid var(--line); padding: 14px 0; }
+  .combo .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px; }
+  .combo p { margin: 0; font-weight: 600; }
+  @media (max-width: 760px) { .shots--style { grid-template-columns: minmax(0, 1fr) 96px; } .shots--style img:nth-child(2) { display: none; } }
+  .toast { position: fixed; inset-inline: 0; bottom: 24px; margin-inline: auto; width: max-content; max-width: calc(100% - 32px); background: var(--ink); color: #fff; padding: 12px 22px; border-radius: 999px; opacity: 0; transform: translateY(12px); transition: opacity .3s, transform .3s; pointer-events: none; }
+  .toast.is-on { opacity: 1; transform: none; }
+  @media (max-width: 760px) {
+    .opt { padding: 18px; }
+    .shots { grid-template-columns: minmax(0, 1fr) 96px; }
+    .meta { grid-template-columns: 1fr; }
+    .actions { grid-column: 1; grid-row: auto; justify-content: flex-start; }
+  }
+  @media (prefers-reduced-motion: reduce) { .toast { transition: none; } }
+</style>
+</head>
+<body>
+<header class="wrap"><img src="img/logo-h.svg" alt="المها للاستشارات والخدمات"></header>
+<main class="wrap">
+  <section class="intro">
+    <div class="label" lang="en">Hero · Style</div>
+    <h1>اختياران سريعان: <span>الواجهة والأسلوب</span></h1>
+    <p>أولاً تصوّر الواجهة (أعلى الصفحة)، ثم أسلوب بقية الصفحة. كل رابط «شاهدوه مباشرة» يجمع الاختيارين معاً، فترون الموقع كما سيكون.</p>
+  </section>
+  <section class="intro part">
+    <div class="label step" lang="en"><b>1</b> Hero · 3 options</div>
+    <h1>ثلاثة تصوّرات للواجهة، <span>اختاروا واحداً</span></h1>
+    <p>الصورة والعنوان والمحتوى هي نفسها في التصوّرات الثلاثة. الاختلاف في دور رمز المها: أين يظهر، وبأي حجم، وكيف يدخل. افتحوا كل تصوّر مباشرة لرؤية الحركة، ثم اضغطوا «أختار هذا التصوّر».</p>
+  </section>
+
+  <section class="options" aria-label="التصوّرات">
+    <article class="opt" data-opt="c">
+      <div class="shots">
+        <img src="shots/hero-options/c-overture-1440x900.jpg" alt="التصوّر ج على الحاسوب: المها كبيرة في لحظة الافتتاح" loading="lazy" width="1440" height="900">
+        <img src="shots/hero-options/c-390x844.jpg" alt="التصوّر ج على الهاتف" loading="lazy" width="390" height="844">
+      </div>
+      <div class="meta">
+        <h2>ج · «العتبة»<small lang="en">OVERTURE</small><span class="rec">نوصي به</span></h2>
+        <p>عند أول زيارة، يرتسم رمز المها كبيراً فوق المنظر، ثم يطير في قوس صاعد ليستقرّ في الشعار أعلى الصفحة. بعدها تبقى الصورة نقية: العلم والعنوان فقط. لحظة افتتاح سينمائية لا تتكرّر إلا في زيارة جديدة.</p>
+        <div class="actions">
+          <a class="btn btn--ghost" href="index.html?hero=c&amp;style=v3" data-live-hero="c" target="_blank" rel="noopener">شاهدوه مباشرة</a>
+          <button class="btn btn--solid" type="button" data-pick="c" data-group="hero">أختار هذا التصوّر</button>
+        </div>
+      </div>
+    </article>
+
+    <article class="opt" data-opt="a">
+      <div class="shots">
+        <img src="shots/hero-options/a-1440x900.jpg" alt="التصوّر أ على الحاسوب" loading="lazy" width="1440" height="900">
+        <img src="shots/hero-options/a-390x844.jpg" alt="التصوّر أ على الهاتف" loading="lazy" width="390" height="844">
+      </div>
+      <div class="meta">
+        <h2>أ · «التوقيع»<small lang="en">SIGNATURE</small></h2>
+        <p>يصبح رمز المها جزءاً من العنوان، كشعار مركّب بجانب «معاً نحو»، بألوانه الحقيقية. حضور أنيق وهادئ، والعلم يبقى وحده في أعلى المنظر.</p>
+        <div class="actions">
+          <a class="btn btn--ghost" href="index.html?hero=a&amp;style=v3" data-live-hero="a" target="_blank" rel="noopener">شاهدوه مباشرة</a>
+          <button class="btn btn--solid" type="button" data-pick="a" data-group="hero">أختار هذا التصوّر</button>
+        </div>
+      </div>
+    </article>
+
+    <article class="opt" data-opt="b">
+      <div class="shots">
+        <img src="shots/hero-options/b-1440x900.jpg" alt="التصوّر ب على الحاسوب" loading="lazy" width="1440" height="900">
+        <img src="shots/hero-options/b-390x844.jpg" alt="التصوّر ب على الهاتف" loading="lazy" width="390" height="844">
+      </div>
+      <div class="meta">
+        <h2>ب · «النُّصُب»<small lang="en">MONUMENT</small></h2>
+        <p>رمز كبير يقف داخل المنظر بين الصخرة والمدينة، والسارية والصخر أمامه. حضور قوي للعلامة في قلب الصورة.</p>
+        <div class="actions">
+          <a class="btn btn--ghost" href="index.html?hero=b&amp;style=v3" data-live-hero="b" target="_blank" rel="noopener">شاهدوه مباشرة</a>
+          <button class="btn btn--solid" type="button" data-pick="b" data-group="hero">أختار هذا التصوّر</button>
+        </div>
+      </div>
+    </article>
+  </section>
+  <p class="note">التصوّر «ج» يُعرض كاملاً عند أول زيارة فقط؛ زرّ «شاهدوه مباشرة» يفتحه في نافذة جديدة فيُعاد في كل مرة.</p>
+
+  <section class="intro part">
+    <div class="label step" lang="en"><b>2</b> Style · 2 options</div>
+    <h1>أسلوبان لبقية الصفحة، <span>اختاروا واحداً</span></h1>
+    <p>المحتوى والأيقونات وقسم «أعمالنا» هي نفسها في الأسلوبين، والأحمر هو أحمر الشعار في الحالتين. الاختلاف في الألوان المحيطة والإيقاع وطريقة عرض المنهجية.</p>
+  </section>
+  <section class="options" aria-label="الأسلوبان">
+    <article class="opt" data-opt="v3">
+      <div class="shots shots--style">
+        <img src="shots/style/v3-approach-1440x900.jpg" alt="الأسلوب v3 على الحاسوب: قسم المنهجية" loading="lazy" width="1440" height="900">
+        <img src="shots/style/v3-works-1440x900.jpg" alt="الأسلوب v3 على الحاسوب: قسم أعمالنا" loading="lazy" width="1440" height="900">
+        <img src="shots/style/v3-approach-390x844.jpg" alt="الأسلوب v3 على الهاتف" loading="lazy" width="390" height="844">
+      </div>
+      <div class="meta">
+        <h2>v3 · «الضوء المتّصل»<small lang="en">CONTINUOUS LIGHT</small></h2>
+        <p>عاجيّ دافئ يتدرّج بهدوء من فصل إلى آخر، ومساحات واسعة. المنهجية فصل ليلي ثابت تتقدّم فيه المراحل مع التمرير، وخطّ أحمر يرسم المسار.</p>
+        <div class="actions">
+          <a class="btn btn--ghost" href="index.html?hero=c&amp;style=v3" data-live-style="v3" target="_blank" rel="noopener">شاهدوه مباشرة</a>
+          <button class="btn btn--solid" type="button" data-pick="v3" data-group="style">أختار هذا الأسلوب</button>
+        </div>
+      </div>
+    </article>
+
+    <article class="opt" data-opt="v2">
+      <div class="shots shots--style">
+        <img src="shots/style/v2-approach-1440x900.jpg" alt="أسلوب روح v2 على الحاسوب: المنهجية في تبويبات" loading="lazy" width="1440" height="900">
+        <img src="shots/style/v2-works-1440x900.jpg" alt="أسلوب روح v2 على الحاسوب: قسم أعمالنا" loading="lazy" width="1440" height="900">
+        <img src="shots/style/v2-approach-390x844.jpg" alt="أسلوب روح v2 على الهاتف" loading="lazy" width="390" height="844">
+      </div>
+      <div class="meta">
+        <h2>«روح&nbsp;<bdi dir="ltr">v2</bdi>»<small lang="en">WARM LEDGER</small></h2>
+        <p>ألوان رملية دافئة مائلة إلى الأصفر، لكل فصل شريطه الخاص، وإيقاع أقصر بين الأقسام. في الفصل الليلي لمسات نحاسية، والمنهجية تبويبات 01–04 برقم كبير تُقرأ في شاشة واحدة.</p>
+        <div class="actions">
+          <a class="btn btn--ghost" href="index.html?hero=c&amp;style=v2" data-live-style="v2" target="_blank" rel="noopener">شاهدوه مباشرة</a>
+          <button class="btn btn--solid" type="button" data-pick="v2" data-group="style">أختار هذا الأسلوب</button>
+        </div>
+      </div>
+    </article>
+  </section>
+</main>
+<div class="combo"><div class="wrap"><p class="combo__text"></p><a class="btn btn--solid combo__go" href="index.html?hero=c&amp;style=v3" target="_blank" rel="noopener">شاهدوا اختياركم مباشرة</a></div></div>
+<div class="toast" role="status" aria-live="polite"></div>
+<script>
+  // Two choices (hero, style), kept in this browser and shown on the cards; every live link combines them.
+  // CHOICE_EMAIL, once set, also opens a ready e-mail.
+  const CHOICE_EMAIL = '';
+  const names = {
+    hero: { a: 'أ · «التوقيع»', b: 'ب · «النُّصُب»', c: 'ج · «العتبة»' },
+    style: { v3: 'v3 · «الضوء المتّصل»', v2: '«روح ⁦v2⁩»' },
+  };
+  const KEY = { hero: 'almaha-hero-choice', style: 'almaha-style-choice' };
+  const pick = { hero: null, style: null };
+  const read = (g) => { try { const k = localStorage.getItem(KEY[g]); return names[g][k] ? k : null; } catch (e) { return null; } };
+  const toast = document.querySelector('.toast');
+  const url = (hero, style) => 'index.html?hero=' + hero + '&style=' + style;
+  const render = () => {
+    const hero = pick.hero || 'c', style = pick.style || 'v3';   // C stays the recommendation; v3 is the default style
+    document.querySelectorAll('[data-pick]').forEach((b) => {
+      const on = pick[b.dataset.group] === b.dataset.pick;
+      b.closest('.opt').classList.toggle('is-picked', on);
+      b.textContent = on ? 'تمّ اختياره ✓' : (b.dataset.group === 'hero' ? 'أختار هذا التصوّر' : 'أختار هذا الأسلوب');
+      b.setAttribute('aria-pressed', String(on));
+    });
+    document.querySelectorAll('[data-live-hero]').forEach((a) => { a.href = url(a.dataset.liveHero, style); });
+    document.querySelectorAll('[data-live-style]').forEach((a) => { a.href = url(hero, a.dataset.liveStyle); });
+    document.querySelector('.combo__go').href = url(hero, style);
+    document.querySelector('.combo__text').textContent = 'الواجهة: ' + names.hero[hero] + (pick.hero ? '' : ' (موصى بها)') + ' · الأسلوب: ' + names.style[style] + (pick.style ? '' : ' (الافتراضي)');
+  };
+  pick.hero = read('hero'); pick.style = read('style');
+  render();
+  document.querySelectorAll('[data-pick]').forEach((b) => b.addEventListener('click', () => {
+    const g = b.dataset.group, k = b.dataset.pick;
+    pick[g] = k;
+    try { localStorage.setItem(KEY[g], k); } catch (e) {}
+    render();
+    toast.textContent = 'شكراً، اخترتم ' + (g === 'hero' ? 'التصوّر ' : 'الأسلوب ') + names[g][k];
+    toast.classList.add('is-on'); setTimeout(() => toast.classList.remove('is-on'), 3200);
+    if (CHOICE_EMAIL && pick.hero && pick.style) location.href = 'mailto:' + CHOICE_EMAIL + '?subject=' + encodeURIComponent('اختيار الواجهة والأسلوب: ' + names.hero[pick.hero] + ' + ' + names.style[pick.style]);
+  }));
+</script>
+</body>
+</html>

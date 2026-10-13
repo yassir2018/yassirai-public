@@ -461,3 +461,52 @@
   .step__body { flex-direction: column; align-items: flex-start; gap: 10px; }
   .step__body::before { font-size: 64px !important; }
 }
+
+/* ================================================================ pass 7 (deep audit 13/10) */
+/* about: photo left, the statement under the body as a quote (no void under the text) */
+.about__quote { margin-top: var(--s-7); padding-inline-start: 22px; border-inline-start: 2px solid var(--red); }
+.about__quote .statement { font-size: clamp(22px, 1.1rem + .9vw, 32px); }
+.about__statement { align-self: stretch; display: flex; }
+.about__media { margin: 0; flex: 1; aspect-ratio: auto; min-height: 380px; }
+@media (max-width: 1023px) { .about__media { min-height: 0; aspect-ratio: 4 / 3; margin-top: var(--s-6); } }
+
+/* sectors: same content width as every chapter, a right-aligned two-tone title */
+.sectors { text-align: start; }
+.sectors__head { margin-bottom: var(--space-head); }
+.sectors__list { padding-inline: 0 !important; max-width: none !important; }
+
+/* approach: no empty band under the panel */
+.approach__pin { padding-bottom: calc(var(--section-y) * .6 + .6 * var(--seam-h)) !important; }
+
+/* clients: a compact trust strip that leads into the works (no second big title for the same three names) */
+.clients__head { display: flex; align-items: baseline; gap: 18px; margin-bottom: var(--s-4); }
+.clients__head .display { font-size: clamp(20px, 1rem + .5vw, 26px); }
+.clients { padding-bottom: var(--s-6) !important; }
+.client { padding: 6px 14px; }
+.client__logo { height: clamp(56px, 4.6vw, 72px); }
+
+/* vision: the body closer to the band */
+.vision__body { margin-top: var(--s-6) !important; }
+
+/* contact: the channels card is wider and lays email + address side by side (no void in the middle) */
+.channels--top { grid-column: 6 / span 7; }
+.channels--top dl { grid-template-columns: 1fr 1fr; column-gap: var(--s-6); }
+.channels--top .channel:last-of-type { border-bottom: 0; }
+.channels--top .channel { border-bottom: 0; }
+@media (max-width: 1023px) { .channels--top { grid-column: 1 / -1; } }
+@media (max-width: 600px) { .channels--top dl { grid-template-columns: 1fr; } }
+
+@media (min-width: 1024px) {
+  .contact__cta-inner { grid-column: 1 / span 5 !important; grid-row: 1; }
+  .channels--top { grid-column: 6 / span 7 !important; grid-row: 1; align-self: end; }
+}
+
+@media (max-width: 760px) { .clients__head { flex-direction: column; gap: 6px; } }
+
+/* ---------------------------------------------------------------- new order (value first): services, sectors, clients+works,
+   approach (night), about, vision, contact. Paddings follow the new neighbours of the night seams. */
+.sectors { padding-block: var(--section-y) var(--section-y) !important; background: linear-gradient(180deg, var(--ivory) 0, #EFE5DB 120px, #EBE0D5 85%, var(--ivory) 100%) !important; }
+.clients { padding-top: var(--section-y) !important; }
+.works { padding-bottom: calc(var(--section-y) * .6 + .67 * var(--seam-h)) !important; }
+.about { padding-top: max(24px, calc(var(--section-y) - .5 * var(--seam-h))) !important; }
+.about { padding-bottom: calc(var(--section-y) * .8) !important; }

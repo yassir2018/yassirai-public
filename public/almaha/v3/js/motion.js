@@ -3,6 +3,7 @@
 // wipe right to left, forward arrows point left); one brand ease family; full static fallback for
 // prefers-reduced-motion; nothing loops forever; scroll-linked effects animate transform / opacity only.
 import { initHeroScenes } from './hero-scenes.js';
+const HERO_SCENES = false;
 import { HERO_PLATE, PLATES, ORYX_MODULE, ORYX_SRC, ORYX_STATIC, ORYX_OCCLUDE, ORYX_FIT, ORYX_BUDGET_MS, MQ, CINEMAGRAPH, FLAG_FLUTTER, CINE, HERO_CONCEPT, HERO_CONCEPTS } from './config.js';
 
 const $ = (s, r = document) => r.querySelector(s);
@@ -33,7 +34,8 @@ export function initMotion() {
   const oryx = initOryx({ reduce, gl2, gsap: reduce ? null : gsap });
   const cine = initCine({ gl2, after: oryx.ready });
   const cta = ctaHandoff();
-  const scenes = initHeroScenes({ cine });                       // the hero's three scenes (js/hero-scenes.js)
+  // Yassir: no scene transitions in the hero for now; the flag scene + the oryx (logo) animation only
+  const scenes = HERO_SCENES ? initHeroScenes({ cine }) : null;
   if (LOCAL) window.__hero = { oryx, cine, scenes, concept: HERO };       // test hook (local server only)
 
   if (!gsap || !ST || reduce) {

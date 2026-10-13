@@ -49,7 +49,7 @@ const DEFAULTS = {
   flagGeo: null,                   // { hoistPoly: [c2, c1, c0], flyX, y0, y1 } master-normalised (hero-geometry.json)
   water: 1, fog: 1, drift: 1, glitter: 1, flag: 1, speed: 1,
   flagAmp: 7.5,                    // master px of travel at the fly end
-  flagHz: 0.85,                    // wave frequency at a point of the cloth
+  flagHz: 1.05,                    // wave frequency at a point of the cloth
   fogTune: [0.42, 3.0, 0.7, 0.2],  // fog density offset (keeps the photo's mean), gain thick / clear, billow light
   intro: { delay: 0, ramp: 2.4 },  // motion fades in once the canvas is up (s)
   dprMax: 2,                       // canvas pixels per CSS px at most: the still <img> is drawn at the device ratio, so is
@@ -650,7 +650,7 @@ export function createCinemagraph(container, options = {}) {
       // gusts: two slow incommensurate swells, never below 0.7 of the base amplitude
       const gust = 0.85 + 0.09 * Math.sin(t * TAU / 6.3 + 0.7) + 0.06 * Math.sin(t * TAU / 2.9 + 2.2);
       gl.uniform4f(loc.uFlagB, g.y0, g.y1, (o.flagAmp / o.masterH) * fOn, fract(t * o.flagHz));
-      gl.uniform4f(loc.uFlagC, 0.075 * fOn, gust, fract(t * o.flagHz * 1.73), 0);
+      gl.uniform4f(loc.uFlagC, 0.15 * fOn, gust, fract(t * o.flagHz * 1.73), 0);
     } else {
       gl.uniform4f(loc.uFlagB, 0, 1, 0, 0);
     }

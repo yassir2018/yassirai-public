@@ -53,7 +53,7 @@ export const CINE = {
   wind: [1, 0],                                       // the flag flies to the right: mist and clouds travel right too
                                                       // (far banks 54 master px/s: ~40 px/s on a 1920 screen)
   flagGeo: { hoistPoly: [-0.1005993, 0.0786131, 0.2720645], flyX: 0.391, y0: 0.3307, y1: 0.5208 },
-  flagAmp: 5.3,                                       // master px at the free edge (subtle; 7.5 on the full-size flag, x 0.70)
+  flagAmp: 18,                                       // master px at the free edge (subtle; 7.5 on the full-size flag, x 0.70)
   fogTune: [0.40, 3.9, 0.85, 0.24],                   // mist: density offset, gain thicker / clearer, billow light
   dprMax: 2,                                          // canvas px per CSS px at most (the photo <img> is drawn at the
                                                       // device ratio: matching it keeps the take-over seamless)

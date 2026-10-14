@@ -746,7 +746,8 @@ a.lang--switch:hover, a.lang--switch:focus-visible { color: var(--bordeaux); tex
 .on-dark .step__ico { background: rgba(217, 175, 147, .12); }
 /* ---------------------------------------------------------------- pillars
    the sun falls on the page: under the hero cut the apricot spill fades into the day (B0) */
-.pillars { position: relative; z-index: 2; padding-top: var(--s-6); padding-bottom: calc(var(--section-y) * .3); }
+/* the night seam (approach) follows the pillars since 14/10: room for the curve that rises into their bottom */
+.pillars { position: relative; z-index: 2; padding-top: var(--s-6); padding-bottom: calc(var(--section-y) * .6 + .67 * var(--seam-h)); }
 .pillars::before {
   content: "";
   position: absolute;
@@ -1326,7 +1327,7 @@ a.lang--switch:hover, a.lang--switch:focus-visible { color: var(--bordeaux); tex
    Cover = the client's own tint (each client's palette, never ours) + concentric rings + a ghost numeral, and the real
    deliverable as a plate when there is one (else the official mark). Square corners throughout (the SBF rule, and v3's
    sheets). Hover: the card lifts, the tint turns, the plate rises. The ONE --section-y above is the clients' bottom. */
-.works { position: relative; z-index: 2; padding-bottom: calc(var(--section-y) * .6 + .67 * var(--seam-h)); }
+.works { position: relative; z-index: 2; padding-bottom: 0; }   /* the contact block owns the gap below (B8) */
 .works__head {
   display: flex;
   flex-wrap: wrap;

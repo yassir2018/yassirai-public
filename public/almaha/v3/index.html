@@ -42,6 +42,8 @@
       media="(min-width: 1024px), (min-width: 601px) and (orientation: landscape)">
 <link rel="preload" as="image" fetchpriority="high"
       href="img/hero-flag-portrait-1440.webp"
+      imagesrcset="img/hero-flag-portrait-1080.webp 1080w, img/hero-flag-portrait-1440.webp 1440w"
+      imagesizes="(max-aspect-ratio: 3/4) and (min-height: 600px) calc(75vh - 1.5px), (max-aspect-ratio: 3/4) 449px, 100vw"
       media="(max-width: 1023px) and (orientation: portrait), (max-width: 600px)">
 <link rel="preload" as="font" type="font/woff2" href="fonts/cairo-700.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="fonts/cairo-600.woff2" crossorigin>
@@ -60,19 +62,32 @@
 <link rel="modulepreload" href="js/form.js">
 <link rel="modulepreload" href="js/motion.js">
 <script>
-  // the 3D oryx and living-photo paths, fetched early but at low priority, only on clients that will use them
-  // (same test as motion.js; WebGL2 only by its API, the real probe runs in motion.js)
+  // the 3D oryx and living-photo paths, fetched at low priority, only on clients that will use them (same test as
+  // motion.js; WebGL2 only by its API, the real probe runs in motion.js). The oryx's modules at once (the overture needs
+  // them early). The living photo's files wait for the hero photo to be painted (the LCP): it starts after the oryx
+  // anyway, and fetched earlier they only took bandwidth from the photo. So does the oryx's SVG on phone layouts (there
+  // the oryx set-up is CPU-bound: the overture starts at the same moment); wide layouts fetch it at once (there the
+  // photo is the long pole and the overture would wait for it). Without the LCP API (Safari): at the load event.
   (function () {
-    var n = navigator, c = n.connection, d = document;
+    var n = navigator, c = n.connection, d = document, P = window.PerformanceObserver, done = false;
     if (matchMedia('(prefers-reduced-motion: reduce)').matches || (n.deviceMemory || 8) < 4 || (n.hardwareConcurrency || 8) < 4
         || (c && (c.saveData || (c.effectiveType && c.effectiveType !== '4g'))) || !('WebGL2RenderingContext' in window)) return;
     var port = matchMedia('(max-width: 1023px) and (orientation: portrait), (max-width: 600px)').matches;
-    [['modulepreload', '../lab/oryx-3d/oryx3d.js'], ['modulepreload', 'https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.min.js'],
-     ['modulepreload', 'https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/loaders/SVGLoader.js'], ['preload', '../shared/brand/symbol.svg'],
-     ['modulepreload', 'js/vendor/cinemagraph.js'], ['preload', port ? 'img/cine/motion-portrait.png' : 'img/cine/motion.png'],
-     ['preload', port ? 'img/cine/flag-portrait.png' : 'img/cine/flag.png']]
-      .forEach(function (h) { var l = d.createElement('link'); l.rel = h[0]; l.href = h[1]; l.fetchPriority = 'low';
+    var svg = ['preload', '../shared/brand/symbol.svg'];
+    var now = [['modulepreload', '../lab/oryx-3d/oryx3d.js'], ['modulepreload', 'https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.min.js'],
+      ['modulepreload', 'https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/loaders/SVGLoader.js']];
+    var later = [['modulepreload', 'js/vendor/cinemagraph.js'], ['preload', port ? 'img/cine/motion-portrait.png' : 'img/cine/motion.png'],
+      ['preload', port ? 'img/cine/flag-portrait.png' : 'img/cine/flag.png']];
+    (port ? later : now).unshift(svg);
+    function hint(list) {
+      list.forEach(function (h) { var l = d.createElement('link'); l.rel = h[0]; l.href = h[1]; l.fetchPriority = 'low';
         if (h[0] === 'preload') { if (/\.png$/.test(h[1])) l.as = 'image'; else { l.as = 'fetch'; l.crossOrigin = 'anonymous'; } } d.head.appendChild(l); });
+    }
+    function afterLcp() { if (!done) { done = true; hint(later); } }
+    hint(now);
+    if (P && P.supportedEntryTypes && P.supportedEntryTypes.indexOf('largest-contentful-paint') >= 0)
+      new P(function (l, o) { o.disconnect(); afterLcp(); }).observe({ type: 'largest-contentful-paint', buffered: true });
+    addEventListener('load', afterLcp);
   })();
 </script>
 
@@ -203,7 +218,8 @@
       <div class="hero__frame">
         <div class="hero__layer" id="heroPhoto">
           <picture>
-            <source media="(max-width: 1023px) and (orientation: portrait), (max-width: 600px)" srcset="img/hero-flag-portrait-1440.webp" width="1440" height="1920">
+            <source media="(max-width: 1023px) and (orientation: portrait), (max-width: 600px)" srcset="img/hero-flag-portrait-1080.webp 1080w, img/hero-flag-portrait-1440.webp 1440w"
+                    sizes="(max-aspect-ratio: 3/4) and (min-height: 600px) calc(75vh - 1.5px), (max-aspect-ratio: 3/4) 449px, 100vw" width="1440" height="1920">
             <img class="hero__plate" id="heroPlate" src="img/hero-flag-2048.webp"
                  srcset="img/hero-flag-1440.webp 1440w, img/hero-flag-2048.webp 2048w, img/hero-flag-2880.webp 2880w"
                  sizes="(min-aspect-ratio: 17/10) and (max-aspect-ratio: 21/10) 230vh, (min-aspect-ratio: 155/100) and (max-aspect-ratio: 17/10) 208vh, (max-aspect-ratio: 2/1) 200vh, 100vw"
@@ -277,7 +293,7 @@
       </div>
       <div class="about__statement">
         <figure class="about__media" data-reveal>
-          <img src="img/about/reception-wash-1080.webp" srcset="img/about/reception-wash-720.webp 720w, img/about/reception-wash-1080.webp 1080w, img/about/reception-wash-1440.webp 1440w" sizes="(max-width: 1023px) 100vw, (min-width: 1600px) 800px, 50vw" width="1448" height="1086" alt="استقبال مكاتب المها للاستشارات والخدمات" loading="lazy" decoding="async">
+          <img src="img/about/reception-wash-1080.webp" srcset="img/about/reception-wash-720.webp 720w, img/about/reception-wash-1080.webp 1080w, img/about/reception-wash-1440.webp 1440w" sizes="(max-width: 1023px) calc(100vw - 12px), (min-width: 1600px) 800px, 50vw" width="1448" height="1086" alt="استقبال مكاتب المها للاستشارات والخدمات" loading="lazy" decoding="async">
         </figure>
 
       </div>
@@ -412,7 +428,8 @@
         <h2 class="display" id="servicesTitle" data-words><span class="sr-only">خدماتنا: </span><span class="line">حلولٌ متكاملة</span> <span class="line line--accent">لنجاحٍ مستدام</span></h2>
         <p class="services__note" data-reveal>اختاروا الخدمة التي تهمّكم، ونبدأ الحوار انطلاقاً منها.</p>
         <figure class="svc-art" data-reveal>
-          <img src="../shared/img/v2/horizon-hq2048.webp"  width="2048" height="1020" alt="رجل على قمة جبل يتأمل المدينة عند الشروق" loading="lazy" decoding="async">
+          <img src="img/services/horizon-1024.webp" srcset="img/services/horizon-512.webp 512w, img/services/horizon-1024.webp 1024w, img/services/horizon-1536.webp 1536w, ../shared/img/v2/horizon-hq2048.webp 2048w"
+               sizes="(max-width: 1023px) 112vw, (max-width: 1620px) 42.5vw, 690px" width="2048" height="1020" alt="رجل على قمة جبل يتأمل المدينة عند الشروق" loading="lazy" decoding="async">
           <figcaption><span class="lat" lang="en">THE NEXT POSSIBILITY</span>المستقبل يبدأ<br>بنظرة مختلفة.</figcaption>
         </figure>
       </header>
@@ -502,11 +519,11 @@
           <p class="client__name">المنتدى السوري للأعمال <span class="lat" lang="en">SYRIAN BUSINESS FORUM</span></p>
         </li>
         <li class="client">
-          <div class="client__logo client__logo--dense"><img src="../shared/img/v2/clients/muntada-color.png" alt="" width="256" height="352" loading="lazy" decoding="async"></div>
+          <div class="client__logo client__logo--dense"><img src="img/clients/muntada-104.webp" alt="" width="104" height="143" loading="lazy" decoding="async"></div>
           <p class="client__name">مبادرة المنتدى للعمل التنموي <span class="lat" lang="en">MUNTADA</span></p>
         </li>
         <li class="client">
-          <div class="client__logo client__logo--lockup"><img src="../shared/img/v2/clients/imar-header.png" alt="" width="500" height="500" loading="lazy" decoding="async"><span class="client__word" lang="en" aria-hidden="true">IMAR <span>Tenders</span></span></div>
+          <div class="client__logo client__logo--lockup"><img src="img/clients/imar-128.webp" alt="" width="128" height="128" loading="lazy" decoding="async"><span class="client__word" lang="en" aria-hidden="true">IMAR <span>Tenders</span></span></div>
           <p class="client__name">منصة إعمار للعطاءات <span class="lat" lang="en">IMAR TENDERS</span></p>
         </li>
       </ul>
@@ -561,7 +578,7 @@
             <span class="work__rings"></span>
             <span class="work__ghost" lang="en">03</span>
             <span class="work__mark">
-              <img src="img/works/imar-480.webp" srcset="img/works/imar-240.webp 240w, img/works/imar-480.webp 480w" sizes="140px" width="480" height="469" alt="" loading="lazy" decoding="async">
+              <img src="img/works/imar-480.webp" srcset="img/works/imar-240.webp 240w, img/works/imar-480.webp 480w" sizes="120px" width="480" height="469" alt="" loading="lazy" decoding="async">
               <span class="work__word" lang="en">IMAR <span>Tenders</span></span>
             </span>
           </div>

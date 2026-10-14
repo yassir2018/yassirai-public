@@ -951,9 +951,25 @@ a.lang--switch:hover, a.lang--switch:focus-visible { color: var(--bordeaux); tex
   outline-offset: -1px;
 }
 .svc-art:hover img { scale: 1.04; }
-.svc-art::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(20, 12, 8, .62) 0, rgba(20, 12, 8, 0) 58%); }
-.svc-art figcaption { position: absolute; z-index: 1; inset: auto 24px 22px; color: #fff; font: 600 clamp(20px, 1rem + .7vw, 28px)/1.35 var(--f-ar); }
-.svc-art figcaption .lat { display: block; margin-bottom: 8px; font: 560 11px/1 var(--f-lat); letter-spacing: .24em; color: rgba(255, 255, 255, .8); }
+/* caption contrast >= 4.5:1 on the photo at every width (measured on the rendered pixels behind the glyphs, 360-1920):
+   a soft band under the Latin line (it sits on the bright sky, 84-117 px above the bottom) and a halo on each line */
+.svc-art::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(0deg, rgba(20, 12, 8, 0) 30px, rgba(20, 12, 8, .22) 92px, rgba(20, 12, 8, .22) 120px, rgba(20, 12, 8, 0) 150px),
+    linear-gradient(0deg, rgba(20, 12, 8, .62) 0, rgba(20, 12, 8, 0) 58%);
+}
+.svc-art figcaption { position: absolute; z-index: 1; inset: auto 24px 22px; color: #fff; font: 600 clamp(20px, 1rem + .7vw, 28px)/1.35 var(--f-ar); text-shadow: 0 0 3px rgba(20, 12, 8, .7), 0 0 13px rgba(20, 12, 8, .42); }
+.svc-art figcaption .lat {
+  display: block;
+  margin-bottom: 8px;
+  font: 560 11px/1 var(--f-lat);
+  letter-spacing: .24em;
+  color: rgba(255, 255, 255, .8);
+  text-shadow: 0 0 2px rgba(20, 12, 8, 1), 0 0 4px rgba(20, 12, 8, .9), 0 0 9px rgba(20, 12, 8, .7), 0 0 16px rgba(20, 12, 8, .45);
+}
 /* ---------------------------------------------------------------- sectors
    day dims toward the night (B2): ivory continues from services, ramps to paper-2, ends on dusk under the seam */
 .sectors {

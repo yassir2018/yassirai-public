@@ -566,7 +566,9 @@ export function createOryx3D(container, options = {}) {
     for (const L of layers) { renderer.initTexture(L.tex); renderer.initTexture(L.edgeTex); await nextTask(); }
     mark('uploaded');
     applyIntro(opt.intro && !reduced ? 0 : INTRO_TOTAL);
-    try { await renderer.compileAsync(scene, camera); } catch (e) { /* older drivers: compiled on first render */ }
+    S.compiling = renderer.compileAsync(scene, camera);
+    try { await S.compiling; } catch (e) { /* older drivers: compiled on first render */ }
+    S.compiling = null;
     if (S.destroyed) return api;
     mark('compiled');
     renderNow();
@@ -1242,9 +1244,15 @@ export function createOryx3D(container, options = {}) {
     window.removeEventListener('pointermove', onPointerMove);
     window.removeEventListener('mouseout', onMouseOut);
     window.removeEventListener('blur', onLeave);
-    disposables.forEach((f) => f());
-    if (renderer) { renderer.dispose(); renderer.forceContextLoss?.(); renderer.domElement.remove(); }
-    layers.length = 0;
+    if (renderer) renderer.domElement.remove();
+    // three's compileAsync polls every program until it is linked: freeing the GPU side under it threw
+    // ("reading 'isReady'", a destroy during the set-up, e.g. a missed time budget); it is freed once the compile settles
+    const free = () => {
+      disposables.forEach((f) => f());
+      if (renderer) { renderer.dispose(); renderer.forceContextLoss?.(); }
+      layers.length = 0;
+    };
+    if (S.compiling) S.compiling.then(free, free); else free();
   }
 
   const api = {

@@ -812,7 +812,7 @@ a.lang--switch:hover, a.lang--switch:focus-visible { color: var(--bordeaux); tex
 .about { position: relative; z-index: 2; padding-top: calc(var(--section-y) * .8); padding-bottom: var(--s-7); }
 .about__main { grid-column: 1 / span 6; }
 .about__statement { grid-column: 8 / span 5; grid-row: 1; align-self: stretch; display: flex; align-items: center; }
-/* the photo melts into the page (boundary rule a): its open edge is one horn of the logo carrying the hero's red ribbon.
+/* the photo melts into the page (boundary rule a): a watercolour wash dissolves every edge into the ivory.
    The ivory is baked into the image at the page ivory, so there is no frame, no shadow and no zoom; it bleeds 10% each side */
 .about__media { margin: 0 -10%; flex: 1; }
 .about__media img { width: 100%; height: auto; aspect-ratio: 1448 / 1086; }

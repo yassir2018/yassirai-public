@@ -42,6 +42,12 @@ export function initMotion() {
   }
   gsap.registerPlugin(ST);
   ST.config({ ignoreMobileResize: true });
+  // the CSS smooth scroll (anchor links) must not animate ScrollTrigger's own measuring scrolls: with it, a refresh
+  // while scrolled down (window resize, DevTools, browser zoom) measured every trigger from the wrong place, and the
+  // hero copy stayed faded out at the top of the page. GSAP only does this itself for an element scroller; the read
+  // flushes the style, without it Chrome scrolls with the stale (smooth) value
+  ST.addEventListener('refreshInit', () => { root.style.scrollBehavior = 'auto'; void getComputedStyle(root).scrollBehavior; });
+  ST.addEventListener('refresh', () => { root.style.scrollBehavior = ''; });
   splitWords();
   menu(gsap);
 

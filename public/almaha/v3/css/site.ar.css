@@ -809,7 +809,7 @@ a.lang--switch:hover, a.lang--switch:focus-visible { color: var(--bordeaux); tex
 .pillar:hover::after { transform: scaleX(1); }
 .pillar:hover .pillar__ico { background: var(--bordeaux); --ico-c: #fff; --ico-dot: #fff; transform: rotate(-8deg); }
 /* ---------------------------------------------------------------- about (6 | 6: the photo takes the spacer column, its wash is the gap) */
-.about { position: relative; z-index: 2; padding-top: calc(var(--section-y) * .8); padding-bottom: var(--s-7); }
+.about { position: relative; z-index: 2; padding-top: calc(var(--section-y) * .5); padding-bottom: var(--s-7); }
 .about__main { grid-column: 1 / span 6; }
 .about__statement { grid-column: 7 / span 6; grid-row: 1; align-self: stretch; display: flex; align-items: center; }
 /* the photo melts into the page (boundary rule a): a watercolour wash dissolves every edge into the ivory.

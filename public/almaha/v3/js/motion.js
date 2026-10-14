@@ -2,8 +2,6 @@
 // Rules: Arabic moves by words, never letters; every directional move follows RTL (enter from the right,
 // wipe right to left, forward arrows point left); one brand ease family; full static fallback for
 // prefers-reduced-motion; nothing loops forever; scroll-linked effects animate transform / opacity only.
-import { initHeroScenes } from './hero-scenes.js';
-const HERO_SCENES = false;
 import { HERO_PLATE, PLATES, ORYX_MODULE, ORYX_SRC, ORYX_STATIC, ORYX_OCCLUDE, ORYX_FIT, ORYX_BUDGET_MS, MQ, CINEMAGRAPH, FLAG_FLUTTER, CINE, HERO_CONCEPT, HERO_CONCEPTS } from './config.js';
 
 const $ = (s, r = document) => r.querySelector(s);
@@ -35,9 +33,7 @@ export function initMotion() {
   const oryx = initOryx({ reduce, gl2, gsap: reduce ? null : gsap });
   const cine = initCine({ gl2, after: oryx.ready });
   const cta = ctaHandoff();
-  // Yassir: no scene transitions in the hero for now; the flag scene + the oryx (logo) animation only
-  const scenes = HERO_SCENES ? initHeroScenes({ cine }) : null;
-  if (LOCAL) window.__hero = { oryx, cine, scenes, concept: HERO };       // test hook (local server only)
+  if (LOCAL) window.__hero = { oryx, cine, concept: HERO };               // test hook (local server only)
 
   if (!gsap || !ST || reduce) {
     root.classList.remove('intro-pending');
@@ -52,7 +48,7 @@ export function initMotion() {
   // the hero intro waits for the photo to decode and the fonts; the scroll layer is built meanwhile (nothing moves yet).
   // The pinned chapter comes first, so every trigger created after it measures with its pin spacing.
   intro(oryx, cine);
-  approach(gsap, ST);
+  approach(gsap);
   heroScroll(gsap, ST, oryx, cine, cta);
   headings(gsap);
   reveals(gsap);
@@ -65,9 +61,7 @@ export function initMotion() {
   works(gsap);
   vision(gsap);
   contact(gsap);
-  footer(gsap);
-  document.fonts?.ready.then(() => ST.refresh());
-  addEventListener('load', () => ST.refresh(), { once: true });
+  document.fonts?.ready.then(() => ST.refresh());   // ScrollTrigger refreshes on "load" by itself
 }
 
 /* ================================================================ hero plate switch */
@@ -112,6 +106,7 @@ const restore = (el) => {
   el._html = null;
   el.removeAttribute('aria-label');
 };
+const settleTitle = (el) => (root.lang === 'ar' ? restore(el) : unclip(el));
 const wordGroups = (el) => {
   const lines = $$(':scope > .line', el);
   return (lines.length ? lines : [el]).map((l) => $$('.w__i', l)).filter((g) => g.length);
@@ -321,7 +316,9 @@ function initOryx({ reduce, gl2, gsap }) {
     const set = (k, v) => { const s = `${Math.round(v)}px`; if (box.style.getPropertyValue(k) !== s) box.style.setProperty(k, s); };
     if (!isPortrait) {
       set('--hero-push', 0);
-      const lift0 = cur('--hero-lift');
+      // the offset the layout really has now: under reduced motion every property gets a .001ms transition, and
+      // Firefox / Safari keep the previous `top` until the next frame (reading the custom property lifted the copy twice)
+      const lift0 = -parseFloat(getComputedStyle(box).top) || 0;
       const ctaB = Math.max(...$$('.hero__actions > *').map((b) => offsetIn(b).y + b.offsetHeight)) + lift0;   // as if not lifted
       const sun = pm.sun, onScreen = sun.x >= 0 && sun.x <= W && sun.y > 0 && sun.y < H;
       let lift = onScreen ? Math.max(0, ctaB - (sun.y - Math.max(F.sunClear, F.sunClearH * H))) : 0;
@@ -773,7 +770,7 @@ async function intro(oryx, cine) {
   await Promise.race([Promise.all([plate.decode().catch(() => {}), document.fonts?.ready]), wait(1200)]);
 
   if (!root.classList.contains('intro-pending')) {          // the safety timer already released the hero
-    unclip(h1);
+    settleTitle(h1);
     if (HERO === 'c') oryx.skipOverture();
     else oryx.ready.then(() => oryx.fgReady).then(() => oryx.start());
     cine.start();
@@ -787,7 +784,9 @@ async function intro(oryx, cine) {
     { duration: 2600, easing: 'cubic-bezier(.22, 1, .36, 1)' }));
   play(wipe, [{ transform: 'translateX(-34%)' }, { transform: 'translateX(-78%)' }], { duration: 1250, easing: 'cubic-bezier(.33, 1, .68, 1)' });
   play(light, [{ opacity: 0, transform: 'translateX(18%)' }, { opacity: 0.8, transform: 'translateX(-2%)', offset: 0.45 }, { opacity: 0, transform: 'translateX(-24%)' }],
-    { duration: 1500, delay: 120, easing: 'ease-in-out' }).finished.then(() => { light.style.display = 'none'; }, () => {});
+    { duration: 1500, delay: 120, easing: 'ease-in-out' });
+  // the light ends at its resting opacity 0 and stays in the tree: removing it (display: none) made Chrome report a
+  // phantom layout shift of the whole hero (CLS 0.19 phones / 0.39 desktop) although nothing moves
 
   // beat 2: every "from" state is set now (backwards fill); B and C hold the copy (paused) until the symbol has had its
   // moment. Words rise inside their masks (whole words: Arabic shaping is never split), red line 140 ms later.
@@ -809,7 +808,9 @@ async function intro(oryx, cine) {
   const holdHead = HERO === 'c' && oryx.wantsOverture, holdCopy = HERO === 'b' || holdHead;
   if (holdCopy) copy.forEach((a) => a.pause());
   root.classList.remove('intro-pending');                    // the backwards fill above already holds every "from" state
-  Promise.all(words.map((a) => a.finished)).then(() => unclip(h1), () => unclip(h1));
+  // once the words are up, the Arabic headline gets its plain markup back (like every other heading): Safari lays the
+  // word masks of a wrapped Arabic line out on staggered baselines (en.html, frozen, keeps its unclipped masks)
+  Promise.all(words.map((a) => a.finished)).then(() => settleTitle(h1), () => settleTitle(h1));
   const once = (list) => { let done = false; return () => { if (done) return; done = true; list.forEach((a) => a.play()); }; };
   const playHead = once(head), playCopy = once(copy);
 
@@ -971,55 +972,10 @@ function seams(gsap) {
   });
 }
 
-/* ================================================================ approach: pinned stepper, the watermark paints itself */
-function approach(gsap, ST) {
+/* ================================================================ approach: the steps are tabs (ui.js initApproachTabs); they rise in */
+function approach(gsap) {
   const sec = $('#approach');
-  const pin = $('.approach__pin');
-  const steps = $$('.step', sec);
-  const fill = $('.steps__fill', sec);
-  const wm = $$('.approach__wm [data-wm]', sec);
-  // style layer «روح v2»: the steps are tabs (ui.js), never pinned; the tabs simply rise in
-  {
-    gsap.from($$('.step__title', sec), { opacity: 0, y: 18, duration: 1, stagger: 0.08, ease: 'expo.out', clearProps: 'transform,opacity', scrollTrigger: { trigger: '.steps', start: 'top 85%', once: true } });
-    return;
-  }
-  const mm = gsap.matchMedia();
-  const length = () => `+=${Math.round(innerHeight * 2.4)}`;
-
-  mm.add(MQ.pin, () => {
-    sec.classList.add('is-pinned');
-    let cur = -1;
-    const set = (i) => {
-      if (i === cur) return;
-      cur = i;
-      steps.forEach((s, k) => { s.classList.toggle('is-active', k === i); s.classList.toggle('is-done', k < i); });
-    };
-    set(0);
-    // each ribbon is its own composited layer; write only when the value really changes
-    const paint = (p) => wm.forEach((svg, k) => {
-      const target = k === 4 ? 0.035 : 0.06;
-      const v = Math.round(target * clamp01((p * 1.2 - k * 0.19) / 0.2) * 1000) / 1000;
-      if (v !== svg._o) { svg._o = v; svg.style.opacity = String(v); }
-    });
-    paint(0);
-    ST.create({
-      trigger: pin, start: 'top top', end: length, pin: true, anticipatePin: 1, refreshPriority: 1,
-      onUpdate: (self) => { set(Math.min(steps.length - 1, Math.floor(self.progress * steps.length * 0.9999))); paint(self.progress); },
-    });
-    const fillTween = gsap.fromTo(fill, { scaleY: 0 }, { scaleY: 1, ease: 'none', scrollTrigger: { trigger: pin, start: 'top top', end: length, scrub: 0.5 } });
-    return () => {
-      sec.classList.remove('is-pinned');
-      steps.forEach((s, k) => { s.classList.toggle('is-active', k === 0); s.classList.remove('is-done'); });
-      wm.forEach((u) => { u.style.opacity = ''; u._o = undefined; });
-      fillTween.scrollTrigger?.kill();
-      fillTween.kill();
-      gsap.set(fill, { clearProps: 'transform' });
-    };
-  });
-
-  mm.add(`not all and ${MQ.pin}`, () => {
-    gsap.from(steps, { opacity: 0, x: 30 * DIR, duration: 1.1, stagger: 0.1, ease: 'expo.out', clearProps: 'transform,opacity', scrollTrigger: { trigger: '.steps', start: 'top 85%', once: true } });
-  });
+  gsap.from($$('.step__title', sec), { opacity: 0, y: 18, duration: 1, stagger: 0.08, ease: 'expo.out', clearProps: 'transform,opacity', scrollTrigger: { trigger: '.steps', start: 'top 85%', once: true } });
 }
 
 /* ================================================================ clients: the register frame draws, logos settle */
@@ -1065,19 +1021,14 @@ function vision(gsap) {
 
 /* ================================================================ closing band: one ribbon paints in once, then drifts; form fields arrive */
 function contact(gsap) {
-  wipe(gsap, $('.contact__wipe'), $('.contact__wipe-in'), { dur: 2.2, ease: 'power2.inOut', scrollTrigger: { trigger: '.contact__cta', start: 'top 78%', once: true } });
-  gsap.fromTo('.contact__drift', { y: 26 }, { y: -26, ease: 'none', scrollTrigger: { trigger: '.contact__cta', start: 'top bottom', end: 'bottom top', scrub: 1 } });
+  if ($('.contact__wipe')) {
+    wipe(gsap, $('.contact__wipe'), $('.contact__wipe-in'), { dur: 2.2, ease: 'power2.inOut', scrollTrigger: { trigger: '.contact__cta', start: 'top 78%', once: true } });
+    gsap.fromTo('.contact__drift', { y: 26 }, { y: -26, ease: 'none', scrollTrigger: { trigger: '.contact__cta', start: 'top bottom', end: 'bottom top', scrub: 1 } });
+  }
   gsap.from($$('#contact-form .field, #contact-form .form__consent, #contact-form .form__actions'), {
     opacity: 0, y: 16, duration: 1, stagger: 0.06, ease: 'power3.out', clearProps: 'transform,opacity',
     scrollTrigger: { trigger: '#contact-form', start: 'top 82%', once: true },
   });
-}
-
-/* ================================================================ footer signature rules */
-function footer(gsap) {
-  const sig = $('.footer__sig');
-  if (!sig) return;                                         // the footer logo carries the tagline (one signature only)
-  gsap.fromTo(sig, { '--draw': 0, opacity: 0 }, { '--draw': 1, opacity: 1, duration: 1.4, ease: 'power3.inOut', scrollTrigger: { trigger: sig, start: 'top 95%', once: true } });
 }
 
 /* ================================================================ mobile menu: curtain + links from the right */

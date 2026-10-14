@@ -114,9 +114,14 @@ export function initApproachTabs() {
   if (!list) return;
   const steps = $$('.step', list);
   const tabs = steps.map((li) => $('.step__title', li));
-  list.setAttribute('role', 'tablist');
+  // ARIA: a tablist may own tabs only, but each panel lives next to its tab in the same <li>. The <ol> keeps the layout
+  // (role none); an empty tablist element owns the four titles (aria-owns), so the panels are no longer its children.
+  list.setAttribute('role', 'none');
+  const tablist = document.createElement('div');
+  tablist.setAttribute('role', 'tablist');
+  list.before(tablist);
   const rtl = document.documentElement.dir !== 'ltr';
-  list.setAttribute('aria-label', rtl ? 'مراحل منهجيتنا' : 'Stages of our approach');
+  tablist.setAttribute('aria-label', rtl ? 'مراحل منهجيتنا' : 'Stages of our approach');
   const select = (i, focus = false) => {
     steps.forEach((li, k) => {
       const on = k === i;
@@ -147,6 +152,7 @@ export function initApproachTabs() {
       select(map[e.key], true);
     });
   });
+  tablist.setAttribute('aria-owns', tabs.map((t) => t.id).join(' '));
   const start = Math.max(0, steps.findIndex((li) => li.classList.contains('is-active')));
   select(start);
 }

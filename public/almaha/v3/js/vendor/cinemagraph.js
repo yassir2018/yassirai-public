@@ -404,7 +404,7 @@ const loadImage = (url) => new Promise((res, rej) => {
 const bitmap = async (src, raw) => {
   if (!('createImageBitmap' in window)) return src;
   try {
-    return await createImageBitmap(src, { premultiplyAlpha: 'none', colorSpaceConversion: raw ? 'none' : 'default', imageOrientation: 'none' });
+    return await createImageBitmap(src, { premultiplyAlpha: 'none', colorSpaceConversion: raw ? 'none' : 'default', imageOrientation: 'from-image' });
   } catch (e) { return src; }
 };
 const parsePos = (s) => {

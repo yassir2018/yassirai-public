@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AL MAHA · Intros logo</title>
+<link rel="icon" href="data:,">
+<style>
+  :root{
+    --night:#141110; --panel:#1E1A18; --line:#2e2724; --ivory:#F8F2EC; --sand:#D9C9C3;
+    --muted:#9c8f88; --red:#EB070D; --bordeaux:#8E1028; --copper:#D9AF93; --gold:#FEE2B6;
+  }
+  *{box-sizing:border-box}
+  [hidden]{display:none !important}
+  html,body{margin:0;background:var(--night);color:var(--ivory)}
+  body{font-family:"Segoe UI Variable Text","Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
+       -webkit-font-smoothing:antialiased;line-height:1.45}
+  header{max-width:1640px;margin:0 auto;padding:44px 32px 18px;display:flex;gap:24px;align-items:flex-end;justify-content:space-between;flex-wrap:wrap}
+  .kicker{font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--copper);margin:0 0 10px}
+  h1{font-weight:300;font-size:clamp(26px,3vw,40px);letter-spacing:.01em;margin:0}
+  h1 b{font-weight:600}
+  .sub{color:var(--muted);font-size:14px;margin:8px 0 0;max-width:720px}
+  .tools{display:flex;gap:10px;flex-wrap:wrap}
+  button{font:inherit;font-size:13px;color:var(--ivory);background:transparent;border:1px solid var(--line);
+         padding:9px 14px;border-radius:2px;cursor:pointer;transition:border-color .2s,background .2s}
+  button:hover{border-color:var(--copper)}
+  button:focus-visible{outline:2px solid var(--copper);outline-offset:2px}
+  .rule{max-width:1640px;margin:0 auto;padding:0 32px}
+  .rule hr{border:0;height:1px;background:linear-gradient(90deg,var(--bordeaux),var(--red) 18%,var(--line) 40%,var(--line));margin:0}
+  main{max-width:1640px;margin:0 auto;padding:26px 32px 40px;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,460px),1fr));gap:26px}
+  .card{background:var(--panel);border:1px solid var(--line);display:flex;flex-direction:column}
+  .card.keep{border-color:#4a2a26}
+  .media{position:relative;aspect-ratio:16/9;background:#000;overflow:hidden}
+  .media video{width:100%;height:100%;display:block;object-fit:contain}
+  .hit{position:absolute;inset:0 0 54px 0;cursor:zoom-in;background:transparent;border:0;padding:0}
+  .hit:focus-visible{outline:2px solid var(--copper);outline-offset:-2px}
+  .rank{position:absolute;top:10px;left:10px;font-size:12px;font-weight:600;letter-spacing:.08em;
+        background:rgba(20,17,16,.78);border:1px solid rgba(255,255,255,.12);padding:4px 8px;pointer-events:none}
+  .badge{position:absolute;top:10px;right:10px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+         background:var(--bordeaux);color:var(--ivory);padding:4px 8px;pointer-events:none}
+  .badge.alt{background:rgba(20,17,16,.78);border:1px solid var(--copper);color:var(--gold)}
+  .info{padding:16px 18px 18px;display:grid;grid-template-columns:1fr auto;gap:6px 16px;align-items:start}
+  .name{font-size:18px;font-weight:600;margin:0}
+  .meta{font-size:12px;color:var(--muted);letter-spacing:.04em;margin:2px 0 0;font-variant-numeric:tabular-nums}
+  .score{grid-row:1/3;grid-column:2;text-align:right;font-variant-numeric:tabular-nums}
+  .score strong{font-size:30px;font-weight:300;line-height:1}
+  .score span{font-size:13px;color:var(--muted)}
+  .bar{grid-column:1/3;height:2px;background:var(--line);margin:8px 0 4px;position:relative}
+  .bar i{position:absolute;inset:0 auto 0 0;background:linear-gradient(90deg,var(--bordeaux),var(--red))}
+  .verdict{grid-column:1/3;margin:0;font-size:14px;color:var(--sand)}
+  .actions{grid-column:1/3;display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:12px}
+  .dl{font-size:13px;color:var(--ivory);text-decoration:none;border:1px solid var(--bordeaux);background:rgba(142,16,40,.22);
+      padding:9px 14px;border-radius:2px;display:inline-flex;align-items:center;gap:8px;transition:border-color .2s,background .2s}
+  .dl:hover{border-color:var(--red);background:rgba(235,7,13,.22)}
+  .dl:focus-visible{outline:2px solid var(--copper);outline-offset:2px}
+  .dl svg{width:14px;height:14px;flex:none}
+  .dl small{color:var(--sand);font-size:12px;font-variant-numeric:tabular-nums}
+  .snd[aria-pressed="true"]{border-color:var(--copper);color:var(--gold)}
+  .mus{display:inline-flex;align-items:center;gap:2px;font-size:12px;color:var(--muted);border:1px solid var(--line);border-radius:2px;padding:2px 4px 2px 9px}
+  .mus .lab{margin-right:4px;letter-spacing:.04em}
+  .mus .sep{color:#5a4d48;user-select:none}
+  .mus button{border:0;padding:6px 7px;font-size:12px;color:var(--sand);min-width:28px}
+  .mus button:hover{color:var(--ivory);background:rgba(255,255,255,.04)}
+  .mus button[aria-pressed="true"]{color:var(--gold);background:rgba(142,16,40,.35)}
+  .ok{font-size:11px;letter-spacing:.06em;color:var(--muted);display:inline-flex;align-items:center;gap:5px;margin-left:auto}
+  .ok::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--copper)}
+  footer{max-width:1640px;margin:0 auto;padding:0 32px 48px;color:var(--muted);font-size:13px}
+  footer a{color:var(--copper)}
+  /* lightbox */
+  .lb{position:fixed;inset:0;background:rgba(10,8,8,.94);display:none;flex-direction:column;align-items:center;justify-content:center;padding:24px;z-index:10}
+  .lb.open{display:flex}
+  .lb video{max-width:min(96vw,1600px);max-height:78vh;width:100%;background:#000}
+  .lb .bar2{width:min(96vw,1600px);display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin-top:14px;flex-wrap:wrap}
+  .lb h2{margin:0;font-size:20px;font-weight:600}
+  .lb p{margin:4px 0 0;color:var(--sand);font-size:14px;max-width:1100px}
+  .lb .nav{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  .lb .nav .ok{margin-left:0}
+  .hint{color:var(--muted);font-size:12px}
+  @media (max-width:600px){header,main,footer,.rule{padding-left:16px;padding-right:16px}}
+  @media (prefers-reduced-motion:reduce){button{transition:none}}
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <p class="kicker">AL MAHA Consulting &amp; Services · phase 1</p>
+    <h1><b>Intros logo</b> — huit versions comparées</h1>
+    <p class="sub">Cliquez sur une vidéo pour l’agrandir (←/→ pour passer, Échap pour fermer).</p>
+    <p class="sub" id="fileHint" hidden>Ouverte comme fichier, Edge lit la vidéo au lieu de l’enregistrer. Pour que « Télécharger » enregistre le MP4 sous son nom, ouvrez la page avec <strong>ouvrir-la-page.bat</strong> (dans ce dossier).</p>
+  </div>
+  <div class="tools">
+    <button id="sync" type="button">Rejouer ensemble depuis 0</button>
+    <button id="pause" type="button">Tout mettre en pause</button>
+  </div>
+</header>
+<div class="rule"><hr></div>
+<main id="grid"></main>
+<footer>Retenus pour la famille finale (16:9, 9:16, 1:1, fond transparent, son) : <strong>01 Pinceau</strong> et <strong>03 Ruban</strong>, avec <strong>02 Fajr</strong> comme version nuit après corrections. Fidélité du logo final vérifiée sur les six : aucun bloquant.</footer>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-labelledby="lbTitle">
+  <video id="lbVideo" controls loop muted playsinline></video>
+  <div class="bar2">
+    <div>
+      <h2 id="lbTitle"></h2>
+      <p id="lbText"></p>
+    </div>
+    <div class="nav">
+      <span class="ok" id="lbOk" hidden>Full HD vérifiée</span>
+      <div class="mus" id="lbMus" role="group" aria-label="Musique" hidden></div>
+      <a class="dl" id="lbDl" href="#" download></a>
+      <button type="button" class="snd" id="lbSnd" aria-pressed="false" hidden>Son : coupé</button>
+      <button type="button" id="prev" aria-label="Précédent">←</button>
+      <button type="button" id="next" aria-label="Suivant">→</button>
+      <button type="button" id="close">Fermer</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const STYLES = [
+  {slug:"07b-institutionnel-logo", name:"07b · Institutionnel, logo seul", dur:"7,8 s", hold:"2,1 s", score:8.5, keep:"Choix 1",
+   verdict:"Le même monde que le 07, resserré : nuit → ruban → jour → la ligne d’horizon devient les filets du logo, idée forte et très identitaire. Faiblesses : ouverture sombre peu lisible (0–1 s) et un temps presque vide vers 2,5 s."},
+  {slug:"07-institutionnel", name:"07 · Institutionnel", dur:"14,0 s", hold:"2,2 s", score:7.0, keep:"Choix 2",
+   verdict:"La meilleure narration de marque (من رؤى اليوم / إلى إنجازات الغد, les piliers, l’horizon qui devient le logo). Faiblesses : échos latins trop petits pour être lus, piliers un peu « page web », éclair pêche à 4,5 s et un écran presque vide vers 5,5 s."},
+  {slug:"01-pinceau", name:"01 · Pinceau (v2 plus rapide)", dur:"5,8 s", hold:"2,0 s", score:8.0,
+   verdict:"Le plus juste et le plus fidèle : le geste au pinceau sec est l’ADN du logo. Il manque une ouverture forte et un nom lui aussi peint au pinceau."},
+  {slug:"03-ruban", name:"03 · Ruban", dur:"6,0 s", hold:"2,6 s", score:7.5,
+   verdict:"Le plus mémorable et le plus énergique, littéralement le langage du site ; la contraction (le « balai ») et la tige noire sont à reprendre."},
+  {slug:"02-fajr", name:"02 · Fajr", dur:"8,0 s", hold:"2,0 s", score:7.0,
+   verdict:"La meilleure histoire (A Brighter Tomorrow), mais le soleil ne se voit jamais et la devise est posée sur la lueur de l’horizon."},
+  {slug:"04-relief", name:"04 · Relief", dur:"8,0 s", hold:"2,6 s", score:6.5,
+   verdict:"Laque crédible et logo final propre, mais sous-exposé et timide : la 3D se lit comme des cartes plates."},
+  {slug:"05-encre", name:"05 · Encre", dur:"7,0 s", hold:"2,0 s", score:6.0,
+   verdict:"Shader remarquable, mais cliché de banque d’images ; l’encre diluée vire au rose et le passage au logo ondule."},
+  {slug:"06-minimal", name:"06 · Minimal", dur:"5,0 s", hold:"3,2 s", score:5.5,
+   verdict:"Bonne idée (les vrais cercles du logo), mais guides invisibles en vidéo, traits fantômes, tout fini à 1,8 s, durée hors brief."}
+];
+/* Masters à télécharger : contrôlés le 17/10/2026 (voir QA.md). verified = contrôle Full HD passé.
+   mus = versions musicales (voir AUDIO_REVIEW.md) : même image, seule la bande son change. */
+const DL = {
+  "07b-institutionnel-logo": {file:"07b-institutionnel-logo/renders/07b-institutionnel-logo_FullHD_son.mp4", name:"AL-MAHA_intro_institutionnel-logo_FullHD.mp4", bytes:1865971, sound:true, verified:true,
+    mus:{A:  {suf:"_son_A", bytes:1871844, tip:"Musique A · cinématique institutionnel · 8,0/10"},
+         B:  {suf:"_son_B", bytes:1866022, tip:"Musique B · pouls corporate moderne · 6,5/10"},
+         C:  {suf:"_son_C", bytes:1863930, tip:"Musique C · Maghreb noble · 7,5/10"},
+         old:{suf:"_son",   bytes:1865971, tip:"Ancienne musique (nappes douces)"}}, musDefault:"A"},
+  "07-institutionnel":       {file:"07-institutionnel/renders/07-institutionnel_FullHD_son.mp4",             name:"AL-MAHA_intro_institutionnel_FullHD.mp4",      bytes:3804469, sound:true, verified:true,
+    mus:{A:  {suf:"_son_A", bytes:3805654, tip:"Musique A · cinématique institutionnel · 7,5/10"},
+         B:  {suf:"_son_B", bytes:3814218, tip:"Musique B · pouls corporate moderne · 6,5/10"},
+         C:  {suf:"_son_C", bytes:3802594, tip:"Musique C · Maghreb noble · 7,0/10"},
+         old:{suf:"_son",   bytes:3804469, tip:"Ancienne musique (nappes douces)"}}, musDefault:"A"},
+  "01-pinceau":              {file:"01-pinceau/renders/01-pinceau_FullHD.mp4",                               name:"AL-MAHA_intro_pinceau_FullHD.mp4",             bytes:4448485, verified:true},
+  "03-ruban":                {file:"03-ruban/renders/03-ruban_FullHD.mp4",                                   name:"AL-MAHA_intro_ruban_FullHD.mp4",               bytes:1194688, verified:true},
+  "02-fajr":                 {file:"02-fajr/renders/02-fajr_FullHD.mp4",                                     name:"AL-MAHA_intro_fajr_FullHD.mp4",                bytes:3851779, verified:true},
+  "04-relief":               {file:"04-relief/renders/04-relief_FullHD.mp4",                                 name:"AL-MAHA_intro_relief_FullHD.mp4",              bytes:2038817, verified:true},
+  "05-encre":                {file:"05-encre/renders/05-encre_FullHD.mp4",                                   name:"AL-MAHA_intro_encre_FullHD.mp4",               bytes:2591952, verified:true},
+  "06-minimal":              {file:"06-minimal/renders/06-minimal_FullHD.mp4",                               name:"AL-MAHA_intro_minimal_FullHD.mp4",             bytes:382380,  verified:true}
+};
+const MUS_KEYS = ["A", "B", "C", "old"];
+const MUS_LABEL = {A:"A", B:"B", C:"C", old:"ancienne"};
+const musSel = {};
+Object.keys(DL).forEach(k => { if (DL[k].mus) musSel[k] = DL[k].musDefault; });
+/* Fichier et nom de téléchargement de la version choisie (ou du master unique). */
+function cur_(slug){
+  const d = DL[slug];
+  if (!d || !d.mus) return d;
+  const k = musSel[slug], m = d.mus[k], short = d.name.replace(/\.mp4$/, '');
+  return {...d, file:`${slug}/renders/${slug}_FullHD${m.suf}.mp4`, bytes:m.bytes,
+          name:`${short}_musique-${k === 'old' ? 'ancienne' : k}.mp4`};
+}
+function musHtml(slug){
+  const d = DL[slug];
+  return `<span class="lab">Musique :</span>` + MUS_KEYS.map((k, j) =>
+    `${j ? '<span class="sep">·</span>' : ''}<button type="button" data-m="${k}" title="${d.mus[k].tip}" aria-pressed="${musSel[slug] === k}">${MUS_LABEL[k]}</button>`).join('');
+}
+function setDl(a, slug){
+  const d = cur_(slug);
+  a.href = d.file; a.setAttribute('download', d.name); a.title = d.name; a.innerHTML = dlHtml(d);
+}
+/* Le serveur local (python -m http.server) ne gère pas les requêtes partielles : la vidéo ne peut pas
+   se positionner. On charge donc la version choisie en mémoire (blob, 2 à 4 Mo), ce qui permet de garder le temps. */
+const blobs = {};
+function seekableUrl(file){
+  if (location.protocol === 'file:') return Promise.resolve(file);
+  if (!blobs[file]) blobs[file] = fetch(file).then(r => { if (!r.ok) throw new Error(r.status); return r.blob(); })
+                                          .then(b => URL.createObjectURL(b)).catch(() => file);
+  return blobs[file];
+}
+/* Change la source en gardant la position et l'état lecture / pause (ou ceux passés en option). */
+function swapSrc(video, file, opt){
+  const t = opt ? opt.t : video.currentTime, playing = opt ? opt.playing : (!video.paused && video.getAttribute('src'));
+  video.dataset.file = file;
+  video.autoplay = false;  /* sinon une vidéo en pause repartirait toute seule au changement de source */
+  seekableUrl(file).then(u => {
+    if (video.dataset.file !== file) return;  /* un autre choix est arrivé entre-temps */
+    video.src = u;
+    video.addEventListener('loadedmetadata', () => {
+      try { video.currentTime = Math.min(t, Math.max(0, video.duration - 0.05)); } catch (e) {}
+      if (playing) video.play().catch(()=>{});
+    }, {once:true});
+  });
+}
+const cardMus = {};  /* slug -> {card, video, dl} */
+function chooseMus(slug, k){
+  if (!DL[slug] || !DL[slug].mus || musSel[slug] === k) return;
+  musSel[slug] = k;
+  const file = cur_(slug).file, c = cardMus[slug];
+  if (c) {
+    c.card.querySelectorAll('.mus button').forEach(b => b.setAttribute('aria-pressed', b.dataset.m === k ? 'true' : 'false'));
+    setDl(c.dl, slug);
+    swapSrc(c.video, file);
+  }
+  if (lb.classList.contains('open') && STYLES[cur].slug === slug) {
+    lbMus.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', b.dataset.m === k ? 'true' : 'false'));
+    setDl(lbDl, slug);
+    swapSrc(lbV, file);
+  }
+}
+const mo = b => (b/1e6).toLocaleString('fr-FR',{minimumFractionDigits:1,maximumFractionDigits:1}) + ' Mo';
+const ICON = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M8 2v8m0 0L4.5 6.5M8 10l3.5-3.5M2.5 13.5h11"/></svg>';
+const dlHtml = d => `${ICON}Télécharger <small>MP4 · ${mo(d.bytes)}</small>`;
+const playSrc = s => DL[s.slug] && DL[s.slug].sound ? cur_(s.slug).file : `${s.slug}/renders/${s.slug}.mp4`;
+function setSnd(btn, video, on){
+  video.muted = !on;
+  btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+  btn.textContent = on ? 'Son : activé' : 'Son : coupé';
+  if (on) video.play().catch(()=>{});
+}
+const grid = document.getElementById('grid');
+const vids = [];
+const sndBtns = [];
+STYLES.forEach((s, i) => {
+  const src = playSrc(s);
+  const d = cur_(s.slug);
+  const card = document.createElement('article');
+  card.className = 'card' + (s.keep ? ' keep' : '');
+  card.innerHTML = `
+    <div class="media">
+      <video src="${src}" autoplay muted loop playsinline controls preload="auto"></video>
+      <button class="hit" type="button" aria-label="Agrandir ${s.name}"></button>
+      <span class="rank">#${i+1}</span>
+      ${s.keep ? `<span class="badge${s.keep==='Retenu'?'':' alt'}">${s.keep}</span>` : ''}
+    </div>
+    <div class="info">
+      <h3 class="name">${s.name}</h3>
+      <div class="score"><strong>${s.score==null?'—':s.score.toFixed(1).replace('.',',')}</strong><span>/10</span></div>
+      <p class="meta">${s.dur} · plan fixe ${s.hold} · 1920×1080</p>
+      <div class="bar"><i style="width:${(s.score||0)*10}%"></i></div>
+      <p class="verdict">${s.verdict}</p>
+      ${d ? `<div class="actions">
+        ${d.mus ? `<div class="mus" role="group" aria-label="Musique">${musHtml(s.slug)}</div>` : ''}
+        <a class="dl" href="${d.file}" download="${d.name}" title="${d.name}">${dlHtml(d)}</a>
+        ${d.sound ? `<button class="snd" type="button" aria-pressed="false">Son : coupé</button>` : ''}
+        ${d.verified ? `<span class="ok" title="1920×1080 · 30 i/s · H.264 High · contrôlée image par image">Full HD vérifiée</span>` : ''}
+      </div>` : ''}
+    </div>`;
+  grid.appendChild(card);
+  const v = card.querySelector('video');
+  vids.push(v);
+  if (d && d.mus) {
+    cardMus[s.slug] = {card, video:v, dl:card.querySelector('a.dl')};
+    card.querySelectorAll('.mus button').forEach(b => b.addEventListener('click', () => chooseMus(s.slug, b.dataset.m)));
+  }
+  card.querySelector('.hit').addEventListener('click', () => openLb(i));
+  const sb = card.querySelector('.snd');
+  if (sb) {
+    sndBtns.push([sb, v]);
+    sb.addEventListener('click', () => {
+      const on = v.muted;
+      if (on) sndBtns.forEach(([b, x]) => { if (b !== sb) setSnd(b, x, false); });
+      setSnd(sb, v, on);
+    });
+    v.addEventListener('volumechange', () => {
+      sb.setAttribute('aria-pressed', v.muted ? 'false' : 'true');
+      sb.textContent = v.muted ? 'Son : coupé' : 'Son : activé';
+    });
+  }
+});
+
+const lb = document.getElementById('lb'), lbV = document.getElementById('lbVideo');
+const lbDl = document.getElementById('lbDl'), lbOk = document.getElementById('lbOk'), lbSnd = document.getElementById('lbSnd');
+const lbMus = document.getElementById('lbMus');
+lbMus.addEventListener('click', e => { const b = e.target.closest('button[data-m]'); if (b) chooseMus(STYLES[cur].slug, b.dataset.m); });
+lbSnd.addEventListener('click', () => setSnd(lbSnd, lbV, lbV.muted));
+lbV.addEventListener('volumechange', () => {
+  lbSnd.setAttribute('aria-pressed', lbV.muted ? 'false' : 'true');
+  lbSnd.textContent = lbV.muted ? 'Son : coupé' : 'Son : activé';
+});
+let cur = -1;
+/* En file:// Chromium ignore l'attribut download : on ouvre alors la vidéo dans un nouvel onglet et on l'explique. */
+if (location.protocol === 'file:') {
+  document.getElementById('fileHint').hidden = false;
+  document.querySelectorAll('a.dl').forEach(a => { a.target = '_blank'; a.rel = 'noopener'; });
+}
+function openLb(i){
+  cur = (i + STYLES.length) % STYLES.length;
+  const s = STYLES[cur];
+  vids.forEach(v => v.pause());
+  lbV.pause();
+  swapSrc(lbV, playSrc(s), {t:0, playing:true});
+  const d = DL[s.slug];
+  lbDl.hidden = !d; lbOk.hidden = !(d && d.verified); lbSnd.hidden = !(d && d.sound);
+  lbMus.hidden = !(d && d.mus);
+  if (d && d.mus) lbMus.innerHTML = musHtml(s.slug);
+  if (d) setDl(lbDl, s.slug);
+  setSnd(lbSnd, lbV, false);
+  document.getElementById('lbTitle').textContent = `#${cur+1}  ${s.name} — ${s.score==null?'—':s.score.toFixed(1).replace('.',',')}/10 · ${s.dur}`;
+  document.getElementById('lbText').textContent = s.verdict;
+  lb.classList.add('open');
+  document.getElementById('close').focus();
+}
+function closeLb(){
+  lb.classList.remove('open');
+  lbV.pause(); lbV.dataset.file = ''; lbV.removeAttribute('src'); lbV.load();
+  vids.forEach(v => v.play().catch(()=>{}));
+  if (cur >= 0) grid.children[cur].querySelector('.hit').focus();
+}
+document.getElementById('close').onclick = closeLb;
+document.getElementById('prev').onclick = () => openLb(cur - 1);
+document.getElementById('next').onclick = () => openLb(cur + 1);
+lb.addEventListener('click', e => { if (e.target === lb) closeLb(); });
+document.addEventListener('keydown', e => {
+  if (!lb.classList.contains('open')) return;
+  if (e.key === 'Escape') closeLb();
+  else if (e.key === 'ArrowRight') openLb(cur + 1);
+  else if (e.key === 'ArrowLeft') openLb(cur - 1);
+});
+document.getElementById('sync').onclick = () => vids.forEach(v => { v.currentTime = 0; v.play().catch(()=>{}); });
+const pb = document.getElementById('pause');
+pb.onclick = () => {
+  const anyPlaying = vids.some(v => !v.paused);
+  vids.forEach(v => anyPlaying ? v.pause() : v.play().catch(()=>{}));
+  pb.textContent = anyPlaying ? 'Tout relancer' : 'Tout mettre en pause';
+};
+</script>
+</body>
+</html>

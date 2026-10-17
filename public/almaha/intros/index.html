@@ -219,7 +219,7 @@ function chooseMus(slug, k){
 const mo = b => (b/1e6).toLocaleString('fr-FR',{minimumFractionDigits:1,maximumFractionDigits:1}) + ' Mo';
 const ICON = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M8 2v8m0 0L4.5 6.5M8 10l3.5-3.5M2.5 13.5h11"/></svg>';
 const dlHtml = d => `${ICON}Télécharger <small>MP4 · ${mo(d.bytes)}</small>`;
-const playSrc = s => DL[s.slug] && DL[s.slug].sound ? cur_(s.slug).file : `${s.slug}/renders/${s.slug}.mp4`;
+const playSrc = s => DL[s.slug] && DL[s.slug].sound ? cur_(s.slug).file : `${s.slug}/renders/${s.slug}_FullHD.mp4`;   // the verified Full HD file (also what is downloaded)
 function setSnd(btn, video, on){
   video.muted = !on;
   btn.setAttribute('aria-pressed', on ? 'true' : 'false');
